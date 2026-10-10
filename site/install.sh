@@ -29,7 +29,9 @@ trap 'rm -rf "$TMP"' EXIT
 say "Downloading Omarchy Store…"
 fetch() { curl -fsSL --retry 3 -o "$TMP/$1" "$BASE$1" || die "couldn't download $1"; }
 mkdir -p "$TMP/site/assets" "$TMP/site/icons"
-for f in site/index.html site/app.js site/styles.css site/catalog.json site/assets/logo.svg omarchy-store uninstall.sh; do
+for f in site/index.html site/app.js site/styles.css site/catalog.json site/site.webmanifest \
+         site/assets/logo.svg site/assets/favicon.ico site/assets/icon-48.png site/assets/icon-128.png site/assets/icon-256.png \
+         omarchy-store uninstall.sh; do
   mkdir -p "$TMP/$(dirname "$f")"
   curl -fsSL --retry 3 -o "$TMP/$f" "${BASE}desktop-files/$f" || die "couldn't download $f"
 done
@@ -61,6 +63,11 @@ install -m 755 "$TMP/omarchy-store" "$DEST/omarchy-store"
 install -m 755 "$TMP/uninstall.sh" "$DEST/uninstall.sh"
 ln -sf "$DEST/omarchy-store" "$BIN/omarchy-store"
 cp "$TMP/site/assets/logo.svg" "$ICONS/omarchy-store.svg"
+# PNG sizes too — some launchers/taskbars ignore SVG icons.
+for s in 48 128 256; do
+  mkdir -p "$HOME/.local/share/icons/hicolor/${s}x${s}/apps"
+  cp "$TMP/site/assets/icon-$s.png" "$HOME/.local/share/icons/hicolor/${s}x${s}/apps/omarchy-store.png"
+done
 
 cat > "$APPS/omarchy-store.desktop" <<EOF
 [Desktop Entry]
@@ -75,6 +82,7 @@ Terminal=false
 Categories=System;PackageManager;
 Keywords=store;apps;install;software;market;
 StartupNotify=true
+StartupWMClass=chrome-127.0.0.1__-Default
 EOF
 
 gtk-update-icon-cache "$HOME/.local/share/icons/hicolor" &>/dev/null || true

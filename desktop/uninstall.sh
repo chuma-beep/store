@@ -5,7 +5,8 @@ DEST="$HOME/.local/share/omarchy-store"
 pkill -f "$DEST/omarchy-store --serve" 2>/dev/null || true
 rm -f "$HOME/.local/bin/omarchy-store" \
       "$HOME/.local/share/applications/omarchy-store.desktop" \
-      "$HOME/.local/share/icons/hicolor/scalable/apps/omarchy-store.svg"
+      "$HOME/.local/share/icons/hicolor/scalable/apps/omarchy-store.svg" \
+      "$HOME"/.local/share/icons/hicolor/{48x48,128x128,256x256}/apps/omarchy-store.png
 rm -rf "$HOME/.local/state/omarchy-store"
 rm -rf "$DEST"
 update-desktop-database "$HOME/.local/share/applications" &>/dev/null || true
