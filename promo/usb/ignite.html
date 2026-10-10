@@ -1,0 +1,64 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Adwaita Sans","Noto Sans",sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden;background:transparent}
+.stage{position:relative;overflow:hidden}
+</style></head><body>
+<svg style="position:absolute;width:0;height:0"><defs>
+ <!-- Omarchy "O" glyph from the Omarchy logo (MIT). Box x 0..135, y 15..255 -->
+ <path id="O" fill-rule="evenodd" d="m105 30.002h15v14.997h15v180.001h-15v15h-15v15.002h-75v-15.002h-15v-15h-15v-180.001h15v-14.997h15v-15.002h75zm-60 194.998h45v-179.998h-45z"/>
+ <linearGradient id="ig" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff7a3d"/><stop offset=".48" stop-color="#e3266c"/><stop offset="1" stop-color="#6b1bb8"/></linearGradient>
+ <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#cfd4de"/><stop offset=".5" stop-color="#fff"/><stop offset="1" stop-color="#a3a9b8"/></linearGradient>
+ <linearGradient id="body" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#221a3d"/><stop offset="1" stop-color="#0f0b20"/></linearGradient>
+ <radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd27a" stop-opacity=".9"/><stop offset="1" stop-color="#ff5a3d" stop-opacity="0"/></radialGradient>
+ <g id="icon">
+  <rect width="512" height="512" rx="112" fill="url(#ig)"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow)" opacity=".35" transform="translate(120 -60) scale(.9)"/>
+  <rect x="2" y="2" width="508" height="508" rx="110" fill="none" stroke="rgba(255,255,255,.18)" stroke-width="4"/>
+  <g transform="rotate(-18 256 270)">
+   <rect x="206" y="42" width="100" height="74" rx="11" fill="url(#metal)"/>
+   <rect x="228" y="64" width="18" height="18" rx="3" fill="#3a1d4a"/><rect x="266" y="64" width="18" height="18" rx="3" fill="#3a1d4a"/>
+   <rect x="160" y="106" width="192" height="330" rx="44" fill="url(#body)"/>
+   <rect x="160" y="106" width="192" height="330" rx="44" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="3"/>
+   <use href="#O" fill="url(#ig)" transform="translate(212 142) scale(.65 1.06)"/>
+  </g>
+  <path d="M378 112l14-31 14 31 31 14-31 14-14 31-14-31-31-14z" fill="#fff"/>
+  <path d="M104 362l9-20 9 20 20 9-20 9-9 20-9-20-20-9z" fill="#fff" opacity=".85"/>
+ </g>
+</defs></svg>
+<div id="root"></div>
+<script>
+const s = new URLSearchParams(location.search).get("s") || "icon";
+const r = document.getElementById("root");
+const iconSvg = (size, extra = "") => `<svg width="${size}" height="${size}" viewBox="0 0 512 512" ${extra}><use href="#icon"/></svg>`;
+if (s === "icon") {
+  document.body.style.width = "512px"; document.body.style.height = "512px";
+  r.innerHTML = iconSvg(512);
+} else if (s === "billboard") {
+  // 2400x900 Discover billboard: dark warm space, glowing stick, sparks, a "free space" disk bar
+  document.body.style.width = "2400px"; document.body.style.height = "900px";
+  const sparks = Array.from({ length: 70 }, (_, i) => {
+    const x = 1300 + Math.sin(i * 12.9898) * 43758 % 1 * 1000 + 100, y = (Math.cos(i * 78.233) * 43758 % 1) * 800 + 450;
+    const sz = 2 + (i % 5);
+    return `<i style="position:absolute;left:${Math.abs(x) % 2350}px;top:${Math.abs(y) % 880}px;width:${sz}px;height:${sz}px;border-radius:50%;background:${i % 3 ? "#ffd27a" : "#ff6aa8"};opacity:${.25 + (i % 7) / 10};box-shadow:0 0 ${sz * 4}px ${i % 3 ? "#ff9a3c" : "#ff3c7a"}"></i>`;
+  }).join("");
+  r.innerHTML = `<div class="stage" style="width:2400px;height:900px;
+    background:radial-gradient(900px 700px at 78% 60%, rgba(227,38,108,.55), transparent 60%),
+               radial-gradient(700px 600px at 92% 10%, rgba(255,122,61,.45), transparent 60%),
+               radial-gradient(800px 700px at 60% 100%, rgba(107,27,184,.55), transparent 60%),
+               linear-gradient(135deg,#120a22,#1a0d2e 50%,#0b0716)">
+    ${sparks}
+    <div style="position:absolute;left:1540px;top:90px;width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(255,180,90,.55),rgba(255,80,120,.12) 45%,transparent 70%);filter:blur(10px)"></div>
+    ${iconSvg(560, 'style="position:absolute;left:1620px;top:150px;filter:drop-shadow(0 50px 90px rgba(0,0,0,.6)) drop-shadow(0 0 60px rgba(255,90,90,.45))"')}
+    <div style="position:absolute;left:1180px;top:690px;width:560px;padding:18px 20px;border-radius:20px;background:rgba(255,255,255,.10);backdrop-filter:blur(24px);box-shadow:0 30px 70px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.3),0 0 0 1px rgba(255,255,255,.16);color:#fff">
+      <div style="font:700 15px 'Adwaita Sans';letter-spacing:.08em;text-transform:uppercase;opacity:.65;margin-bottom:12px">Your drive</div>
+      <div style="display:flex;height:34px;border-radius:9px;overflow:hidden;font:700 15px 'Adwaita Sans'">
+        <div style="flex:6;background:#2f6fd8;display:grid;place-items:center">Windows</div>
+        <div style="flex:2.2;background:linear-gradient(135deg,#ff7a3d,#e3266c);display:grid;place-items:center">Omarchy · 100 GB</div>
+      </div></div>
+    <div style="position:absolute;left:1240px;top:150px;display:flex;gap:14px;align-items:center;padding:16px 22px;border-radius:18px;background:rgba(255,255,255,.10);backdrop-filter:blur(24px);color:#fff;font:600 20px 'Adwaita Sans';box-shadow:0 30px 70px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.3),0 0 0 1px rgba(255,255,255,.16)">
+      <span style="display:grid;place-items:center;width:42px;height:42px;border-radius:12px;background:#30d158;color:#04210f;font-size:22px">✓</span>
+      <span>Omarchy 4.0.4 verified<br><span style="font-weight:500;font-size:16px;opacity:.7">Official download · SHA-256 checked</span></span></div>
+  </div>`;
+}
+</script></body></html>

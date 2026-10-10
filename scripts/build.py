@@ -388,6 +388,9 @@ def build(apps, cats, feat, ads):
         "categories": load(os.path.join(REG, "categories.json")),
         "featured": feat, "ads": {"network": ads["network"], "campaigns": live},
         "themes": themes,
+        # Ignite's Windows helper ("Make room for Omarchy") is only offered once it has passed
+        # testing on real Windows. Flip registry/ignite.json -> helper_ready: true.
+        "ignite": load(os.path.join(REG, "ignite.json")) if os.path.exists(os.path.join(REG, "ignite.json")) else {"helper_ready": False},
         "omarchy_iso": omarchy_iso,
         # The desktop app compares this with its own VERSION and updates itself when it's newer.
         "desktop_version": re.search(r'^VERSION = "([^"]+)"', open(os.path.join(ROOT, "desktop", "omarchy-store")).read(), re.M).group(1),

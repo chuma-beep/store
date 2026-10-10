@@ -144,7 +144,7 @@
       <a href="/" data-r="">${ico("discover")}Discover</a>
       <a href="/charts/" data-r="charts">${ico("charts")}Top Charts</a>
       <a href="/categories/" data-r="categories">${ico("grid")}Categories</a>
-      <a href="/usb/" data-r="usb">${ico("usb")}USB Maker<span class="nav-new">NEW</span></a>
+      <a href="/ignite/" data-r="ignite"><img class="nav-ic" src="/featured/ignite/icon-64.png" alt="">Ignite<span class="nav-new">NEW</span></a>
       ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes">${ico("palette")}Themes<span class="nav-new">NEW</span></a>` : ""}
       ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>
       <a href="/updates/" data-r="updates">${ico("refresh")}Updates<span class="nav-count" id="upd-count" hidden></span></a>` : ""}
@@ -448,6 +448,7 @@
     return `<div class="page">
       <h1 class="page-title">Discover</h1>
       ${spot ? spotlight(spot) : ""}
+      ${igniteBanner()}
       <div class="scroller hero">${hero.map((h) => {
         const a = S.byId[h.app];
         const [g1, g2] = h.gradient;
@@ -491,6 +492,18 @@
     infinity: '<path d="M18.2 8.4c-2.4 0-4 3.6-6.2 3.6S8.2 8.4 5.8 8.4a3.6 3.6 0 0 0 0 7.2c2.4 0 4-3.6 6.2-3.6s3.8 3.6 6.2 3.6a3.6 3.6 0 0 0 0-7.2z"/>',
   };
   const fico = (n) => `<svg viewBox="0 0 24 24">${FICON[n] || ""}</svg>`;
+  function igniteBanner() {
+    const iso = S.catalog.omarchy_iso;
+    return `<a class="spot full ignite-spot" href="/ignite/">
+      <img class="spot-bg" src="/featured/ignite/billboard.webp" alt="Ignite for Omarchy: make an Omarchy installer USB" loading="lazy">
+      <div class="spot-copy">
+        <div class="spot-badge fire"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>Featured tool</div>
+        <h2>Ignite your next PC.</h2>
+        <p>Make an Omarchy installer USB in one click: always the newest official release, checked genuine before writing. Keeping Windows? Ignite helps you install Omarchy right next to it.</p>
+        <div class="spot-lock"><img class="icon" src="/featured/ignite/icon-128.png" width="64" height="64" alt=""><div><div class="name">Ignite for Omarchy</div><div class="sub">Free${iso ? ` · Omarchy ${esc(iso.version)}` : ""}</div></div><span class="get big">OPEN</span></div>
+      </div>
+    </a>`;
+  }
   function spotlight(a) {
     const f = a.featured;
     const [g1, g2, g3] = f.gradient;
@@ -669,10 +682,10 @@
   const gb = (n) => (n / 1e9).toFixed(n >= 1e10 ? 0 : 1) + " GB";
   async function loadUsb() {
     try { S.usb = await (await fetch("/api/usb", { cache: "no-store" })).json(); } catch { S.usb = { error: true }; }
-    if (currentPath() === "usb") rerender();
+    if (["usb", "ignite"].includes(currentPath())) rerender();
     const st = S.usb?.download?.state;
     clearTimeout(loadUsb.t);
-    if (currentPath() === "usb") loadUsb.t = setTimeout(loadUsb, st === "downloading" || st === "verifying" ? 1000 : 4000);
+    if (["usb", "ignite"].includes(currentPath())) loadUsb.t = setTimeout(loadUsb, st === "downloading" || st === "verifying" ? 1000 : 4000);
   }
   function usbSteps(n) {
     const L = ["Get Omarchy", "Pick your USB", "Make installer"];
@@ -680,17 +693,18 @@
   }
   function pageUsb() {
     const iso = S.desktop ? S.usb?.iso : S.catalog.omarchy_iso;
-    const hero = `<section class="usb-hero">
-        <div class="usb-art">${ico("usb")}</div>
-        <div><div class="eyebrow">NEW · FREE TOOL</div>
-          <h1>Omarchy USB Maker</h1>
-          <p>Turn any USB stick into an Omarchy installer in one click. It always downloads the newest official release${iso ? ` — right now that's <b>Omarchy ${esc(iso.version)}</b>` : ""} — and checks it's genuine before writing.</p></div>
+    const hero = `<section class="usb-hero ignite">
+        <img class="ignite-icon" src="/featured/ignite/icon-256.png" alt="Ignite for Omarchy">
+        <div><div class="eyebrow">FEATURED · FREE TOOL</div>
+          <h1>Ignite <span>for Omarchy</span></h1>
+          <p>Turn any USB stick into an Omarchy installer in one click. Ignite always downloads the newest official Omarchy${iso ? `, right now <b>${esc(iso.version)}</b>,` : ""} and checks it's genuine before writing. Keeping Windows? Ignite makes room for Omarchy right next to it.</p>
+          <div class="ignite-chips"><span>✓ Always the newest Omarchy</span><span>✓ Checked genuine (SHA-256)</span><span>✓ Only shows USB sticks</span><span>✓ Install next to Windows</span></div></div>
       </section>`;
     if (!S.desktop) {
       return `<div class="page">${hero}
         <div class="usb-grid">
           <div class="usb-card"><h3>The one-click way (on Omarchy)</h3>
-            <p>Get the Omarchy Store desktop app, open <b>USB Maker</b>, plug in a USB stick and press <b>Make Installer</b>. The app downloads the latest Omarchy, verifies it and writes the stick for you.</p>
+            <p>Get the Omarchy Store desktop app, open <b>Ignite</b>, plug in a USB stick and press <b>Make Installer</b>. The app downloads the latest Omarchy, verifies it and writes the stick for you.</p>
             <a class="btn" href="/get-desktop/">Get the desktop app</a></div>
           <div class="usb-card"><h3>On Windows or Mac</h3>
             <ol class="usb-list">
@@ -740,15 +754,39 @@
       ${usbAfter()}
     </div>`;
   }
+  function igniteWindows() {
+    const w = S.catalog.ignite || {};
+    return `<section class="usb-card ignite-win" id="windows">
+      <div class="usb-row"><span class="usb-n win">⊞</span><div class="grow"><h3>Keep Windows: install Omarchy next to it</h3>
+        <p class="muted small">Omarchy 4 can install into empty space on your drive and leave Windows alone. You choose Windows or Omarchy each time you start the computer. You just need to make that empty space first, on the Windows computer.</p></div></div>
+      <div class="ignite-cols">
+        <div><h4>The easy way: Make room for Omarchy</h4>
+          ${w.helper_ready ? `<ol class="usb-list">
+            <li>On the Windows PC, download <a href="/ignite/Make-room-for-Omarchy.zip" download><b>Make room for Omarchy</b></a> and unzip it.</li>
+            <li>Right-click <b>Make-room-for-Omarchy.cmd</b> → <b>Run as administrator</b>.</li>
+            <li>Pick <b>50</b>, <b>100</b> or <b>200 GB</b>. It checks BitLocker, makes a restore point, and shrinks Windows with Windows' own tool. Nothing is deleted.</li></ol>`
+          : `<p class="small"><span class="soon-pill">Coming soon</span> A one-click Windows helper that checks everything, makes a restore point and frees the space for you. It's being tested on real Windows PCs first. Until then, use the steps on the right: they take about 2 minutes.</p>`}
+        </div>
+        <div><h4>${w.helper_ready ? "Or by hand" : "By hand"} (Windows Disk Management)</h4>
+          <ol class="usb-list">
+            <li><b>Turn off BitLocker</b> if it's on: Settings → Privacy &amp; security → Device encryption → Off. Wait for it to finish.</li>
+            <li>Press <b>Win + R</b>, type <code>diskmgmt.msc</code>, press Enter.</li>
+            <li>Right-click your <b>C:</b> drive → <b>Shrink Volume</b>. Enter <b>51200</b> for 50 GB, <b>102400</b> for 100 GB or <b>204800</b> for 200 GB → <b>Shrink</b>.</li>
+            <li>Leave the new black <b>Unallocated</b> space empty. Don't format it.</li></ol></div>
+      </div>
+      <div class="ignite-then"><b>Then:</b> start the computer from your Ignite USB stick, pick your drive, and choose <b>Free space install</b>. <span class="warn-t">Don't pick the whole-drive option: that erases Windows.</span> After Omarchy starts, type <code>limine-scan</code> in a terminal to add Windows to the start-up menu.</div>
+      <p class="small muted">Back up anything important first. Shrinking a drive is safe, but not risk-free.</p>
+    </section>`;
+  }
   function usbAfter() {
-    return `<section class="usb-card"><h3>Then install Omarchy</h3>
+    return igniteWindows() + `<section class="usb-card"><h3>Then install Omarchy</h3>
       <ol class="usb-list">
         <li>Plug the stick into the computer you want to install on and restart it.</li>
         <li>Open the boot menu — usually <b>F12</b>, <b>F11</b>, <b>F8</b> or <b>Esc</b> right after power-on — and choose the USB stick.</li>
         <li>Turn off <b>Secure Boot</b> in the BIOS if it won't start.</li>
         <li>Answer five questions. Omarchy installs in a few minutes. <a href="https://omarchy.org/manual/getting-started/" target="_blank" rel="noopener">Full guide</a></li>
       </ol>
-      <p class="small muted">Omarchy is made by DHH and the Omarchy team. This tool downloads it from the official server and does not change it. Writing a USB stick erases it — you're responsible for picking the right drive.</p></section>`;
+      <p class="small muted">Ignite for Omarchy is a free community tool from the Omarchy Store, not an official Omarchy product. Omarchy is made by DHH and the Omarchy team; Ignite downloads it from the official server and does not change it. Writing a USB stick erases it — you're responsible for picking the right drive.</p></section>`;
   }
 
   function pageSearch(q) {
@@ -935,7 +973,7 @@
     else if (p === "search") html = pageSearch(arg || "");
     else if (p === "installed") html = pageInstalled();
     else if (p === "updates") html = pageUpdates();
-    else if (p === "usb") html = pageUsb();
+    else if (p === "usb" || p === "ignite") { if (p === "usb") history.replaceState(null, "", "/ignite/"); html = pageUsb(); nav = "ignite"; }
     else if (p === "get-desktop") html = pageGetDesktop();
     else if (p === "legal") html = pageLegal();
     else html = notFound();
@@ -948,7 +986,7 @@
     if (d && m && d.scrollHeight > d.clientHeight + 4) m.hidden = false;
     document.title = pageTitle(p, arg);
   }
-  const TITLES = { themes: "Omarchy Themes – Browse & Install Desktop Themes", charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed", updates: "Updates", usb: "Omarchy USB Maker – Make an Omarchy Installer USB in One Click" };
+  const TITLES = { themes: "Omarchy Themes – Browse & Install Desktop Themes", charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed", updates: "Updates", usb: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", ignite: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click" };
   function pageTitle(p, arg) {
     const a = p === "app" && S.byId[arg];
     if (a) return `${a.name} for Omarchy Linux – Install ${a.name} | Omarchy Store`;

@@ -1,0 +1,4 @@
+{
+  "_comment": "Set helper_ready to true only after Make-room-for-Omarchy has been tested on real Windows 10 and 11 PCs.",
+  "helper_ready": false
+}

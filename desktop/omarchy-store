@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.2.0"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.3.0"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
@@ -504,7 +504,7 @@ def write_usb(iso, device):
     q = shlex.quote
     unmount = "; ".join(f"udisksctl unmount -b {q(p)} >/dev/null 2>&1 || true" for p in drive["parts"])
     script = (
-        f"echo {q('Omarchy USB Maker')}; echo; "
+        f"echo {q('Ignite for Omarchy: making your Omarchy installer USB')}; echo; "
         f"echo {q('Writing Omarchy ' + iso['version'] + ' to: ' + drive['name'] + ' (' + gb + ', ' + device + ')')}; "
         f"echo {q('EVERYTHING on this USB drive will be erased.')}; echo; "
         f"{unmount + '; ' if unmount else ''}"
@@ -613,6 +613,19 @@ class Handler(SimpleHTTPRequestHandler):
             return self._json(200, {**job, "installed": aid in cat and aid in installed_ids({aid: cat[aid]})})
         if path.startswith("/api/"):
             return self._json(404, {"error": "not found"})
+        # Store artwork (featured banners, screenshots, Ignite) isn't shipped with the app:
+        # fetch it from the live site the first time it's needed, then keep a local copy.
+        m = re.match(r"^/(featured/[a-z0-9-]+/[a-z0-9._-]+\.(?:png|webp|jpg|svg)|ignite/Make-room-for-Omarchy\.zip)$", path)
+        if m and not os.path.exists(os.path.join(SITE_DIR, m.group(1))):
+            try:
+                with urllib.request.urlopen(REMOTE + m.group(1), timeout=20) as r:
+                    data = r.read(8_000_000)
+                dest = os.path.join(SITE_DIR, m.group(1))
+                os.makedirs(os.path.dirname(dest), exist_ok=True)
+                open(dest + ".part", "wb").write(data)
+                os.replace(dest + ".part", dest)
+            except Exception:
+                pass
         return super().do_GET()
 
     def do_POST(self):

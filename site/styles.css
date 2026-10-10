@@ -515,3 +515,23 @@ kbd { display: inline-grid; place-items: center; min-width: 30px; height: 28px; 
 .install-ways .code { margin: 8px 0 0; }
 @media (max-width: 1000px) { .install-ways { grid-template-columns: 1fr; } }
 @media (min-width: 1101px) and (max-width: 1420px) { .spot.full .spot-chips { display: none; } }
+
+/* ---------- Ignite ---------- */
+.nav-ic { width: 18px; height: 18px; border-radius: 5px; flex: none; }
+.usb-hero.ignite { background: radial-gradient(700px 400px at 100% 0%, rgba(255,122,61,.45), transparent 60%), radial-gradient(700px 500px at 80% 100%, rgba(107,27,184,.6), transparent 60%), linear-gradient(125deg, #160b28, #2a0f3a 55%, #3d0d35); }
+.usb-hero.ignite .eyebrow { color: #ffb38a; }
+.usb-hero.ignite h1 span { font-weight: 600; opacity: .7; font-size: .6em; letter-spacing: 0; }
+.ignite-icon { flex: none; width: 128px; height: 128px; filter: drop-shadow(0 20px 40px rgba(0,0,0,.45)) drop-shadow(0 0 30px rgba(255,90,90,.35)); }
+.ignite-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.ignite-chips span { padding: 5px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 600; background: rgba(255,255,255,.10); box-shadow: inset 0 0 0 1px rgba(255,255,255,.16); }
+.usb-n.win { background: #2f6fd8; color: #fff; font-size: 18px; }
+.ignite-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 14px; }
+.ignite-cols > div { padding: 16px 18px; border-radius: 14px; background: color-mix(in srgb, var(--bg) 60%, transparent); box-shadow: inset 0 0 0 1px var(--line); }
+.ignite-cols h4 { margin: 0 0 6px; font-size: 15px; }
+.ignite-then { margin-top: 14px; padding: 14px 16px; border-radius: 12px; background: linear-gradient(120deg, rgba(255,122,61,.14), rgba(227,38,108,.12)); font-size: 14px; line-height: 1.55; }
+.warn-t { color: #ff9f0a; font-weight: 600; }
+.soon-pill { display: inline-block; padding: 2px 9px; margin-right: 6px; border-radius: 999px; font-size: 11px; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; background: #ffb547; color: #1a1300; }
+.spot-badge.fire { background: linear-gradient(135deg, #ffb38a, #ff6a3d); box-shadow: 0 6px 18px rgba(255,106,61,.4); }
+.ignite-spot .spot-lock .sub { color: #ffc49c; }
+.ignite-spot .spot-lock .get.big { background: #fff; color: #3a1020; display: inline-grid; place-items: center; }
+@media (max-width: 900px) { .ignite-cols { grid-template-columns: 1fr; } .ignite-icon { width: 88px; height: 88px; } }

@@ -265,11 +265,14 @@ def main():
                          '<h1 class="page-title">Categories</h1><ul>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>"),
         "/legal/": ("Disclaimer | Omarchy Store", "Omarchy Store lists third-party software provided as-is, without warranty. Read the full disclaimer.",
                     '<h1 class="page-title">Disclaimer</h1>'),
-        "/usb/": ("Omarchy USB Maker – Make an Omarchy Installer USB in One Click | Omarchy Store",
-                  "Create a bootable Omarchy USB installer in one click. Always downloads the latest official Omarchy ISO, verifies it, and writes your USB stick. Rufus and balenaEtcher steps for Windows and Mac.",
-                  '<h1 class="page-title">Omarchy USB Maker</h1>'
-                  '<p>Make an Omarchy installer USB stick in one click with the Omarchy Store desktop app: it downloads the newest official '
+        "/ignite/": ("Ignite for Omarchy – Make an Omarchy Installer USB & Dual Boot with Windows | Omarchy Store",
+                  "Ignite makes a bootable Omarchy USB installer in one click: always the latest official Omarchy ISO, SHA-256 verified. Plus how to install Omarchy next to Windows (dual boot) without erasing it.",
+                  '<h1 class="page-title">Ignite for Omarchy</h1>'
+                  '<p>Make an Omarchy installer USB stick in one click with Ignite in the Omarchy Store desktop app: it downloads the newest official '
                   'Omarchy ISO from iso.omarchy.org, checks its SHA-256, and writes it to your USB drive.</p>'
+                  '<h2>Install Omarchy next to Windows (dual boot)</h2><ol><li>Turn off BitLocker (Settings, Privacy &amp; security, Device encryption).</li>'
+                  '<li>Open Disk Management (diskmgmt.msc), right-click C:, Shrink Volume by 51200 MB (50 GB) or 102400 MB (100 GB).</li>'
+                  '<li>Boot the Omarchy USB, pick your drive and choose Free space install.</li><li>In Omarchy, run limine-scan to add Windows to the boot menu.</li></ol>'
                   + (f'<p><a href="{e(cat.get("omarchy_iso", {}).get("url", ""))}">Download Omarchy {e(cat.get("omarchy_iso", {}).get("version", ""))}</a></p>' if cat.get("omarchy_iso") else "")
                   + '<h2>On Windows or Mac</h2><ol><li>Download the latest Omarchy ISO.</li><li>Install Rufus (Windows) or balenaEtcher (Windows and Mac).</li>'
                   '<li>Choose the ISO, choose your USB stick, and press Start or Flash.</li></ol>'),
@@ -280,6 +283,11 @@ def main():
     for path, (t, d, b) in simple.items():
         write(path, render(template, head(t, d, path, f"{SITE}/assets/og-default.png", "Omarchy Store", [org]), b))
         urls.append((f"{SITE}{path}", now, "0.5" if path in ("/legal/",) else "0.6"))
+
+    # ---- old address: /usb/ -> /ignite/
+    write("/usb/", '<!doctype html><meta charset="utf-8"><title>Ignite for Omarchy</title>'
+          f'<link rel="canonical" href="{SITE}/ignite/"><meta http-equiv="refresh" content="0; url=/ignite/">'
+          '<meta name="robots" content="noindex"><a href="/ignite/">Ignite for Omarchy</a>')
 
     # ---- 404 fallback: lets the store handle /search/... and any old/unknown path
     nf = render(template, '<title>Omarchy Store</title><meta name="robots" content="noindex">', "")
