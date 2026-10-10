@@ -37,7 +37,8 @@
   const sourceLabel = (a) => {
     const r = a.package?.repo;
     if (a.install.method === "omarchy") return "Omarchy installer";
-    return r === "aur" ? "Arch User Repository" : r ? `Arch Linux (${r})` : "Arch Linux";
+    if (a.install.method === "aur" || r === "aur") return "Arch User Repository (AUR)";
+    return r ? `Arch Linux (${r})` : "Arch Linux";
   };
   const toast = (msg) => {
     const t = $("#toast"); t.textContent = msg; t.hidden = false;
@@ -159,6 +160,7 @@
 
   function getBtn(a, big = false) {
     const cls = "get" + (big ? " big" : "");
+    if (a.available === false) return `<button class="${cls} soon" data-soon="${a.id}" title="Launching soon">SOON</button>`;
     if (S.busy.has(a.id)) return `<button class="${cls} busy" data-get="${a.id}"><span class="ring"></span></button>`;
     if (S.desktop && isInstalled(a)) return a.cli
       ? `<button class="${cls} installed" data-open="${a.id}" title="Opens a terminal — run: ${esc(a.detect[0])}">INSTALLED</button>`
@@ -267,8 +269,10 @@
     const apps = S.catalog.apps;
     const fresh = [...apps].filter((a) => a.released_at).sort((x, y) => new Date(y.released_at) - new Date(x.released_at)).slice(0, 12);
     const games = apps.filter((a) => a.category === "games");
+    const spot = apps.find((a) => a.featured);
     return `<div class="page">
       <h1 class="page-title">Discover</h1>
+      ${spot ? spotlight(spot) : ""}
       <div class="scroller hero">${hero.map((h) => {
         const a = S.byId[h.app];
         const [g1, g2] = h.gradient;
@@ -291,6 +295,40 @@
       ${shelf("Terminal power tools", apps.filter((a) => a.category === "terminal"), "/category/terminal/")}
       ${footer()}
     </div>`;
+  }
+
+  // ---------- Featured spotlight (billboard on Discover) ----------
+  const FICON = {
+    dock: '<rect x="3" y="15" width="18" height="5" rx="2.5"/><rect x="5" y="4" width="14" height="8" rx="2"/>',
+    grid: '<rect x="3" y="3" width="8" height="18" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>',
+    window: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M15 6.5h.01M18 6.5h.01"/>',
+    camera: '<path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/>',
+  };
+  const fico = (n) => `<svg viewBox="0 0 24 24">${FICON[n] || ""}</svg>`;
+  function spotlight(a) {
+    const f = a.featured;
+    const [g1, g2, g3] = f.gradient;
+    return `<a class="spot" href="/app/${a.id}/" style="--g1:${g1};--g2:${g2};--g3:${g3 || g2}">
+      <div class="spot-copy">
+        <div class="spot-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>${esc(f.badge)}</div>
+        <h2>${esc(f.headline)}</h2>
+        <p>${esc(f.tagline)}</p>
+        <div class="spot-lock">${iconImg(a, 64)}<div><div class="name">${esc(a.name)}</div><div class="sub">${esc(f.launch_offer || f.price)}</div></div>${getBtn(a, true)}</div>
+      </div>
+      <div class="spot-art"><img src="${esc(asset(f.art))}" alt="${esc(a.name)} on Omarchy" loading="eager"></div>
+    </a>`;
+  }
+
+  function featuredSections(a) {
+    const f = a.featured;
+    return `
+      <section class="shelf feat-grid">${f.features.map((x) => `<div class="feat"><span class="feat-ic">${fico(x.icon)}</span><h3>${esc(x.title)}</h3><p>${esc(x.body)}</p></div>`).join("")}</section>
+      <section class="shelf"><div class="shelf-head"><h2>Get started in 3 steps</h2></div>
+        <ol class="steps">${f.steps.map((s, i) => `<li><span class="n">${i + 1}</span><div><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p></div></li>`).join("")}</ol></section>
+      <section class="shelf"><div class="shelf-head"><h2>Keyboard shortcuts</h2></div>
+        <div class="kbd-table">${f.shortcuts.map((s) => `<div class="row"><div class="keys">${s.keys.map((k) => `<kbd>${esc(k)}</kbd>`).join('<span class="plus">+</span>')}</div><div class="does">${esc(s.does)}</div></div>`).join("")}</div></section>
+      <section class="shelf"><div class="shelf-head"><h2>Questions</h2></div>
+        <div class="faq">${f.faq.map((x) => `<details><summary>${esc(x.q)}</summary><p>${esc(x.a)}</p></details>`).join("")}</div></section>`;
   }
 
   function pageCharts() {
@@ -370,7 +408,14 @@
     const related = S.catalog.apps.filter((x) => x.category === a.category && x.id !== a.id).slice(0, 6);
     const ghUrl = a.github ? `https://github.com/${a.github}` : null;
     const stale = a.archived || p.out_of_date;
-    const strip = [
+    const strip = a.featured ? [
+      ["Price", esc(a.featured.price), esc(a.featured.launch_offer || "")],
+      ["Award", '<span style="color:#ffd60a">★</span>', esc(a.featured.badge)],
+      ["Category", `<span style="color:var(--accent)">${ico(cat?.icon)}</span>`, esc(cat?.name)],
+      ["Developer", `<span style="font-size:16px">${esc(a.developer || "—")}</span>`, "Verified"],
+      ["Works with", "Omarchy", "Hyprland"],
+      ["Age", "4+", "Rating"],
+    ] : [
       ["GitHub Stars", a.stars != null ? k(a.stars) : "—", a.stars != null ? `#${a.rank} in store` : "Closed source"],
       [p.repo === "aur" ? "AUR Votes" : "Source", p.repo === "aur" ? k(p.votes) : (a.install.method === "omarchy" ? "Omarchy" : "Arch"), p.repo === "aur" ? "Community" : (p.repo || "Official")],
       ["Category", `<span style="color:var(--accent)">${ico(cat?.icon)}</span>`, esc(cat?.name)],
@@ -378,7 +423,9 @@
       ["Size", p.size ? mb(p.size) : "—", "Installed"],
       ["Age", esc(a.age ? a.age.replace("Early Childhood", "3+").replace("Everyone", "4+").replace("Teen", "13+").replace("Mature", "17+") : "—"), "Rating"],
     ];
+    const F = a.featured;
     return `<div class="page">
+      ${F ? `<div class="feat-hero" style="--g1:${F.gradient[0]};--g2:${F.gradient[1]};--g3:${F.gradient[2] || F.gradient[1]}"><img src="${esc(asset(F.art))}" alt=""><span class="spot-badge">${esc(F.badge)}</span></div>` : ""}
       <div class="detail-head">
         ${iconImg(a, 128)}
         <div style="min-width:0">
@@ -395,7 +442,8 @@
 
       <div class="strip">${strip.map(([kk, v, s]) => `<div><div class="k">${kk}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join("")}</div>
 
-      ${a.screenshots.length ? `<div class="scroller shots">${a.screenshots.map((s) => `<img src="${esc(s)}" alt="Screenshot of ${esc(a.name)}" loading="lazy" referrerpolicy="no-referrer" data-zoom>`).join("")}</div>` : ""}
+      ${a.screenshots.length ? `<div class="scroller shots">${a.screenshots.map((s) => `<img src="${esc(asset(s))}" alt="Screenshot of ${esc(a.name)}" loading="lazy" referrerpolicy="no-referrer" data-zoom>`).join("")}</div>` : ""}
+      ${F ? featuredSections(a) : ""}
 
       <section class="shelf">
         <div class="desc clamp" id="desc">${esc(a.description || a.summary)}</div>
@@ -413,8 +461,8 @@
           <div><div class="k">Provider</div><div class="v">${esc(a.developer || "—")}</div></div>
           <div><div class="k">Installs from</div><div class="v">${esc(sourceLabel(a))}</div></div>
           <div><div class="k">Package</div><div class="v">${esc(p.name)} ${p.version ? `<span class="muted">${esc(p.version)}</span>` : ""}</div></div>
-          <div><div class="k">License</div><div class="v">${esc(a.license || "Proprietary")}</div></div>
-          <div><div class="k">Last code change</div><div class="v">${ago(a.last_commit)}</div></div>
+          ${a.license || !a.featured ? `<div><div class="k">License</div><div class="v">${esc(a.license || "Proprietary")}</div></div>` : ""}
+          ${a.last_commit ? `<div><div class="k">Last code change</div><div class="v">${ago(a.last_commit)}</div></div>` : ""}
           <div><div class="k">Runs in</div><div class="v">${a.kind === "terminal" ? "Terminal" : "Desktop window"}</div></div>
           ${a.homepage ? `<div><div class="k">Website</div><a class="v" href="${esc(a.homepage)}" target="_blank" rel="noopener">${esc(a.homepage.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, ""))}</a></div>` : ""}
           ${ghUrl ? `<div><div class="k">Source code</div><a class="v" href="${ghUrl}" target="_blank" rel="noopener">github.com/${esc(a.github)}</a></div>` : ""}
@@ -591,12 +639,15 @@
   }
 
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-get],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],#more,.sheet");
+    const t = e.target.closest("[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],#more,.sheet");
     if (!t) return;
     if (t.matches("[data-get]")) {
       e.preventDefault(); e.stopPropagation();
       const a = S.byId[t.dataset.get];
       S.desktop ? confirmThenGet(a) : webGet(a);
+    } else if (t.matches("[data-soon]")) {
+      e.preventDefault(); e.stopPropagation();
+      toast(`${S.byId[t.dataset.soon].name} is launching soon — check back shortly`);
     } else if (t.matches("[data-accept]")) {
       localStorage.setItem(ACCEPT_KEY, new Date().toISOString());
       closeSheet(); desktopGet(S.byId[t.dataset.accept]);

@@ -13,3 +13,6 @@ site/robots.txt
 _site/
 __pycache__/
 *.pyc
+
+# Promo art renders (source is promo/*/scenes.html)
+promo/**/*.png

@@ -1,0 +1,118 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { width: 1600px; height: 1000px; overflow: hidden; font-family: Inter, "Segoe UI", Helvetica, Arial, sans-serif; }
+  .stage { position: relative; width: 1600px; height: 1000px; overflow: hidden;
+    background:
+      radial-gradient(1200px 700px at 15% 10%, #5b46b0 0%, transparent 60%),
+      radial-gradient(1000px 800px at 90% 95%, #1aa0c8 0%, transparent 55%),
+      radial-gradient(900px 600px at 70% 20%, #2f47b8 0%, transparent 60%),
+      linear-gradient(135deg, #1b1640, #0f1b3d 55%, #0b2a3e); }
+  .grain { position: absolute; inset: 0; opacity: .06; background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 3px 3px; }
+  .bar { position: absolute; top: 0; left: 0; right: 0; height: 30px; background: rgba(10,12,28,.55); backdrop-filter: blur(12px); display: flex; align-items: center; padding: 0 18px; gap: 14px; color: rgba(255,255,255,.75); font-size: 13px; }
+  .bar .ws { display: flex; gap: 8px; } .bar .ws i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.35); } .bar .ws i.on { background: #4fe0c0; width: 18px; border-radius: 4px; }
+  .bar .clock { margin-left: auto; font-weight: 600; letter-spacing: .02em; }
+
+  .win { position: absolute; border-radius: 12px; overflow: hidden; background: rgba(22,24,44,.92); box-shadow: 0 30px 60px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08); }
+  .win.active { box-shadow: 0 30px 60px rgba(0,0,0,.45), 0 0 0 2px #4fe0c0; }
+  .tb { height: 34px; display: flex; align-items: center; padding: 0 10px 0 14px; background: rgba(255,255,255,.05); border-bottom: 1px solid rgba(255,255,255,.06); color: rgba(255,255,255,.85); font-size: 13px; font-weight: 600; }
+  .tb .btns { margin-left: auto; display: flex; gap: 6px; }
+  .tb .btns b { width: 26px; height: 22px; border-radius: 6px; display: grid; place-items: center; font-weight: 500; font-size: 13px; color: rgba(255,255,255,.75); background: rgba(255,255,255,.06); }
+  .tb .btns b.x:hover, .tb .btns b.x { background: rgba(255,90,120,.18); color: #ff8fa5; }
+  .tb .btns b.snap { background: rgba(79,224,192,.18); color: #4fe0c0; }
+  .body { padding: 18px; }
+  .line { height: 10px; border-radius: 5px; background: rgba(255,255,255,.10); margin: 10px 0; }
+  .line.c1 { background: rgba(122,162,247,.55); } .line.c2 { background: rgba(187,154,247,.5); } .line.c3 { background: rgba(79,224,192,.5); } .line.c4 { background: rgba(255,158,100,.5); }
+  .card { border-radius: 10px; background: rgba(255,255,255,.06); padding: 14px; margin-bottom: 12px; }
+  .chart { display: flex; align-items: flex-end; gap: 10px; height: 150px; padding: 10px 6px 0; }
+  .chart i { flex: 1; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, #4fe0c0, #1aa0c8); }
+  .photo { height: 100%; border-radius: 10px; background: linear-gradient(160deg, #ff9e64 0%, #f7768e 35%, #7a5cc7 70%, #2f47b8 100%); position: relative; overflow: hidden; }
+  .photo::after { content: ""; position: absolute; left: -10%; right: -10%; bottom: -30%; height: 70%; border-radius: 50%; background: rgba(10,14,40,.55); }
+
+  .dock { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; gap: 14px; padding: 12px 16px; border-radius: 22px;
+    background: rgba(255,255,255,.14); backdrop-filter: blur(22px) saturate(160%); box-shadow: 0 20px 50px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.25), 0 0 0 1px rgba(255,255,255,.14); }
+  .dock .app { width: 58px; height: 58px; border-radius: 15px; position: relative; box-shadow: 0 6px 14px rgba(0,0,0,.25); }
+  .dock .app.run::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: rgba(255,255,255,.85); }
+  .dock .sep { width: 1px; background: rgba(255,255,255,.25); margin: 6px 2px; }
+  .dock .cam { background: rgba(255,255,255,.18); display: grid; place-items: center; }
+  .dock .cam svg { width: 30px; height: 30px; }
+  .g1 { background: linear-gradient(135deg, #7aa2f7, #3d59a1); } .g2 { background: linear-gradient(135deg, #bb9af7, #7a5cc7); }
+  .g3 { background: linear-gradient(135deg, #9ece6a, #4f8a2b); } .g4 { background: linear-gradient(135deg, #ff9e64, #e0603a); }
+  .g5 { background: linear-gradient(135deg, #f7768e, #b8304d); } .g6 { background: linear-gradient(135deg, #2ac3de, #1a7fa0); }
+  .g7 { background: linear-gradient(135deg, #e0af68, #b07a2a); }
+  .tag { position: absolute; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #0b1a2e; background: #4fe0c0; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
+  .tag.w { background: #fff; }
+
+  /* layouts grid */
+  .layouts { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -54%); display: grid; grid-template-columns: repeat(3, 360px); gap: 34px; }
+  .lay { border-radius: 22px; padding: 22px; background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); backdrop-filter: blur(10px); }
+  .lay .scr { height: 190px; border-radius: 12px; background: rgba(10,14,34,.55); position: relative; padding: 10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+  .lay .scr i { position: absolute; border-radius: 8px; background: rgba(255,255,255,.18); box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
+  .lay .scr i.hl { background: linear-gradient(135deg, #4fe0c0, #1aa0c8); box-shadow: 0 8px 24px rgba(79,224,192,.35); }
+  .lay h4 { color: #fff; font-size: 22px; margin-top: 16px; font-weight: 700; }
+  .lay p { color: rgba(255,255,255,.65); font-size: 15px; margin-top: 4px; }
+  .keys { position: absolute; left: 50%; bottom: 60px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.75); font-size: 18px; font-weight: 600; }
+  kbd { display: inline-grid; place-items: center; min-width: 52px; height: 46px; padding: 0 14px; border-radius: 10px; color: #fff; font: 700 17px Inter, sans-serif; background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.10)); box-shadow: 0 4px 0 rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.35); }
+</style></head>
+<body>
+<div class="stage" id="stage"><div class="grain"></div></div>
+<script>
+const scene = new URLSearchParams(location.search).get("s") || "hero";
+const st = document.getElementById("stage");
+const camera = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+const dock = (big) => `<div class="dock" style="${big ? 'transform:translateX(-50%) scale(1.9);bottom:300px' : ''}">
+  <div class="app g1 run"></div><div class="app g2 run"></div><div class="app g3"></div><div class="app g4 run"></div>
+  <div class="app g5"></div><div class="app g6"></div><div class="app g7"></div><div class="sep"></div><div class="app cam">${camera}</div></div>`;
+const tb = (name, active) => `<div class="tb">${name}<div class="btns"><b class="snap">⊞</b><b>□</b><b class="x">✕</b></div></div>`;
+const bar = `<div class="bar"><div class="ws"><i class="on"></i><i></i><i></i><i></i></div><span>Omarchy</span><span class="clock">Sat 9:41</span></div>`;
+
+if (scene === "hero") {
+  st.insertAdjacentHTML("beforeend", bar + `
+  <div class="win active" style="left:24px;top:44px;width:768px;height:820px">${tb("Editor")}
+    <div class="body"><div class="line c1" style="width:40%"></div><div class="line" style="width:78%"></div><div class="line" style="width:64%"></div>
+    <div class="line c2" style="width:52%"></div><div class="line" style="width:86%"></div><div class="line" style="width:70%"></div><div class="line c3" style="width:34%"></div>
+    <div class="line" style="width:80%"></div><div class="line" style="width:58%"></div><div class="line c4" style="width:46%"></div><div class="line" style="width:72%"></div>
+    <div class="line" style="width:66%"></div><div class="line c1" style="width:30%"></div><div class="line" style="width:84%"></div><div class="line" style="width:62%"></div>
+    <div class="line c2" style="width:56%"></div><div class="line" style="width:76%"></div><div class="line" style="width:44%"></div><div class="line" style="width:68%"></div></div></div>
+  <div class="win" style="left:808px;top:44px;width:768px;height:402px">${tb("Dashboard")}
+    <div class="body"><div class="card"><div class="chart"><i style="height:40%"></i><i style="height:65%"></i><i style="height:52%"></i><i style="height:80%"></i><i style="height:60%"></i><i style="height:92%"></i><i style="height:74%"></i><i style="height:86%"></i></div></div>
+    <div class="line" style="width:60%"></div><div class="line" style="width:40%"></div></div></div>
+  <div class="win" style="left:808px;top:462px;width:768px;height:402px">${tb("Photos")}
+    <div class="body" style="height:calc(100% - 34px)"><div class="photo"></div></div></div>
+  ${dock(false)}
+  <span class="tag" style="left:640px;top:400px">⊞ Snapped left</span>`);
+} else if (scene === "dock") {
+  st.insertAdjacentHTML("beforeend", bar + `
+  <div style="position:absolute;left:0;right:0;top:150px;text-align:center;color:#fff">
+    <div style="font:800 64px Inter,sans-serif;letter-spacing:-2px">A dock made of glass.</div>
+    <div style="font:500 26px Inter,sans-serif;color:rgba(255,255,255,.7);margin-top:14px">Follows your theme. Pick any colour and how see-through it is.</div></div>
+  ${dock(true)}
+  <div style="position:absolute;left:50%;bottom:110px;transform:translateX(-50%);display:flex;gap:16px">
+    ${["#7aa2f7","#bb9af7","#4fe0c0","#ff9e64","#f7768e","#ffffff"].map((c,i)=>`<i style="width:44px;height:44px;border-radius:50%;background:${c};box-shadow:0 0 0 ${i==2?4:2}px rgba(255,255,255,${i==2?.95:.3})"></i>`).join("")}
+  </div>`);
+} else if (scene === "layouts") {
+  const L = [
+    ["Halves", "Left or right half", [[2,2,47,96,1],[51,2,47,96]]],
+    ["Quarters", "Any corner", [[2,2,47,47,1],[51,2,47,47],[2,51,47,47],[51,51,47,47]]],
+    ["Thirds", "Three side by side", [[2,2,31,96],[35,2,31,96,1],[68,2,30,96]]],
+    ["Two-thirds", "Big + small", [[2,2,64,96,1],[68,2,30,96]]],
+    ["Fill", "Whole screen", [[2,2,96,96,1]]],
+    ["Centre", "Floating, centred", [[18,14,64,72,1]]],
+  ];
+  st.insertAdjacentHTML("beforeend", bar + `<div class="layouts">${L.map(([t,d,r])=>`<div class="lay"><div class="scr">${r.map(([x,y,w,h,hl])=>`<i class="${hl?'hl':''}" style="left:calc(${x}% + 2px);top:calc(${y}% + 2px);width:calc(${w}% - 4px);height:calc(${h}% - 4px)"></i>`).join("")}</div><h4>${t}</h4><p>${d}</p></div>`).join("")}</div>
+  <div class="keys"><kbd>Super</kbd>+<kbd>Z</kbd><span style="margin:0 18px;opacity:.5">or</span><kbd>Super</kbd>+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd></div>`);
+} else if (scene === "og") {
+  document.body.style.width = "1200px"; document.body.style.height = "630px";
+  st.style.width = "1200px"; st.style.height = "630px";
+  st.insertAdjacentHTML("beforeend", `
+  <img src="logo.png" style="position:absolute;right:90px;top:115px;width:400px;height:400px;filter:drop-shadow(0 30px 60px rgba(0,0,0,.45))">
+  <div style="position:absolute;left:80px;top:150px;color:#fff">
+    <div style="display:inline-block;font:800 18px Inter,sans-serif;letter-spacing:.12em;color:#4fe0c0;margin-bottom:18px">FEATURED ON OMARCHY STORE</div>
+    <div style="font:900 104px/1 Inter,sans-serif;letter-spacing:-4px">SnapDock</div>
+    <div style="font:500 32px/1.35 Inter,sans-serif;color:rgba(255,255,255,.78);margin-top:22px;max-width:620px">A frosted dock, Windows-style snap layouts and one-click screenshots for Omarchy.</div>
+    <div style="font:700 24px Inter,sans-serif;color:#fff;margin-top:34px;opacity:.9">omarchystore.com</div>
+  </div>`);
+}
+</script>
+</body></html>

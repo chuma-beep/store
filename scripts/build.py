@@ -61,8 +61,10 @@ def validate():
         if a.get("cli") and a.get("kind") != "terminal": e("cli apps must be kind=terminal")
         if not (a.get("github") or a.get("flathub") or a.get("homepage")): e("need github, flathub or homepage")
         if a.get("github") and not re.match(r"^[\w.-]+/[\w.-]+$", a["github"]): e("github must be owner/repo")
-        for u in [a.get("icon"), a.get("homepage")]:
-            if u and not u.startswith("https://"): e("urls must be https")
+        for u in [a.get("icon"), a.get("homepage")] + list(a.get("screenshots") or []):
+            if u and not u.startswith("https://"):
+                if not (re.match(r"^featured/[a-z0-9-]+/[a-z0-9._-]+$", u) and os.path.exists(os.path.join(ROOT, "site", u))):
+                    e(f"{u!r}: urls must be https:// or an existing file under site/featured/")
         apps[a.get("id")] = a
     feat = load(os.path.join(REG, "featured.json"))
     for h in feat["hero"]:
@@ -355,17 +357,19 @@ def build(apps, cats, feat, ads):
         })
     print("Mirroring icons…")
     with ThreadPoolExecutor(8) as ex:
-        local = list(ex.map(lambda a: mirror_icon(a["id"], a["icon"]), out))
+        local = list(ex.map(lambda a: a["icon"] if (a["icon"] or "").startswith("featured/") else mirror_icon(a["id"], a["icon"]), out))
     for a, path in zip(out, local):
         a["icon_source"] = a["icon"]
         a["icon"] = path
+        # A package that isn't published anywhere yet can't be installed: show "Coming soon".
+        a["available"] = bool(a["package"].get("repo")) or a["install"]["method"] == "omarchy"
     today = date.today().isoformat()
     live = [c for c in ads["campaigns"] if c.get("enabled", True) and c.get("starts", "") <= today <= c.get("ends", "9999")]
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "categories": load(os.path.join(REG, "categories.json")),
         "featured": feat, "ads": {"network": ads["network"], "campaigns": live},
-        "apps": sorted(out, key=lambda x: -(x["stars"] or 0)),
+        "apps": sorted(out, key=lambda x: (not x.get("featured"), -(x["stars"] or 0))),
     }
 
 

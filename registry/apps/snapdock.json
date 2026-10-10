@@ -1,0 +1,58 @@
+{
+  "id": "snapdock",
+  "name": "SnapDock",
+  "category": "utilities",
+  "github": null,
+  "homepage": "https://omarchystore.com/app/snapdock/",
+  "install": { "method": "aur", "packages": ["snapdock"] },
+  "detect": ["snapdock"],
+  "kind": "gui",
+  "developer": "Omarchy Store",
+  "icon": "featured/snapdock/icon.png",
+  "screenshots": [
+    "featured/snapdock/hero.webp",
+    "featured/snapdock/layouts.webp",
+    "featured/snapdock/dock.webp"
+  ],
+  "summary": "A frosted glass dock, Windows-style snap layouts and one-click screenshots for Omarchy.",
+  "description": "SnapDock makes Omarchy feel instantly familiar, whether you're coming from Windows or macOS.\n\nA DOCK MADE OF GLASS\nA frosted dock sits at the bottom of your screen. It follows your theme automatically, or pick any colour and choose exactly how see-through it is. Pin the apps you love, unpin the ones you don't.\n\nSNAP LIKE WINDOWS\nHalves, quarters, thirds, two-thirds, fill or centre — arrange any window in one keystroke. Snapped windows resize from every edge.\n\nTITLE BARS THAT WORK FOR YOU\nSnap ⊞, maximize □ and close ✕, right where you expect them. Double-click a title bar to maximize.\n\nSCREENSHOTS IN ONE CLICK\nTap the camera on the dock or press Shift + Print. The whole screen is copied to your clipboard and saved in Pictures.\n\nALWAYS UP TO DATE\nUpdates arrive with Omarchy's own Update, and SnapDock tells you when a new version is ready.\n\nREMOVES CLEANLY\nUninstall from inside SnapDock and every setting goes back exactly the way it was.",
+  "featured": {
+    "badge": "Editors' Choice",
+    "eyebrow": "FEATURED APP",
+    "headline": "Your desktop, finally familiar.",
+    "tagline": "A frosted glass dock and Windows-style snap layouts — made for Omarchy.",
+    "price": "Free",
+    "launch_offer": "Free for a limited time",
+    "gradient": ["#1b1640", "#2f47b8", "#1aa0c8"],
+    "art": "featured/snapdock/hero.webp",
+    "og": "featured/snapdock/og.png",
+    "features": [
+      { "icon": "dock", "title": "Frosted glass dock", "body": "Follows your theme, or pick any colour and transparency." },
+      { "icon": "grid", "title": "Snap layouts", "body": "Halves, quarters, thirds, two-thirds, fill and centre." },
+      { "icon": "window", "title": "Smart title bars", "body": "Snap, maximize and close buttons. Double-click to maximize." },
+      { "icon": "camera", "title": "One-click screenshots", "body": "Copied to your clipboard and saved to Pictures." }
+    ],
+    "steps": [
+      { "title": "Get it", "body": "Press GET. A terminal opens and asks for your password — that's Omarchy installing it safely." },
+      { "title": "Open SnapDock", "body": "Press Super + Space, type SnapDock, press Enter. The first launch sets up your dock and shortcuts." },
+      { "title": "Make it yours", "body": "Choose the dock's colour and glass, pin your favourite apps, and turn features on or off." }
+    ],
+    "shortcuts": [
+      { "keys": ["Super", "Z"], "does": "Show every snap layout for the current window" },
+      { "keys": ["Super", "Ctrl", "Shift", "←"], "does": "Snap to the left half" },
+      { "keys": ["Super", "Ctrl", "Shift", "→"], "does": "Snap to the right half" },
+      { "keys": ["Super", "Ctrl", "Shift", "↑"], "does": "Fill the screen — or, after a half, snap to the top quarter" },
+      { "keys": ["Super", "Ctrl", "Shift", "↓"], "does": "Put the window back — or, after a half, snap to the bottom quarter" },
+      { "keys": ["Shift", "Print"], "does": "Screenshot the whole screen" },
+      { "keys": ["Double-click title bar"], "does": "Maximize or restore the window" }
+    ],
+    "faq": [
+      { "q": "Is SnapDock free?", "a": "Yes — SnapDock is free for a limited time." },
+      { "q": "Will it mess up my setup?", "a": "No. SnapDock backs up every file it changes, and Uninstall restores everything exactly the way it was." },
+      { "q": "Does it work with my theme?", "a": "Yes. The dock and title bars recolour themselves whenever you switch Omarchy themes." },
+      { "q": "How do I update it?", "a": "Omarchy's own Update keeps SnapDock current, and SnapDock tells you when a new version is ready." },
+      { "q": "How do I remove it?", "a": "Open SnapDock and choose Uninstall, then remove it from the store." }
+    ]
+  },
+  "tags": ["dock", "snap", "snap layouts", "window manager", "windows", "taskbar", "screenshot", "hyprland", "tiling", "title bar", "macos"]
+}

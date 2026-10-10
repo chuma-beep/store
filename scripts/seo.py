@@ -136,7 +136,11 @@ def main():
         if a.get("stars"):
             d += f" ★ {k(a['stars'])} GitHub stars."
         d = clip(d)
-        image = abs_url(a["screenshots"][0]) if a.get("screenshots") else abs_url(a.get("icon"))
+        F = a.get("featured")
+        image = abs_url(F["og"]) if F and F.get("og") else abs_url(a["screenshots"][0]) if a.get("screenshots") else abs_url(a.get("icon"))
+        if F:
+            title = f"{a['name']} – {F['headline']} | Omarchy Store"
+            d = clip(f"{a['summary']} {F.get('launch_offer') or ''}. How to install and use {a['name']} on Omarchy Linux.")
         sw = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": a["name"],
               "description": clip(a.get("description") or a["summary"], 500),
               "applicationCategory": {"games": "GameApplication", "developer-tools": "DeveloperApplication", "terminal": "DeveloperApplication",
@@ -149,7 +153,7 @@ def main():
         if a.get("icon"):
             sw["image"] = abs_url(a["icon"])
         if a.get("screenshots"):
-            sw["screenshot"] = a["screenshots"][:4]
+            sw["screenshot"] = [abs_url(s) for s in a["screenshots"][:4]]
         if a.get("developer"):
             sw["author"] = {"@type": "Organization", "name": a["developer"]}
         if pk.get("version") or a.get("release"):
@@ -158,7 +162,10 @@ def main():
             sw["license"] = a["license"]
         if a.get("github"):
             sw["sameAs"] = [f"https://github.com/{a['github']}"]
-        jsonld = [sw, crumbs(("Omarchy Store", "/"), (c, f"/category/{a['category']}/"), (a["name"], f"/app/{a['id']}/"))]
+        if F:
+            jsonld_faq = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+                {"@type": "Question", "name": x["q"], "acceptedAnswer": {"@type": "Answer", "text": x["a"]}} for x in F["faq"]]}
+        jsonld = ([jsonld_faq] if F else []) + [sw, crumbs(("Omarchy Store", "/"), (c, f"/category/{a['category']}/"), (a["name"], f"/app/{a['id']}/"))]
         related = [x for x in apps if x["category"] == a["category"] and x["id"] != a["id"]][:8]
         facts = []
         if a.get("stars"):
@@ -179,7 +186,10 @@ def main():
                 f'<pre><code>{e(install_cmd(a))}</code></pre>'
                 f'<h2>About {e(a["name"])}</h2>'
                 f'<p>{e(a.get("description") or a["summary"]).replace(chr(10) + chr(10), "</p><p>")}</p>'
-                + ("".join(f'<img src="{e(s)}" alt="{e(a["name"])} screenshot {i+1}" loading="lazy" width="624" height="351">' for i, s in enumerate(a["screenshots"][:3])) if a.get("screenshots") else "")
+                + ("".join(f'<img src="{e(abs_url(s))}" alt="{e(a["name"])} screenshot {i+1}" loading="lazy" width="624" height="351">' for i, s in enumerate(a["screenshots"][:3])) if a.get("screenshots") else "")
+                + (('<h2>How to use ' + e(a["name"]) + '</h2><ol>' + "".join(f'<li><strong>{e(s["title"])}</strong> – {e(s["body"])}</li>' for s in F["steps"]) + '</ol>'
+                    '<h2>Keyboard shortcuts</h2><ul>' + "".join(f'<li>{" + ".join(e(k) for k in s["keys"])}: {e(s["does"])}</li>' for s in F["shortcuts"]) + '</ul>'
+                    '<h2>Questions</h2>' + "".join(f'<h3>{e(x["q"])}</h3><p>{e(x["a"])}</p>' for x in F["faq"])) if F else "")
                 + (f'<p>Source code: <a href="https://github.com/{e(a["github"])}" rel="noopener">github.com/{e(a["github"])}</a></p>' if a.get("github") else "")
                 + (f'<h2>More {e(c)} apps</h2><ul class="ssr-list">' + "".join(app_li(x) for x in related) + "</ul>" if related else ""))
         write(f"/app/{a['id']}/", render(template, head(title, d, f"/app/{a['id']}/", image, f"{a['name']} on Omarchy", jsonld, extra=""), body))
