@@ -1,0 +1,18 @@
+{
+  "id": "solanum",
+  "name": "Solanum",
+  "category": "utilities",
+  "flathub": "org.gnome.Solanum",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "solanum"
+    ]
+  },
+  "detect": [
+    "solanum"
+  ],
+  "kind": "gui",
+  "developer": "Christopher Davis",
+  "github": null
+}

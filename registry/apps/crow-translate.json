@@ -1,0 +1,18 @@
+{
+  "id": "crow-translate",
+  "name": "Crow Translate",
+  "category": "productivity",
+  "flathub": "org.kde.CrowTranslate",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "crow-translate"
+    ]
+  },
+  "detect": [
+    "crow-translate"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

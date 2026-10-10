@@ -1,0 +1,18 @@
+{
+  "id": "rider",
+  "name": "Rider",
+  "category": "developer-tools",
+  "flathub": "com.jetbrains.Rider",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "rider"
+    ]
+  },
+  "detect": [
+    "rider"
+  ],
+  "kind": "gui",
+  "developer": "JetBrains s.r.o.",
+  "github": null
+}

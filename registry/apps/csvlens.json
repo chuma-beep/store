@@ -1,0 +1,20 @@
+{
+  "id": "csvlens",
+  "name": "csvlens",
+  "category": "terminal",
+  "github": "YS-L/csvlens",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "csvlens"
+    ]
+  },
+  "detect": [
+    "csvlens"
+  ],
+  "kind": "terminal",
+  "summary": "Command line csv viewer",
+  "icon": null,
+  "open": "csvlens"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "polari",
+  "name": "Polari",
+  "category": "communication",
+  "flathub": "org.gnome.Polari",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "polari"
+    ]
+  },
+  "detect": [
+    "polari"
+  ],
+  "kind": "gui",
+  "developer": "Florian Müllner",
+  "github": null
+}

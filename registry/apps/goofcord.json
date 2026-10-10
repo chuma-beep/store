@@ -1,0 +1,18 @@
+{
+  "id": "goofcord",
+  "name": "GoofCord",
+  "category": "video-audio",
+  "flathub": "io.github.milkshiift.GoofCord",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "goofcord-bin"
+    ]
+  },
+  "detect": [
+    "goofcord-bin"
+  ],
+  "kind": "gui",
+  "developer": "MilkShift",
+  "github": null
+}

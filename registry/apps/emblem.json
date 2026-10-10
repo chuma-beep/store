@@ -1,0 +1,18 @@
+{
+  "id": "emblem",
+  "name": "Emblem",
+  "category": "utilities",
+  "flathub": "org.gnome.design.Emblem",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "emblem"
+    ]
+  },
+  "detect": [
+    "emblem"
+  ],
+  "kind": "gui",
+  "developer": "Maximiliano Sandoval",
+  "github": null
+}

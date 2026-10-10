@@ -1,0 +1,18 @@
+{
+  "id": "flacon",
+  "name": "Flacon",
+  "category": "video-audio",
+  "github": "flacon/flacon",
+  "flathub": "com.github.Flacon",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "flacon"
+    ]
+  },
+  "detect": [
+    "flacon"
+  ],
+  "kind": "gui",
+  "developer": "Flacon team"
+}

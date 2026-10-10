@@ -1,0 +1,18 @@
+{
+  "id": "qelectrotech",
+  "name": "QElectroTech",
+  "category": "graphics",
+  "flathub": "org.qelectrotech.QElectroTech",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "qelectrotech"
+    ]
+  },
+  "detect": [
+    "qelectrotech"
+  ],
+  "kind": "gui",
+  "developer": "QElectroTech",
+  "github": null
+}

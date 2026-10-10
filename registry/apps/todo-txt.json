@@ -1,0 +1,21 @@
+{
+  "id": "todo-txt",
+  "name": "todo.txt",
+  "category": "productivity",
+  "github": "todotxt/todo.txt-cli",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "todotxt"
+    ]
+  },
+  "detect": [
+    "todotxt"
+  ],
+  "kind": "terminal",
+  "summary": "A simple and extensible shell script for managing your todo.txt file.",
+  "icon": null,
+  "open": "todo.sh",
+  "cli": true
+}

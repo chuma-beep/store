@@ -1,0 +1,18 @@
+{
+  "id": "mullvad-browser",
+  "name": "Mullvad Browser",
+  "category": "browsers",
+  "flathub": "net.mullvad.MullvadBrowser",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "mullvad-browser-bin"
+    ]
+  },
+  "detect": [
+    "mullvad-browser-bin"
+  ],
+  "kind": "gui",
+  "developer": "Mullvad VPN AB",
+  "github": null
+}

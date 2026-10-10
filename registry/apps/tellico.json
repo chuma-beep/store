@@ -1,0 +1,18 @@
+{
+  "id": "tellico",
+  "name": "Tellico",
+  "category": "productivity",
+  "flathub": "org.kde.tellico",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "tellico"
+    ]
+  },
+  "detect": [
+    "tellico"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

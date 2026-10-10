@@ -1,0 +1,18 @@
+{
+  "id": "gromit-mpx",
+  "name": "Gromit-MPX",
+  "category": "graphics",
+  "flathub": "net.christianbeier.Gromit-MPX",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "gromit-mpx"
+    ]
+  },
+  "detect": [
+    "gromit-mpx"
+  ],
+  "kind": "gui",
+  "developer": "Christian Beier",
+  "github": null
+}

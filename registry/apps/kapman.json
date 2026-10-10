@@ -1,0 +1,18 @@
+{
+  "id": "kapman",
+  "name": "Kapman",
+  "category": "games",
+  "flathub": "org.kde.kapman",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kapman"
+    ]
+  },
+  "detect": [
+    "kapman"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

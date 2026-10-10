@@ -1,0 +1,18 @@
+{
+  "id": "ppsspp",
+  "name": "PPSSPP",
+  "category": "games",
+  "github": "hrydgard/ppsspp",
+  "flathub": "org.ppsspp.PPSSPP",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ppsspp"
+    ]
+  },
+  "detect": [
+    "ppsspp"
+  ],
+  "kind": "gui",
+  "developer": "Henrik Rydgård"
+}

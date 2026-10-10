@@ -1,0 +1,18 @@
+{
+  "id": "rosegarden",
+  "name": "Rosegarden",
+  "category": "video-audio",
+  "flathub": "com.rosegardenmusic.rosegarden",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "rosegarden"
+    ]
+  },
+  "detect": [
+    "rosegarden"
+  ],
+  "kind": "gui",
+  "developer": "Rosegarden Development Team",
+  "github": null
+}

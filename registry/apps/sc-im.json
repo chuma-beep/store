@@ -1,0 +1,20 @@
+{
+  "id": "sc-im",
+  "name": "sc-im",
+  "category": "productivity",
+  "github": "andmarti1424/sc-im",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "sc-im"
+    ]
+  },
+  "detect": [
+    "sc-im"
+  ],
+  "kind": "terminal",
+  "summary": "sc-im - Spreadsheet Calculator Improvised -- An ncurses spreadsheet program for terminal",
+  "icon": null,
+  "open": "sc-im"
+}

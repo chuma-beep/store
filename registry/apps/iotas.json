@@ -1,0 +1,18 @@
+{
+  "id": "iotas",
+  "name": "Iotas",
+  "category": "utilities",
+  "flathub": "org.gnome.World.Iotas",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "iotas"
+    ]
+  },
+  "detect": [
+    "iotas"
+  ],
+  "kind": "gui",
+  "developer": "Chris Heywood",
+  "github": null
+}

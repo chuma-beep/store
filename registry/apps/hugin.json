@@ -1,0 +1,18 @@
+{
+  "id": "hugin",
+  "name": "hugin",
+  "category": "graphics",
+  "flathub": "net.sourceforge.Hugin",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "hugin"
+    ]
+  },
+  "detect": [
+    "hugin"
+  ],
+  "kind": "gui",
+  "developer": "Hugin Developers",
+  "github": null
+}

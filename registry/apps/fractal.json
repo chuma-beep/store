@@ -1,0 +1,18 @@
+{
+  "id": "fractal",
+  "name": "Fractal",
+  "category": "communication",
+  "flathub": "org.gnome.Fractal",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "fractal"
+    ]
+  },
+  "detect": [
+    "fractal"
+  ],
+  "kind": "gui",
+  "developer": "The Fractal Team",
+  "github": null
+}

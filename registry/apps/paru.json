@@ -1,0 +1,21 @@
+{
+  "id": "paru",
+  "name": "paru",
+  "category": "terminal",
+  "github": "Morganamilo/paru",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "paru"
+    ]
+  },
+  "detect": [
+    "paru"
+  ],
+  "kind": "terminal",
+  "summary": "Feature packed AUR helper",
+  "icon": null,
+  "open": "paru",
+  "cli": true
+}

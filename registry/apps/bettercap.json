@@ -1,0 +1,20 @@
+{
+  "id": "bettercap",
+  "name": "bettercap",
+  "category": "security",
+  "github": "bettercap/bettercap",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "bettercap"
+    ]
+  },
+  "detect": [
+    "bettercap"
+  ],
+  "kind": "terminal",
+  "summary": "The Swiss Army knife for 802.11, BLE, HID, CAN-bus, IPv4 and IPv6 networks reconnaissance and MITM attacks.",
+  "icon": null,
+  "open": "bettercap"
+}

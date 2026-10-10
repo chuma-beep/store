@@ -1,0 +1,18 @@
+{
+  "id": "android-studio",
+  "name": "Android Studio",
+  "category": "developer-tools",
+  "flathub": "com.google.AndroidStudio",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "android-studio"
+    ]
+  },
+  "detect": [
+    "android-studio"
+  ],
+  "kind": "gui",
+  "developer": "Android Open Source Project",
+  "github": null
+}

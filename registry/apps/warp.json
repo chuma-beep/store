@@ -1,0 +1,18 @@
+{
+  "id": "warp",
+  "name": "Warp",
+  "category": "security",
+  "flathub": "app.drey.Warp",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "warp"
+    ]
+  },
+  "detect": [
+    "warp"
+  ],
+  "kind": "gui",
+  "developer": "Fina Wilke",
+  "github": null
+}

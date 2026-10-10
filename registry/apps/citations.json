@@ -1,0 +1,18 @@
+{
+  "id": "citations",
+  "name": "Citations",
+  "category": "education",
+  "flathub": "org.gnome.World.Citations",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "citations"
+    ]
+  },
+  "detect": [
+    "citations"
+  ],
+  "kind": "gui",
+  "developer": "Maximiliano Sandoval",
+  "github": null
+}

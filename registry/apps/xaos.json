@@ -1,0 +1,18 @@
+{
+  "id": "xaos",
+  "name": "XaoS",
+  "category": "education",
+  "flathub": "io.github.xaos_project.XaoS",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "xaos"
+    ]
+  },
+  "detect": [
+    "xaos"
+  ],
+  "kind": "gui",
+  "developer": "XaoS Contributors",
+  "github": null
+}

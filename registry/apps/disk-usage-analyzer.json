@@ -1,0 +1,18 @@
+{
+  "id": "disk-usage-analyzer",
+  "name": "Disk Usage Analyzer",
+  "category": "utilities",
+  "flathub": "org.gnome.baobab",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "baobab"
+    ]
+  },
+  "detect": [
+    "baobab"
+  ],
+  "kind": "gui",
+  "developer": "The GNOME Project",
+  "github": null
+}

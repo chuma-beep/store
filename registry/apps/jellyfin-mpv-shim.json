@@ -1,0 +1,18 @@
+{
+  "id": "jellyfin-mpv-shim",
+  "name": "Jellyfin MPV Shim",
+  "category": "video-audio",
+  "github": "jellyfin/jellyfin-mpv-shim",
+  "flathub": "com.github.iwalton3.jellyfin-mpv-shim",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "jellyfin-mpv-shim"
+    ]
+  },
+  "detect": [
+    "jellyfin-mpv-shim"
+  ],
+  "kind": "gui",
+  "developer": "Izzie Walton"
+}

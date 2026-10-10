@@ -1,0 +1,18 @@
+{
+  "id": "gittyup",
+  "name": "Gittyup",
+  "category": "developer-tools",
+  "flathub": "com.github.Murmele.Gittyup",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "gittyup"
+    ]
+  },
+  "detect": [
+    "gittyup"
+  ],
+  "kind": "gui",
+  "developer": "Gittyup Community",
+  "github": null
+}

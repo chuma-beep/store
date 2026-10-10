@@ -1,0 +1,18 @@
+{
+  "id": "remmina",
+  "name": "Remmina",
+  "category": "utilities",
+  "flathub": "org.remmina.Remmina",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "remmina"
+    ]
+  },
+  "detect": [
+    "remmina"
+  ],
+  "kind": "gui",
+  "developer": "Hiroyuki_Tanaka",
+  "github": null
+}

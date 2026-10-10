@@ -1,0 +1,18 @@
+{
+  "id": "zenmap",
+  "name": "Zenmap",
+  "category": "utilities",
+  "flathub": "org.nmap.Zenmap",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "zenmap"
+    ]
+  },
+  "detect": [
+    "zenmap"
+  ],
+  "kind": "gui",
+  "developer": "Gordon Lyon et al.",
+  "github": null
+}

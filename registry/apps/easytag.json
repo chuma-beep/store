@@ -1,0 +1,18 @@
+{
+  "id": "easytag",
+  "name": "EasyTAG",
+  "category": "video-audio",
+  "flathub": "org.gnome.EasyTAG",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "easytag"
+    ]
+  },
+  "detect": [
+    "easytag"
+  ],
+  "kind": "gui",
+  "developer": "The EasyTAG developers",
+  "github": null
+}

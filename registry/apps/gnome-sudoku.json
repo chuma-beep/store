@@ -1,0 +1,18 @@
+{
+  "id": "gnome-sudoku",
+  "name": "GNOME Sudoku",
+  "category": "games",
+  "flathub": "org.gnome.Sudoku",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gnome-sudoku"
+    ]
+  },
+  "detect": [
+    "gnome-sudoku"
+  ],
+  "kind": "gui",
+  "developer": "The GNOME Project",
+  "github": null
+}

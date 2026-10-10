@@ -1,0 +1,18 @@
+{
+  "id": "kid3",
+  "name": "Kid3",
+  "category": "video-audio",
+  "flathub": "org.kde.kid3",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kid3"
+    ]
+  },
+  "detect": [
+    "kid3"
+  ],
+  "kind": "gui",
+  "developer": "Urs Fleisch",
+  "github": null
+}

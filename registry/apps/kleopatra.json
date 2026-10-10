@@ -1,0 +1,18 @@
+{
+  "id": "kleopatra",
+  "name": "Kleopatra",
+  "category": "security",
+  "flathub": "org.kde.kleopatra",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kleopatra"
+    ]
+  },
+  "detect": [
+    "kleopatra"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

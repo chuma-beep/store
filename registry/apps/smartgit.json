@@ -1,0 +1,18 @@
+{
+  "id": "smartgit",
+  "name": "SmartGit",
+  "category": "developer-tools",
+  "flathub": "com.syntevo.SmartGit",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "smartgit"
+    ]
+  },
+  "detect": [
+    "smartgit"
+  ],
+  "kind": "gui",
+  "developer": "syntevo GmbH",
+  "github": null
+}

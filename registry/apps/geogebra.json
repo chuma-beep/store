@@ -1,0 +1,18 @@
+{
+  "id": "geogebra",
+  "name": "GeoGebra",
+  "category": "education",
+  "flathub": "org.geogebra.GeoGebra",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "geogebra"
+    ]
+  },
+  "detect": [
+    "geogebra"
+  ],
+  "kind": "gui",
+  "developer": "GeoGebra Institute",
+  "github": null
+}

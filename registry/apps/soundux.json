@@ -1,0 +1,18 @@
+{
+  "id": "soundux",
+  "name": "Soundux",
+  "category": "video-audio",
+  "flathub": "io.github.Soundux",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "soundux"
+    ]
+  },
+  "detect": [
+    "soundux"
+  ],
+  "kind": "gui",
+  "developer": "Soundux",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "coppwr",
+  "name": "coppwr",
+  "category": "video-audio",
+  "flathub": "io.github.dimtpap.coppwr",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "coppwr"
+    ]
+  },
+  "detect": [
+    "coppwr"
+  ],
+  "kind": "gui",
+  "developer": "Dimitris Papaioannou",
+  "github": null
+}

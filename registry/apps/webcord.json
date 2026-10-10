@@ -1,0 +1,18 @@
+{
+  "id": "webcord",
+  "name": "WebCord",
+  "category": "communication",
+  "flathub": "io.github.spacingbat3.webcord",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "webcord"
+    ]
+  },
+  "detect": [
+    "webcord"
+  ],
+  "kind": "gui",
+  "developer": "Contributors of WebCord",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "gnome-web",
+  "name": "GNOME Web",
+  "category": "browsers",
+  "flathub": "org.gnome.Epiphany",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "epiphany"
+    ]
+  },
+  "detect": [
+    "epiphany"
+  ],
+  "kind": "gui",
+  "developer": "The GNOME Project",
+  "github": null
+}

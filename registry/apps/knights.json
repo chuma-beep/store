@@ -1,0 +1,18 @@
+{
+  "id": "knights",
+  "name": "KNights",
+  "category": "games",
+  "flathub": "org.kde.knights",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "knights"
+    ]
+  },
+  "detect": [
+    "knights"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "evolution",
+  "name": "Evolution",
+  "category": "productivity",
+  "flathub": "org.gnome.Evolution",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "evolution"
+    ]
+  },
+  "detect": [
+    "evolution"
+  ],
+  "kind": "gui",
+  "developer": "The Evolution Team",
+  "github": null
+}

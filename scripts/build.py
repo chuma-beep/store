@@ -20,7 +20,9 @@ PKG_RE = re.compile(r"^[a-z0-9@._+-]+$")
 # omarchy commands we allow in the registry: "omarchy install ..." only, plain words/quotes.
 OMARCHY_RE = re.compile(r"^omarchy install [a-z0-9 '._-]+$", re.I)
 KINDS = {"gui", "terminal"}
-METHODS = {"pacman", "aur", "omarchy"}
+METHODS = {"pacman", "aur", "omarchy", "release"}
+# Verified developer downloads: only these GitHub owners, only pacman packages, always pinned by SHA-256.
+RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 
 
 def load(path):
@@ -55,9 +57,15 @@ def validate():
             if not pk or not all(PKG_RE.match(x) for x in pk): e("install.packages must be valid package names")
         if m == "omarchy" and not OMARCHY_RE.match(inst.get("command", "")):
             e("install.command must be an 'omarchy install ...' command")
+        if m == "release":
+            pk = inst.get("packages") or []
+            if not pk or not all(PKG_RE.match(x) for x in pk): e("install.packages must be valid package names")
+            if not RELEASE_RE.match(inst.get("url", "")): e("install.url must be an approved GitHub release .pkg.tar.zst")
+            if not re.match(r"^[0-9a-f]{64}$", inst.get("sha256", "")): e("install.sha256 must be a sha256 hex digest")
+            if not inst.get("version"): e("install.version required for release installs")
         det = a.get("detect") or []
         if not det or not all(PKG_RE.match(x) for x in det): e("detect must list package names")
-        if a.get("open") and not PKG_RE.match(a["open"]): e("open must be a plain command name")
+        if a.get("open") and not re.match(r"^[A-Za-z0-9._-]+$", a["open"]): e("open must be a plain command name")
         if a.get("cli") and a.get("kind") != "terminal": e("cli apps must be kind=terminal")
         if not (a.get("github") or a.get("flathub") or a.get("homepage")): e("need github, flathub or homepage")
         if a.get("github") and not re.match(r"^[\w.-]+/[\w.-]+$", a["github"]): e("github must be owner/repo")
@@ -362,6 +370,9 @@ def build(apps, cats, feat, ads):
         a["icon_source"] = a["icon"]
         a["icon"] = path
         # A package that isn't published anywhere yet can't be installed: show "Coming soon".
+        if a["install"]["method"] == "release":
+            a["package"] = {**a["package"], "repo": "release", "version": a["install"]["version"],
+                            **({"size": a["install"]["size"]} if a["install"].get("size") else {})}
         a["available"] = bool(a["package"].get("repo")) or a["install"]["method"] == "omarchy"
     try:
         from themes import collect as collect_themes
@@ -369,6 +380,7 @@ def build(apps, cats, feat, ads):
     except Exception as ex:  # the app catalog must still publish if the theme source is down
         print(f"  warn: themes skipped: {ex}", file=sys.stderr)
         themes = []
+    omarchy_iso = latest_omarchy_iso()
     today = date.today().isoformat()
     live = [c for c in ads["campaigns"] if c.get("enabled", True) and c.get("starts", "") <= today <= c.get("ends", "9999")]
     return {
@@ -376,9 +388,44 @@ def build(apps, cats, feat, ads):
         "categories": load(os.path.join(REG, "categories.json")),
         "featured": feat, "ads": {"network": ads["network"], "campaigns": live},
         "themes": themes,
+        "omarchy_iso": omarchy_iso,
+        # The desktop app compares this with its own VERSION and updates itself when it's newer.
+        "desktop_version": re.search(r'^VERSION = "([^"]+)"', open(os.path.join(ROOT, "desktop", "omarchy-store")).read(), re.M).group(1),
         "themes_source": {"name": "Omarchy Themes", "url": "https://omarchythemes.com", "by": "Mubs", "by_url": "https://mubs.me"},
         "apps": sorted(out, key=lambda x: (not x.get("featured"), -(x["stars"] or 0))),
     }
+
+
+UA = "omarchy-store-build (+https://github.com/omarchy-community/store)"
+
+
+def latest_omarchy_iso():
+    """Newest official Omarchy ISO linked from omarchy.org, with its published SHA-256 and size."""
+    rx = re.compile(r"https://iso\.omarchy\.org/(omarchy-(\d+(?:\.\d+)*(?:-\d+)?)\.iso)")
+    try:
+        # Omarchy's official GitHub releases list the ISO link for each version (omarchy.org itself
+        # sits behind a bot wall that blocks scripts).
+        found = {}
+        for src in ("https://api.github.com/repos/omacom/omarchy/releases?per_page=10", "https://omarchy.org/"):
+            try:
+                req = urllib.request.Request(src, headers={"User-Agent": UA, "Accept": "application/vnd.github+json, text/html"})
+                text = urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "ignore")
+                found.update({m.group(2): m.group(1) for m in rx.finditer(text)})
+            except Exception:
+                pass
+        if not found:
+            raise ValueError("no ISO links found")
+        v = max(found, key=lambda s: tuple(int(x) for x in re.split(r"[.-]", s)))
+        fn = found[v]
+        sha = urllib.request.urlopen(urllib.request.Request(f"https://iso.omarchy.org/{fn}.sha256", headers={"User-Agent": UA}), timeout=30).read().decode().split()[0].lower()
+        head = urllib.request.urlopen(urllib.request.Request(f"https://iso.omarchy.org/{fn}", method="HEAD", headers={"User-Agent": UA}), timeout=30)
+        assert re.match(r"^[0-9a-f]{64}$", sha)
+        print(f"  Omarchy ISO: {v}")
+        return {"version": v, "file": fn, "url": f"https://iso.omarchy.org/{fn}", "sha256": sha,
+                "size": int(head.headers.get("Content-Length") or 0)}
+    except Exception as ex:
+        print(f"  warn: Omarchy ISO lookup failed: {ex}", file=sys.stderr)
+        return None
 
 
 def main():

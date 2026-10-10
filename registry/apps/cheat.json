@@ -1,0 +1,21 @@
+{
+  "id": "cheat",
+  "name": "cheat",
+  "category": "terminal",
+  "github": "cheat/cheat",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "cheat"
+    ]
+  },
+  "detect": [
+    "cheat"
+  ],
+  "kind": "terminal",
+  "summary": "cheat allows you to create and view interactive cheatsheets on the command-line. It was designed to help remind *nix system administrators o",
+  "icon": null,
+  "open": "cheat",
+  "cli": true
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rustnet",
+  "name": "RustNet",
+  "category": "terminal",
+  "github": "domcyrus/rustnet",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "rustnet"
+    ]
+  },
+  "detect": [
+    "rustnet"
+  ],
+  "kind": "terminal",
+  "summary": "Per-process network monitoring for your terminal with deep packet inspection. Cross-platform, sandboxed.",
+  "icon": null,
+  "open": "rustnet"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "gamemode",
+  "name": "GameMode",
+  "category": "games",
+  "github": "FeralInteractive/gamemode",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gamemode"
+    ]
+  },
+  "detect": [
+    "gamemode"
+  ],
+  "kind": "terminal",
+  "summary": "Optimise Linux system performance on demand",
+  "icon": null,
+  "open": "gamemoderun",
+  "cli": true
+}

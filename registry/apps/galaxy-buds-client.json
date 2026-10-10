@@ -1,0 +1,18 @@
+{
+  "id": "galaxy-buds-client",
+  "name": "Galaxy Buds Client",
+  "category": "utilities",
+  "github": "timschneeb/GalaxyBudsClient",
+  "flathub": "me.timschneeberger.GalaxyBudsClient",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "galaxybudsclient-bin"
+    ]
+  },
+  "detect": [
+    "galaxybudsclient-bin"
+  ],
+  "kind": "gui",
+  "developer": "Tim Schneeberger"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "decoder",
+  "name": "Decoder",
+  "category": "utilities",
+  "flathub": "com.belmoussaoui.Decoder",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "decoder"
+    ]
+  },
+  "detect": [
+    "decoder"
+  ],
+  "kind": "gui",
+  "developer": "Bilal Elmoussaoui",
+  "github": null
+}

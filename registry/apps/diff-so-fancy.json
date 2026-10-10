@@ -1,0 +1,21 @@
+{
+  "id": "diff-so-fancy",
+  "name": "diff-so-fancy",
+  "category": "developer-tools",
+  "github": "so-fancy/diff-so-fancy",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "diff-so-fancy"
+    ]
+  },
+  "detect": [
+    "diff-so-fancy"
+  ],
+  "kind": "terminal",
+  "summary": "Make your diffs human readable for improved code quality and faster defect detection. :tada:",
+  "icon": null,
+  "open": "diff-so-fancy",
+  "cli": true
+}

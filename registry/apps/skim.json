@@ -1,0 +1,20 @@
+{
+  "id": "skim",
+  "name": "skim",
+  "category": "terminal",
+  "github": "skim-rs/skim",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "skim"
+    ]
+  },
+  "detect": [
+    "skim"
+  ],
+  "kind": "terminal",
+  "summary": "Fuzzy Finder in rust!",
+  "icon": null,
+  "open": "sk"
+}

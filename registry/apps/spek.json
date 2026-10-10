@@ -1,0 +1,18 @@
+{
+  "id": "spek",
+  "name": "Spek",
+  "category": "video-audio",
+  "flathub": "cc.spek.Spek",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "spek"
+    ]
+  },
+  "detect": [
+    "spek"
+  ],
+  "kind": "gui",
+  "developer": "Alexander Kojevnikov",
+  "github": null
+}

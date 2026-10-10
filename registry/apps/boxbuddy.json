@@ -1,0 +1,18 @@
+{
+  "id": "boxbuddy",
+  "name": "BoxBuddy",
+  "category": "utilities",
+  "github": "Dvlv/BoxBuddyRS",
+  "flathub": "io.github.dvlv.boxbuddyrs",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "boxbuddy"
+    ]
+  },
+  "detect": [
+    "boxbuddy"
+  ],
+  "kind": "gui",
+  "developer": "Dvlv"
+}

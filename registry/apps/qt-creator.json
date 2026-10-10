@@ -1,0 +1,18 @@
+{
+  "id": "qt-creator",
+  "name": "Qt Creator",
+  "category": "developer-tools",
+  "flathub": "io.qt.QtCreator",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "qtcreator"
+    ]
+  },
+  "detect": [
+    "qtcreator"
+  ],
+  "kind": "gui",
+  "developer": "Qt Project",
+  "github": null
+}

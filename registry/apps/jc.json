@@ -1,0 +1,21 @@
+{
+  "id": "jc",
+  "name": "jc",
+  "category": "terminal",
+  "github": "kellyjonbrazil/jc",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "jc"
+    ]
+  },
+  "detect": [
+    "jc"
+  ],
+  "kind": "terminal",
+  "summary": "CLI tool and python library that converts the output of popular command-line tools, file-types, and common strings to JSON, YAML, or Diction",
+  "icon": null,
+  "open": "jc",
+  "cli": true
+}

@@ -1,0 +1,18 @@
+{
+  "id": "mkvtoolnix",
+  "name": "MKVToolNix",
+  "category": "video-audio",
+  "flathub": "org.bunkus.mkvtoolnix-gui",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mkvtoolnix-gui"
+    ]
+  },
+  "detect": [
+    "mkvtoolnix-gui"
+  ],
+  "kind": "gui",
+  "developer": "Moritz Bunkus",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "vmpk",
+  "name": "VMPK",
+  "category": "video-audio",
+  "flathub": "net.sourceforge.VMPK",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "vmpk"
+    ]
+  },
+  "detect": [
+    "vmpk"
+  ],
+  "kind": "gui",
+  "developer": "Pedro López-Cabanillas",
+  "github": null
+}

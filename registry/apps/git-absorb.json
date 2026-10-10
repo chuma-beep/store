@@ -1,0 +1,21 @@
+{
+  "id": "git-absorb",
+  "name": "git-absorb",
+  "category": "developer-tools",
+  "github": "tummychow/git-absorb",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "git-absorb"
+    ]
+  },
+  "detect": [
+    "git-absorb"
+  ],
+  "kind": "terminal",
+  "summary": "git commit --fixup, but automatic",
+  "icon": null,
+  "open": "git-absorb",
+  "cli": true
+}

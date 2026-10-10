@@ -1,0 +1,21 @@
+{
+  "id": "pixi",
+  "name": "Pixi",
+  "category": "developer-tools",
+  "github": "prefix-dev/pixi",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "pixi"
+    ]
+  },
+  "detect": [
+    "pixi"
+  ],
+  "kind": "terminal",
+  "summary": "Powerful system-level package manager for Linux, macOS and Windows written in Rust – building on top of the Conda ecosystem.",
+  "icon": null,
+  "open": "pixi",
+  "cli": true
+}

@@ -1,0 +1,18 @@
+{
+  "id": "fretboard",
+  "name": "Fretboard",
+  "category": "education",
+  "flathub": "dev.bragefuglseth.Fretboard",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "fretboard"
+    ]
+  },
+  "detect": [
+    "fretboard"
+  ],
+  "kind": "gui",
+  "developer": "Brage Fuglseth",
+  "github": null
+}

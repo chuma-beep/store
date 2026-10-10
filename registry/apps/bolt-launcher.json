@@ -1,0 +1,18 @@
+{
+  "id": "bolt-launcher",
+  "name": "Bolt Launcher",
+  "category": "games",
+  "flathub": "com.adamcake.Bolt",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "bolt-launcher"
+    ]
+  },
+  "detect": [
+    "bolt-launcher"
+  ],
+  "kind": "gui",
+  "developer": "Adamcake",
+  "github": null
+}

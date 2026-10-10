@@ -1,0 +1,21 @@
+{
+  "id": "logiops",
+  "name": "logiops",
+  "category": "utilities",
+  "github": "PixlOne/logiops",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "logiops"
+    ]
+  },
+  "detect": [
+    "logiops"
+  ],
+  "kind": "terminal",
+  "summary": "An unofficial userspace driver for HID++ Logitech devices",
+  "icon": null,
+  "open": "logid",
+  "cli": true
+}

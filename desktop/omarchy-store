@@ -35,17 +35,23 @@ PORT_FILE = os.path.join(STATE_DIR, "port")
 THEME = os.path.expanduser("~/.local/state/omarchy/current/theme/colors.toml")
 REMOTE = os.environ.get("OMARCHY_STORE_REMOTE", "https://omarchystore.com/")
 DEFAULT_PORT = 47823
-UPDATE_EVERY = 6 * 3600
+UPDATE_EVERY = 3600     # check the store for new apps / a new desktop app every hour
 
 PKG_RE = re.compile(r"^[a-z0-9@._+-]+$")
 OMARCHY_RE = re.compile(r"^omarchy install [a-z0-9 '._-]+$", re.I)
-CMD_RE = re.compile(r"^[a-z0-9._-]+$")
+CMD_RE = re.compile(r"^[A-Za-z0-9._-]+$")
 # Themes: only plain github.com/<owner>/<repo> sources and safe folder names are accepted.
 THEME_REPO_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
 THEME_NAME_RE = re.compile(r"^[a-z0-9_][a-z0-9._+-]*$")
 USER_THEMES = os.path.expanduser("~/.config/omarchy/themes")
 SYS_THEMES = os.path.join(os.environ.get("OMARCHY_PATH", "/usr/share/omarchy"), "themes")
 THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
+# Signed-off releases hosted on GitHub by approved publishers (e.g. SnapDock). The catalog pins the
+# exact file and its SHA-256; the helper refuses anything that doesn't match before pacman sees it.
+RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
+SHA_RE = re.compile(r"^[0-9a-f]{64}$")
+CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
+VERSION = "1.2.0"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
@@ -128,7 +134,36 @@ def recipe(app):
         if not OMARCHY_RE.match(cmd):
             raise ValueError("bad omarchy command")
         return shlex.split(cmd)
+    if m == "release":
+        if not RELEASE_RE.match(inst.get("url", "")) or not SHA_RE.match(inst.get("sha256", "")):
+            raise ValueError("bad release recipe")
+        pk = inst.get("packages") or []
+        if not pk or not all(PKG_RE.match(p) for p in pk):
+            raise ValueError("bad package list")
+        return ["pacman", "-U"]   # real file path is filled in by run_install after the checksum passes
     raise ValueError("unknown install method")
+
+
+def fetch_release(app):
+    """Download a pinned release package and verify its SHA-256. Returns the local path."""
+    inst = app["install"]
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    dest = os.path.join(CACHE_DIR, os.path.basename(inst["url"]))
+    h = hashlib.sha256()
+    tmp = dest + ".part"
+    with urllib.request.urlopen(inst["url"], timeout=60) as r, open(tmp, "wb") as f:
+        while True:
+            b = r.read(1 << 16)
+            if not b:
+                break
+            h.update(b); f.write(b)
+            if f.tell() > 200_000_000:
+                raise ValueError("download too large")
+    if h.hexdigest() != inst["sha256"]:
+        os.remove(tmp)
+        raise ValueError("download failed its safety check (checksum mismatch) — not installed")
+    os.replace(tmp, dest)
+    return dest
 
 
 def installed_ids(catalog):
@@ -152,8 +187,19 @@ def read_theme():
 
 
 # ---------------------------------------------------------------- actions ----
+def in_terminal(script, title):
+    """Run a fixed, pre-quoted script in Omarchy's floating terminal (the user types their own password)."""
+    if shutil.which("omarchy-launch-floating-terminal-with-presentation"):
+        launcher = ["omarchy-launch-floating-terminal-with-presentation", script]
+    else:
+        launcher = ["xdg-terminal-exec", "bash", "-c", script + "; read -n1 -p 'Press any key to close'"]
+    return subprocess.Popen(launcher, stdin=subprocess.DEVNULL, start_new_session=True)
+
+
 def run_install(app):
     argv = recipe(app)
+    if app["install"]["method"] == "release":
+        argv = ["sudo", "pacman", "-U", "--needed", fetch_release(app)]
     name = app["name"]
     # Show the install in Omarchy's floating terminal so the user sees progress and
     # types their own sudo password. We pass a fixed, quoted command string.
@@ -188,7 +234,7 @@ def run_open(app):
     if app.get("kind") == "terminal":
         if app.get("cli"):
             # Command-line tool with no full-screen UI: open a terminal and show how to use it.
-            cmd = app["detect"][0]
+            cmd = opn or app["detect"][0]
             if not CMD_RE.match(cmd):
                 raise ValueError("bad command")
             msg = f"echo {shlex.quote(app['name'] + ' is installed. Try:')}; echo; echo '  {cmd} --help'; echo; exec bash"
@@ -212,6 +258,288 @@ def run_open(app):
         raise ValueError("couldn't find a launcher for this app")
     subprocess.Popen(["setsid", "gtk-launch", desktop] if shutil.which("gtk-launch") else ["uwsm-app", "--", desktop],
                      stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+
+
+# ---------------------------------------------------------------- app updates ----
+UPD = {"at": 0, "data": None}
+UPD_LOCK = threading.Lock()
+
+
+def _vercmp(a, b):
+    try:
+        return int(subprocess.run(["vercmp", a, b], capture_output=True, text=True, timeout=5).stdout.strip() or 0)
+    except Exception:
+        return 0
+
+
+def check_updates(force=False):
+    """Which store apps (and how many system packages) have updates. Read-only, no password needed."""
+    with UPD_LOCK:
+        if not force and UPD["data"] and time.time() - UPD["at"] < 600:
+            return UPD["data"]
+    cat = load_catalog()
+    have = {}
+    try:
+        for ln in subprocess.run(["pacman", "-Q"], capture_output=True, text=True, timeout=20).stdout.splitlines():
+            n, v = ln.split()[:2]; have[n] = v
+    except Exception:
+        pass
+    repo, aur = {}, {}
+    # checkupdates syncs a private copy of the package database, so it never touches the system.
+    try:
+        out = subprocess.run(["checkupdates", "--nocolor"], capture_output=True, text=True, timeout=120).stdout
+        for ln in out.splitlines():
+            p = ln.split()
+            if len(p) >= 4: repo[p[0]] = p[3]
+    except Exception:
+        pass
+    if shutil.which("yay"):
+        try:
+            out = subprocess.run(["yay", "-Qua"], capture_output=True, text=True, timeout=90).stdout
+            for ln in out.splitlines():
+                p = ln.split()
+                if len(p) >= 4: aur[p[0]] = p[3]
+        except Exception:
+            pass
+    apps = []
+    for aid, a in cat.items():
+        det = a.get("detect") or []
+        pkg = det[0] if det else None
+        if not pkg or pkg not in have:
+            continue
+        m = a["install"]["method"]
+        new = None
+        if m == "release":
+            latest = (a.get("package") or {}).get("version")
+            if latest and _vercmp(latest, have[pkg].split("-")[0]) > 0:
+                new = latest
+        else:
+            new = repo.get(pkg) or aur.get(pkg)
+        if new:
+            apps.append({"id": aid, "installed": have[pkg], "latest": new,
+                         "via": "system" if pkg in repo else ("release" if m == "release" else "aur")})
+    data = {"apps": apps, "system": len(repo), "aur": len(aur), "checked": time.time()}
+    with UPD_LOCK:
+        UPD.update(at=time.time(), data=data)
+    return data
+
+
+def run_update(app=None):
+    """Update one app, or everything (Omarchy's own updater) when app is None."""
+    if app is None:
+        cmd = "omarchy-update" if shutil.which("omarchy-update") else "yay -Syu"
+        script = f"echo 'Updating Omarchy, system packages and AUR apps…'; echo; {cmd}"
+        key = "__all__"
+    else:
+        m = app["install"]["method"]
+        pkgs = app["install"].get("packages") or []
+        if not all(PKG_RE.match(p) for p in pkgs):
+            raise ValueError("bad package list")
+        if m == "release":
+            argv = ["sudo", "pacman", "-U", "--needed", fetch_release(app)]
+        elif m == "aur":
+            argv = ["yay", "-S", "--needed", "--noconfirm"] + pkgs
+        else:
+            # Arch never updates one repo package on its own (partial upgrades break systems).
+            return run_update(None)
+        script = f"echo {shlex.quote('Updating ' + app['name'] + '…')}; echo; " + " ".join(shlex.quote(x) for x in argv)
+        key = app["id"]
+    with JOBS_LOCK:
+        JOBS["update:" + key] = {"state": "running", "started": time.time()}
+    proc = in_terminal(script, "Update")
+
+    def watch():
+        proc.wait()
+        # The terminal is detached; re-check for a while and mark done once the update shows up.
+        for _ in range(240):
+            time.sleep(5)
+            d = check_updates(force=True)
+            still = d["system"] + d["aur"] if key == "__all__" else any(x["id"] == key for x in d["apps"])
+            if not still:
+                break
+        with JOBS_LOCK:
+            JOBS["update:" + key]["state"] = "done"
+    threading.Thread(target=watch, daemon=True).start()
+
+
+# ---------------------------------------------------------------- USB maker ----
+# Makes an Omarchy installer USB stick: downloads the newest official ISO from iso.omarchy.org,
+# checks it against Omarchy's published SHA-256, then writes it to a USB stick the user picks.
+# Safety: only removable USB drives (<= 256 GB, nothing mounted as a system folder) are ever offered,
+# the drive is re-checked right before writing, and the write runs in a visible terminal that asks
+# for the user's own password.
+ISO_DIR = os.path.expanduser("~/Downloads")
+ISO_RE = re.compile(r"https://iso\.omarchy\.org/(omarchy-(\d+(?:\.\d+)*(?:-\d+)?)\.iso)")
+DEV_RE = re.compile(r"^/dev/sd[a-z]{1,2}$")
+USB = {"iso": None, "iso_at": 0, "dl": {"state": "idle"}}
+USB_LOCK = threading.Lock()
+
+
+def _ver_key(v):
+    return tuple(int(x) for x in re.split(r"[.-]", v))
+
+
+def latest_iso():
+    """Newest Omarchy ISO announced on omarchy.org (cached for an hour)."""
+    with USB_LOCK:
+        if USB["iso"] and time.time() - USB["iso_at"] < 3600:
+            return USB["iso"]
+    best = None
+    try:
+        found = {}
+        for src in ("https://api.github.com/repos/omacom/omarchy/releases?per_page=10", "https://omarchy.org/"):
+            try:
+                req = urllib.request.Request(src, headers={"User-Agent": "omarchy-store", "Accept": "application/vnd.github+json, text/html"})
+                text = urllib.request.urlopen(req, timeout=20).read(5_000_000).decode("utf-8", "ignore")
+                found.update({m.group(2): m.group(1) for m in ISO_RE.finditer(text)})
+            except Exception:
+                pass
+        if found:
+            v = max(found, key=_ver_key)
+            fn = found[v]
+            ua = {"User-Agent": "omarchy-store"}
+            sha = urllib.request.urlopen(urllib.request.Request(f"https://iso.omarchy.org/{fn}.sha256", headers=ua), timeout=20).read(400).decode().split()[0].lower()
+            head = urllib.request.urlopen(urllib.request.Request(f"https://iso.omarchy.org/{fn}", method="HEAD", headers=ua), timeout=20)
+            best = {"version": v, "file": fn, "url": f"https://iso.omarchy.org/{fn}", "sha256": sha,
+                    "size": int(head.headers.get("Content-Length") or 0)}
+    except Exception:
+        best = None
+    if not best:
+        try:
+            with open(os.path.join(SITE_DIR, "catalog.json")) as f:
+                best = json.load(f).get("omarchy_iso")
+        except Exception:
+            best = None
+    if best and not (re.match(r"^[0-9a-f]{64}$", best.get("sha256", "")) and ISO_RE.fullmatch(best.get("url", ""))):
+        best = None
+    with USB_LOCK:
+        USB.update(iso=best, iso_at=time.time() if best else 0)
+    return best
+
+
+def usb_drives():
+    """Removable USB drives that are safe to offer. Never the system disk or internal drives."""
+    try:
+        out = subprocess.run(["lsblk", "-J", "-b", "-o", "NAME,PATH,SIZE,TYPE,TRAN,RM,HOTPLUG,MODEL,VENDOR,MOUNTPOINTS,LABEL"],
+                             capture_output=True, text=True, timeout=10).stdout
+        devs = json.loads(out)["blockdevices"]
+    except Exception:
+        return []
+    system = {"/", "/boot", "/boot/efi", "/efi", "/home", "/usr", "/var", "/mnt/storage", "[SWAP]"}
+    res = []
+    for d in devs:
+        if d.get("type") != "disk" or d.get("tran") != "usb" or not (d.get("rm") or d.get("hotplug")):
+            continue
+        if not DEV_RE.match(d.get("path") or "") or not (1_000_000_000 <= int(d.get("size") or 0) <= 256 * 10**9):
+            continue
+        mounts = [m for c in (d.get("children") or []) + [d] for m in (c.get("mountpoints") or []) if m]
+        if any(m in system or m.startswith(("/boot", "/home", "/usr", "/var")) for m in mounts):
+            continue
+        name = " ".join(x for x in [(d.get("vendor") or "").strip(), (d.get("model") or "").strip()] if x) or "USB drive"
+        res.append({"path": d["path"], "name": name, "size": int(d["size"]), "mounted": mounts,
+                    "parts": [c["path"] for c in (d.get("children") or []) if DEV_RE.match(re.sub(r"\d+$", "", c.get("path") or ""))]})
+    return res
+
+
+def iso_path(iso):
+    return os.path.join(ISO_DIR, iso["file"])
+
+
+def iso_ready(iso):
+    p = iso_path(iso)
+    ok = p + ".verified"
+    try:
+        return os.path.getsize(p) == iso["size"] and open(ok).read().strip() == iso["sha256"]
+    except OSError:
+        return False
+
+
+def download_iso(iso):
+    """Download (resuming if possible) and verify the ISO. Progress goes to USB['dl']."""
+    os.makedirs(ISO_DIR, exist_ok=True)
+    dest = iso_path(iso)
+    part = dest + ".part"
+    with USB_LOCK:
+        USB["dl"] = {"state": "downloading", "done": 0, "total": iso["size"], "version": iso["version"], "started": time.time()}
+    try:
+        h = hashlib.sha256()
+        have = os.path.getsize(part) if os.path.exists(part) else 0
+        if have:
+            with open(part, "rb") as f:
+                for b in iter(lambda: f.read(1 << 20), b""):
+                    h.update(b)
+        req = urllib.request.Request(iso["url"], headers={"User-Agent": "omarchy-store", **({"Range": f"bytes={have}-"} if have else {})})
+        with urllib.request.urlopen(req, timeout=60) as r, open(part, "ab" if have and r.status == 206 else "wb") as f:
+            if have and r.status != 206:
+                h = hashlib.sha256(); have = 0
+            done = have
+            for b in iter(lambda: r.read(1 << 20), b""):
+                f.write(b); h.update(b); done += len(b)
+                with USB_LOCK:
+                    USB["dl"]["done"] = done
+                if done > iso["size"] + 1_000_000:
+                    raise ValueError("download larger than expected")
+        with USB_LOCK:
+            USB["dl"]["state"] = "verifying"
+        if h.hexdigest() != iso["sha256"]:
+            os.remove(part)
+            raise ValueError("the download didn't match Omarchy's official checksum, so it was deleted — please try again")
+        os.replace(part, dest)
+        open(dest + ".verified", "w").write(iso["sha256"])
+        with USB_LOCK:
+            USB["dl"] = {"state": "ready", "done": iso["size"], "total": iso["size"], "version": iso["version"]}
+    except Exception as e:
+        with USB_LOCK:
+            USB["dl"] = {"state": "failed", "error": str(e), "version": iso["version"]}
+
+
+def write_usb(iso, device):
+    """Write the verified ISO to `device` in a visible terminal (asks for the user's password)."""
+    if not iso_ready(iso):
+        raise ValueError("download and verify the Omarchy ISO first")
+    drive = next((d for d in usb_drives() if d["path"] == device), None)   # re-check right now
+    if not drive:
+        raise ValueError("that USB drive isn't available any more — plug it in again and refresh")
+    gb = f"{drive['size'] / 1e9:.0f} GB"
+    q = shlex.quote
+    unmount = "; ".join(f"udisksctl unmount -b {q(p)} >/dev/null 2>&1 || true" for p in drive["parts"])
+    script = (
+        f"echo {q('Omarchy USB Maker')}; echo; "
+        f"echo {q('Writing Omarchy ' + iso['version'] + ' to: ' + drive['name'] + ' (' + gb + ', ' + device + ')')}; "
+        f"echo {q('EVERYTHING on this USB drive will be erased.')}; echo; "
+        f"{unmount + '; ' if unmount else ''}"
+        f"sudo dd if={q(iso_path(iso))} of={q(device)} bs=4M status=progress oflag=direct conv=fsync && sync && "
+        f"echo && echo {q('Done! Your Omarchy installer USB is ready. You can unplug it now.')} || "
+        f"echo {q('Writing failed — nothing was changed on your computer. Check the USB stick and try again.')}"
+    )
+    with JOBS_LOCK:
+        JOBS["usb"] = {"state": "running", "started": time.time(), "device": device}
+    in_terminal(script, "USB")
+
+
+# ---------------------------------------------------------------- self-update ----
+SELF = {"available": None, "installed_new": False}
+SELF_FILES = ["omarchy-store", "site/index.html", "site/app.js", "site/styles.css"]
+
+
+def self_update(target_version):
+    """Download the newest desktop app files, sanity-check them, swap them in. The page then offers Restart."""
+    staged = {}
+    for f in SELF_FILES:
+        with urllib.request.urlopen(REMOTE + "desktop-files/" + f, timeout=30) as r:
+            staged[f] = r.read(5_000_000)
+    helper = staged["omarchy-store"].decode()
+    compile(helper, "omarchy-store", "exec")             # must be valid Python
+    assert helper.startswith("#!/usr/bin/env python3") and f'VERSION = "{target_version}"' in helper
+    assert b"<head>" in staged["site/index.html"] and b"boot()" in staged["site/app.js"]
+    for f, data in staged.items():
+        dest = os.path.join(APP_DIR, f)
+        tmp = dest + ".new"
+        open(tmp, "wb").write(data)
+        if f == "omarchy-store":
+            os.chmod(tmp, 0o755)
+        os.replace(tmp, dest)
+    SELF["installed_new"] = True
 
 
 # ----------------------------------------------------------------- server ----
@@ -262,7 +590,21 @@ class Handler(SimpleHTTPRequestHandler):
         if path == "/api/status":
             cat = load_catalog()
             return self._json(200, {"desktop": True, "installed": installed_ids(cat), "theme": read_theme(),
-                                    "themes_installed": installed_themes(), "theme_current": current_theme()})
+                                    "themes_installed": installed_themes(), "theme_current": current_theme(),
+                                    "version": VERSION, "store_update": SELF["available"],
+                                    "restart_needed": SELF["installed_new"]})
+        if path == "/api/usb":
+            iso = latest_iso()
+            with USB_LOCK:
+                dl = dict(USB["dl"])
+            return self._json(200, {"iso": iso, "ready": bool(iso and iso_ready(iso)), "download": dl,
+                                    "drives": usb_drives(), "path": iso_path(iso) if iso else None})
+        if path == "/api/updates":
+            force = "refresh=1" in (self.path.split("?") + [""])[1]
+            data = check_updates(force=force)
+            with JOBS_LOCK:
+                running = [k[7:] for k, j in JOBS.items() if k.startswith("update:") and j["state"] == "running"]
+            return self._json(200, {**data, "running": running})
         if path.startswith("/api/job/"):
             aid = path.rsplit("/", 1)[1]
             cat = load_catalog()
@@ -287,6 +629,39 @@ class Handler(SimpleHTTPRequestHandler):
             aid = str(data.get("id", ""))
         except Exception:
             return self._json(400, {"error": "bad request"})
+        if self.path == "/api/usb/download":
+            iso = latest_iso()
+            if not iso:
+                return self._json(502, {"error": "couldn't reach omarchy.org — check your internet"})
+            with USB_LOCK:
+                busy = USB["dl"].get("state") in ("downloading", "verifying")
+            if not busy and not iso_ready(iso):
+                threading.Thread(target=download_iso, args=(iso,), daemon=True).start()
+            return self._json(202, {"ok": True})
+        if self.path == "/api/usb/write":
+            iso = latest_iso()
+            dev = str(data.get("device", ""))
+            if not iso or not DEV_RE.match(dev):
+                return self._json(400, {"error": "bad request"})
+            try:
+                write_usb(iso, dev)
+                return self._json(202, {"ok": True})
+            except ValueError as e:
+                return self._json(400, {"error": str(e)})
+        if self.path == "/api/update-all":
+            run_update(None)
+            return self._json(202, {"ok": True})
+        if self.path == "/api/restart":
+            # Restart the helper on the freshly installed version; the page reloads itself.
+            def again():
+                time.sleep(0.4)
+                try:
+                    os.remove(PORT_FILE)
+                except OSError:
+                    pass
+                os.execv(sys.executable, [sys.executable, os.path.join(APP_DIR, "omarchy-store"), "--serve"])
+            threading.Thread(target=again, daemon=True).start()
+            return self._json(200, {"ok": True})
         if self.path in ("/api/theme/install", "/api/theme/use"):
             th = load_themes().get(aid)
             if not th:
@@ -312,6 +687,9 @@ class Handler(SimpleHTTPRequestHandler):
             if self.path == "/api/open":
                 run_open(app)
                 return self._json(200, {"ok": True})
+            if self.path == "/api/update":
+                run_update(app)
+                return self._json(202, {"ok": True})
         except ValueError as e:
             return self._json(400, {"error": str(e)})
         except FileNotFoundError as e:
@@ -346,6 +724,17 @@ def update_catalog(quiet=False):
         tmp = os.path.join(SITE_DIR, ".catalog.json.tmp")
         open(tmp, "wb").write(data)
         os.replace(tmp, os.path.join(SITE_DIR, "catalog.json"))
+        # Newer desktop app published? Fetch it in the background and offer a restart.
+        want = str(cat.get("desktop_version") or "")
+        if want and _vercmp(want, VERSION) > 0 and not SELF["installed_new"]:
+            SELF["available"] = want
+            try:
+                self_update(want)
+                if not quiet:
+                    print(f"✓ desktop app updated to {want} (restart the store to use it)")
+            except Exception as e:
+                if not quiet:
+                    print(f"✗ desktop app update failed: {e}")
         if not quiet:
             print(f"✓ catalog updated: {len(cat['apps'])} apps")
         return True

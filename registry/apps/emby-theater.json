@@ -1,0 +1,18 @@
+{
+  "id": "emby-theater",
+  "name": "Emby Theater",
+  "category": "video-audio",
+  "flathub": "media.emby.EmbyTheater",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "emby-theater"
+    ]
+  },
+  "detect": [
+    "emby-theater"
+  ],
+  "kind": "gui",
+  "developer": "Emby",
+  "github": null
+}

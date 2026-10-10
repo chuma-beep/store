@@ -1,0 +1,21 @@
+{
+  "id": "mdbook",
+  "name": "mdBook",
+  "category": "developer-tools",
+  "github": "rust-lang/mdBook",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mdbook"
+    ]
+  },
+  "detect": [
+    "mdbook"
+  ],
+  "kind": "terminal",
+  "summary": "Create book from markdown files. Like Gitbook but implemented in Rust",
+  "icon": null,
+  "open": "mdbook",
+  "cli": true
+}

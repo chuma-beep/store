@@ -1,0 +1,21 @@
+{
+  "id": "websocat",
+  "name": "websocat",
+  "category": "developer-tools",
+  "github": "vi/websocat",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "websocat"
+    ]
+  },
+  "detect": [
+    "websocat"
+  ],
+  "kind": "terminal",
+  "summary": "Command-line client for WebSockets, like netcat (or curl) for ws:// with advanced socat-like functions",
+  "icon": null,
+  "open": "websocat",
+  "cli": true
+}

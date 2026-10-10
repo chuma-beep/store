@@ -1,0 +1,18 @@
+{
+  "id": "cutter",
+  "name": "Cutter",
+  "category": "developer-tools",
+  "github": "rizinorg/cutter",
+  "flathub": "re.rizin.cutter",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "rz-cutter"
+    ]
+  },
+  "detect": [
+    "rz-cutter"
+  ],
+  "kind": "gui",
+  "developer": "Rizin Organization"
+}

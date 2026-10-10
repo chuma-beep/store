@@ -1,0 +1,18 @@
+{
+  "id": "dosbox-x",
+  "name": "DOSBox-X",
+  "category": "games",
+  "flathub": "com.dosbox_x.DOSBox-X",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "dosbox-x"
+    ]
+  },
+  "detect": [
+    "dosbox-x"
+  ],
+  "kind": "gui",
+  "developer": "DOSBox-X team",
+  "github": null
+}

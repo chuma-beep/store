@@ -1,0 +1,18 @@
+{
+  "id": "pitivi",
+  "name": "Pitivi",
+  "category": "video-audio",
+  "flathub": "org.pitivi.Pitivi",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "pitivi"
+    ]
+  },
+  "detect": [
+    "pitivi"
+  ],
+  "kind": "gui",
+  "developer": "The Pitivi Team",
+  "github": null
+}

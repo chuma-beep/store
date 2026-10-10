@@ -1,0 +1,21 @@
+{
+  "id": "rustup",
+  "name": "rustup",
+  "category": "developer-tools",
+  "github": "rust-lang/rustup",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "rustup"
+    ]
+  },
+  "detect": [
+    "rustup"
+  ],
+  "kind": "terminal",
+  "summary": "The Rust toolchain installer",
+  "icon": null,
+  "open": "rustup",
+  "cli": true
+}

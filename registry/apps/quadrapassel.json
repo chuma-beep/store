@@ -1,0 +1,18 @@
+{
+  "id": "quadrapassel",
+  "name": "Quadrapassel",
+  "category": "games",
+  "flathub": "org.gnome.Quadrapassel",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "quadrapassel"
+    ]
+  },
+  "detect": [
+    "quadrapassel"
+  ],
+  "kind": "gui",
+  "developer": "The Quadrapassel developers",
+  "github": null
+}

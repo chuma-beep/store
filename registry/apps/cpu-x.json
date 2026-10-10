@@ -1,0 +1,18 @@
+{
+  "id": "cpu-x",
+  "name": "CPU-X",
+  "category": "utilities",
+  "flathub": "io.github.thetumultuousunicornofdarkness.cpu-x",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "cpu-x"
+    ]
+  },
+  "detect": [
+    "cpu-x"
+  ],
+  "kind": "gui",
+  "developer": "The Tumultuous Unicorn Of Darkness",
+  "github": null
+}

@@ -1,0 +1,21 @@
+{
+  "id": "oxipng",
+  "name": "oxipng",
+  "category": "graphics",
+  "github": "oxipng/oxipng",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "oxipng"
+    ]
+  },
+  "detect": [
+    "oxipng"
+  ],
+  "kind": "terminal",
+  "summary": "Multithreaded PNG optimizer written in Rust",
+  "icon": null,
+  "open": "oxipng",
+  "cli": true
+}

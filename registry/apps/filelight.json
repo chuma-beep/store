@@ -1,0 +1,18 @@
+{
+  "id": "filelight",
+  "name": "Filelight",
+  "category": "utilities",
+  "flathub": "org.kde.filelight",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "filelight"
+    ]
+  },
+  "detect": [
+    "filelight"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

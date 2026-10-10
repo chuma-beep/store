@@ -1,0 +1,18 @@
+{
+  "id": "electrum",
+  "name": "Electrum",
+  "category": "utilities",
+  "flathub": "org.electrum.electrum",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "electrum"
+    ]
+  },
+  "detect": [
+    "electrum"
+  ],
+  "kind": "gui",
+  "developer": "The Electrum developers",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "phpstorm",
+  "name": "PhpStorm",
+  "category": "developer-tools",
+  "flathub": "com.jetbrains.PhpStorm",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "phpstorm"
+    ]
+  },
+  "detect": [
+    "phpstorm"
+  ],
+  "kind": "gui",
+  "developer": "JetBrains s.r.o.",
+  "github": null
+}

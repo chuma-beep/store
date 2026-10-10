@@ -1,0 +1,18 @@
+{
+  "id": "thunderbird",
+  "name": "Thunderbird",
+  "category": "communication",
+  "flathub": "org.mozilla.thunderbird",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "thunderbird"
+    ]
+  },
+  "detect": [
+    "thunderbird"
+  ],
+  "kind": "gui",
+  "developer": "MZLA Technologies, part of the Mozilla Foundation",
+  "github": null
+}

@@ -94,6 +94,8 @@ def install_cmd(a):
     i = a["install"]
     if i["method"] == "omarchy":
         return i["command"]
+    if i["method"] == "release":
+        return f"sudo pacman -U {i['url']}"
     return ("omarchy pkg aur add " if i["method"] == "aur" else "omarchy pkg add ") + " ".join(i["packages"])
 
 
@@ -263,6 +265,14 @@ def main():
                          '<h1 class="page-title">Categories</h1><ul>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>"),
         "/legal/": ("Disclaimer | Omarchy Store", "Omarchy Store lists third-party software provided as-is, without warranty. Read the full disclaimer.",
                     '<h1 class="page-title">Disclaimer</h1>'),
+        "/usb/": ("Omarchy USB Maker – Make an Omarchy Installer USB in One Click | Omarchy Store",
+                  "Create a bootable Omarchy USB installer in one click. Always downloads the latest official Omarchy ISO, verifies it, and writes your USB stick. Rufus and balenaEtcher steps for Windows and Mac.",
+                  '<h1 class="page-title">Omarchy USB Maker</h1>'
+                  '<p>Make an Omarchy installer USB stick in one click with the Omarchy Store desktop app: it downloads the newest official '
+                  'Omarchy ISO from iso.omarchy.org, checks its SHA-256, and writes it to your USB drive.</p>'
+                  + (f'<p><a href="{e(cat.get("omarchy_iso", {}).get("url", ""))}">Download Omarchy {e(cat.get("omarchy_iso", {}).get("version", ""))}</a></p>' if cat.get("omarchy_iso") else "")
+                  + '<h2>On Windows or Mac</h2><ol><li>Download the latest Omarchy ISO.</li><li>Install Rufus (Windows) or balenaEtcher (Windows and Mac).</li>'
+                  '<li>Choose the ISO, choose your USB stick, and press Start or Flash.</li></ol>'),
         "/get-desktop/": ("Get the Omarchy Store Desktop App | Omarchy Store",
                           "Install the Omarchy Store desktop app for one-click installs on Omarchy Linux.",
                           '<h1 class="page-title">Get the desktop app</h1><pre><code>curl -fsSL https://omarchystore.com/install.sh | bash</code></pre>'),

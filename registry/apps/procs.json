@@ -1,0 +1,21 @@
+{
+  "id": "procs",
+  "name": "procs",
+  "category": "terminal",
+  "github": "dalance/procs",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "procs"
+    ]
+  },
+  "detect": [
+    "procs"
+  ],
+  "kind": "terminal",
+  "summary": "A modern replacement for ps written in Rust",
+  "icon": null,
+  "open": "procs",
+  "cli": true
+}

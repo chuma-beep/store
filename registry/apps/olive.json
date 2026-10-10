@@ -1,0 +1,18 @@
+{
+  "id": "olive",
+  "name": "Olive",
+  "category": "video-audio",
+  "flathub": "org.olivevideoeditor.Olive",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "olive"
+    ]
+  },
+  "detect": [
+    "olive"
+  ],
+  "kind": "gui",
+  "developer": "Olive Team",
+  "github": null
+}

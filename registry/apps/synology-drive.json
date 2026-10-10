@@ -1,0 +1,18 @@
+{
+  "id": "synology-drive",
+  "name": "Synology Drive",
+  "category": "utilities",
+  "flathub": "com.synology.SynologyDrive",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "synology-drive"
+    ]
+  },
+  "detect": [
+    "synology-drive"
+  ],
+  "kind": "gui",
+  "developer": "Synology",
+  "github": null
+}

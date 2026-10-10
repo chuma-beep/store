@@ -1,0 +1,18 @@
+{
+  "id": "opentyrian",
+  "name": "OpenTyrian",
+  "category": "games",
+  "flathub": "com.github.opentyrian.OpenTyrian",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "opentyrian"
+    ]
+  },
+  "detect": [
+    "opentyrian"
+  ],
+  "kind": "gui",
+  "developer": "OpenTyrian team",
+  "github": null
+}

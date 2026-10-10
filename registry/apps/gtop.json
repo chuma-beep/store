@@ -1,0 +1,20 @@
+{
+  "id": "gtop",
+  "name": "gtop",
+  "category": "terminal",
+  "github": "aksakalli/gtop",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gtop"
+    ]
+  },
+  "detect": [
+    "gtop"
+  ],
+  "kind": "terminal",
+  "summary": "System monitoring dashboard for terminal",
+  "icon": null,
+  "open": "gtop"
+}

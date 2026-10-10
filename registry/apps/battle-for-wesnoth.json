@@ -1,0 +1,18 @@
+{
+  "id": "battle-for-wesnoth",
+  "name": "Battle for Wesnoth",
+  "category": "games",
+  "flathub": "org.wesnoth.Wesnoth",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "wesnoth"
+    ]
+  },
+  "detect": [
+    "wesnoth"
+  ],
+  "kind": "gui",
+  "developer": "The Battle for Wesnoth Project",
+  "github": null
+}

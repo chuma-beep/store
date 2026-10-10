@@ -1,0 +1,18 @@
+{
+  "id": "cemu",
+  "name": "Cemu",
+  "category": "games",
+  "flathub": "info.cemu.Cemu",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "cemu-bin"
+    ]
+  },
+  "detect": [
+    "cemu-bin"
+  ],
+  "kind": "gui",
+  "developer": "Cemu Project",
+  "github": null
+}

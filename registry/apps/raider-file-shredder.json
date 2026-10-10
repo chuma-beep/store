@@ -1,0 +1,18 @@
+{
+  "id": "raider-file-shredder",
+  "name": "Raider File Shredder",
+  "category": "security",
+  "flathub": "com.github.ADBeveridge.Raider",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "raider"
+    ]
+  },
+  "detect": [
+    "raider"
+  ],
+  "kind": "gui",
+  "developer": "Alan Beveridge",
+  "github": null
+}

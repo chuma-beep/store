@@ -1,0 +1,18 @@
+{
+  "id": "spotube",
+  "name": "Spotube",
+  "category": "video-audio",
+  "flathub": "com.github.KRTirtho.Spotube",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "spotube-bin"
+    ]
+  },
+  "detect": [
+    "spotube-bin"
+  ],
+  "kind": "gui",
+  "developer": "Kingkor Roy Tirtho",
+  "github": null
+}

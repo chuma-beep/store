@@ -1,0 +1,18 @@
+{
+  "id": "marker",
+  "name": "Marker",
+  "category": "utilities",
+  "flathub": "com.github.fabiocolacio.marker",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "marker"
+    ]
+  },
+  "detect": [
+    "marker"
+  ],
+  "kind": "gui",
+  "developer": "Fábio Colácio",
+  "github": null
+}

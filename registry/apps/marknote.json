@@ -1,0 +1,18 @@
+{
+  "id": "marknote",
+  "name": "Marknote",
+  "category": "productivity",
+  "flathub": "org.kde.marknote",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "marknote"
+    ]
+  },
+  "detect": [
+    "marknote"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

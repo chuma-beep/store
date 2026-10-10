@@ -1,0 +1,21 @@
+{
+  "id": "peco",
+  "name": "peco",
+  "category": "terminal",
+  "github": "peco/peco",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "peco"
+    ]
+  },
+  "detect": [
+    "peco"
+  ],
+  "kind": "terminal",
+  "summary": "Simplistic interactive filtering tool",
+  "icon": null,
+  "open": "peco",
+  "cli": true
+}

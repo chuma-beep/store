@@ -1,0 +1,18 @@
+{
+  "id": "guitarix",
+  "name": "guitarix",
+  "category": "video-audio",
+  "flathub": "org.guitarix.Guitarix",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "guitarix"
+    ]
+  },
+  "detect": [
+    "guitarix"
+  ],
+  "kind": "gui",
+  "developer": "Guitarix Developers",
+  "github": null
+}

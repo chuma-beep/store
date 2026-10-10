@@ -1,0 +1,18 @@
+{
+  "id": "switcheroo",
+  "name": "Switcheroo",
+  "category": "graphics",
+  "flathub": "io.gitlab.adhami3310.Converter",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "switcheroo"
+    ]
+  },
+  "detect": [
+    "switcheroo"
+  ],
+  "kind": "gui",
+  "developer": "Khaleel Al-Adhami",
+  "github": null
+}

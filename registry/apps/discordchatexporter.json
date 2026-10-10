@@ -1,0 +1,21 @@
+{
+  "id": "discordchatexporter",
+  "name": "DiscordChatExporter",
+  "category": "communication",
+  "github": "Tyrrrz/DiscordChatExporter",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "discord-chat-exporter-cli"
+    ]
+  },
+  "detect": [
+    "discord-chat-exporter-cli"
+  ],
+  "kind": "terminal",
+  "summary": "Saves Discord chat logs to a file",
+  "icon": null,
+  "open": "discordchatexporter-cli",
+  "cli": true
+}

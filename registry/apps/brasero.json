@@ -1,0 +1,18 @@
+{
+  "id": "brasero",
+  "name": "Brasero",
+  "category": "video-audio",
+  "flathub": "org.gnome.Brasero",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "brasero"
+    ]
+  },
+  "detect": [
+    "brasero"
+  ],
+  "kind": "gui",
+  "developer": "The Brasero developers",
+  "github": null
+}

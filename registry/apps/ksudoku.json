@@ -1,0 +1,18 @@
+{
+  "id": "ksudoku",
+  "name": "KSudoku",
+  "category": "games",
+  "flathub": "org.kde.ksudoku",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ksudoku"
+    ]
+  },
+  "detect": [
+    "ksudoku"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

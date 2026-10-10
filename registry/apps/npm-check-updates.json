@@ -1,0 +1,21 @@
+{
+  "id": "npm-check-updates",
+  "name": "npm-check-updates",
+  "category": "developer-tools",
+  "github": "raineorshine/npm-check-updates",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "npm-check-updates"
+    ]
+  },
+  "detect": [
+    "npm-check-updates"
+  ],
+  "kind": "terminal",
+  "summary": "Find newer versions of package dependencies than what your package.json allows",
+  "icon": null,
+  "open": "npm-check-updates",
+  "cli": true
+}

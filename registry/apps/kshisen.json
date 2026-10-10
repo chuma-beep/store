@@ -1,0 +1,18 @@
+{
+  "id": "kshisen",
+  "name": "KShisen",
+  "category": "games",
+  "flathub": "org.kde.kshisen",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kshisen"
+    ]
+  },
+  "detect": [
+    "kshisen"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

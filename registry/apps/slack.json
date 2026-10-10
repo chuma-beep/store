@@ -1,0 +1,18 @@
+{
+  "id": "slack",
+  "name": "Slack",
+  "category": "communication",
+  "flathub": "com.slack.Slack",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "slack-desktop"
+    ]
+  },
+  "detect": [
+    "slack-desktop"
+  ],
+  "kind": "gui",
+  "developer": "Slack Technologies Inc.",
+  "github": null
+}

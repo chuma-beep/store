@@ -1,0 +1,18 @@
+{
+  "id": "ristretto",
+  "name": "Ristretto",
+  "category": "graphics",
+  "flathub": "org.xfce.ristretto",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ristretto"
+    ]
+  },
+  "detect": [
+    "ristretto"
+  ],
+  "kind": "gui",
+  "developer": "Xfce Developers",
+  "github": null
+}

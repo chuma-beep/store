@@ -1,0 +1,18 @@
+{
+  "id": "kdiff3",
+  "name": "KDiff3",
+  "category": "developer-tools",
+  "flathub": "org.kde.kdiff3",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kdiff3"
+    ]
+  },
+  "detect": [
+    "kdiff3"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

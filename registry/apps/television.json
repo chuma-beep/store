@@ -1,0 +1,20 @@
+{
+  "id": "television",
+  "name": "television",
+  "category": "terminal",
+  "github": "alexpasmantier/television",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "television"
+    ]
+  },
+  "detect": [
+    "television"
+  ],
+  "kind": "terminal",
+  "summary": "A very fast, portable and hackable fuzzy finder.",
+  "icon": null,
+  "open": "tv"
+}

@@ -1,0 +1,18 @@
+{
+  "id": "delfin",
+  "name": "Delfin",
+  "category": "video-audio",
+  "flathub": "cafe.avery.Delfin",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "delfin"
+    ]
+  },
+  "detect": [
+    "delfin"
+  ],
+  "kind": "gui",
+  "developer": "Avery",
+  "github": null
+}

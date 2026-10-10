@@ -1,0 +1,18 @@
+{
+  "id": "gnu-emacs",
+  "name": "GNU Emacs",
+  "category": "developer-tools",
+  "flathub": "org.gnu.emacs",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "emacs"
+    ]
+  },
+  "detect": [
+    "emacs"
+  ],
+  "kind": "gui",
+  "developer": "Free Software Foundation",
+  "github": null
+}

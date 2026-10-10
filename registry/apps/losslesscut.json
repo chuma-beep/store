@@ -1,0 +1,18 @@
+{
+  "id": "losslesscut",
+  "name": "LosslessCut",
+  "category": "video-audio",
+  "github": "mifi/lossless-cut",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "losslesscut-bin"
+    ]
+  },
+  "detect": [
+    "losslesscut-bin"
+  ],
+  "kind": "gui",
+  "summary": "The swiss army knife of lossless video/audio editing"
+}

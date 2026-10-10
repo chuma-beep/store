@@ -1,0 +1,18 @@
+{
+  "id": "kcharselect",
+  "name": "KCharSelect",
+  "category": "utilities",
+  "flathub": "org.kde.kcharselect",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kcharselect"
+    ]
+  },
+  "detect": [
+    "kcharselect"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

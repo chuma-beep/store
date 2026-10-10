@@ -1,0 +1,18 @@
+{
+  "id": "stella",
+  "name": "Stella",
+  "category": "games",
+  "flathub": "io.github.stella_emu.Stella",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "stella"
+    ]
+  },
+  "detect": [
+    "stella"
+  ],
+  "kind": "gui",
+  "developer": "The Stella Team",
+  "github": null
+}

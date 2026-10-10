@@ -1,0 +1,18 @@
+{
+  "id": "ocrfeeder",
+  "name": "OCRFeeder",
+  "category": "productivity",
+  "flathub": "org.gnome.OCRFeeder",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ocrfeeder"
+    ]
+  },
+  "detect": [
+    "ocrfeeder"
+  ],
+  "kind": "gui",
+  "developer": "Joaquim Rocha",
+  "github": null
+}

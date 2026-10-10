@@ -1,0 +1,18 @@
+{
+  "id": "rstudio",
+  "name": "RStudio",
+  "category": "education",
+  "github": "rstudio/rstudio",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "rstudio-desktop"
+    ]
+  },
+  "detect": [
+    "rstudio-desktop"
+  ],
+  "kind": "gui",
+  "summary": "RStudio is an integrated development environment (IDE) for R"
+}

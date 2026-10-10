@@ -1,0 +1,18 @@
+{
+  "id": "ludusavi",
+  "name": "Ludusavi",
+  "category": "utilities",
+  "flathub": "com.github.mtkennerly.ludusavi",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "ludusavi"
+    ]
+  },
+  "detect": [
+    "ludusavi"
+  ],
+  "kind": "gui",
+  "developer": "mtkennerly",
+  "github": null
+}

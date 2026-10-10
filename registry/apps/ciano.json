@@ -1,0 +1,18 @@
+{
+  "id": "ciano",
+  "name": "Ciano",
+  "category": "video-audio",
+  "flathub": "com.github.robertsanseries.ciano",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ciano"
+    ]
+  },
+  "detect": [
+    "ciano"
+  ],
+  "kind": "gui",
+  "developer": "Robert San",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "hedgewars",
+  "name": "Hedgewars",
+  "category": "games",
+  "flathub": "org.hedgewars.Hedgewars",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "hedgewars"
+    ]
+  },
+  "detect": [
+    "hedgewars"
+  ],
+  "kind": "gui",
+  "developer": "Hedgewars Project",
+  "github": null
+}

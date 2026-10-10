@@ -1,0 +1,21 @@
+{
+  "id": "sshx",
+  "name": "sshx",
+  "category": "terminal",
+  "github": "ekzhang/sshx",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "sshx"
+    ]
+  },
+  "detect": [
+    "sshx"
+  ],
+  "kind": "terminal",
+  "summary": "Fast, collaborative live terminal sharing over the web",
+  "icon": null,
+  "open": "sshx",
+  "cli": true
+}

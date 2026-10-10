@@ -1,0 +1,21 @@
+{
+  "id": "wrangler",
+  "name": "Wrangler",
+  "category": "developer-tools",
+  "github": "cloudflare/workers-sdk",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "wrangler"
+    ]
+  },
+  "detect": [
+    "wrangler"
+  ],
+  "kind": "terminal",
+  "summary": "Home to Wrangler, the CLI for Cloudflare Workers®",
+  "icon": null,
+  "open": "wrangler",
+  "cli": true
+}

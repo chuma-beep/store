@@ -1,0 +1,20 @@
+{
+  "id": "gitlogue",
+  "name": "gitlogue",
+  "category": "developer-tools",
+  "github": "unhappychoice/gitlogue",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gitlogue"
+    ]
+  },
+  "detect": [
+    "gitlogue"
+  ],
+  "kind": "terminal",
+  "summary": "A cinematic Git commit replay tool for the terminal, turning your Git history into a living, animated story.",
+  "icon": null,
+  "open": "gitlogue"
+}

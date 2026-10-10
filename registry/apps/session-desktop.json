@@ -1,0 +1,18 @@
+{
+  "id": "session-desktop",
+  "name": "Session Desktop",
+  "category": "communication",
+  "flathub": "network.loki.Session",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "session-desktop-bin"
+    ]
+  },
+  "detect": [
+    "session-desktop-bin"
+  ],
+  "kind": "gui",
+  "developer": "Session Technology Foundation",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "veloren",
+  "name": "Veloren",
+  "category": "games",
+  "flathub": "net.veloren.veloren",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "veloren"
+    ]
+  },
+  "detect": [
+    "veloren"
+  ],
+  "kind": "gui",
+  "developer": "The Veloren Community",
+  "github": null
+}

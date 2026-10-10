@@ -1,0 +1,18 @@
+{
+  "id": "texmaker",
+  "name": "Texmaker",
+  "category": "productivity",
+  "flathub": "net.xm1math.Texmaker",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "texmaker"
+    ]
+  },
+  "detect": [
+    "texmaker"
+  ],
+  "kind": "gui",
+  "developer": "Pascal Brachet",
+  "github": null
+}

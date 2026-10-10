@@ -1,0 +1,18 @@
+{
+  "id": "noisetorch",
+  "name": "NoiseTorch",
+  "category": "video-audio",
+  "github": "noisetorch/NoiseTorch",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "noisetorch"
+    ]
+  },
+  "detect": [
+    "noisetorch"
+  ],
+  "kind": "gui",
+  "summary": "Real-time microphone noise suppression on Linux."
+}

@@ -1,0 +1,18 @@
+{
+  "id": "goland",
+  "name": "GoLand",
+  "category": "developer-tools",
+  "flathub": "com.jetbrains.GoLand",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "goland"
+    ]
+  },
+  "detect": [
+    "goland"
+  ],
+  "kind": "gui",
+  "developer": "JetBrains s.r.o.",
+  "github": null
+}

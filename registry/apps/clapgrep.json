@@ -1,0 +1,18 @@
+{
+  "id": "clapgrep",
+  "name": "Clapgrep",
+  "category": "utilities",
+  "github": "luleyleo/clapgrep",
+  "flathub": "de.leopoldluley.Clapgrep",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "clapgrep"
+    ]
+  },
+  "detect": [
+    "clapgrep"
+  ],
+  "kind": "gui",
+  "developer": "Leopold Luley"
+}

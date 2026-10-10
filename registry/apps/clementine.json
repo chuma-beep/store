@@ -1,0 +1,18 @@
+{
+  "id": "clementine",
+  "name": "Clementine",
+  "category": "video-audio",
+  "github": "clementine-player/Clementine",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "clementine"
+    ]
+  },
+  "detect": [
+    "clementine"
+  ],
+  "kind": "gui",
+  "summary": ":tangerine: Clementine Music Player"
+}

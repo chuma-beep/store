@@ -1,0 +1,18 @@
+{
+  "id": "keeweb",
+  "name": "KeeWeb",
+  "category": "security",
+  "github": "keeweb/keeweb",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "keeweb-desktop-bin"
+    ]
+  },
+  "detect": [
+    "keeweb-desktop-bin"
+  ],
+  "kind": "gui",
+  "summary": "Free cross-platform password manager compatible with KeePass"
+}

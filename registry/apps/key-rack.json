@@ -1,0 +1,18 @@
+{
+  "id": "key-rack",
+  "name": "Key Rack",
+  "category": "security",
+  "flathub": "app.drey.KeyRack",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "key-rack"
+    ]
+  },
+  "detect": [
+    "key-rack"
+  ],
+  "kind": "gui",
+  "developer": "Felix Häcker, Sophie Herold",
+  "github": null
+}

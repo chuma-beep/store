@@ -1,0 +1,18 @@
+{
+  "id": "geeqie",
+  "name": "Geeqie",
+  "category": "graphics",
+  "flathub": "org.geeqie.Geeqie",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "geeqie"
+    ]
+  },
+  "detect": [
+    "geeqie"
+  ],
+  "kind": "gui",
+  "developer": "Geeqie developers",
+  "github": null
+}

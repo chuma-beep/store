@@ -1,0 +1,18 @@
+{
+  "id": "gitg",
+  "name": "gitg",
+  "category": "developer-tools",
+  "flathub": "org.gnome.gitg",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gitg"
+    ]
+  },
+  "detect": [
+    "gitg"
+  ],
+  "kind": "gui",
+  "developer": "The Gitg Team",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "zoom",
+  "name": "Zoom",
+  "category": "communication",
+  "flathub": "us.zoom.Zoom",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "zoom"
+    ]
+  },
+  "detect": [
+    "zoom"
+  ],
+  "kind": "gui",
+  "developer": "zoom.us",
+  "github": null
+}

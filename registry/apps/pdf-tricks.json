@@ -1,0 +1,18 @@
+{
+  "id": "pdf-tricks",
+  "name": "PDF Tricks",
+  "category": "productivity",
+  "flathub": "com.github.muriloventuroso.pdftricks",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "pdftricks"
+    ]
+  },
+  "detect": [
+    "pdftricks"
+  ],
+  "kind": "gui",
+  "developer": "Murilo Venturoso",
+  "github": null
+}

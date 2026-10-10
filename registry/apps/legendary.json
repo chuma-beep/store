@@ -1,0 +1,21 @@
+{
+  "id": "legendary",
+  "name": "Legendary",
+  "category": "games",
+  "github": "legendary-gl/legendary",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "legendary"
+    ]
+  },
+  "detect": [
+    "legendary"
+  ],
+  "kind": "terminal",
+  "summary": "Legendary - A free and open-source replacement for the Epic Games Launcher",
+  "icon": null,
+  "open": "legendary",
+  "cli": true
+}

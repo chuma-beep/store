@@ -1,0 +1,21 @@
+{
+  "id": "mcfly",
+  "name": "McFly",
+  "category": "terminal",
+  "github": "cantino/mcfly",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mcfly"
+    ]
+  },
+  "detect": [
+    "mcfly"
+  ],
+  "kind": "terminal",
+  "summary": "Fly through your shell history. Great Scott!",
+  "icon": null,
+  "open": "mcfly",
+  "cli": true
+}

@@ -1,0 +1,18 @@
+{
+  "id": "viber",
+  "name": "Viber",
+  "category": "communication",
+  "flathub": "com.viber.Viber",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "viber"
+    ]
+  },
+  "detect": [
+    "viber"
+  ],
+  "kind": "gui",
+  "developer": "Viber",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "scratch",
+  "name": "Scratch",
+  "category": "developer-tools",
+  "flathub": "edu.mit.Scratch",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "scratch"
+    ]
+  },
+  "detect": [
+    "scratch"
+  ],
+  "kind": "gui",
+  "developer": "Lifelong Kindergarten Group at the MIT Media Lab",
+  "github": null
+}

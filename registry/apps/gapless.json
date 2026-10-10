@@ -1,0 +1,18 @@
+{
+  "id": "gapless",
+  "name": "Gapless",
+  "category": "video-audio",
+  "flathub": "com.github.neithern.g4music",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "gapless"
+    ]
+  },
+  "detect": [
+    "gapless"
+  ],
+  "kind": "gui",
+  "developer": "Nanling",
+  "github": null
+}

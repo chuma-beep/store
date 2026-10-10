@@ -2,116 +2,167 @@
 <html><head><meta charset="utf-8">
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 1600px; height: 1000px; overflow: hidden; font-family: Inter, "Segoe UI", Helvetica, Arial, sans-serif; }
-  .stage { position: relative; width: 1600px; height: 1000px; overflow: hidden;
-    background:
-      radial-gradient(1200px 700px at 15% 10%, #5b46b0 0%, transparent 60%),
-      radial-gradient(1000px 800px at 90% 95%, #1aa0c8 0%, transparent 55%),
-      radial-gradient(900px 600px at 70% 20%, #2f47b8 0%, transparent 60%),
-      linear-gradient(135deg, #1b1640, #0f1b3d 55%, #0b2a3e); }
-  .grain { position: absolute; inset: 0; opacity: .06; background-image: radial-gradient(#fff 1px, transparent 1px); background-size: 3px 3px; }
-  .bar { position: absolute; top: 0; left: 0; right: 0; height: 30px; background: rgba(10,12,28,.55); backdrop-filter: blur(12px); display: flex; align-items: center; padding: 0 18px; gap: 14px; color: rgba(255,255,255,.75); font-size: 13px; }
-  .bar .ws { display: flex; gap: 8px; } .bar .ws i { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.35); } .bar .ws i.on { background: #4fe0c0; width: 18px; border-radius: 4px; }
-  .bar .clock { margin-left: auto; font-weight: 600; letter-spacing: .02em; }
+  body { width: 1920px; height: 1080px; overflow: hidden; font-family: "Adwaita Sans", "Noto Sans", "Liberation Sans", sans-serif; -webkit-font-smoothing: antialiased; }
+  .desk { position: relative; width: 1920px; height: 1080px; overflow: hidden; background: #0a0820 url(wall-hd.png) center/cover; }
+  .desk::after { content: ""; position: absolute; inset: 0; background: radial-gradient(1400px 900px at 50% 40%, transparent 40%, rgba(5,4,20,.45)); pointer-events: none; }
 
-  .win { position: absolute; border-radius: 12px; overflow: hidden; background: rgba(22,24,44,.92); box-shadow: 0 30px 60px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.08); }
-  .win.active { box-shadow: 0 30px 60px rgba(0,0,0,.45), 0 0 0 2px #4fe0c0; }
-  .tb { height: 34px; display: flex; align-items: center; padding: 0 10px 0 14px; background: rgba(255,255,255,.05); border-bottom: 1px solid rgba(255,255,255,.06); color: rgba(255,255,255,.85); font-size: 13px; font-weight: 600; }
-  .tb .btns { margin-left: auto; display: flex; gap: 6px; }
-  .tb .btns b { width: 26px; height: 22px; border-radius: 6px; display: grid; place-items: center; font-weight: 500; font-size: 13px; color: rgba(255,255,255,.75); background: rgba(255,255,255,.06); }
-  .tb .btns b.x:hover, .tb .btns b.x { background: rgba(255,90,120,.18); color: #ff8fa5; }
-  .tb .btns b.snap { background: rgba(79,224,192,.18); color: #4fe0c0; }
-  .body { padding: 18px; }
-  .line { height: 10px; border-radius: 5px; background: rgba(255,255,255,.10); margin: 10px 0; }
-  .line.c1 { background: rgba(122,162,247,.55); } .line.c2 { background: rgba(187,154,247,.5); } .line.c3 { background: rgba(79,224,192,.5); } .line.c4 { background: rgba(255,158,100,.5); }
-  .card { border-radius: 10px; background: rgba(255,255,255,.06); padding: 14px; margin-bottom: 12px; }
-  .chart { display: flex; align-items: flex-end; gap: 10px; height: 150px; padding: 10px 6px 0; }
-  .chart i { flex: 1; border-radius: 6px 6px 2px 2px; background: linear-gradient(180deg, #4fe0c0, #1aa0c8); }
-  .photo { height: 100%; border-radius: 10px; background: linear-gradient(160deg, #ff9e64 0%, #f7768e 35%, #7a5cc7 70%, #2f47b8 100%); position: relative; overflow: hidden; }
-  .photo::after { content: ""; position: absolute; left: -10%; right: -10%; bottom: -30%; height: 70%; border-radius: 50%; background: rgba(10,14,40,.55); }
+  /* Omarchy-style top bar */
+  .bar { position: absolute; left: 0; right: 0; top: 0; height: 34px; z-index: 5; display: flex; align-items: center; gap: 16px; padding: 0 18px;
+    background: rgba(12,10,30,.55); backdrop-filter: blur(18px); color: rgba(255,255,255,.8); font: 600 14px "JetBrainsMono NF", ui-monospace, monospace; }
+  .bar .ws { display: flex; gap: 12px; } .bar .ws span { opacity: .45; } .bar .ws span.on { opacity: 1; color: #7dd3fc; }
+  .bar .mid { position: absolute; left: 50%; transform: translateX(-50%); }
+  .bar .right { margin-left: auto; display: flex; gap: 18px; opacity: .85; }
 
-  .dock { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; gap: 14px; padding: 12px 16px; border-radius: 22px;
-    background: rgba(255,255,255,.14); backdrop-filter: blur(22px) saturate(160%); box-shadow: 0 20px 50px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.25), 0 0 0 1px rgba(255,255,255,.14); }
-  .dock .app { width: 58px; height: 58px; border-radius: 15px; position: relative; box-shadow: 0 6px 14px rgba(0,0,0,.25); }
-  .dock .app.run::after { content: ""; position: absolute; left: 50%; bottom: -9px; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: rgba(255,255,255,.85); }
-  .dock .sep { width: 1px; background: rgba(255,255,255,.25); margin: 6px 2px; }
-  .dock .cam { background: rgba(255,255,255,.18); display: grid; place-items: center; }
-  .dock .cam svg { width: 30px; height: 30px; }
-  .g1 { background: linear-gradient(135deg, #7aa2f7, #3d59a1); } .g2 { background: linear-gradient(135deg, #bb9af7, #7a5cc7); }
-  .g3 { background: linear-gradient(135deg, #9ece6a, #4f8a2b); } .g4 { background: linear-gradient(135deg, #ff9e64, #e0603a); }
-  .g5 { background: linear-gradient(135deg, #f7768e, #b8304d); } .g6 { background: linear-gradient(135deg, #2ac3de, #1a7fa0); }
-  .g7 { background: linear-gradient(135deg, #e0af68, #b07a2a); }
-  .tag { position: absolute; display: inline-flex; align-items: center; gap: 8px; padding: 9px 14px; border-radius: 999px; font-size: 15px; font-weight: 700; color: #0b1a2e; background: #4fe0c0; box-shadow: 0 12px 30px rgba(0,0,0,.35); }
-  .tag.w { background: #fff; }
+  /* windows */
+  .win { position: absolute; border-radius: 14px; overflow: hidden; background: rgba(16,16,30,.94);
+    box-shadow: 0 40px 90px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.09); }
+  .win.focus { box-shadow: 0 40px 90px rgba(0,0,0,.55), 0 0 0 2px rgba(125,211,252,.9); }
+  .tb { height: 38px; display: flex; align-items: center; gap: 10px; padding: 0 10px 0 16px; background: rgba(255,255,255,.04); border-bottom: 1px solid rgba(255,255,255,.06); color: rgba(255,255,255,.88); font-size: 14px; font-weight: 600; }
+  .tb img { width: 18px; height: 18px; border-radius: 4px; }
+  .tb .b { margin-left: auto; display: flex; gap: 6px; }
+  .tb .b i { width: 30px; height: 24px; border-radius: 7px; display: grid; place-items: center; font-style: normal; font-size: 13px; color: rgba(255,255,255,.7); background: rgba(255,255,255,.06); }
+  .tb .b i.snap { color: #7dd3fc; background: rgba(125,211,252,.16); }
+  .tb .b i.x { color: #ff8fa5; background: rgba(255,90,120,.14); }
 
-  /* layouts grid */
-  .layouts { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -54%); display: grid; grid-template-columns: repeat(3, 360px); gap: 34px; }
-  .lay { border-radius: 22px; padding: 22px; background: rgba(255,255,255,.08); box-shadow: inset 0 0 0 1px rgba(255,255,255,.12); backdrop-filter: blur(10px); }
-  .lay .scr { height: 190px; border-radius: 12px; background: rgba(10,14,34,.55); position: relative; padding: 10px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
-  .lay .scr i { position: absolute; border-radius: 8px; background: rgba(255,255,255,.18); box-shadow: inset 0 0 0 1px rgba(255,255,255,.15); }
-  .lay .scr i.hl { background: linear-gradient(135deg, #4fe0c0, #1aa0c8); box-shadow: 0 8px 24px rgba(79,224,192,.35); }
-  .lay h4 { color: #fff; font-size: 22px; margin-top: 16px; font-weight: 700; }
-  .lay p { color: rgba(255,255,255,.65); font-size: 15px; margin-top: 4px; }
-  .keys { position: absolute; left: 50%; bottom: 60px; transform: translateX(-50%); display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.75); font-size: 18px; font-weight: 600; }
-  kbd { display: inline-grid; place-items: center; min-width: 52px; height: 46px; padding: 0 14px; border-radius: 10px; color: #fff; font: 700 17px Inter, sans-serif; background: linear-gradient(180deg, rgba(255,255,255,.22), rgba(255,255,255,.10)); box-shadow: 0 4px 0 rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.35); }
+  /* editor */
+  .code { padding: 16px 0; font: 15px/1.75 "JetBrainsMono NF", ui-monospace, monospace; color: #c0caf5; }
+  .code div { padding-left: 64px; position: relative; white-space: pre; }
+  .code div::before { content: attr(data-n); position: absolute; left: 0; width: 44px; text-align: right; color: #3b4261; }
+  .code div.cur { background: rgba(125,211,252,.07); }
+  .k { color: #bb9af7; } .s { color: #9ece6a; } .f { color: #7aa2f7; } .c { color: #565f89; font-style: italic; } .n { color: #ff9e64; } .t { color: #2ac3de; }
+  .tabs { display: flex; gap: 2px; padding: 8px 10px 0; background: rgba(0,0,0,.2); }
+  .tabs span { padding: 8px 14px; border-radius: 8px 8px 0 0; font-size: 13px; color: rgba(255,255,255,.55); }
+  .tabs span.on { background: rgba(16,16,30,.94); color: #fff; }
+
+  /* browser */
+  .url { margin: 10px 14px; height: 34px; border-radius: 10px; background: rgba(255,255,255,.07); display: flex; align-items: center; padding: 0 14px; gap: 10px; font-size: 14px; color: rgba(255,255,255,.75); }
+  .url b { color: #9ece6a; font-weight: 600; }
+  .site { margin: 0 14px; border-radius: 12px; overflow: hidden; height: calc(100% - 100px); background: linear-gradient(160deg, #1d1b3a, #10223a); position: relative; }
+  .site .hero { position: absolute; left: 28px; top: 28px; right: 28px; height: 190px; border-radius: 16px; background: linear-gradient(120deg, #2a1f6b, #2f47b8 60%, #1aa0c8); padding: 26px; color: #fff; }
+  .site .hero h3 { font-size: 30px; letter-spacing: -.02em; max-width: 380px; line-height: 1.1; }
+  .site .hero .pill { display: inline-block; margin-top: 18px; padding: 8px 18px; border-radius: 999px; background: #fff; color: #10223a; font-weight: 800; font-size: 13px; }
+  .site .row { position: absolute; left: 28px; right: 28px; top: 242px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .site .row div { height: 120px; border-radius: 14px; background: rgba(255,255,255,.06); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; font-size: 13px; color: rgba(255,255,255,.8); }
+  .site .row img { width: 54px; height: 54px; border-radius: 13px; }
+
+  /* music */
+  .music { display: flex; gap: 20px; padding: 22px; align-items: center; height: calc(100% - 38px); }
+  .art { width: 210px; height: 210px; border-radius: 14px; flex: none; background: radial-gradient(120px 120px at 30% 30%, #ffb86b, transparent), radial-gradient(160px 160px at 80% 70%, #c13fd8, transparent), linear-gradient(135deg, #ff5f7a, #6b2bd9); box-shadow: 0 20px 40px rgba(0,0,0,.45); }
+  .meta h4 { color: #fff; font-size: 24px; letter-spacing: -.01em; } .meta p { color: rgba(255,255,255,.6); margin-top: 4px; font-size: 15px; }
+  .prog { margin-top: 26px; height: 5px; border-radius: 3px; background: rgba(255,255,255,.15); width: 340px; } .prog i { display: block; height: 100%; width: 42%; border-radius: 3px; background: #1ed760; }
+  .ctrl { display: flex; gap: 22px; margin-top: 22px; align-items: center; color: #fff; font-size: 20px; } .ctrl b { width: 54px; height: 54px; border-radius: 50%; background: #fff; color: #000; display: grid; place-items: center; font-size: 20px; }
+
+  /* snap picker popover */
+  .pick { position: absolute; z-index: 6; padding: 14px; border-radius: 18px; background: rgba(30,32,58,.82); backdrop-filter: blur(24px) saturate(160%);
+    box-shadow: 0 30px 70px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.14); display: grid; grid-template-columns: repeat(3, 104px); gap: 10px; }
+  .pick .l { height: 66px; border-radius: 9px; background: rgba(0,0,0,.25); position: relative; box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+  .pick .l i { position: absolute; border-radius: 5px; background: rgba(255,255,255,.22); }
+  .pick .l i.h { background: linear-gradient(135deg, #7dd3fc, #818cf8); box-shadow: 0 0 14px rgba(125,211,252,.6); }
+  .pick .cap { grid-column: 1 / -1; color: rgba(255,255,255,.7); font-size: 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 0 2px 2px; }
+
+  /* dock */
+  .dock { position: absolute; z-index: 5; left: 50%; bottom: 22px; transform: translateX(-50%); display: flex; align-items: flex-end; gap: 12px; padding: 12px 14px; border-radius: 26px;
+    background: rgba(255,255,255,.13); backdrop-filter: blur(26px) saturate(170%);
+    box-shadow: 0 24px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.3), 0 0 0 1px rgba(255,255,255,.16); }
+  .dock .a { position: relative; width: 64px; height: 64px; } .dock .a img { width: 100%; height: 100%; border-radius: 16px; display: block; filter: drop-shadow(0 6px 10px rgba(0,0,0,.35)); }
+  .dock .a.on::after { content: ""; position: absolute; left: 50%; bottom: -8px; width: 6px; height: 6px; margin-left: -3px; border-radius: 50%; background: #fff; }
+  .dock .a.big { width: 78px; height: 78px; }
+  .dock .sep { width: 1px; height: 54px; align-self: center; background: rgba(255,255,255,.25); margin: 0 2px; }
+  .dock .cam { display: grid; place-items: center; border-radius: 16px; background: rgba(255,255,255,.16); }
+  .dock .cam svg { width: 32px; height: 32px; }
+  .tip { position: absolute; z-index: 6; padding: 7px 12px; border-radius: 9px; background: rgba(20,20,40,.85); color: #fff; font-size: 13px; font-weight: 600; backdrop-filter: blur(10px); box-shadow: 0 8px 20px rgba(0,0,0,.35); }
+
+  /* marketing overlays */
+  .head { position: absolute; z-index: 7; left: 0; right: 0; text-align: center; color: #fff; text-shadow: 0 4px 30px rgba(0,0,0,.45); }
+  .head h1 { font: 800 76px/1.02 "Adwaita Sans", sans-serif; letter-spacing: -3px; }
+  .head p { font: 500 28px "Adwaita Sans", sans-serif; color: rgba(255,255,255,.82); margin-top: 16px; }
+  kbd { display: inline-grid; place-items: center; min-width: 58px; height: 52px; padding: 0 16px; margin: 0 4px; border-radius: 12px; color: #fff; font: 700 19px "Adwaita Sans", sans-serif;
+    background: linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.10)); backdrop-filter: blur(12px); box-shadow: 0 5px 0 rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.4); }
 </style></head>
 <body>
-<div class="stage" id="stage"><div class="grain"></div></div>
+<div class="desk" id="d"></div>
 <script>
-const scene = new URLSearchParams(location.search).get("s") || "hero";
-const st = document.getElementById("stage");
-const camera = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>';
-const dock = (big) => `<div class="dock" style="${big ? 'transform:translateX(-50%) scale(1.9);bottom:300px' : ''}">
-  <div class="app g1 run"></div><div class="app g2 run"></div><div class="app g3"></div><div class="app g4 run"></div>
-  <div class="app g5"></div><div class="app g6"></div><div class="app g7"></div><div class="sep"></div><div class="app cam">${camera}</div></div>`;
-const tb = (name, active) => `<div class="tb">${name}<div class="btns"><b class="snap">⊞</b><b>□</b><b class="x">✕</b></div></div>`;
-const bar = `<div class="bar"><div class="ws"><i class="on"></i><i></i><i></i><i></i></div><span>Omarchy</span><span class="clock">Sat 9:41</span></div>`;
+const s = new URLSearchParams(location.search).get("s") || "hero";
+const d = document.getElementById("d");
+const cam = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/></svg>';
+const apps = ["firefox", "vscode", "spotify", "obsidian", "discord", "krita", "steam", "localsend"];
+const running = { firefox: 1, vscode: 1, spotify: 1 };
+const dock = (big) => `<div class="dock" ${big ? 'style="transform:translateX(-50%) scale(1.55);bottom:120px"' : ""}>
+  ${apps.map((a) => `<div class="a ${running[a] ? "on" : ""}"><img src="icon-${a}.png"></div>`).join("")}
+  <div class="sep"></div><div class="a cam">${cam}</div><div class="a"><img src="sd-icon.png"></div></div>`;
+const tb = (icon, name) => `<div class="tb"><img src="icon-${icon}.png">${name}<div class="b"><i class="snap">⊞</i><i>□</i><i class="x">✕</i></div></div>`;
+const bar = `<div class="bar"><div class="ws"><span class="on">1</span><span>2</span><span>3</span><span>4</span></div><div class="mid">Saturday 9:41</div><div class="right"><span>󰂯</span><span>󰖩</span><span>󰁹 100%</span></div></div>`;
+const code = [
+  ['<span class="c">// snapdock — arrange any window in one keystroke</span>'],
+  ['<span class="k">import</span> { snap, layouts } <span class="k">from</span> <span class="s">"snapdock"</span>;'],
+  [''],
+  ['<span class="k">const</span> <span class="t">workspace</span> = {'],
+  ['  editor:  layouts.<span class="f">leftHalf</span>,'],
+  ['  browser: layouts.<span class="f">topRight</span>,'],
+  ['  music:   layouts.<span class="f">bottomRight</span>,'],
+  ['};'],
+  [''],
+  ['<span class="k">for</span> (<span class="k">const</span> [app, layout] <span class="k">of</span> Object.<span class="f">entries</span>(workspace)) {'],
+  ['  <span class="k">await</span> <span class="f">snap</span>(app, layout, { animate: <span class="n">true</span> });', 1],
+  ['}'],
+  [''],
+  ['<span class="c">// dock: frosted glass, follows your theme</span>'],
+  ['dock.<span class="f">set</span>({ blur: <span class="n">24</span>, opacity: <span class="n">0.72</span>, tint: <span class="s">"theme"</span> });'],
+  [''],
+  ['<span class="c">// one-click screenshots</span>'],
+  ['keys.<span class="f">bind</span>(<span class="s">"Shift+Print"</span>, () => <span class="f">screenshot</span>({ copy: <span class="n">true</span> }));'],
+];
+const editor = (x, y, w, h, focus) => `<div class="win ${focus ? "focus" : ""}" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px">${tb("vscode", "workspace.ts — Code")}
+  <div class="tabs"><span class="on">workspace.ts</span><span>dock.ts</span><span>keys.ts</span></div>
+  <div class="code">${code.map(([l, c], i) => `<div data-n="${i + 1}" class="${c ? "cur" : ""}">${l || " "}</div>`).join("")}</div></div>`;
+const browser = (x, y, w, h) => `<div class="win" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px">${tb("firefox", "Omarchy Store — Firefox")}
+  <div class="url"><b>🔒</b> omarchystore.com</div>
+  <div class="site"><div class="hero"><h3>Your desktop, finally familiar.</h3><span class="pill">GET SNAPDOCK</span></div>
+  <div class="row">${["obsidian", "krita", "discord", "steam"].map((a) => `<div><img src="icon-${a}.png">${a[0].toUpperCase() + a.slice(1)}</div>`).join("")}</div></div></div>`;
+const music = (x, y, w, h) => `<div class="win" style="left:${x}px;top:${y}px;width:${w}px;height:${h}px">${tb("spotify", "Spotify")}
+  <div class="music"><div class="art"></div><div class="meta"><h4>Midnight Drive</h4><p>Neon Coast · Afterglow</p><div class="prog"><i></i></div><div class="ctrl">⏮<b>⏸</b>⏭</div></div></div></div>`;
 
-if (scene === "hero") {
-  st.insertAdjacentHTML("beforeend", bar + `
-  <div class="win active" style="left:24px;top:44px;width:768px;height:820px">${tb("Editor")}
-    <div class="body"><div class="line c1" style="width:40%"></div><div class="line" style="width:78%"></div><div class="line" style="width:64%"></div>
-    <div class="line c2" style="width:52%"></div><div class="line" style="width:86%"></div><div class="line" style="width:70%"></div><div class="line c3" style="width:34%"></div>
-    <div class="line" style="width:80%"></div><div class="line" style="width:58%"></div><div class="line c4" style="width:46%"></div><div class="line" style="width:72%"></div>
-    <div class="line" style="width:66%"></div><div class="line c1" style="width:30%"></div><div class="line" style="width:84%"></div><div class="line" style="width:62%"></div>
-    <div class="line c2" style="width:56%"></div><div class="line" style="width:76%"></div><div class="line" style="width:44%"></div><div class="line" style="width:68%"></div></div></div>
-  <div class="win" style="left:808px;top:44px;width:768px;height:402px">${tb("Dashboard")}
-    <div class="body"><div class="card"><div class="chart"><i style="height:40%"></i><i style="height:65%"></i><i style="height:52%"></i><i style="height:80%"></i><i style="height:60%"></i><i style="height:92%"></i><i style="height:74%"></i><i style="height:86%"></i></div></div>
-    <div class="line" style="width:60%"></div><div class="line" style="width:40%"></div></div></div>
-  <div class="win" style="left:808px;top:462px;width:768px;height:402px">${tb("Photos")}
-    <div class="body" style="height:calc(100% - 34px)"><div class="photo"></div></div></div>
-  ${dock(false)}
-  <span class="tag" style="left:640px;top:400px">⊞ Snapped left</span>`);
-} else if (scene === "dock") {
-  st.insertAdjacentHTML("beforeend", bar + `
-  <div style="position:absolute;left:0;right:0;top:150px;text-align:center;color:#fff">
-    <div style="font:800 64px Inter,sans-serif;letter-spacing:-2px">A dock made of glass.</div>
-    <div style="font:500 26px Inter,sans-serif;color:rgba(255,255,255,.7);margin-top:14px">Follows your theme. Pick any colour and how see-through it is.</div></div>
-  ${dock(true)}
-  <div style="position:absolute;left:50%;bottom:110px;transform:translateX(-50%);display:flex;gap:16px">
-    ${["#7aa2f7","#bb9af7","#4fe0c0","#ff9e64","#f7768e","#ffffff"].map((c,i)=>`<i style="width:44px;height:44px;border-radius:50%;background:${c};box-shadow:0 0 0 ${i==2?4:2}px rgba(255,255,255,${i==2?.95:.3})"></i>`).join("")}
-  </div>`);
-} else if (scene === "layouts") {
-  const L = [
-    ["Halves", "Left or right half", [[2,2,47,96,1],[51,2,47,96]]],
-    ["Quarters", "Any corner", [[2,2,47,47,1],[51,2,47,47],[2,51,47,47],[51,51,47,47]]],
-    ["Thirds", "Three side by side", [[2,2,31,96],[35,2,31,96,1],[68,2,30,96]]],
-    ["Two-thirds", "Big + small", [[2,2,64,96,1],[68,2,30,96]]],
-    ["Fill", "Whole screen", [[2,2,96,96,1]]],
-    ["Centre", "Floating, centred", [[18,14,64,72,1]]],
-  ];
-  st.insertAdjacentHTML("beforeend", bar + `<div class="layouts">${L.map(([t,d,r])=>`<div class="lay"><div class="scr">${r.map(([x,y,w,h,hl])=>`<i class="${hl?'hl':''}" style="left:calc(${x}% + 2px);top:calc(${y}% + 2px);width:calc(${w}% - 4px);height:calc(${h}% - 4px)"></i>`).join("")}</div><h4>${t}</h4><p>${d}</p></div>`).join("")}</div>
-  <div class="keys"><kbd>Super</kbd>+<kbd>Z</kbd><span style="margin:0 18px;opacity:.5">or</span><kbd>Super</kbd>+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd></div>`);
-} else if (scene === "og") {
+if (s === "hero") {
+  // 1920x1080 product shot: three snapped windows + snap picker + dock
+  const G = 14, T = 34 + G, B = 1080 - 120, W = 1920 - 2 * G, H = B - T;
+  const lw = Math.round(W * 0.5) - G / 2, rw = W - lw - G, rh = Math.round(H / 2) - G / 2;
+  d.insertAdjacentHTML("beforeend", bar
+    + editor(G, T, lw, H, true)
+    + browser(G + lw + G, T, rw, rh)
+    + music(G + lw + G, T + rh + G, rw, H - rh - G)
+    + `<div class="pick" style="left:${G + lw - 380}px;top:${T + 44}px">
+        <div class="cap">Snap layouts</div>
+        ${[[[4, 6, 44, 88, 1], [52, 6, 44, 88]], [[4, 6, 44, 41], [52, 6, 44, 41, 1], [4, 53, 44, 41], [52, 53, 44, 41]], [[4, 6, 28, 88], [36, 6, 28, 88], [68, 6, 28, 88]],
+           [[4, 6, 60, 88], [68, 6, 28, 88]], [[4, 6, 92, 88]], [[20, 14, 60, 72]]]
+          .map((r) => `<div class="l">${r.map(([x, y, w, h, hl]) => `<i class="${hl ? "h" : ""}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%"></i>`).join("")}</div>`).join("")}
+      </div>`
+    + dock(false)
+    + `<div class="tip" style="left:${960 + 228}px;bottom:118px">Screenshot</div>`);
+} else if (s === "dock") {
+  d.insertAdjacentHTML("beforeend", bar
+    + `<div class="head" style="top:190px"><h1>A dock made of glass.</h1><p>It follows your theme. Or pick any colour and how see-through it is.</p></div>`
+    + dock(true));
+} else if (s === "layouts") {
+  d.insertAdjacentHTML("beforeend", bar
+    + `<div class="head" style="top:120px"><h1>Snap like Windows.</h1><p>Halves, quarters, thirds — in one keystroke.</p></div>`
+    + `<div class="pick" style="left:50%;top:330px;transform:translateX(-50%) scale(2.1);transform-origin:top center">
+        <div class="cap">Snap layouts</div>
+        ${[[[4, 6, 44, 88, 1], [52, 6, 44, 88]], [[4, 6, 44, 41, 1], [52, 6, 44, 41], [4, 53, 44, 41], [52, 53, 44, 41]], [[4, 6, 28, 88], [36, 6, 28, 88, 1], [68, 6, 28, 88]],
+           [[4, 6, 60, 88, 1], [68, 6, 28, 88]], [[4, 6, 92, 88, 1]], [[20, 14, 60, 72, 1]]]
+          .map((r) => `<div class="l">${r.map(([x, y, w, h, hl]) => `<i class="${hl ? "h" : ""}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%"></i>`).join("")}</div>`).join("")}
+      </div>`
+    + `<div class="head" style="top:930px"><kbd>Super</kbd>+<kbd>Z</kbd><span style="margin:0 26px;opacity:.6;font:600 22px 'Adwaita Sans'">or</span><kbd>Super</kbd>+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd></div>`);
+} else if (s === "og") {
   document.body.style.width = "1200px"; document.body.style.height = "630px";
-  st.style.width = "1200px"; st.style.height = "630px";
-  st.insertAdjacentHTML("beforeend", `
-  <img src="logo.png" style="position:absolute;right:90px;top:115px;width:400px;height:400px;filter:drop-shadow(0 30px 60px rgba(0,0,0,.45))">
-  <div style="position:absolute;left:80px;top:150px;color:#fff">
-    <div style="display:inline-block;font:800 18px Inter,sans-serif;letter-spacing:.12em;color:#4fe0c0;margin-bottom:18px">FEATURED ON OMARCHY STORE</div>
-    <div style="font:900 104px/1 Inter,sans-serif;letter-spacing:-4px">SnapDock</div>
-    <div style="font:500 32px/1.35 Inter,sans-serif;color:rgba(255,255,255,.78);margin-top:22px;max-width:620px">A frosted dock, Windows-style snap layouts and one-click screenshots for Omarchy.</div>
-    <div style="font:700 24px Inter,sans-serif;color:#fff;margin-top:34px;opacity:.9">omarchystore.com</div>
+  d.style.width = "1200px"; d.style.height = "630px";
+  d.insertAdjacentHTML("beforeend", `
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(6,5,22,.88) 0%,rgba(6,5,22,.55) 50%,rgba(6,5,22,.1) 100%)"></div>
+  <img src="sd-icon.png" style="position:absolute;right:110px;top:125px;width:380px;height:380px;filter:drop-shadow(0 40px 70px rgba(0,0,0,.6))">
+  <div style="position:absolute;left:78px;top:118px;color:#fff;z-index:2">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;font:800 16px 'Adwaita Sans';letter-spacing:.08em;color:#1a1300;background:linear-gradient(135deg,#ffe17a,#ffb547)">★ EDITORS' CHOICE</div>
+    <div style="font:900 110px/1 'Adwaita Sans';letter-spacing:-5px;margin-top:22px">SnapDock</div>
+    <div style="font:500 31px/1.35 'Adwaita Sans';color:rgba(255,255,255,.85);margin-top:20px;max-width:600px">A glass dock and Windows-style snap layouts for Omarchy.</div>
+    <div style="font:700 22px 'Adwaita Sans';color:#7dd3fc;margin-top:34px">Free · Early adopters get lifetime updates</div>
   </div>`);
 }
 </script>

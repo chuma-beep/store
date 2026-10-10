@@ -1,0 +1,18 @@
+{
+  "id": "gcolor3-color-picker",
+  "name": "Gcolor3 Color Picker",
+  "category": "graphics",
+  "flathub": "nl.hjdskes.gcolor3",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gcolor3"
+    ]
+  },
+  "detect": [
+    "gcolor3"
+  ],
+  "kind": "gui",
+  "developer": "Christopher Davis",
+  "github": null
+}

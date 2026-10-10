@@ -1,0 +1,18 @@
+{
+  "id": "claws-mail",
+  "name": "Claws-Mail",
+  "category": "communication",
+  "flathub": "org.claws_mail.Claws-Mail",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "claws-mail"
+    ]
+  },
+  "detect": [
+    "claws-mail"
+  ],
+  "kind": "gui",
+  "developer": "The Claws Mail Team",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "hydrogen",
+  "name": "Hydrogen",
+  "category": "utilities",
+  "flathub": "org.hydrogenmusic.Hydrogen",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "hydrogen"
+    ]
+  },
+  "detect": [
+    "hydrogen"
+  ],
+  "kind": "gui",
+  "developer": "Hydrogen Developers",
+  "github": null
+}

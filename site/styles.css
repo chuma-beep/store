@@ -399,3 +399,83 @@ kbd { display: inline-grid; place-items: center; min-width: 30px; height: 28px; 
 .chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .chips span { padding: 5px 12px; border-radius: 999px; background: var(--card); color: var(--text-2); font-size: 13px; }
 @media (max-width: 720px) { .theme-hero { grid-auto-columns: 88%; } .themes-row { grid-auto-columns: 78%; } }
+
+/* ---------- Updates (desktop app) ---------- */
+.nav-count { margin-left: auto; min-width: 20px; height: 20px; padding: 0 6px; border-radius: 999px; background: #ff453a; color: #fff; font-size: 11px; font-weight: 800; display: inline-grid; place-items: center; }
+.upd-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.upd-actions { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; }
+.upd-actions .btn { display: inline-flex; align-items: center; gap: 8px; }
+.upd-actions .ring, .empty .ring { width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid currentColor; border-right-color: transparent; animation: spin .8s linear infinite; display: inline-block; }
+.empty .ring.big { width: 28px; height: 28px; margin-bottom: 12px; color: var(--accent); }
+.upd-sec { font-size: 20px; margin: 26px 0 10px; display: flex; align-items: center; gap: 10px; }
+.upd-sec span { font-size: 12px; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: var(--pill); color: var(--pill-text); }
+.upd-list { background: var(--card); border-radius: 16px; overflow: hidden; }
+.upd-row { display: flex; align-items: center; gap: 16px; padding: 14px 18px; }
+.upd-row + .upd-row { border-top: 1px solid var(--line); }
+.upd-meta { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.upd-meta .name { font-weight: 700; color: var(--text); }
+.upd-meta .ver { color: var(--text-2); font-size: 13px; font-variant-numeric: tabular-nums; }
+.upd-meta .ver b { color: var(--good, #30d158); }
+.upd-meta .note { color: var(--text-3); font-size: 12px; }
+.upd-ok, .upd-sys, .upd-store { display: flex; align-items: center; gap: 16px; padding: 20px 22px; border-radius: 16px; background: var(--card); margin-top: 18px; }
+.upd-ok svg, .upd-sys svg { width: 34px; height: 34px; flex: none; fill: none; stroke: var(--good, #30d158); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.upd-sys svg { stroke: var(--accent); }
+.upd-ok div, .upd-sys div, .upd-store div { display: flex; flex-direction: column; gap: 3px; flex: 1; }
+.upd-ok span, .upd-sys span, .upd-store span { color: var(--text-2); font-size: 14px; }
+.upd-store { background: linear-gradient(120deg, color-mix(in srgb, var(--accent) 22%, var(--card)), var(--card)); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent); }
+
+.promise { display: flex; align-items: center; gap: 18px; margin: 22px 0 6px; padding: 20px 24px; border-radius: 18px;
+  background: linear-gradient(110deg, color-mix(in srgb, #ffb547 18%, var(--card)), var(--card) 70%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, #ffb547 45%, transparent); }
+.promise .feat-ic { flex: none; }
+.promise .feat-ic svg { stroke: #ffb547; }
+.promise h3 { font-size: 18px; margin-bottom: 4px; }
+.promise p { color: var(--text-2); font-size: 14px; line-height: 1.45; }
+
+/* ---------- USB maker ---------- */
+.usb-hero { display: flex; align-items: center; gap: 28px; padding: 30px 32px; border-radius: 24px; margin-bottom: 22px;
+  background: linear-gradient(125deg, #1b1640, #2f47b8 60%, #1aa0c8); color: #fff; }
+.usb-hero h1 { font-size: clamp(28px, 3vw, 42px); letter-spacing: -.02em; margin: 6px 0 8px; }
+.usb-hero p { color: rgba(255,255,255,.85); max-width: 640px; line-height: 1.5; }
+.usb-hero .eyebrow { font-size: 12px; font-weight: 800; letter-spacing: .1em; color: #7dd3fc; }
+.usb-art { flex: none; width: 104px; height: 104px; border-radius: 26px; display: grid; place-items: center;
+  background: linear-gradient(160deg, rgba(255,255,255,.28), rgba(255,255,255,.08)); box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 20px 40px rgba(0,0,0,.3); }
+.usb-art svg { width: 56px; height: 56px; fill: none; stroke: #fff; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.usb-art.small { width: 56px; height: 56px; border-radius: 14px; background: var(--accent); }
+.usb-art.small svg { width: 30px; height: 30px; }
+.usb-steps { display: flex; gap: 10px; list-style: none; margin: 0 0 18px; padding: 0; flex-wrap: wrap; }
+.usb-steps li { display: flex; align-items: center; gap: 8px; padding: 8px 14px 8px 8px; border-radius: 999px; background: var(--card); color: var(--text-2); font-weight: 600; font-size: 14px; }
+.usb-steps li span { width: 24px; height: 24px; border-radius: 50%; display: grid; place-items: center; background: var(--pill); font-size: 12px; font-weight: 800; }
+.usb-steps li.on { color: var(--text); box-shadow: inset 0 0 0 2px var(--accent); }
+.usb-steps li.on span { background: var(--accent); color: var(--accent-text); }
+.usb-steps li.done span { background: var(--good, #30d158); color: #000; }
+.usb-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 16px; }
+@media (max-width: 860px) { .usb-grid { grid-template-columns: 1fr; } .usb-hero { flex-direction: column; text-align: center; } }
+.usb-card { background: var(--card); border-radius: 18px; padding: 20px 22px; margin-bottom: 14px; transition: opacity .2s; }
+.usb-card.dim { opacity: .55; }
+.usb-card h3 { font-size: 18px; margin-bottom: 4px; }
+.usb-card p { line-height: 1.5; }
+.usb-card .btn { display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; }
+.usb-row { display: flex; align-items: center; gap: 16px; }
+.usb-row .grow { flex: 1; min-width: 0; }
+.usb-n { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; background: var(--pill); color: var(--pill-text); }
+.usb-card .bar { height: 8px; border-radius: 4px; background: var(--pill); overflow: hidden; margin: 10px 0 6px; }
+.usb-card .bar i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), #7dd3fc); transition: width .6s; }
+.usb-card .ok { color: var(--good, #30d158); font-weight: 600; margin-top: 6px; }
+.usb-card .err { color: #ff6b81; font-weight: 600; margin-top: 6px; }
+.usb-card .ring { width: 14px; height: 14px; border-radius: 50%; border: 2.5px solid currentColor; border-right-color: transparent; animation: spin .8s linear infinite; display: inline-block; vertical-align: -2px; }
+.usb-drives { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 10px; margin-top: 14px; }
+.usb-drive { display: flex; align-items: center; gap: 12px; text-align: left; padding: 14px; border-radius: 14px; background: var(--bg-2, rgba(255,255,255,.04)); color: var(--text); box-shadow: inset 0 0 0 1px var(--line); }
+.usb-drive svg { width: 30px; height: 30px; flex: none; fill: none; stroke: var(--accent); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.usb-drive div { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.usb-drive span { color: var(--text-2); font-size: 13px; }
+.usb-drive.on { box-shadow: inset 0 0 0 2px var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--card)); }
+.usb-drive:disabled { opacity: .45; cursor: not-allowed; }
+.usb-empty { margin-top: 14px; padding: 22px; border-radius: 14px; text-align: center; color: var(--text-2); border: 2px dashed var(--line); }
+.usb-list { margin: 10px 0 6px 20px; display: grid; gap: 10px; line-height: 1.5; }
+.usb-list a:not(.btn) { color: var(--accent); }
+.usb-list .btn { margin-top: 8px; }
+.btn.danger { background: #ff453a; color: #fff; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+.nav-count[hidden] { display: none; }

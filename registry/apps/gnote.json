@@ -1,0 +1,18 @@
+{
+  "id": "gnote",
+  "name": "Gnote",
+  "category": "utilities",
+  "flathub": "org.gnome.Gnote",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gnote"
+    ]
+  },
+  "detect": [
+    "gnote"
+  ],
+  "kind": "gui",
+  "developer": "The Gnote Team",
+  "github": null
+}

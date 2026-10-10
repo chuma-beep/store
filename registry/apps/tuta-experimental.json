@@ -1,0 +1,18 @@
+{
+  "id": "tuta-experimental",
+  "name": "Tuta (Experimental)",
+  "category": "communication",
+  "flathub": "com.tutanota.Tutanota",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "tutanota-desktop"
+    ]
+  },
+  "detect": [
+    "tutanota-desktop"
+  ],
+  "kind": "gui",
+  "developer": "Tutao GmbH",
+  "github": null
+}

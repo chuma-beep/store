@@ -1,0 +1,20 @@
+{
+  "id": "xplr",
+  "name": "xplr",
+  "category": "terminal",
+  "github": "sayanarijit/xplr",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "xplr"
+    ]
+  },
+  "detect": [
+    "xplr"
+  ],
+  "kind": "terminal",
+  "summary": "A hackable, minimal, fast TUI file explorer",
+  "icon": null,
+  "open": "xplr"
+}

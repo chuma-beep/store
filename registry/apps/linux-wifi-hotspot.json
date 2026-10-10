@@ -1,0 +1,18 @@
+{
+  "id": "linux-wifi-hotspot",
+  "name": "Linux Wifi Hotspot",
+  "category": "utilities",
+  "github": "lakinduakash/linux-wifi-hotspot",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "linux-wifi-hotspot"
+    ]
+  },
+  "detect": [
+    "linux-wifi-hotspot"
+  ],
+  "kind": "gui",
+  "summary": "Feature-rich wifi hotspot creator for Linux which provides both GUI and command-line interface. It is also able to create a hotspot using th"
+}

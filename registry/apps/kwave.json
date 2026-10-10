@@ -1,0 +1,18 @@
+{
+  "id": "kwave",
+  "name": "Kwave",
+  "category": "video-audio",
+  "flathub": "org.kde.kwave",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kwave"
+    ]
+  },
+  "detect": [
+    "kwave"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

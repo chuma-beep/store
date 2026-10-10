@@ -1,0 +1,18 @@
+{
+  "id": "zim",
+  "name": "Zim",
+  "category": "utilities",
+  "flathub": "org.zim_wiki.Zim",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "zim"
+    ]
+  },
+  "detect": [
+    "zim"
+  ],
+  "kind": "gui",
+  "developer": "Jaap Karssenberg",
+  "github": null
+}

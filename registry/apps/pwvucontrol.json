@@ -1,0 +1,18 @@
+{
+  "id": "pwvucontrol",
+  "name": "pwvucontrol",
+  "category": "video-audio",
+  "github": "saivert/pwvucontrol",
+  "flathub": "com.saivert.pwvucontrol",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "pwvucontrol"
+    ]
+  },
+  "detect": [
+    "pwvucontrol"
+  ],
+  "kind": "gui",
+  "developer": "Nicolai Syvertsen"
+}

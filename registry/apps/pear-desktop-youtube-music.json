@@ -1,0 +1,18 @@
+{
+  "id": "pear-desktop-youtube-music",
+  "name": "Pear Desktop (YouTube Music)",
+  "category": "video-audio",
+  "github": "pear-devs/pear-desktop",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "pear-desktop-bin"
+    ]
+  },
+  "detect": [
+    "pear-desktop-bin"
+  ],
+  "kind": "gui",
+  "summary": "Pearis extension for music player"
+}

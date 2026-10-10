@@ -1,0 +1,18 @@
+{
+  "id": "cameractrls",
+  "name": "Cameractrls",
+  "category": "video-audio",
+  "github": "soyersoyer/cameractrls",
+  "flathub": "hu.irl.cameractrls",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "cameractrls"
+    ]
+  },
+  "detect": [
+    "cameractrls"
+  ],
+  "kind": "gui",
+  "developer": "Gergo Koteles"
+}

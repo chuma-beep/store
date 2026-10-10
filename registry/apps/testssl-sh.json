@@ -1,0 +1,21 @@
+{
+  "id": "testssl-sh",
+  "name": "testssl.sh",
+  "category": "security",
+  "github": "testssl/testssl.sh",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "testssl.sh"
+    ]
+  },
+  "detect": [
+    "testssl.sh"
+  ],
+  "kind": "terminal",
+  "summary": "Testing TLS/SSL encryption anywhere on any port",
+  "icon": null,
+  "open": "testssl",
+  "cli": true
+}

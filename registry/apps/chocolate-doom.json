@@ -1,0 +1,18 @@
+{
+  "id": "chocolate-doom",
+  "name": "Chocolate Doom",
+  "category": "games",
+  "flathub": "org.chocolate_doom.ChocolateDoom",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "chocolate-doom"
+    ]
+  },
+  "detect": [
+    "chocolate-doom"
+  ],
+  "kind": "gui",
+  "developer": "Simon Howard",
+  "github": null
+}

@@ -1,0 +1,21 @@
+{
+  "id": "gopass",
+  "name": "gopass",
+  "category": "security",
+  "github": "gopasspw/gopass",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gopass"
+    ]
+  },
+  "detect": [
+    "gopass"
+  ],
+  "kind": "terminal",
+  "summary": "The slightly more awesome standard unix password manager for teams",
+  "icon": null,
+  "open": "gopass",
+  "cli": true
+}

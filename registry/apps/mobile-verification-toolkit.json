@@ -1,0 +1,21 @@
+{
+  "id": "mobile-verification-toolkit",
+  "name": "Mobile Verification Toolkit",
+  "category": "security",
+  "github": "mvt-project/mvt",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mvt"
+    ]
+  },
+  "detect": [
+    "mvt"
+  ],
+  "kind": "terminal",
+  "summary": "MVT (Mobile Verification Toolkit) helps with conducting forensics of mobile devices in order to find signs of a potential compromise.",
+  "icon": null,
+  "open": "mvt-ios",
+  "cli": true
+}

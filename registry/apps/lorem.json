@@ -1,0 +1,18 @@
+{
+  "id": "lorem",
+  "name": "Lorem",
+  "category": "utilities",
+  "flathub": "org.gnome.design.Lorem",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "lorem"
+    ]
+  },
+  "detect": [
+    "lorem"
+  ],
+  "kind": "gui",
+  "developer": "Maximiliano Sandoval",
+  "github": null
+}

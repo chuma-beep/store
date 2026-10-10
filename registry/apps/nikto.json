@@ -1,0 +1,21 @@
+{
+  "id": "nikto",
+  "name": "Nikto",
+  "category": "security",
+  "github": "sullo/nikto",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "nikto"
+    ]
+  },
+  "detect": [
+    "nikto"
+  ],
+  "kind": "terminal",
+  "summary": "Nikto web server scanner",
+  "icon": null,
+  "open": "nikto",
+  "cli": true
+}

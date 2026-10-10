@@ -1,0 +1,18 @@
+{
+  "id": "soundconverter",
+  "name": "SoundConverter",
+  "category": "video-audio",
+  "flathub": "org.soundconverter.SoundConverter",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "soundconverter"
+    ]
+  },
+  "detect": [
+    "soundconverter"
+  ],
+  "kind": "gui",
+  "developer": "Gautier Portet",
+  "github": null
+}

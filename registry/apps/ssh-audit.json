@@ -1,0 +1,21 @@
+{
+  "id": "ssh-audit",
+  "name": "ssh-audit",
+  "category": "security",
+  "github": "jtesta/ssh-audit",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ssh-audit"
+    ]
+  },
+  "detect": [
+    "ssh-audit"
+  ],
+  "kind": "terminal",
+  "summary": "SSH server & client security auditing (banner, key exchange, encryption, mac, compression, compatibility, security, etc)",
+  "icon": null,
+  "open": "ssh-audit",
+  "cli": true
+}

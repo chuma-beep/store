@@ -1,0 +1,21 @@
+{
+  "id": "tmate",
+  "name": "tmate",
+  "category": "terminal",
+  "github": "tmate-io/tmate",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "tmate"
+    ]
+  },
+  "detect": [
+    "tmate"
+  ],
+  "kind": "terminal",
+  "summary": "Instant Terminal Sharing",
+  "icon": null,
+  "open": "tmate",
+  "cli": true
+}

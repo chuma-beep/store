@@ -1,0 +1,18 @@
+{
+  "id": "chats",
+  "name": "Chats",
+  "category": "communication",
+  "flathub": "sm.puri.Chatty",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "chatty"
+    ]
+  },
+  "detect": [
+    "chatty"
+  ],
+  "kind": "gui",
+  "developer": "The Chatty Team",
+  "github": null
+}

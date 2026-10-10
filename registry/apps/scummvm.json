@@ -1,0 +1,18 @@
+{
+  "id": "scummvm",
+  "name": "ScummVM",
+  "category": "games",
+  "flathub": "org.scummvm.ScummVM",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "scummvm"
+    ]
+  },
+  "detect": [
+    "scummvm"
+  ],
+  "kind": "gui",
+  "developer": "The ScummVM Team",
+  "github": null
+}

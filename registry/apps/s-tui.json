@@ -1,0 +1,20 @@
+{
+  "id": "s-tui",
+  "name": "s-tui",
+  "category": "terminal",
+  "github": "amanusk/s-tui",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "s-tui"
+    ]
+  },
+  "detect": [
+    "s-tui"
+  ],
+  "kind": "terminal",
+  "summary": "Terminal-based CPU stress and monitoring utility",
+  "icon": null,
+  "open": "s-tui"
+}

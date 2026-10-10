@@ -1,0 +1,18 @@
+{
+  "id": "sound-juicer",
+  "name": "Sound Juicer",
+  "category": "video-audio",
+  "flathub": "org.gnome.SoundJuicer",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "sound-juicer"
+    ]
+  },
+  "detect": [
+    "sound-juicer"
+  ],
+  "kind": "gui",
+  "developer": "Link Dupont",
+  "github": null
+}

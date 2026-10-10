@@ -1,0 +1,18 @@
+{
+  "id": "quakespasm",
+  "name": "Quakespasm",
+  "category": "games",
+  "flathub": "net.sourceforge.quakespasm.Quakespasm",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "quakespasm"
+    ]
+  },
+  "detect": [
+    "quakespasm"
+  ],
+  "kind": "gui",
+  "developer": "Quakespasm contributors",
+  "github": null
+}

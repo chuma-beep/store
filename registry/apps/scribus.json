@@ -1,0 +1,18 @@
+{
+  "id": "scribus",
+  "name": "Scribus",
+  "category": "graphics",
+  "flathub": "net.scribus.Scribus",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "scribus"
+    ]
+  },
+  "detect": [
+    "scribus"
+  ],
+  "kind": "gui",
+  "developer": "Scribus developers",
+  "github": null
+}

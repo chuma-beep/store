@@ -1,0 +1,18 @@
+{
+  "id": "eye-of-gnome",
+  "name": "Eye of GNOME",
+  "category": "graphics",
+  "flathub": "org.gnome.eog",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "eog"
+    ]
+  },
+  "detect": [
+    "eog"
+  ],
+  "kind": "gui",
+  "developer": "The Eye of GNOME Team",
+  "github": null
+}

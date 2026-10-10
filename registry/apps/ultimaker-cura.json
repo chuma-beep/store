@@ -1,0 +1,18 @@
+{
+  "id": "ultimaker-cura",
+  "name": "UltiMaker Cura",
+  "category": "utilities",
+  "flathub": "com.ultimaker.cura",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "cura-bin"
+    ]
+  },
+  "detect": [
+    "cura-bin"
+  ],
+  "kind": "gui",
+  "developer": "UltiMaker",
+  "github": null
+}

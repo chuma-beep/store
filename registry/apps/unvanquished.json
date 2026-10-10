@@ -1,0 +1,18 @@
+{
+  "id": "unvanquished",
+  "name": "Unvanquished",
+  "category": "games",
+  "flathub": "net.unvanquished.Unvanquished",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "unvanquished"
+    ]
+  },
+  "detect": [
+    "unvanquished"
+  ],
+  "kind": "gui",
+  "developer": "Unvanquished Development",
+  "github": null
+}

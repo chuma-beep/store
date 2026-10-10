@@ -1,0 +1,20 @@
+{
+  "id": "microsoft-edit",
+  "name": "Microsoft Edit",
+  "category": "terminal",
+  "github": "microsoft/edit",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "msedit"
+    ]
+  },
+  "detect": [
+    "msedit"
+  ],
+  "kind": "terminal",
+  "summary": "We all edit.",
+  "icon": null,
+  "open": "msedit"
+}

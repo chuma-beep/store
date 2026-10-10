@@ -1,0 +1,20 @@
+{
+  "id": "cava",
+  "name": "cava",
+  "category": "video-audio",
+  "github": "karlstav/cava",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "cava"
+    ]
+  },
+  "detect": [
+    "cava"
+  ],
+  "kind": "terminal",
+  "summary": "Cross-platform Audio Visualizer",
+  "icon": null,
+  "open": "cava"
+}

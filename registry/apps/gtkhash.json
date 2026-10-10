@@ -1,0 +1,18 @@
+{
+  "id": "gtkhash",
+  "name": "GtkHash",
+  "category": "utilities",
+  "github": "gtkhash/gtkhash",
+  "flathub": "org.gtkhash.gtkhash",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "gtkhash"
+    ]
+  },
+  "detect": [
+    "gtkhash"
+  ],
+  "kind": "gui",
+  "developer": "Tristan Heaven"
+}

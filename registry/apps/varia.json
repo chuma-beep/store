@@ -1,0 +1,18 @@
+{
+  "id": "varia",
+  "name": "Varia",
+  "category": "utilities",
+  "flathub": "io.github.giantpinkrobots.varia",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "varia"
+    ]
+  },
+  "detect": [
+    "varia"
+  ],
+  "kind": "gui",
+  "developer": "Giant Pink Robots!",
+  "github": null
+}

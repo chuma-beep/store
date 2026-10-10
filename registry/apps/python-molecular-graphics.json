@@ -1,0 +1,18 @@
+{
+  "id": "python-molecular-graphics",
+  "name": "Python Molecular Graphics",
+  "category": "education",
+  "flathub": "org.pymol.PyMOL",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "pymol"
+    ]
+  },
+  "detect": [
+    "pymol"
+  ],
+  "kind": "gui",
+  "developer": "Schrödinger, Inc.",
+  "github": null
+}

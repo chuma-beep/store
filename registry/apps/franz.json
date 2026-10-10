@@ -1,0 +1,18 @@
+{
+  "id": "franz",
+  "name": "Franz",
+  "category": "communication",
+  "flathub": "com.meetfranz.Franz",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "franz-bin"
+    ]
+  },
+  "detect": [
+    "franz-bin"
+  ],
+  "kind": "gui",
+  "developer": "Stefan Maizner",
+  "github": null
+}

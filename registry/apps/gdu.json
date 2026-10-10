@@ -1,0 +1,20 @@
+{
+  "id": "gdu",
+  "name": "gdu",
+  "category": "terminal",
+  "github": "dundee/gdu",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gdu"
+    ]
+  },
+  "detect": [
+    "gdu"
+  ],
+  "kind": "terminal",
+  "summary": "Fast disk usage analyzer with console interface written in Go",
+  "icon": null,
+  "open": "gdu"
+}

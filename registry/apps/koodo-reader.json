@@ -1,0 +1,18 @@
+{
+  "id": "koodo-reader",
+  "name": "Koodo Reader",
+  "category": "productivity",
+  "flathub": "io.github.troyeguo.koodo-reader",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "koodo-reader-bin"
+    ]
+  },
+  "detect": [
+    "koodo-reader-bin"
+  ],
+  "kind": "gui",
+  "developer": "Troye Guo",
+  "github": null
+}

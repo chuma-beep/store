@@ -1,0 +1,21 @@
+{
+  "id": "pastel",
+  "name": "pastel",
+  "category": "terminal",
+  "github": "sharkdp/pastel",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "pastel"
+    ]
+  },
+  "detect": [
+    "pastel"
+  ],
+  "kind": "terminal",
+  "summary": "A command-line tool to generate, analyze, convert and manipulate colors",
+  "icon": null,
+  "open": "pastel",
+  "cli": true
+}

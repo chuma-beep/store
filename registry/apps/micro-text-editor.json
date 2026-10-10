@@ -1,0 +1,18 @@
+{
+  "id": "micro-text-editor",
+  "name": "Micro Text Editor",
+  "category": "developer-tools",
+  "flathub": "io.github.zyedidia.micro",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "micro"
+    ]
+  },
+  "detect": [
+    "micro"
+  ],
+  "kind": "gui",
+  "developer": "Zachary Yedidia",
+  "github": null
+}

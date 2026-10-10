@@ -1,0 +1,18 @@
+{
+  "id": "audacious",
+  "name": "Audacious",
+  "category": "video-audio",
+  "flathub": "org.atheme.audacious",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "audacious"
+    ]
+  },
+  "detect": [
+    "audacious"
+  ],
+  "kind": "gui",
+  "developer": "Audacious developers",
+  "github": null
+}

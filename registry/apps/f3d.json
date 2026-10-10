@@ -1,0 +1,18 @@
+{
+  "id": "f3d",
+  "name": "F3D",
+  "category": "graphics",
+  "github": "f3d-app/f3d",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "f3d"
+    ]
+  },
+  "detect": [
+    "f3d"
+  ],
+  "kind": "gui",
+  "summary": "Fast and minimalist 3D viewer."
+}

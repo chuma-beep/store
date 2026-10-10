@@ -1,0 +1,18 @@
+{
+  "id": "solvespace",
+  "name": "SolveSpace",
+  "category": "graphics",
+  "flathub": "com.solvespace.SolveSpace",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "solvespace"
+    ]
+  },
+  "detect": [
+    "solvespace"
+  ],
+  "kind": "gui",
+  "developer": "The SolveSpace Community, originally by Jonathan Westhues and other authors",
+  "github": null
+}

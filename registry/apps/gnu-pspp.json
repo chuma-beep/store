@@ -1,0 +1,18 @@
+{
+  "id": "gnu-pspp",
+  "name": "GNU PSPP",
+  "category": "education",
+  "flathub": "org.gnu.pspp",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "pspp"
+    ]
+  },
+  "detect": [
+    "pspp"
+  ],
+  "kind": "gui",
+  "developer": "Free Software Foundation",
+  "github": null
+}

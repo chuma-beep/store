@@ -1,0 +1,20 @@
+{
+  "id": "musikcube",
+  "name": "musikcube",
+  "category": "video-audio",
+  "github": "clangen/musikcube",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "musikcube"
+    ]
+  },
+  "detect": [
+    "musikcube"
+  ],
+  "kind": "terminal",
+  "summary": "a cross-platform, terminal-based music player, audio engine, metadata indexer, and server in c++",
+  "icon": null,
+  "open": "musikcube"
+}

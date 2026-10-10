@@ -1,0 +1,18 @@
+{
+  "id": "tokodon",
+  "name": "Tokodon",
+  "category": "utilities",
+  "flathub": "org.kde.tokodon",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "tokodon"
+    ]
+  },
+  "detect": [
+    "tokodon"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

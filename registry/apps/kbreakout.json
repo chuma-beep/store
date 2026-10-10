@@ -1,0 +1,18 @@
+{
+  "id": "kbreakout",
+  "name": "KBreakOut",
+  "category": "games",
+  "flathub": "org.kde.kbreakout",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kbreakout"
+    ]
+  },
+  "detect": [
+    "kbreakout"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

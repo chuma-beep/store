@@ -1,0 +1,18 @@
+{
+  "id": "qpwgraph",
+  "name": "qpwgraph",
+  "category": "video-audio",
+  "flathub": "org.rncbc.qpwgraph",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "qpwgraph"
+    ]
+  },
+  "detect": [
+    "qpwgraph"
+  ],
+  "kind": "gui",
+  "developer": "rncbc aka. Rui Nuno Capela",
+  "github": null
+}

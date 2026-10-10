@@ -1,0 +1,18 @@
+{
+  "id": "graphs",
+  "name": "Graphs",
+  "category": "education",
+  "flathub": "se.sjoerd.Graphs",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "graphs"
+    ]
+  },
+  "detect": [
+    "graphs"
+  ],
+  "kind": "gui",
+  "developer": "The Graphs Developers",
+  "github": null
+}

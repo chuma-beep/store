@@ -1,0 +1,18 @@
+{
+  "id": "tipp10",
+  "name": "Tipp10",
+  "category": "education",
+  "flathub": "com.gitlab.tipp10.tipp10",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "tipp10"
+    ]
+  },
+  "detect": [
+    "tipp10"
+  ],
+  "kind": "gui",
+  "developer": "André Apitzsch",
+  "github": null
+}

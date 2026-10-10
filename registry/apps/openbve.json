@@ -1,0 +1,18 @@
+{
+  "id": "openbve",
+  "name": "OpenBVE",
+  "category": "games",
+  "flathub": "net.openbve_project.OpenBVE",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "openbve"
+    ]
+  },
+  "detect": [
+    "openbve"
+  ],
+  "kind": "gui",
+  "developer": "OpenBVE Project",
+  "github": null
+}

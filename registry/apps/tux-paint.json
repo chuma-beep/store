@@ -1,0 +1,18 @@
+{
+  "id": "tux-paint",
+  "name": "Tux Paint",
+  "category": "education",
+  "flathub": "org.tuxpaint.Tuxpaint",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "tuxpaint"
+    ]
+  },
+  "detect": [
+    "tuxpaint"
+  ],
+  "kind": "gui",
+  "developer": "Bill Kendrick, et al.",
+  "github": null
+}

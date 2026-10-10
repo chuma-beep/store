@@ -1,0 +1,18 @@
+{
+  "id": "eduke32",
+  "name": "EDuke32",
+  "category": "games",
+  "flathub": "com.eduke32.EDuke32",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "eduke32"
+    ]
+  },
+  "detect": [
+    "eduke32"
+  ],
+  "kind": "gui",
+  "developer": "Richard \"TerminX\" Gobeille",
+  "github": null
+}

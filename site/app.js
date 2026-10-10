@@ -32,12 +32,14 @@
   const cmdFor = (a) => {
     const i = a.install;
     if (i.method === "omarchy") return i.command;
+    if (i.method === "release") return `sudo pacman -U ${i.url}`;
     if (i.method === "aur") return `omarchy pkg aur add ${i.packages.join(" ")}`;
     return `omarchy pkg add ${i.packages.join(" ")}`;
   };
   const sourceLabel = (a) => {
     const r = a.package?.repo;
     if (a.install.method === "omarchy") return "Omarchy installer";
+    if (a.install.method === "release") return "the developer (verified download)";
     if (a.install.method === "aur" || r === "aur") return "Arch User Repository (AUR)";
     return r ? `Arch Linux (${r})` : "Arch Linux";
   };
@@ -77,6 +79,8 @@
     github: '<path d="M9 19c-4 1.3-4-2-6-2.5M15 21v-3.5a3 3 0 0 0-.9-2.4c3-.3 6-1.4 6-6.5a5 5 0 0 0-1.4-3.5 4.7 4.7 0 0 0-.1-3.5s-1.1-.3-3.6 1.4a12.4 12.4 0 0 0-6.5 0C5.9 1.4 4.8 1.7 4.8 1.7a4.7 4.7 0 0 0-.1 3.5A5 5 0 0 0 3.3 8.7c0 5 3 6.2 6 6.5a3 3 0 0 0-.9 2.4V21"/>',
     ok: '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="m9 12 2 2 4-4"/>',
     warn: '<path d="M12 3 2 20h20zM12 10v4M12 17h.01"/>',
+    refresh: '<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',
+    usb: '<path d="M8 2h8v6H8z"/><path d="M6 8h12v10a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4z"/><path d="M10 4.5h.01M14 4.5h.01"/>',
   };
   const ico = (n) => `<svg viewBox="0 0 24 24">${ICONS[n] || ""}</svg>`;
   const CAT_COLORS = ["#0a84ff", "#5e5ce6", "#bf5af2", "#ff375f", "#ff9f0a", "#ff453a", "#30d158", "#64d2ff", "#32ade6", "#ac8e68", "#8e8e93"];
@@ -88,7 +92,7 @@
       const r = TOKEN ? await fetch("/api/status", { cache: "no-store" }) : { ok: false };
       if (r.ok) {
         const st = await r.json();
-        S.desktop = true;
+        S.desktop = true; S.status = st;
         S.installed = new Set(st.installed || []);
         S.themesHave = new Set(st.themes_installed || []); S.themeNow = st.theme_current || "";
         if (st.theme) applyTheme(st.theme);
@@ -103,6 +107,11 @@
     renderNav();
     renderModeBadge();
     route();
+    if (S.desktop) {
+      // Check app updates in the background now and every hour; show a count next to "Updates".
+      setTimeout(() => loadUpdates(false), 1500);
+      setInterval(async () => { await refreshInstalled(); loadUpdates(false); }, 3600e3);
+    }
   }
 
   function applyTheme(t) {
@@ -121,6 +130,7 @@
     if (!S.desktop) return;
     try {
       const st = await (await fetch("/api/status", { cache: "no-store" })).json();
+      S.status = st;
       S.installed = new Set(st.installed || []);
       S.themesHave = new Set(st.themes_installed || []); S.themeNow = st.theme_current || "";
     } catch {}
@@ -134,8 +144,10 @@
       <a href="/" data-r="">${ico("discover")}Discover</a>
       <a href="/charts/" data-r="charts">${ico("charts")}Top Charts</a>
       <a href="/categories/" data-r="categories">${ico("grid")}Categories</a>
+      <a href="/usb/" data-r="usb">${ico("usb")}USB Maker<span class="nav-new">NEW</span></a>
       ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes">${ico("palette")}Themes<span class="nav-new">NEW</span></a>` : ""}
-      ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>` : ""}
+      ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>
+      <a href="/updates/" data-r="updates">${ico("refresh")}Updates<span class="nav-count" id="upd-count" hidden></span></a>` : ""}
       <div class="sec">Categories</div>
       ${cats.map((c) => `<a href="/category/${c.id}/" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}`;
   }
@@ -145,7 +157,10 @@
   function renderModeBadge() {
     const b = $("#mode-badge");
     if (S.desktop) {
-      b.innerHTML = `<b><span class="dot"></span>Desktop app</b>One-click installs are on.`;
+      b.innerHTML = S.status?.restart_needed
+        ? `<b><span class="dot"></span>Update ready</b>Restart the store to finish.`
+        : `<b><span class="dot"></span>Desktop app</b>One-click installs are on.`;
+      if (S.status?.restart_needed) b.setAttribute("href", "/updates/");
       b.removeAttribute("href");
     } else {
       b.innerHTML = `<b>Get the desktop app</b>Install apps with one click on Omarchy.`;
@@ -170,7 +185,7 @@
     if (a.available === false) return `<button class="${cls} soon" data-soon="${a.id}" title="Launching soon">SOON</button>`;
     if (S.busy.has(a.id)) return `<button class="${cls} busy" data-get="${a.id}"><span class="ring"></span></button>`;
     if (S.desktop && isInstalled(a)) return a.cli
-      ? `<button class="${cls} installed" data-open="${a.id}" title="Opens a terminal — run: ${esc(a.detect[0])}">INSTALLED</button>`
+      ? `<button class="${cls} installed" data-open="${a.id}" title="Opens a terminal — run: ${esc(a.open || a.detect[0])}">INSTALLED</button>`
       : `<button class="${cls} installed" data-open="${a.id}">OPEN</button>`;
     return `<button class="${cls}" data-get="${a.id}">GET</button>`;
   }
@@ -464,6 +479,7 @@
     grid: '<rect x="3" y="3" width="8" height="18" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>',
     window: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M15 6.5h.01M18 6.5h.01"/>',
     camera: '<path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/>',
+    infinity: '<path d="M18.2 8.4c-2.4 0-4 3.6-6.2 3.6S8.2 8.4 5.8 8.4a3.6 3.6 0 0 0 0 7.2c2.4 0 4-3.6 6.2-3.6s3.8 3.6 6.2 3.6a3.6 3.6 0 0 0 0-7.2z"/>',
   };
   const fico = (n) => `<svg viewBox="0 0 24 24">${FICON[n] || ""}</svg>`;
   function spotlight(a) {
@@ -483,6 +499,7 @@
   function featuredSections(a) {
     const f = a.featured;
     return `
+      ${f.promise ? `<section class="promise"><span class="feat-ic">${fico("infinity")}</span><div><h3>${esc(f.promise.title)}</h3><p>${esc(f.promise.body)}</p></div></section>` : ""}
       <section class="shelf feat-grid">${f.features.map((x) => `<div class="feat"><span class="feat-ic">${fico(x.icon)}</span><h3>${esc(x.title)}</h3><p>${esc(x.body)}</p></div>`).join("")}</section>
       <section class="shelf"><div class="shelf-head"><h2>Get started in 3 steps</h2></div>
         <ol class="steps">${f.steps.map((s, i) => `<li><span class="n">${i + 1}</span><div><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p></div></li>`).join("")}</ol></section>
@@ -536,6 +553,154 @@
       <p class="page-sub">Store apps found on this computer.</p>
       ${list.length ? `<div class="grid">${list.map((a) => lockup(a)).join("")}</div>` : `<div class="empty">Nothing from the store is installed yet.</div>`}
     </div>`;
+  }
+
+  // ---------- updates (desktop app) ----------
+  S.upd = null; S.updLoading = false;
+  async function loadUpdates(force) {
+    if (!S.desktop || S.updLoading) return;
+    S.updLoading = true; if (force && currentPath() === "updates") rerender();
+    try {
+      S.upd = await (await fetch("/api/updates" + (force ? "?refresh=1" : ""), { cache: "no-store" })).json();
+    } catch { S.upd = S.upd || { apps: [], system: 0, aur: 0, running: [], error: true }; }
+    S.updLoading = false;
+    const n = (S.upd.apps || []).length, c = $("#upd-count");
+    if (c) { c.textContent = n; c.hidden = !n; }
+    if (currentPath() === "updates") rerender();
+  }
+  function pageUpdates() {
+    if (!S.desktop) return `<div class="page"><h1 class="page-title">Updates</h1><div class="empty">Updates are managed by the <a href="/get-desktop/" style="color:var(--accent)">desktop app</a>.</div></div>`;
+    if (!S.upd) { loadUpdates(false); }
+    const u = S.upd, apps = (u?.apps || []).map((x) => ({ ...x, a: S.byId[x.id] })).filter((x) => x.a);
+    const running = new Set(u?.running || []);
+    const others = Math.max(0, (u?.system || 0) + (u?.aur || 0) - apps.length);
+    const when = u?.checked ? new Date(u.checked * 1000).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "";
+    const storeBanner = S.status?.restart_needed
+      ? `<div class="upd-store"><div><b>A new version of Omarchy Store is ready</b><span>Version ${esc(S.status.store_update || "")} has been downloaded.</span></div><button class="btn" data-restart>Restart store</button></div>` : "";
+    return `<div class="page">
+      <div class="upd-head">
+        <div><h1 class="page-title">Updates</h1>
+        <p class="page-sub">${S.updLoading && !u ? "Checking for updates…" : u ? `Last checked ${esc(when)} · Omarchy Store ${esc(S.status?.version || "")}` : ""}</p></div>
+        <div class="upd-actions">
+          <button class="btn ghost" data-upd-refresh ${S.updLoading ? "disabled" : ""}>${S.updLoading ? '<span class="ring"></span> Checking' : "Check now"}</button>
+          ${u && (apps.length || others) ? `<button class="btn" data-upd-all ${running.has("__all__") ? "disabled" : ""}>${running.has("__all__") ? "Updating…" : "Update All"}</button>` : ""}
+        </div>
+      </div>
+      ${storeBanner}
+      ${!u ? `<div class="empty"><span class="ring big"></span><br>Checking your apps…</div>` :
+        !apps.length && !others ? `<div class="upd-ok">${ico("installed")}<div><b>Everything is up to date</b><span>Your store apps and Omarchy are on the latest versions.</span></div></div>` : ""}
+      ${apps.length ? `<h2 class="upd-sec">Store apps <span>${apps.length}</span></h2>
+        <div class="upd-list">${apps.map(({ a, installed, latest, via }) => `
+          <div class="upd-row">
+            <a href="/app/${a.id}/">${iconImg(a, 56)}</a>
+            <div class="upd-meta"><a href="/app/${a.id}/" class="name">${esc(a.name)}</a>
+              <span class="ver">${esc(installed.split("-")[0])} → <b>${esc(latest.split("-")[0])}</b></span>
+              ${via === "system" ? `<span class="note">Updates with your system (Update All)</span>` : ""}</div>
+            <button class="get ${running.has(a.id) ? "busy" : ""}" data-upd="${a.id}" ${running.has(a.id) ? "disabled" : ""}>${running.has(a.id) ? '<span class="ring"></span>' : "UPDATE"}</button>
+          </div>`).join("")}</div>` : ""}
+      ${others ? `<div class="upd-sys">${ico("grid")}<div><b>${others} system package${others === 1 ? "" : "s"} can be updated</b>
+        <span>Omarchy and its built-in parts. <b>Update All</b> runs Omarchy's own updater, which takes a safety snapshot first.</span></div></div>` : ""}
+      <p class="small muted" style="margin-top:28px">Updates open a terminal window so you can see what's happening and type your password. Omarchy Store checks for new apps and for a newer version of itself every hour.</p>
+    </div>`;
+  }
+  async function doUpdate(path, body, label) {
+    const r = await post(path, body);
+    const j = await r.json().catch(() => ({}));
+    if (!r.ok) return toast(j.error || "Update failed");
+    toast(label + " — follow the terminal window");
+    loadUpdates(false);
+    const t0 = Date.now();
+    const tick = setInterval(async () => {
+      await loadUpdates(false);
+      if (!(S.upd?.running || []).length || Date.now() - t0 > 30 * 60e3) { clearInterval(tick); refreshInstalled(); }
+    }, 8000);
+  }
+
+  // ---------- USB maker ----------
+  S.usb = null;
+  const gb = (n) => (n / 1e9).toFixed(n >= 1e10 ? 0 : 1) + " GB";
+  async function loadUsb() {
+    try { S.usb = await (await fetch("/api/usb", { cache: "no-store" })).json(); } catch { S.usb = { error: true }; }
+    if (currentPath() === "usb") rerender();
+    const st = S.usb?.download?.state;
+    clearTimeout(loadUsb.t);
+    if (currentPath() === "usb") loadUsb.t = setTimeout(loadUsb, st === "downloading" || st === "verifying" ? 1000 : 4000);
+  }
+  function usbSteps(n) {
+    const L = ["Get Omarchy", "Pick your USB", "Make installer"];
+    return `<ol class="usb-steps">${L.map((t, i) => `<li class="${i < n ? "done" : i === n ? "on" : ""}"><span>${i < n ? "✓" : i + 1}</span>${t}</li>`).join("")}</ol>`;
+  }
+  function pageUsb() {
+    const iso = S.desktop ? S.usb?.iso : S.catalog.omarchy_iso;
+    const hero = `<section class="usb-hero">
+        <div class="usb-art">${ico("usb")}</div>
+        <div><div class="eyebrow">NEW · FREE TOOL</div>
+          <h1>Omarchy USB Maker</h1>
+          <p>Turn any USB stick into an Omarchy installer in one click. It always downloads the newest official release${iso ? ` — right now that's <b>Omarchy ${esc(iso.version)}</b>` : ""} — and checks it's genuine before writing.</p></div>
+      </section>`;
+    if (!S.desktop) {
+      return `<div class="page">${hero}
+        <div class="usb-grid">
+          <div class="usb-card"><h3>The one-click way (on Omarchy)</h3>
+            <p>Get the Omarchy Store desktop app, open <b>USB Maker</b>, plug in a USB stick and press <b>Make Installer</b>. The app downloads the latest Omarchy, verifies it and writes the stick for you.</p>
+            <a class="btn" href="/get-desktop/">Get the desktop app</a></div>
+          <div class="usb-card"><h3>On Windows or Mac</h3>
+            <ol class="usb-list">
+              <li>Download the latest Omarchy${iso ? ` (${esc(iso.version)}, ${gb(iso.size)})` : ""}:<br>${iso ? `<a class="btn" href="${esc(iso.url)}">Download Omarchy ${esc(iso.version)}</a>` : `<a class="btn" href="https://omarchy.org/#install" target="_blank" rel="noopener">Download from omarchy.org</a>`}</li>
+              <li>Get a free USB writer: <a href="https://rufus.ie" target="_blank" rel="noopener">Rufus</a> (Windows) or <a href="https://etcher.balena.io" target="_blank" rel="noopener">balenaEtcher</a> (Windows & Mac).</li>
+              <li>Open it, choose the Omarchy file, choose your USB stick, press <b>Start</b> / <b>Flash</b>.</li>
+            </ol>
+            ${iso ? `<p class="small muted">Check the download is genuine — SHA-256: <code class="small">${esc(iso.sha256)}</code></p>` : ""}</div>
+        </div>
+        ${usbAfter()}
+      </div>`;
+    }
+    if (!S.usb) { loadUsb(); return `<div class="page">${hero}<div class="empty"><span class="ring big"></span><br>Looking for the latest Omarchy…</div></div>`; }
+    if (!S.usb.iso) return `<div class="page">${hero}<div class="empty">Couldn't reach Omarchy's download server. Check your internet connection and try again.<br><br><button class="btn" data-usb-refresh>Try again</button></div></div>`;
+    const u = S.usb, dl = u.download || {}, drives = u.drives || [];
+    const step = !u.ready ? 0 : !S.usbPick ? 1 : 2;
+    const pct = dl.total ? Math.floor((dl.done / dl.total) * 100) : 0;
+    const eta = dl.started && dl.done ? Math.max(0, Math.round(((Date.now() / 1000 - dl.started) / dl.done) * (dl.total - dl.done))) : null;
+    const pick = drives.find((d) => d.path === S.usbPick);
+    if (S.usbPick && !pick) S.usbPick = null;
+    const writing = S.jobUsb;
+    return `<div class="page">${hero}${usbSteps(step)}
+      <div class="usb-card">
+        <div class="usb-row"><span class="usb-n">1</span><div class="grow"><h3>Get Omarchy ${esc(u.iso.version)}</h3>
+          <p class="muted small">${gb(u.iso.size)} · official download from iso.omarchy.org · checked against Omarchy's SHA-256</p>
+          ${dl.state === "downloading" ? `<div class="bar"><i style="width:${pct}%"></i></div><p class="small muted">${pct}% · ${gb(dl.done)} of ${gb(dl.total)}${eta != null ? ` · about ${eta > 90 ? Math.round(eta / 60) + " min" : eta + " s"} left` : ""}</p>` : ""}
+          ${dl.state === "verifying" ? `<p class="small"><span class="ring"></span> Checking it's genuine…</p>` : ""}
+          ${dl.state === "failed" ? `<p class="small err">${esc(dl.error || "Download failed")}</p>` : ""}
+          ${u.ready ? `<p class="small ok">✓ Downloaded and verified · saved in your Downloads folder</p>` : ""}
+        </div>
+        ${u.ready ? "" : `<button class="btn" data-usb-dl ${["downloading", "verifying"].includes(dl.state) ? "disabled" : ""}>${dl.state === "downloading" ? "Downloading…" : dl.state === "verifying" ? "Verifying…" : dl.state === "failed" ? "Try again" : "Download"}</button>`}
+        </div>
+      </div>
+      <div class="usb-card ${u.ready ? "" : "dim"}">
+        <div class="usb-row"><span class="usb-n">2</span><div class="grow"><h3>Plug in a USB stick</h3>
+          <p class="muted small">At least 8 GB. Everything on it will be erased. Only USB drives are shown — never your computer's own drives.</p></div>
+          <button class="btn ghost" data-usb-refresh>Refresh</button></div>
+        ${drives.length ? `<div class="usb-drives">${drives.map((d) => `<button class="usb-drive ${S.usbPick === d.path ? "on" : ""}" data-usb-pick="${esc(d.path)}" ${d.size < 7e9 ? "disabled" : ""}>
+            ${ico("usb")}<div><b>${esc(d.name)}</b><span>${gb(d.size)} · ${esc(d.path)}${d.size < 7e9 ? " · too small" : ""}</span></div></button>`).join("")}</div>`
+          : `<div class="usb-empty">No USB stick found. Plug one in — it appears here automatically.</div>`}
+      </div>
+      <div class="usb-card ${pick && u.ready ? "" : "dim"}">
+        <div class="usb-row"><span class="usb-n">3</span><div class="grow"><h3>Make the installer</h3>
+          <p class="muted small">${pick ? `Writes Omarchy ${esc(u.iso.version)} to <b>${esc(pick.name)}</b> (${gb(pick.size)}). A terminal asks for your password, then shows progress. Takes about 2–10 minutes.` : "Pick a USB stick above first."}</p></div>
+          <button class="btn danger" data-usb-write ${pick && u.ready && !writing ? "" : "disabled"}>Make Installer</button></div>
+      </div>
+      ${usbAfter()}
+    </div>`;
+  }
+  function usbAfter() {
+    return `<section class="usb-card"><h3>Then install Omarchy</h3>
+      <ol class="usb-list">
+        <li>Plug the stick into the computer you want to install on and restart it.</li>
+        <li>Open the boot menu — usually <b>F12</b>, <b>F11</b>, <b>F8</b> or <b>Esc</b> right after power-on — and choose the USB stick.</li>
+        <li>Turn off <b>Secure Boot</b> in the BIOS if it won't start.</li>
+        <li>Answer five questions. Omarchy installs in a few minutes. <a href="https://omarchy.org/manual/getting-started/" target="_blank" rel="noopener">Full guide</a></li>
+      </ol>
+      <p class="small muted">Omarchy is made by DHH and the Omarchy team. This tool downloads it from the official server and does not change it. Writing a USB stick erases it — you're responsible for picking the right drive.</p></section>`;
   }
 
   function pageSearch(q) {
@@ -721,6 +886,8 @@
     else if (p === "app") html = pageApp(arg), nav = "category/" + (S.byId[arg]?.category || "");
     else if (p === "search") html = pageSearch(arg || "");
     else if (p === "installed") html = pageInstalled();
+    else if (p === "updates") html = pageUpdates();
+    else if (p === "usb") html = pageUsb();
     else if (p === "get-desktop") html = pageGetDesktop();
     else if (p === "legal") html = pageLegal();
     else html = notFound();
@@ -733,7 +900,7 @@
     if (d && m && d.scrollHeight > d.clientHeight + 4) m.hidden = false;
     document.title = pageTitle(p, arg);
   }
-  const TITLES = { themes: "Omarchy Themes – Browse & Install Desktop Themes", charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed" };
+  const TITLES = { themes: "Omarchy Themes – Browse & Install Desktop Themes", charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed", updates: "Updates", usb: "Omarchy USB Maker – Make an Omarchy Installer USB in One Click" };
   function pageTitle(p, arg) {
     const a = p === "app" && S.byId[arg];
     if (a) return `${a.name} for Omarchy Linux – Install ${a.name} | Omarchy Store`;
@@ -806,9 +973,41 @@
   }
 
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-share-theme],#more,.sheet");
+    const t = e.target.closest("[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-share-theme],#more,.sheet");
     if (!t) return;
-    if (t.matches("[data-theme-get],[data-theme-use]")) {
+    if (t.matches("[data-usb-dl]")) {
+      post("/api/usb/download", {}).then(async (r) => { if (!r.ok) toast((await r.json().catch(() => ({}))).error || "Download failed"); loadUsb(); });
+    } else if (t.matches("[data-usb-refresh]")) {
+      loadUsb();
+    } else if (t.matches("[data-usb-pick]")) {
+      S.usbPick = t.dataset.usbPick; rerender();
+    } else if (t.matches("[data-usb-write]")) {
+      const d = (S.usb?.drives || []).find((x) => x.path === S.usbPick);
+      if (!d) return;
+      showSheet(`<div class="sheet-card" role="dialog" aria-label="Erase USB drive">
+        <div class="row"><span class="usb-art small">${ico("usb")}</span><div><h3>Erase ${esc(d.name)}?</h3><div class="muted small">${gb(d.size)} · ${esc(d.path)}</div></div></div>
+        <p>Everything on this USB stick will be <b>permanently erased</b> and replaced with the Omarchy installer.</p>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px">
+          <button class="btn ghost" data-close>Cancel</button>
+          <button class="btn danger" data-usb-confirm="${esc(d.path)}">Erase and make installer</button></div></div>`);
+    } else if (t.matches("[data-usb-confirm]")) {
+      const dev = t.dataset.usbConfirm; closeSheet();
+      post("/api/usb/write", { device: dev }).then(async (r) => {
+        const j = await r.json().catch(() => ({}));
+        if (!r.ok) return toast(j.error || "Couldn't start");
+        S.jobUsb = true; rerender(); toast("Writing the USB — follow the terminal window");
+        setTimeout(() => { S.jobUsb = false; rerender(); }, 60e3);
+      });
+    } else if (t.matches("[data-upd]")) {
+      e.preventDefault(); e.stopPropagation();
+      const a = S.byId[t.dataset.upd]; doUpdate("/api/update", { id: a.id }, `Updating ${a.name}`);
+    } else if (t.matches("[data-upd-all]")) {
+      doUpdate("/api/update-all", {}, "Updating everything");
+    } else if (t.matches("[data-upd-refresh]")) {
+      loadUpdates(true);
+    } else if (t.matches("[data-restart]")) {
+      post("/api/restart", {}).then(() => { toast("Restarting Omarchy Store…"); setTimeout(() => location.reload(), 2500); });
+    } else if (t.matches("[data-theme-get],[data-theme-use]")) {
       e.preventDefault(); e.stopPropagation();
       const th = S.themeById[t.dataset.themeGet || t.dataset.themeUse];
       if (!S.desktop) webThemeGet(th);

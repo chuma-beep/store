@@ -1,0 +1,18 @@
+{
+  "id": "dolphin",
+  "name": "Dolphin",
+  "category": "utilities",
+  "flathub": "org.kde.dolphin",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "dolphin"
+    ]
+  },
+  "detect": [
+    "dolphin"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

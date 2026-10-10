@@ -1,0 +1,18 @@
+{
+  "id": "audex",
+  "name": "Audex",
+  "category": "video-audio",
+  "flathub": "org.kde.audex",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "audex"
+    ]
+  },
+  "detect": [
+    "audex"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

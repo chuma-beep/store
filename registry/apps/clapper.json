@@ -1,0 +1,18 @@
+{
+  "id": "clapper",
+  "name": "Clapper",
+  "category": "video-audio",
+  "flathub": "com.github.rafostar.Clapper",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "clapper"
+    ]
+  },
+  "detect": [
+    "clapper"
+  ],
+  "kind": "gui",
+  "developer": "Rafał Dzięgiel",
+  "github": null
+}

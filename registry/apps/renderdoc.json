@@ -1,0 +1,18 @@
+{
+  "id": "renderdoc",
+  "name": "RenderDoc",
+  "category": "developer-tools",
+  "github": "baldurk/renderdoc",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "renderdoc"
+    ]
+  },
+  "detect": [
+    "renderdoc"
+  ],
+  "kind": "gui",
+  "summary": "RenderDoc is a stand-alone graphics debugging tool."
+}

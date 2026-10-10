@@ -1,0 +1,20 @@
+{
+  "id": "spotify-player",
+  "name": "spotify-player",
+  "category": "video-audio",
+  "github": "aome510/spotify-player",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "spotify-player"
+    ]
+  },
+  "detect": [
+    "spotify-player"
+  ],
+  "kind": "terminal",
+  "summary": "A Spotify player in the terminal with full feature parity",
+  "icon": null,
+  "open": "spotify_player"
+}

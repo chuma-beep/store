@@ -1,0 +1,21 @@
+{
+  "id": "onedrive-client",
+  "name": "OneDrive Client",
+  "category": "utilities",
+  "github": "abraunegg/onedrive",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "onedrive-abraunegg"
+    ]
+  },
+  "detect": [
+    "onedrive-abraunegg"
+  ],
+  "kind": "terminal",
+  "summary": "OneDrive Client for Linux",
+  "icon": null,
+  "open": "onedrive",
+  "cli": true
+}

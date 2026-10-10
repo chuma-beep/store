@@ -1,0 +1,18 @@
+{
+  "id": "merkuro",
+  "name": "Merkuro",
+  "category": "productivity",
+  "flathub": "org.kde.merkuro",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "merkuro"
+    ]
+  },
+  "detect": [
+    "merkuro"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

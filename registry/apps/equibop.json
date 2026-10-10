@@ -1,0 +1,18 @@
+{
+  "id": "equibop",
+  "name": "Equibop",
+  "category": "communication",
+  "flathub": "org.equicord.equibop",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "equibop-bin"
+    ]
+  },
+  "detect": [
+    "equibop-bin"
+  ],
+  "kind": "gui",
+  "developer": "Equicord Contributors",
+  "github": null
+}

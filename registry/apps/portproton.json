@@ -1,0 +1,18 @@
+{
+  "id": "portproton",
+  "name": "PortProton",
+  "category": "games",
+  "flathub": "ru.linux_gaming.PortProton",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "portproton"
+    ]
+  },
+  "detect": [
+    "portproton"
+  ],
+  "kind": "gui",
+  "developer": "Mikhail Tergoev",
+  "github": null
+}

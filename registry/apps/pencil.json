@@ -1,0 +1,18 @@
+{
+  "id": "pencil",
+  "name": "Pencil",
+  "category": "graphics",
+  "github": "evolus/pencil",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "pencil"
+    ]
+  },
+  "detect": [
+    "pencil"
+  ],
+  "kind": "gui",
+  "summary": "The Pencil Project's unique mission is to build a free and opensource tool for making diagrams and GUI prototyping that everyone can use."
+}

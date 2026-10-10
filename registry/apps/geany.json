@@ -1,0 +1,18 @@
+{
+  "id": "geany",
+  "name": "Geany",
+  "category": "developer-tools",
+  "flathub": "org.geany.Geany",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "geany"
+    ]
+  },
+  "detect": [
+    "geany"
+  ],
+  "kind": "gui",
+  "developer": "Geany Team",
+  "github": null
+}

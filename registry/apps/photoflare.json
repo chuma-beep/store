@@ -1,0 +1,18 @@
+{
+  "id": "photoflare",
+  "name": "Photoflare",
+  "category": "graphics",
+  "flathub": "io.photoflare.photoflare",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "photoflare"
+    ]
+  },
+  "detect": [
+    "photoflare"
+  ],
+  "kind": "gui",
+  "developer": "Photoflare Developers",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "vicinae",
+  "name": "Vicinae",
+  "category": "utilities",
+  "github": "vicinaehq/vicinae",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "vicinae-bin"
+    ]
+  },
+  "detect": [
+    "vicinae-bin"
+  ],
+  "kind": "gui",
+  "summary": "A focused launcher for your desktop - native, fast, extensible"
+}

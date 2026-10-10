@@ -1,0 +1,18 @@
+{
+  "id": "elisa",
+  "name": "Elisa",
+  "category": "video-audio",
+  "flathub": "org.kde.elisa",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "elisa"
+    ]
+  },
+  "detect": [
+    "elisa"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "opentoonz",
+  "name": "OpenToonz",
+  "category": "graphics",
+  "flathub": "io.github.OpenToonz",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "opentoonz"
+    ]
+  },
+  "detect": [
+    "opentoonz"
+  ],
+  "kind": "gui",
+  "developer": "DWANGO Co., Ltd.",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "filezilla",
+  "name": "FileZilla",
+  "category": "utilities",
+  "flathub": "org.filezillaproject.Filezilla",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "filezilla"
+    ]
+  },
+  "detect": [
+    "filezilla"
+  ],
+  "kind": "gui",
+  "developer": "Tim Kosse",
+  "github": null
+}

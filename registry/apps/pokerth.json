@@ -1,0 +1,18 @@
+{
+  "id": "pokerth",
+  "name": "PokerTH",
+  "category": "games",
+  "flathub": "net.pokerth.PokerTH",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "pokerth"
+    ]
+  },
+  "detect": [
+    "pokerth"
+  ],
+  "kind": "gui",
+  "developer": "PokerTH GbR",
+  "github": null
+}

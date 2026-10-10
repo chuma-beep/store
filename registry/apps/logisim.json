@@ -1,0 +1,18 @@
+{
+  "id": "logisim",
+  "name": "Logisim",
+  "category": "education",
+  "flathub": "com.cburch.Logisim",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "logisim"
+    ]
+  },
+  "detect": [
+    "logisim"
+  ],
+  "kind": "gui",
+  "developer": "carlburch",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "foot",
+  "name": "foot",
+  "category": "utilities",
+  "flathub": "page.codeberg.dnkl.foot",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "foot"
+    ]
+  },
+  "detect": [
+    "foot"
+  ],
+  "kind": "gui",
+  "developer": "dnkl",
+  "github": null
+}

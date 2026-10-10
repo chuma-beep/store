@@ -1,0 +1,20 @@
+{
+  "id": "jless",
+  "name": "jless",
+  "category": "terminal",
+  "github": "PaulJuliusMartinez/jless",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "jless"
+    ]
+  },
+  "detect": [
+    "jless"
+  ],
+  "kind": "terminal",
+  "summary": "jless is a command-line JSON viewer designed for reading, exploring, and searching through JSON data.",
+  "icon": null,
+  "open": "jless"
+}

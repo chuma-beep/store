@@ -1,0 +1,18 @@
+{
+  "id": "audiotube",
+  "name": "AudioTube",
+  "category": "video-audio",
+  "flathub": "org.kde.audiotube",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "audiotube"
+    ]
+  },
+  "detect": [
+    "audiotube"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

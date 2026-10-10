@@ -1,0 +1,18 @@
+{
+  "id": "darktable",
+  "name": "darktable",
+  "category": "graphics",
+  "flathub": "org.darktable.Darktable",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "darktable"
+    ]
+  },
+  "detect": [
+    "darktable"
+  ],
+  "kind": "gui",
+  "developer": "darktable developers",
+  "github": null
+}

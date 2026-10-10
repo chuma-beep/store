@@ -1,0 +1,18 @@
+{
+  "id": "fragments",
+  "name": "Fragments",
+  "category": "utilities",
+  "flathub": "de.haeckerfelix.Fragments",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "fragments"
+    ]
+  },
+  "detect": [
+    "fragments"
+  ],
+  "kind": "gui",
+  "developer": "Felix Häcker",
+  "github": null
+}

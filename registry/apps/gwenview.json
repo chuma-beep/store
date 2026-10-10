@@ -1,0 +1,18 @@
+{
+  "id": "gwenview",
+  "name": "Gwenview",
+  "category": "graphics",
+  "flathub": "org.kde.gwenview",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gwenview"
+    ]
+  },
+  "detect": [
+    "gwenview"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

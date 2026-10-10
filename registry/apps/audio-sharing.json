@@ -1,0 +1,18 @@
+{
+  "id": "audio-sharing",
+  "name": "Audio Sharing",
+  "category": "video-audio",
+  "flathub": "de.haeckerfelix.AudioSharing",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "audio-sharing"
+    ]
+  },
+  "detect": [
+    "audio-sharing"
+  ],
+  "kind": "gui",
+  "developer": "Felix Häcker",
+  "github": null
+}

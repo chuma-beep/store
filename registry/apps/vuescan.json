@@ -1,0 +1,18 @@
+{
+  "id": "vuescan",
+  "name": "VueScan",
+  "category": "graphics",
+  "flathub": "com.hamrick.VueScan",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "vuescan-bin"
+    ]
+  },
+  "detect": [
+    "vuescan-bin"
+  ],
+  "kind": "gui",
+  "developer": "Hamrick Software",
+  "github": null
+}

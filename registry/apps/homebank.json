@@ -1,0 +1,18 @@
+{
+  "id": "homebank",
+  "name": "HomeBank",
+  "category": "productivity",
+  "flathub": "fr.free.Homebank",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "homebank"
+    ]
+  },
+  "detect": [
+    "homebank"
+  ],
+  "kind": "gui",
+  "developer": "Maxime Doyen",
+  "github": null
+}

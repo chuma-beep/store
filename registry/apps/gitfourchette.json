@@ -1,0 +1,18 @@
+{
+  "id": "gitfourchette",
+  "name": "GitFourchette",
+  "category": "developer-tools",
+  "flathub": "org.gitfourchette.gitfourchette",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gitfourchette"
+    ]
+  },
+  "detect": [
+    "gitfourchette"
+  ],
+  "kind": "gui",
+  "developer": "Iliyas Jorio",
+  "github": null
+}

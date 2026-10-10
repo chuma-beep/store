@@ -1,0 +1,18 @@
+{
+  "id": "kpatience",
+  "name": "KPatience",
+  "category": "games",
+  "flathub": "org.kde.kpat",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kpat"
+    ]
+  },
+  "detect": [
+    "kpat"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

@@ -1,0 +1,18 @@
+{
+  "id": "pyzo",
+  "name": "Pyzo",
+  "category": "developer-tools",
+  "flathub": "org.pyzo.pyzo",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "pyzo"
+    ]
+  },
+  "detect": [
+    "pyzo"
+  ],
+  "kind": "gui",
+  "developer": "almar klein",
+  "github": null
+}

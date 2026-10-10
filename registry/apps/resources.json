@@ -1,0 +1,18 @@
+{
+  "id": "resources",
+  "name": "Resources",
+  "category": "utilities",
+  "flathub": "net.nokyan.Resources",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "resources"
+    ]
+  },
+  "detect": [
+    "resources"
+  ],
+  "kind": "gui",
+  "developer": "nokyan",
+  "github": null
+}

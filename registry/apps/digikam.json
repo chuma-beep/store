@@ -1,0 +1,18 @@
+{
+  "id": "digikam",
+  "name": "digiKam",
+  "category": "graphics",
+  "flathub": "org.kde.digikam",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "digikam"
+    ]
+  },
+  "detect": [
+    "digikam"
+  ],
+  "kind": "gui",
+  "developer": "digiKam Team",
+  "github": null
+}

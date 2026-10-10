@@ -1,0 +1,18 @@
+{
+  "id": "kstars",
+  "name": "KStars",
+  "category": "education",
+  "flathub": "org.kde.kstars",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kstars"
+    ]
+  },
+  "detect": [
+    "kstars"
+  ],
+  "kind": "gui",
+  "developer": "KDE",
+  "github": null
+}

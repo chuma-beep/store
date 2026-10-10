@@ -1,0 +1,18 @@
+{
+  "id": "tabby",
+  "name": "Tabby",
+  "category": "developer-tools",
+  "github": "Eugeny/tabby",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "tabby-bin"
+    ]
+  },
+  "detect": [
+    "tabby-bin"
+  ],
+  "kind": "gui",
+  "summary": "A terminal for a more modern age"
+}
