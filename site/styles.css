@@ -42,7 +42,7 @@ button { font: inherit; color: inherit; cursor: pointer; border: 0; background: 
 img { display: block; }
 svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
 
-.app { display: grid; grid-template-columns: 240px 1fr; height: 100vh; }
+.app { display: grid; grid-template-columns: 240px minmax(0, 1fr); height: 100vh; }
 
 /* ---------- Sidebar ---------- */
 .sidebar {
@@ -73,7 +73,8 @@ nav .sec { font-size: 11px; font-weight: 600; color: var(--text-3); text-transfo
 .mode-badge .dot { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--good); margin-right: 6px; vertical-align: 1px; }
 
 /* ---------- Main ---------- */
-main { overflow-y: auto; outline: none; scroll-behavior: smooth; }
+main { overflow-y: auto; overflow-x: hidden; outline: none; scroll-behavior: smooth; min-width: 0; }
+.page { min-width: 0; }
 .page { max-width: 1180px; margin: 0 auto; padding: 28px 40px 80px; }
 .page-title { font-size: 30px; font-weight: 800; letter-spacing: -.02em; margin: 6px 0 22px; }
 .page-sub { color: var(--text-2); margin: -16px 0 24px; }
@@ -223,14 +224,28 @@ main { overflow-y: auto; outline: none; scroll-behavior: smooth; }
   .info-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 720px) {
-  .app { grid-template-columns: 1fr; }
+  .app { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); width: 100vw; }
+  .sidebar { min-width: 0; }
+  .search { min-width: 0; }
   .sidebar { position: sticky; top: 0; z-index: 5; flex-direction: row; flex-wrap: wrap; align-items: center; padding: 10px; overflow: visible; }
-  .sidebar nav, .side-foot { display: none; }
+  .side-foot, nav .sec { display: none; }
+  .sidebar nav { order: 3; flex-basis: 100%; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; margin-top: 8px; }
+  .sidebar nav::-webkit-scrollbar { display: none; }
+  nav a { flex: none; padding: 6px 12px; border-radius: 999px; background: var(--pill); font-size: 13px; margin: 0; }
+  nav a svg { width: 15px; height: 15px; }
   .search { flex: 1; margin: 0; }
   .brand { padding: 4px 10px 4px 4px; }
   .page { padding: 18px 16px 60px; }
   .rows3 { grid-auto-columns: 88%; }
   .detail-head .icon { width: 96px; height: 96px; }
   .info-grid { grid-template-columns: 1fr; }
+  .strip { grid-template-columns: repeat(2, 1fr); }
+  .strip > div:nth-child(3) { border-right: 1px solid var(--line); }
+  .strip > div:nth-child(2n) { border-right: 0; }
+  .detail-head { gap: 16px; }
+  .detail-head h1 { font-size: 24px; }
+  .shots { grid-auto-columns: 88%; }
+  .ad-banner { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .ad-banner .cta { margin-left: 0; }
   .hero-card h3 { font-size: 24px; }
 }
