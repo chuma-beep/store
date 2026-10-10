@@ -36,11 +36,14 @@ jobs:
         run: |
           mkdir -p _site/desktop-files
           cp -r site/. _site/
-          # Files the desktop installer (install.sh) downloads:
+          rm -f _site/assets/og-template.svg
+          # Files the desktop installer (install.sh) downloads (the plain app shell, no SEO pages):
           cp -r site _site/desktop-files/site
           rm -f _site/desktop-files/site/install.sh
           rm -rf _site/desktop-files/site/icons
           cp desktop/omarchy-store desktop/uninstall.sh _site/desktop-files/
+          # One real, indexable page per app/category + sitemap.xml + robots.txt
+          python3 scripts/seo.py _site
           touch _site/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -25,7 +25,7 @@ Usage:
   omarchy-store --uninstall     remove the desktop app
 """
 import hashlib, json, os, re, secrets, shlex, shutil, signal, socket, subprocess, sys, threading, time
-import urllib.request
+import urllib.parse, urllib.request
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 
 APP_DIR = os.path.expanduser(os.environ.get("OMARCHY_STORE_HOME", "~/.local/share/omarchy-store"))
@@ -183,8 +183,11 @@ class Handler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if not self._host_ok():
             return self._json(403, {"error": "forbidden"})
-        path = self.path.split("?")[0]
-        if path in ("/", "/index.html"):
+        path = urllib.parse.unquote(self.path.split("?")[0])
+        # Any page path (/, /app/krita/, /category/games/, /search/x/) → the store shell.
+        # Real files (have an extension) and /api/ are served normally.
+        is_page = not path.startswith("/api/") and not re.search(r"\.[A-Za-z0-9]+$", path)
+        if is_page or path == "/index.html":
             # Inject the session token so only this page can call the API.
             html = open(os.path.join(SITE_DIR, "index.html"), encoding="utf-8").read()
             html = html.replace("<head>", f'<head>\n<meta name="store-token" content="{TOKEN}">', 1)

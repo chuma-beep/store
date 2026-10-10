@@ -82,7 +82,7 @@
   async function boot() {
     // Desktop helper answers /api/status from the same origin; GitHub Pages returns 404.
     try {
-      const r = TOKEN ? await fetch("api/status", { cache: "no-store" }) : { ok: false };
+      const r = TOKEN ? await fetch("/api/status", { cache: "no-store" }) : { ok: false };
       if (r.ok) {
         const st = await r.json();
         S.desktop = true;
@@ -91,7 +91,7 @@
       }
     } catch { /* web mode */ }
 
-    const r = await fetch("catalog.json", { cache: "no-cache" });
+    const r = await fetch("/catalog.json", { cache: "no-cache" });
     S.catalog = await r.json();
     S.catalog.apps.forEach((a, i) => { S.byId[a.id] = a; a.rank = i + 1; });
     renderNav();
@@ -114,7 +114,7 @@
   async function refreshInstalled() {
     if (!S.desktop) return;
     try {
-      const st = await (await fetch("api/status", { cache: "no-store" })).json();
+      const st = await (await fetch("/api/status", { cache: "no-store" })).json();
       S.installed = new Set(st.installed || []);
     } catch {}
   }
@@ -124,12 +124,12 @@
   function renderNav() {
     const cats = S.catalog.categories;
     $("#nav").innerHTML = `
-      <a href="#/" data-r="">${ico("discover")}Discover</a>
-      <a href="#/charts" data-r="charts">${ico("charts")}Top Charts</a>
-      <a href="#/categories" data-r="categories">${ico("grid")}Categories</a>
-      ${S.desktop ? `<a href="#/installed" data-r="installed">${ico("installed")}Installed</a>` : ""}
+      <a href="/" data-r="">${ico("discover")}Discover</a>
+      <a href="/charts/" data-r="charts">${ico("charts")}Top Charts</a>
+      <a href="/categories/" data-r="categories">${ico("grid")}Categories</a>
+      ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>` : ""}
       <div class="sec">Categories</div>
-      ${cats.map((c) => `<a href="#/category/${c.id}" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}`;
+      ${cats.map((c) => `<a href="/category/${c.id}/" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}`;
   }
   function markNav(r) {
     document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("on", a.dataset.r === r));
@@ -152,8 +152,9 @@
     const t = a.name.replace(/[^A-Za-z0-9]/g, "").slice(0, a.kind === "terminal" ? 2 : 1) || "?";
     return `<span class="icon mono" style="width:${size}px;height:${size}px;background:linear-gradient(135deg,${bg},color-mix(in srgb,${bg} 55%,#000));font-size:${Math.round(size * (t.length > 1 ? .36 : .46))}px">${a.kind === "terminal" ? '<i>&gt;_</i>' : ""}${esc(t)}</span>`;
   };
+  const asset = (p) => !p ? "" : /^(https?:)?\/\//.test(p) || p.startsWith("/") ? p : "/" + p;
   const iconImg = (a, size) => a.icon
-    ? `<img class="icon" src="${esc(a.icon)}" alt="" width="${size}" height="${size}" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'icon mono',style:'width:${size}px;height:${size}px;background:#414868'}))">`
+    ? `<img class="icon" src="${esc(asset(a.icon))}" alt="" width="${size}" height="${size}" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'icon mono',style:'width:${size}px;height:${size}px;background:#414868'}))">`
     : monogram(a, size);
 
   function getBtn(a, big = false) {
@@ -166,7 +167,7 @@
   }
 
   function lockup(a, { rank, sub } = {}) {
-    return `<a class="lockup" href="#/app/${a.id}">
+    return `<a class="lockup" href="/app/${a.id}/">
       ${rank ? `<span class="rank">${rank}</span>` : ""}
       ${iconImg(a, 64)}
       <div class="meta">
@@ -193,7 +194,7 @@
 
   // Ad images can be relative (hosted with the site). The desktop app serves a local copy
   // of the site without the ads/ folder, so point those at the live site instead.
-  const adImg = (p) => !p ? "" : /^https:\/\//.test(p) ? p : (S.desktop ? SITE + p : p);
+  const adImg = (p) => !p ? "" : /^https:\/\//.test(p) ? p : (S.desktop ? SITE + p : "/" + p);
 
   function artistAd(c) {
     const u = esc(adUrl(c.url));
@@ -247,7 +248,7 @@
     const c = ads("sponsored-app").find((c) => S.byId[c.app] && filter(S.byId[c.app]));
     if (!c) return "";
     const a = S.byId[c.app];
-    return `<a class="lockup ad-app" href="#/app/${a.id}">
+    return `<a class="lockup ad-app" href="/app/${a.id}/">
       ${iconImg(a, 64)}
       <div class="meta"><div class="name"><span class="ad-badge">Ad</span>${esc(a.name)}</div><div class="sub">${esc(a.summary)}</div>
       <div class="stars">Sponsored by ${esc(c.sponsor || a.developer)}</div></div>${getBtn(a)}</a>`;
@@ -272,8 +273,8 @@
         const a = S.byId[h.app];
         const [g1, g2] = h.gradient;
         const shot = a.screenshots[0];
-        return `<a class="hero-card" href="#/app/${a.id}" style="background:linear-gradient(135deg,${g1},${g2})">
-          <div class="shot">${shot ? `<img src="${esc(shot)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<img class="glyph" src="${esc(a.icon)}" alt="">`}</div>
+        return `<a class="hero-card" href="/app/${a.id}/" style="background:linear-gradient(135deg,${g1},${g2})">
+          <div class="shot">${shot ? `<img src="${esc(shot)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<img class="glyph" src="${esc(asset(a.icon))}" alt="">`}</div>
           <div><div class="eyebrow">${esc(h.eyebrow)}</div><h3>${esc(h.headline)}</h3></div>
           <div class="lockup">${iconImg(a, 48)}<div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${esc(a.summary)}</div></div>${getBtn(a)}</div>
         </a>`;
@@ -281,13 +282,13 @@
       ${shelf(collections[0].title, collections[0].apps.map((id) => S.byId[id]))}
       ${bannerAd()}
       <section class="shelf">
-        <div class="shelf-head"><h2>Top Charts</h2><a href="#/charts">See All</a></div>
+        <div class="shelf-head"><h2>Top Charts</h2><a href="/charts/">See All</a></div>
         <div class="scroller rows3">${apps.slice(0, 12).map((a, i) => lockup(a, { rank: i + 1 })).join("")}</div>
       </section>
       ${collections.slice(1).map((c) => shelf(c.title, c.apps.map((id) => S.byId[id]))).join("")}
       ${shelf("Fresh Updates", fresh)}
-      ${shelf("Games", games, "#/category/games")}
-      ${shelf("Terminal power tools", apps.filter((a) => a.category === "terminal"), "#/category/terminal")}
+      ${shelf("Games", games, "/category/games/")}
+      ${shelf("Terminal power tools", apps.filter((a) => a.category === "terminal"), "/category/terminal/")}
       ${footer()}
     </div>`;
   }
@@ -308,7 +309,7 @@
     return `<div class="page">
       <h1 class="page-title">Categories</h1>
       <div class="cat-tiles">${S.catalog.categories.map((c, i) => `
-        <a class="cat-tile" href="#/category/${c.id}">
+        <a class="cat-tile" href="/category/${c.id}/">
           <span class="ci" style="background:${CAT_COLORS[i % CAT_COLORS.length]}">${ico(c.icon)}</span>
           <span>${esc(c.name)}<div class="muted small">${S.catalog.apps.filter((a) => a.category === c.id).length} apps</div></span>
         </a>`).join("")}</div>
@@ -424,10 +425,10 @@
           : a.install.method === "aur"
             ? "Installs from the AUR, Arch's community repository. Builds are community-maintained; the store only lists packages with an active maintainer and good standing."
             : "Installs from a signed, official package source. The store never runs code from a web page — it only calls your system package manager."}
-          <div style="margin-top:6px">Third-party software, provided as-is. Install at your own risk — <a style="color:var(--accent)" href="#/legal">disclaimer</a>.</div></div></div>
+          <div style="margin-top:6px">Third-party software, provided as-is. Install at your own risk — <a style="color:var(--accent)" href="/legal/">disclaimer</a>.</div></div></div>
       </section>
 
-      ${related.length ? `<section class="shelf"><div class="shelf-head"><h2>More ${esc(cat?.name)}</h2><a href="#/category/${a.category}">See All</a></div>
+      ${related.length ? `<section class="shelf"><div class="shelf-head"><h2>More ${esc(cat?.name)}</h2><a href="/category/${a.category}/">See All</a></div>
         <div class="scroller rows3">${related.map((x) => lockup(x)).join("")}</div></section>` : ""}
       ${footer()}
     </div>`;
@@ -470,9 +471,9 @@
     </div>`;
   }
 
-  const notFound = () => `<div class="page"><div class="empty">That page doesn’t exist. <a style="color:var(--accent)" href="#/">Back to Discover</a></div></div>`;
+  const notFound = () => `<div class="page"><div class="empty">That page doesn’t exist. <a style="color:var(--accent)" href="/">Back to Discover</a></div></div>`;
   const footer = () => `<div class="footer">
-    <span class="disclaim">${DISCLAIMER_SHORT} <a href="#/legal">Full disclaimer</a></span>
+    <span class="disclaim">${DISCLAIMER_SHORT} <a href="/legal/">Full disclaimer</a></span>
     <span>Omarchy Store — unofficial, community-run. Not affiliated with Omarchy or Basecamp.</span>
     <a href="${REPO}" target="_blank" rel="noopener">GitHub</a>
     <a href="${REPO}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Submit an app</a>
@@ -481,8 +482,23 @@
   </div>`;
 
   // ---------- router ----------
+  // Real URLs (/app/krita/) so every page can be indexed by search engines.
+  // Old #/ links are upgraded in place so shared links keep working.
+  function currentPath() {
+    if (location.hash.startsWith("#/")) {
+      const p = "/" + location.hash.slice(2).replace(/\/?$/, "/").replace(/^\/$/, "");
+      history.replaceState(null, "", p || "/");
+    }
+    return decodeURIComponent(location.pathname).replace(/^\/+|\/+$/g, "");
+  }
+  function go(path) {
+    if (path === location.pathname) return;
+    history.pushState(null, "", path);
+    closeSheet(); route();
+  }
+
   function route() {
-    const h = decodeURIComponent(location.hash.replace(/^#\/?/, ""));
+    const h = currentPath();
     const [p, arg] = h.split(/\/(.*)/s);
     let html, nav = p;
     if (!p) html = pageDiscover(), nav = "";
@@ -502,7 +518,15 @@
     route.last = h;
     const d = $("#desc"), m = $("#more");
     if (d && m && d.scrollHeight > d.clientHeight + 4) m.hidden = false;
-    document.title = p === "app" && S.byId[arg] ? `${S.byId[arg].name} — Omarchy Store` : "Omarchy Store";
+    document.title = pageTitle(p, arg);
+  }
+  const TITLES = { charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed" };
+  function pageTitle(p, arg) {
+    const a = p === "app" && S.byId[arg];
+    if (a) return `${a.name} for Omarchy Linux – Install ${a.name} | Omarchy Store`;
+    const c = p === "category" && S.catalog.categories.find((c) => c.id === arg);
+    if (c) return `Best ${c.name} Apps for Omarchy Linux | Omarchy Store`;
+    return TITLES[p] ? `${TITLES[p]} | Omarchy Store` : "Omarchy Store – The App Store for Omarchy Linux";
   }
   const rerender = () => { const top = view.scrollTop; route(); view.scrollTop = top; };
 
@@ -520,8 +544,8 @@
       <div class="row">${iconImg(a, 56)}<div><h3>Get ${esc(a.name)}</h3><div class="muted small">Installs from ${esc(sourceLabel(a))}</div></div></div>
       <div class="small muted">Paste this into a terminal (<b>Super + Return</b>):</div>
       <div class="code"><code>${esc(cmd)}</code><button class="btn" data-copy="${esc(cmd)}">Copy</button></div>
-      <div class="small muted">Want one-click installs? <a style="color:var(--accent)" href="#/get-desktop" data-close>Get the desktop app</a>.</div>
-      <p class="small muted sheet-legal">${esc(DISCLAIMER_SHORT)} <a style="color:var(--accent)" href="#/legal" data-close>Disclaimer</a></p>
+      <div class="small muted">Want one-click installs? <a style="color:var(--accent)" href="/get-desktop/" data-close>Get the desktop app</a>.</div>
+      <p class="small muted sheet-legal">${esc(DISCLAIMER_SHORT)} <a style="color:var(--accent)" href="/legal/" data-close>Disclaimer</a></p>
       <div style="text-align:right;margin-top:16px"><button class="btn ghost" data-close>Done</button></div>
     </div>`);
   }
@@ -532,7 +556,7 @@
     showSheet(`<div class="sheet-card" role="dialog" aria-label="Before you install">
       <div class="row">${iconImg(a, 56)}<div><h3>Before you install</h3><div class="muted small">${esc(a.name)} · from ${esc(sourceLabel(a))}</div></div></div>
       <p>${esc(DISCLAIMER_SHORT)}</p>
-      <p class="small muted">Omarchy Store and its maintainers are not responsible for viruses, malware, data loss or any other damage caused by installed software. Read the <a style="color:var(--accent)" href="#/legal" data-close>full disclaimer</a>.</p>
+      <p class="small muted">Omarchy Store and its maintainers are not responsible for viruses, malware, data loss or any other damage caused by installed software. Read the <a style="color:var(--accent)" href="/legal/" data-close>full disclaimer</a>.</p>
       <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px">
         <button class="btn ghost" data-close>Cancel</button>
         <button class="btn" data-accept="${a.id}">I understand — install</button>
@@ -543,14 +567,14 @@
   async function desktopGet(a) {
     S.busy.add(a.id); rerender();
     try {
-      const r = await post("api/install", { id: a.id });
+      const r = await post("/api/install", { id: a.id });
       if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.statusText);
       toast(`Installing ${a.name} — follow the terminal window`);
       // Poll until the package shows up (install runs in a floating terminal and may ask for your password).
       const t0 = Date.now();
       while (Date.now() - t0 < 20 * 60e3) {
         await new Promise((res) => setTimeout(res, 2500));
-        const st = await (await fetch("api/job/" + a.id, { cache: "no-store" })).json();
+        const st = await (await fetch("/api/job/" + a.id, { cache: "no-store" })).json();
         if (st.installed) { S.installed.add(a.id); toast(`${a.name} installed`); break; }
         if (st.state === "done" || st.state === "failed") { await refreshInstalled(); if (!isInstalled(a)) toast(`${a.name} was not installed`); break; }
       }
@@ -561,7 +585,7 @@
   }
 
   async function desktopOpen(a) {
-    const r = await post("api/open", { id: a.id });
+    const r = await post("/api/open", { id: a.id });
     const j = await r.json().catch(() => ({}));
     toast(r.ok ? `Opening ${a.name}` : (j.error || "Could not open"));
   }
@@ -583,7 +607,7 @@
     } else if (t.matches("[data-close]")) {
       closeSheet();
     } else if (t.matches("[data-share]")) {
-      copy(SITE + "#/app/" + t.dataset.share);
+      copy(SITE + "app/" + t.dataset.share + "/");
     } else if (t.matches("[data-chart]")) {
       S.chartCat = t.dataset.chart; rerender();
     } else if (t.matches("[data-zoom]")) {
@@ -602,9 +626,24 @@
   $("#q").addEventListener("input", (e) => {
     clearTimeout(qt);
     const v = e.target.value;
-    qt = setTimeout(() => { location.hash = v.trim() ? "#/search/" + encodeURIComponent(v) : "#/"; }, 180);
+    qt = setTimeout(() => {
+      const path = v.trim() ? "/search/" + encodeURIComponent(v) + "/" : "/";
+      if (location.pathname.startsWith("/search/")) { history.replaceState(null, "", path); route(); } else go(path);
+    }, 180);
   });
-  window.addEventListener("hashchange", () => { closeSheet(); route(); });
+  // Intercept in-store links so navigation is instant (no page reload).
+  document.addEventListener("click", (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest("a[href]");
+    if (!a || a.target === "_blank" || a.hasAttribute("download")) return;
+    const url = new URL(a.href, location.href);
+    if (url.origin !== location.origin || url.pathname.startsWith("/api/") || /\.[a-z0-9]+$/i.test(url.pathname)) return;
+    e.preventDefault();
+    if (a.hasAttribute("data-close")) closeSheet();
+    go(url.pathname);
+  });
+  window.addEventListener("popstate", () => { closeSheet(); route(); });
+  window.addEventListener("hashchange", () => { if (location.hash.startsWith("#/")) { closeSheet(); route(); } });
   window.addEventListener("focus", async () => { if (S.desktop) { await refreshInstalled(); rerender(); } });
 
   boot().catch((e) => {

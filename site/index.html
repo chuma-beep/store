@@ -3,35 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Omarchy Store</title>
+<title>Omarchy Store – The App Store for Omarchy Linux</title>
 <meta name="description" content="The community app store for Omarchy Linux. Discover and install the best apps, curated from GitHub.">
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
-<link rel="icon" href="assets/favicon.ico" sizes="16x16 32x32 48x48">
-<link rel="apple-touch-icon" href="assets/icon-180.png">
-<link rel="manifest" href="site.webmanifest">
+<!--SEO-->
+<link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="/assets/icon-180.png">
+<link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1a1b26">
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <div class="app">
   <aside class="sidebar">
-    <a class="brand" href="#/">
-      <img src="assets/logo.svg" alt="" width="28" height="28">
+    <a class="brand" href="/">
+      <img src="/assets/logo.svg" alt="Omarchy Store logo" width="28" height="28">
       <span>Omarchy Store</span>
     </a>
     <label class="search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-      <input id="q" type="search" placeholder="Search" autocomplete="off" spellcheck="false">
+      <input id="q" type="search" placeholder="Search" autocomplete="off" spellcheck="false" aria-label="Search apps">
     </label>
     <nav id="nav"></nav>
     <div class="side-foot">
-      <a id="mode-badge" class="mode-badge" href="#/get-desktop"></a>
+      <a id="mode-badge" class="mode-badge" href="/get-desktop/"></a>
     </div>
   </aside>
-  <main id="view" tabindex="-1"><div class="loading"><div class="spinner"></div></div></main>
+  <main id="view" tabindex="-1"><!--CONTENT--><div class="loading"><div class="spinner"></div></div><!--/CONTENT--></main>
 </div>
 <div id="sheet" class="sheet" hidden></div>
 <div id="toast" class="toast" hidden></div>
-<script src="app.js"></script>
+<script src="/app.js"></script>
 </body>
 </html>
