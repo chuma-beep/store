@@ -2,11 +2,11 @@
 
 **The community app store for [Omarchy](https://omarchy.org).** Browse the best Linux apps, see real GitHub stars, screenshots and versions, and install with one click.
 
-🌐 **Browse:** https://omarchy-community.github.io/store/
+🌐 **Browse:** https://omarchystore.com/
 🖥️ **Desktop app (one-click installs):**
 
 ```bash
-curl -fsSL https://omarchy-community.github.io/store/install.sh | bash
+curl -fsSL https://omarchystore.com/install.sh | bash
 ```
 
 Then open **Omarchy Store** from your launcher (Super + Space).

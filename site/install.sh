@@ -1,7 +1,7 @@
 #!/bin/bash
 # Omarchy Store — desktop app installer.
 #
-#   curl -fsSL https://omarchy-community.github.io/store/install.sh | bash
+#   curl -fsSL https://omarchystore.com/install.sh | bash
 #
 # What this does (and nothing else):
 #   1. Downloads the store files into ~/.local/share/omarchy-store
@@ -10,7 +10,7 @@
 # No sudo. Nothing outside your home folder. Remove with: omarchy-store --uninstall
 set -euo pipefail
 
-BASE="${OMARCHY_STORE_REMOTE:-https://omarchy-community.github.io/store/}"
+BASE="${OMARCHY_STORE_REMOTE:-https://omarchystore.com/}"
 DEST="$HOME/.local/share/omarchy-store"
 BIN="$HOME/.local/bin"
 APPS="$HOME/.local/share/applications"

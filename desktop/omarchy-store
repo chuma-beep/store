@@ -33,7 +33,7 @@ SITE_DIR = os.path.join(APP_DIR, "site")
 STATE_DIR = os.path.expanduser("~/.local/state/omarchy-store")
 PORT_FILE = os.path.join(STATE_DIR, "port")
 THEME = os.path.expanduser("~/.local/state/omarchy/current/theme/colors.toml")
-REMOTE = os.environ.get("OMARCHY_STORE_REMOTE", "https://omarchy-community.github.io/store/")
+REMOTE = os.environ.get("OMARCHY_STORE_REMOTE", "https://omarchystore.com/")
 DEFAULT_PORT = 47823
 UPDATE_EVERY = 6 * 3600
 

@@ -8,7 +8,7 @@
 (() => {
   "use strict";
 
-  const SITE = "https://omarchy-community.github.io/store/";
+  const SITE = "https://omarchystore.com/";
   const REPO = "https://github.com/omarchy-community/store";
   const INSTALLER = `curl -fsSL ${SITE}install.sh | bash`;
 
