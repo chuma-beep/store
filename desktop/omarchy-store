@@ -40,6 +40,12 @@ UPDATE_EVERY = 6 * 3600
 PKG_RE = re.compile(r"^[a-z0-9@._+-]+$")
 OMARCHY_RE = re.compile(r"^omarchy install [a-z0-9 '._-]+$", re.I)
 CMD_RE = re.compile(r"^[a-z0-9._-]+$")
+# Themes: only plain github.com/<owner>/<repo> sources and safe folder names are accepted.
+THEME_REPO_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+THEME_NAME_RE = re.compile(r"^[a-z0-9_][a-z0-9._+-]*$")
+USER_THEMES = os.path.expanduser("~/.config/omarchy/themes")
+SYS_THEMES = os.path.join(os.environ.get("OMARCHY_PATH", "/usr/share/omarchy"), "themes")
+THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 
 TOKEN = secrets.token_urlsafe(24)
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
@@ -50,6 +56,62 @@ JOBS_LOCK = threading.Lock()
 def load_catalog():
     with open(os.path.join(SITE_DIR, "catalog.json")) as f:
         return {a["id"]: a for a in json.load(f)["apps"]}
+
+
+def load_themes():
+    with open(os.path.join(SITE_DIR, "catalog.json")) as f:
+        return {t["id"]: t for t in json.load(f).get("themes", [])}
+
+
+def theme_folder(t):
+    """Folder name the theme has in Omarchy (validated)."""
+    name = t.get("install_name") or ""
+    if not THEME_NAME_RE.match(name) or ".." in name:
+        raise ValueError("bad theme name")
+    return name
+
+
+def installed_themes():
+    out = set()
+    for d in (USER_THEMES, SYS_THEMES):
+        try:
+            out.update(n for n in os.listdir(d) if os.path.isdir(os.path.join(d, n)))
+        except OSError:
+            pass
+    return sorted(out)
+
+
+def current_theme():
+    try:
+        return open(THEME_NOW).read().strip()
+    except OSError:
+        return ""
+
+
+def run_theme_install(t):
+    name = theme_folder(t)
+    if t.get("builtin"):
+        return run_theme_use(t)
+    repo = t.get("repo") or ""
+    if not THEME_REPO_RE.match(repo) or ".." in repo:
+        raise ValueError("bad theme repo")
+    url = f"https://github.com/{repo}"
+    # Visible terminal so the user sees the download; no password is needed for themes.
+    script = (f"echo {shlex.quote('Installing the ' + t['name'] + ' theme from the Omarchy Store…')}; echo; "
+              f"omarchy-theme-install {shlex.quote(url)}")
+    if shutil.which("omarchy-launch-floating-terminal-with-presentation"):
+        launcher = ["omarchy-launch-floating-terminal-with-presentation", script]
+    else:
+        launcher = ["xdg-terminal-exec", "bash", "-c", script + "; read -n1 -p 'Press any key to close'"]
+    subprocess.Popen(launcher, stdin=subprocess.DEVNULL, start_new_session=True)
+
+
+def run_theme_use(t):
+    name = theme_folder(t)
+    if name not in installed_themes():
+        raise ValueError("theme is not installed")
+    subprocess.Popen(["omarchy-theme-set", name], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                     stderr=subprocess.DEVNULL, start_new_session=True)
 
 
 def recipe(app):
@@ -199,7 +261,8 @@ class Handler(SimpleHTTPRequestHandler):
             return self.wfile.write(body)
         if path == "/api/status":
             cat = load_catalog()
-            return self._json(200, {"desktop": True, "installed": installed_ids(cat), "theme": read_theme()})
+            return self._json(200, {"desktop": True, "installed": installed_ids(cat), "theme": read_theme(),
+                                    "themes_installed": installed_themes(), "theme_current": current_theme()})
         if path.startswith("/api/job/"):
             aid = path.rsplit("/", 1)[1]
             cat = load_catalog()
@@ -224,6 +287,17 @@ class Handler(SimpleHTTPRequestHandler):
             aid = str(data.get("id", ""))
         except Exception:
             return self._json(400, {"error": "bad request"})
+        if self.path in ("/api/theme/install", "/api/theme/use"):
+            th = load_themes().get(aid)
+            if not th:
+                return self._json(404, {"error": "unknown theme"})
+            try:
+                (run_theme_install if self.path.endswith("install") else run_theme_use)(th)
+                return self._json(202, {"ok": True})
+            except ValueError as e:
+                return self._json(400, {"error": str(e)})
+            except FileNotFoundError as e:
+                return self._json(500, {"error": f"missing program: {e.filename}"})
         cat = load_catalog()
         app = cat.get(aid)
         if not app:

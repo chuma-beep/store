@@ -363,12 +363,20 @@ def build(apps, cats, feat, ads):
         a["icon"] = path
         # A package that isn't published anywhere yet can't be installed: show "Coming soon".
         a["available"] = bool(a["package"].get("repo")) or a["install"]["method"] == "omarchy"
+    try:
+        from themes import collect as collect_themes
+        themes = collect_themes()
+    except Exception as ex:  # the app catalog must still publish if the theme source is down
+        print(f"  warn: themes skipped: {ex}", file=sys.stderr)
+        themes = []
     today = date.today().isoformat()
     live = [c for c in ads["campaigns"] if c.get("enabled", True) and c.get("starts", "") <= today <= c.get("ends", "9999")]
     return {
         "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "categories": load(os.path.join(REG, "categories.json")),
         "featured": feat, "ads": {"network": ads["network"], "campaigns": live},
+        "themes": themes,
+        "themes_source": {"name": "Omarchy Themes", "url": "https://omarchythemes.com", "by": "Mubs", "by_url": "https://mubs.me"},
         "apps": sorted(out, key=lambda x: (not x.get("featured"), -(x["stars"] or 0))),
     }
 

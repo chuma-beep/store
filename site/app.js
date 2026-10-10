@@ -12,7 +12,8 @@
   const REPO = "https://github.com/omarchy-community/store";
   const INSTALLER = `curl -fsSL ${SITE}install.sh | bash`;
 
-  const S = { catalog: null, byId: {}, desktop: false, installed: new Set(), busy: new Set(), chartCat: "all" };
+  const S = { catalog: null, byId: {}, themeById: {}, desktop: false, installed: new Set(), busy: new Set(), chartCat: "all",
+    themeFilter: "all", themeQ: "", themesHave: new Set(), themeNow: "" };
   const $ = (s, el = document) => el.querySelector(s);
   const view = $("#view");
   // Desktop helper injects a per-session token; every install/open request must carry it.
@@ -69,6 +70,7 @@
     shield: '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/>',
     terminal: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M12 15h5"/>',
     book: '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M8 7h7"/>',
+    palette: '<path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a5 5 0 0 0 5-5C21 6.4 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="14.5" cy="7" r="1"/><circle cx="17" cy="10.5" r="1"/>',
     wrench: '<path d="M14.7 6.3a4 4 0 0 0 5 5L13 18a2.1 2.1 0 0 1-3-3l6.7-6.7a4 4 0 0 0-5-5z"/>',
     star: '<path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/>',
     share: '<path d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',
@@ -88,6 +90,7 @@
         const st = await r.json();
         S.desktop = true;
         S.installed = new Set(st.installed || []);
+        S.themesHave = new Set(st.themes_installed || []); S.themeNow = st.theme_current || "";
         if (st.theme) applyTheme(st.theme);
       }
     } catch { /* web mode */ }
@@ -95,6 +98,8 @@
     const r = await fetch("/catalog.json", { cache: "no-cache" });
     S.catalog = await r.json();
     S.catalog.apps.forEach((a, i) => { S.byId[a.id] = a; a.rank = i + 1; });
+    S.catalog.themes = S.catalog.themes || [];
+    S.catalog.themes.forEach((t) => { S.themeById[t.id] = t; });
     renderNav();
     renderModeBadge();
     route();
@@ -117,6 +122,7 @@
     try {
       const st = await (await fetch("/api/status", { cache: "no-store" })).json();
       S.installed = new Set(st.installed || []);
+      S.themesHave = new Set(st.themes_installed || []); S.themeNow = st.theme_current || "";
     } catch {}
   }
   const isInstalled = (a) => S.installed.has(a.id);
@@ -128,6 +134,7 @@
       <a href="/" data-r="">${ico("discover")}Discover</a>
       <a href="/charts/" data-r="charts">${ico("charts")}Top Charts</a>
       <a href="/categories/" data-r="categories">${ico("grid")}Categories</a>
+      ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes">${ico("palette")}Themes<span class="nav-new">NEW</span></a>` : ""}
       ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>` : ""}
       <div class="sec">Categories</div>
       ${cats.map((c) => `<a href="/category/${c.id}/" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}`;
@@ -263,6 +270,159 @@
       <div><span class="ad-chip">Sponsored</span><h3 style="font-size:18px">${esc(c.title)}</h3><p>${esc(c.body)}</p></div><span class="cta">${esc(c.cta)}</span></a>`;
   }
 
+
+  // ---------- themes (directory data from omarchythemes.com, credited on every page) ----------
+  // In the desktop app the local site copy has no preview images, so load them from the live site.
+  const themeImg = (t) => !t.image ? "" : /^https:\/\//.test(t.image) ? t.image : (S.desktop ? SITE + t.image : "/" + t.image);
+  const canInstallTheme = (t) => !!(t.builtin || t.repo);
+  const themeCmd = (t) => t.builtin ? `omarchy-theme-set ${t.builtin}` : `omarchy-theme-install https://github.com/${t.repo}`;
+  const themeHave = (t) => S.themesHave.has(t.install_name);
+  const themeIsCurrent = (t) => S.themeNow && S.themeNow === t.install_name;
+  const swatches = (t, n = 8) => (t.palette || []).slice(0, n).map((c) => `<i style="background:${esc(c)}"></i>`).join("");
+
+  function themeBtn(t, big = false) {
+    const cls = "get" + (big ? " big" : "");
+    if (!canInstallTheme(t)) return `<a class="${cls} ghosty" href="${esc(t.source_url)}" target="_blank" rel="noopener">VIEW</a>`;
+    if (S.busy.has("theme:" + t.id)) return `<button class="${cls} busy"><span class="ring"></span></button>`;
+    if (S.desktop && themeIsCurrent(t)) return `<button class="${cls} installed" disabled>IN USE</button>`;
+    if (S.desktop && themeHave(t)) return `<button class="${cls}" data-theme-use="${t.id}">USE</button>`;
+    return `<button class="${cls}" data-theme-get="${t.id}">GET</button>`;
+  }
+
+  function themeCard(t) {
+    const img = themeImg(t);
+    return `<a class="theme-card" href="/theme/${t.id}/">
+      <div class="tc-img" style="background:${esc(t.palette?.[0] || "var(--card)")}">${img ? `<img src="${esc(img)}" alt="${esc(t.name)} theme preview" loading="lazy">` : ""}
+        ${t.builtin ? `<span class="tc-chip">Built in</span>` : ""}${S.desktop && themeIsCurrent(t) ? `<span class="tc-chip on">In use</span>` : ""}</div>
+      <div class="tc-meta">
+        <div style="min-width:0;flex:1"><div class="name">${esc(t.name)}</div><div class="sub">by ${esc(t.author || "unknown")}</div>
+          ${t.palette?.length ? `<div class="swatch">${swatches(t)}</div>` : ""}</div>
+        ${themeBtn(t)}
+      </div>
+    </a>`;
+  }
+
+  function themeShelf(title, list, seeAll) {
+    if (!list.length) return "";
+    return `<section class="shelf">
+      <div class="shelf-head"><h2>${esc(title)}</h2>${seeAll ? `<a href="${seeAll}">See All</a>` : ""}</div>
+      <div class="scroller themes-row">${list.map(themeCard).join("")}</div>
+    </section>`;
+  }
+
+  const THEME_FILTERS = [["all", "All"], ["dark", "Dark"], ["light", "Light"], ["builtin", "Built into Omarchy"], ["popular", "Most starred"], ["new", "Recently updated"]];
+  function themeList() {
+    let l = S.catalog.themes.slice();
+    const f = S.themeFilter, q = S.themeQ.trim().toLowerCase();
+    if (f === "dark" || f === "light") l = l.filter((t) => t.mode === f);
+    if (f === "builtin") l = l.filter((t) => t.builtin);
+    if (f === "popular") l = l.filter((t) => t.stars).sort((a, b) => b.stars - a.stars);
+    if (f === "new") l = l.filter((t) => t.updated).sort((a, b) => new Date(b.updated) - new Date(a.updated));
+    if (f === "installed") l = l.filter(themeHave);
+    if (q) l = l.filter((t) => (t.name + " " + t.author + " " + (t.description || "")).toLowerCase().includes(q));
+    return l;
+  }
+  function themeGridHtml() {
+    const l = themeList();
+    return l.length ? l.map(themeCard).join("") : `<div class="empty" style="grid-column:1/-1">No themes match.</div>`;
+  }
+  function pageThemes() {
+    const all = S.catalog.themes, src = S.catalog.themes_source || {};
+    const filters = S.desktop ? [...THEME_FILTERS, ["installed", "On this computer"]] : THEME_FILTERS;
+    const pick = all.filter((t) => t.palette?.length && t.image && t.stars).slice(0, 3);
+    return `<div class="page">
+      <h1 class="page-title">Themes</h1>
+      <p class="page-sub">${all.length} community themes that recolor your whole Omarchy desktop: terminal, bar, launcher, lock screen and wallpaper. Directory from <a style="color:var(--accent)" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a>.</p>
+      ${pick.length ? `<div class="scroller theme-hero">${pick.map((t) => `<a class="th-card" href="/theme/${t.id}/"><img src="${esc(themeImg(t))}" alt="" loading="eager">
+        <div class="th-over"><div class="eyebrow">Most loved</div><h3>${esc(t.name)}</h3><div class="swatch">${swatches(t)}</div></div></a>`).join("")}</div>` : ""}
+      <div class="theme-tools">
+        <div class="tabs">${filters.map(([id, n]) => `<button data-tfilter="${id}" class="${S.themeFilter === id ? "on" : ""}">${esc(n)}</button>`).join("")}</div>
+        <input id="tq" type="search" placeholder="Search themes" value="${esc(S.themeQ)}" autocomplete="off" aria-label="Search themes">
+      </div>
+      <div class="theme-grid" id="tgrid">${themeGridHtml()}</div>
+      <div class="trust">${ico("ok")}<div>Themes only change colors, fonts and wallpapers; they don't install programs or need your password. Installing copies the theme from its GitHub page into <code>~/.config/omarchy/themes</code> and switches to it. Switch back any time from the Omarchy menu: <b>Super + Ctrl + Shift + Space</b>.
+        <div style="margin-top:6px">Themes are made by independent creators. Listing data courtesy of <a style="color:var(--accent)" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a> by <a style="color:var(--accent)" href="${esc(src.by_url)}" target="_blank" rel="noopener">${esc(src.by)}</a>.</div></div></div>
+      ${footer()}
+    </div>`;
+  }
+
+  function pageTheme(id) {
+    const t = S.themeById[id];
+    if (!t) return notFound();
+    const src = S.catalog.themes_source || {};
+    const gh = t.repo ? `https://github.com/${t.repo}` : null;
+    const more = S.catalog.themes.filter((x) => x.id !== t.id && x.mode === t.mode && x.image && x.palette?.length).slice(0, 12);
+    const img = themeImg(t);
+    return `<div class="page">
+      <div class="theme-big" style="background:${esc(t.palette?.[0] || "var(--card)")}">${img ? `<img src="${esc(img)}" alt="${esc(t.name)} theme on Omarchy" data-zoom>` : ""}</div>
+      <div class="detail-head theme-head">
+        <div style="min-width:0">
+          <h1>${esc(t.name)}${t.archived ? `<span class="archived">Archived</span>` : ""}</h1>
+          <div class="sub">${esc(t.description && t.description.length < 200 ? t.description : (t.mode === "light" ? "A light theme" : "A dark theme") + " for Omarchy")}</div>
+          <a class="dev" href="${esc(gh || t.source_url)}" target="_blank" rel="noopener">${esc(t.author || "Unknown creator")}</a>
+          <div class="actions">
+            ${themeBtn(t, true)}
+            ${gh ? `<a class="icon-btn" href="${gh}" target="_blank" rel="noopener" title="View on GitHub">${ico("github")}</a>` : ""}
+            <button class="icon-btn" data-share-theme="${t.id}" title="Share">${ico("share")}</button>
+          </div>
+        </div>
+      </div>
+      <div class="strip">
+        <div><div class="k">Style</div><div class="v">${t.mode === "light" ? "☀" : t.mode === "dark" ? "☾" : "—"}</div><div class="s">${t.mode ? (t.mode === "light" ? "Light" : "Dark") : "Unknown"}</div></div>
+        <div><div class="k">GitHub Stars</div><div class="v">${t.stars != null ? k(t.stars) : "—"}</div><div class="s">${t.builtin ? "Ships with Omarchy" : "Community"}</div></div>
+        <div><div class="k">Wallpapers</div><div class="v">${t.backgrounds || "—"}</div><div class="s">Included</div></div>
+        <div><div class="k">Restyles</div><div class="v">${t.apps?.length || "—"}</div><div class="s">Apps</div></div>
+        <div><div class="k">Updated</div><div class="v" style="font-size:16px">${ago(t.updated)}</div><div class="s">On GitHub</div></div>
+        <div><div class="k">Price</div><div class="v">Free</div><div class="s">Open source</div></div>
+      </div>
+      ${t.palette?.length ? `<section class="shelf"><div class="shelf-head"><h2>Color palette</h2></div>
+        <div class="palette">${t.palette.map((c) => `<button data-copy="${esc(c)}" title="Copy ${esc(c)}"><i style="background:${esc(c)}"></i><span>${esc(c)}</span></button>`).join("")}</div></section>` : ""}
+      ${t.apps?.length ? `<section class="shelf"><div class="shelf-head"><h2>What it recolors</h2></div>
+        <div class="chips">${t.apps.map((a) => `<span>${esc(a)}</span>`).join("")}</div></section>` : ""}
+      <section class="shelf"><div class="shelf-head"><h2>Information</h2></div>
+        <div class="info-grid">
+          <div><div class="k">Creator</div><div class="v">${esc(t.author || "—")}</div></div>
+          ${gh ? `<div><div class="k">Source code</div><a class="v" href="${gh}" target="_blank" rel="noopener">github.com/${esc(t.repo)}</a></div>` : ""}
+          <div><div class="k">Listed on</div><a class="v" href="${esc(t.source_url)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Themes")}</a></div>
+          ${canInstallTheme(t) ? `<div><div class="k">Install command</div><div class="v"><code class="small">${esc(themeCmd(t))}</code></div></div>` : ""}
+        </div>
+        <div class="trust">${ico("ok")}<div>${t.builtin ? "This theme ships with Omarchy, so nothing is downloaded: the store just switches to it." : "Installing copies this theme from its GitHub page into ~/.config/omarchy/themes and switches to it. Themes change colors and wallpapers only."}
+          <div style="margin-top:6px">Theme by ${esc(t.author || "its creator")} · listed via <a style="color:var(--accent)" href="${esc(t.source_url)}" target="_blank" rel="noopener">${esc(src.name || "omarchythemes.com")}</a>. Third-party content, provided as-is: <a style="color:var(--accent)" href="/legal/">disclaimer</a>.</div></div></div>
+      </section>
+      ${themeShelf(t.mode === "light" ? "More light themes" : "More dark themes", more, "/themes/")}
+      ${footer()}
+    </div>`;
+  }
+
+  function webThemeGet(t) {
+    const cmd = themeCmd(t);
+    showSheet(`<div class="sheet-card" role="dialog" aria-label="Get ${esc(t.name)}">
+      <div class="row"><div class="swatch big">${swatches(t, 6)}</div><div><h3>Get ${esc(t.name)}</h3><div class="muted small">${t.builtin ? "Built into Omarchy" : "From github.com/" + esc(t.repo)}</div></div></div>
+      <div class="small muted">Paste this into a terminal (<b>Super + Return</b>). It installs the theme and switches to it:</div>
+      <div class="code"><code>${esc(cmd)}</code><button class="btn" data-copy="${esc(cmd)}">Copy</button></div>
+      <div class="small muted">Want one-click themes? <a style="color:var(--accent)" href="/get-desktop/" data-close>Get the desktop app</a>.</div>
+      <div style="text-align:right;margin-top:16px"><button class="btn ghost" data-close>Done</button></div>
+    </div>`);
+  }
+
+  async function desktopTheme(t, path) {
+    const key = "theme:" + t.id;
+    S.busy.add(key); rerender();
+    try {
+      const r = await post(path, { id: t.id });
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.statusText);
+      toast(path.endsWith("use") ? `Switching to ${t.name}…` : `Installing ${t.name}… follow the terminal window`);
+      const t0 = Date.now();
+      while (Date.now() - t0 < 5 * 60e3) {
+        await new Promise((res) => setTimeout(res, 2000));
+        const st = await (await fetch("/api/status", { cache: "no-store" })).json();
+        S.themesHave = new Set(st.themes_installed || []); S.themeNow = st.theme_current || "";
+        if (S.themeNow === t.install_name) { if (st.theme) applyTheme(st.theme); toast(`${t.name} is now your theme`); break; }
+      }
+    } catch (e) { toast("Theme failed: " + e.message); }
+    S.busy.delete(key); rerender();
+  }
+
   // ---------- pages ----------
   function pageDiscover() {
     const { hero, collections } = S.catalog.featured;
@@ -285,6 +445,7 @@
       }).join("")}</div>
       ${shelf(collections[0].title, collections[0].apps.map((id) => S.byId[id]))}
       ${bannerAd()}
+      ${themeShelf("Make it yours: Themes", S.catalog.themes.filter((t) => t.palette?.length && t.image).slice(0, 14), "/themes/")}
       <section class="shelf">
         <div class="shelf-head"><h2>Top Charts</h2><a href="/charts/">See All</a></div>
         <div class="scroller rows3">${apps.slice(0, 12).map((a, i) => lockup(a, { rank: i + 1 })).join("")}</div>
@@ -391,11 +552,13 @@
       return 0;
     };
     const res = S.catalog.apps.map((a) => [score(a), a]).filter(([s]) => s > 0).sort((x, y) => y[0] - x[0] || (y[1].stars || 0) - (x[1].stars || 0)).map(([, a]) => a);
+    const tres = t.length < 2 ? [] : S.catalog.themes.filter((x) => (x.name + " " + x.author).toLowerCase().includes(t) || (t.includes("theme") && t.replace(/themes?/, "").trim() === ""));
     return `<div class="page">
       <h1 class="page-title">Results for “${esc(q)}”</h1>
       ${sponsoredApp((a) => res.includes(a))}
+      ${themeShelf("Themes", tres.slice(0, 20), tres.length ? "/themes/" : "")}
       ${res.length ? `<div class="grid">${res.map((a) => lockup(a)).join("")}</div>`
-        : `<div class="empty">No apps match “${esc(q)}”.<br><br><a class="btn ghost" href="${REPO}/issues/new?template=app-request.yml&title=${encodeURIComponent("App request: " + q)}" target="_blank" rel="noopener">Request this app</a></div>`}
+        : tres.length ? "" : `<div class="empty">No apps match “${esc(q)}”.<br><br><a class="btn ghost" href="${REPO}/issues/new?template=app-request.yml&title=${encodeURIComponent("App request: " + q)}" target="_blank" rel="noopener">Request this app</a></div>`}
       ${searchAd()}
     </div>`;
   }
@@ -552,6 +715,8 @@
     if (!p) html = pageDiscover(), nav = "";
     else if (p === "charts") html = pageCharts();
     else if (p === "categories") html = pageCategories();
+    else if (p === "themes") html = pageThemes();
+    else if (p === "theme") html = pageTheme(arg), nav = "themes";
     else if (p === "category") html = pageCategory(arg), nav = "category/" + arg;
     else if (p === "app") html = pageApp(arg), nav = "category/" + (S.byId[arg]?.category || "");
     else if (p === "search") html = pageSearch(arg || "");
@@ -568,12 +733,14 @@
     if (d && m && d.scrollHeight > d.clientHeight + 4) m.hidden = false;
     document.title = pageTitle(p, arg);
   }
-  const TITLES = { charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed" };
+  const TITLES = { themes: "Omarchy Themes – Browse & Install Desktop Themes", charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed" };
   function pageTitle(p, arg) {
     const a = p === "app" && S.byId[arg];
     if (a) return `${a.name} for Omarchy Linux – Install ${a.name} | Omarchy Store`;
     const c = p === "category" && S.catalog.categories.find((c) => c.id === arg);
     if (c) return `Best ${c.name} Apps for Omarchy Linux | Omarchy Store`;
+    const th = p === "theme" && S.themeById[arg];
+    if (th) return `${th.name} Theme for Omarchy – by ${th.author} | Omarchy Store`;
     return TITLES[p] ? `${TITLES[p]} | Omarchy Store` : "Omarchy Store – The App Store for Omarchy Linux";
   }
   const rerender = () => { const top = view.scrollTop; route(); view.scrollTop = top; };
@@ -639,9 +806,18 @@
   }
 
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],#more,.sheet");
+    const t = e.target.closest("[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-share-theme],#more,.sheet");
     if (!t) return;
-    if (t.matches("[data-get]")) {
+    if (t.matches("[data-theme-get],[data-theme-use]")) {
+      e.preventDefault(); e.stopPropagation();
+      const th = S.themeById[t.dataset.themeGet || t.dataset.themeUse];
+      if (!S.desktop) webThemeGet(th);
+      else desktopTheme(th, t.dataset.themeUse ? "/api/theme/use" : "/api/theme/install");
+    } else if (t.matches("[data-tfilter]")) {
+      S.themeFilter = t.dataset.tfilter; rerender();
+    } else if (t.matches("[data-share-theme]")) {
+      copy(SITE + "theme/" + t.dataset.shareTheme + "/");
+    } else if (t.matches("[data-get]")) {
       e.preventDefault(); e.stopPropagation();
       const a = S.byId[t.dataset.get];
       S.desktop ? confirmThenGet(a) : webGet(a);
@@ -672,6 +848,12 @@
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeSheet();
     if (e.key === "/" && document.activeElement !== $("#q")) { e.preventDefault(); $("#q").focus(); }
+  });
+  // Theme search box filters the grid in place (no re-render, so the cursor stays put).
+  document.addEventListener("input", (e) => {
+    if (e.target.id !== "tq") return;
+    S.themeQ = e.target.value;
+    const g = $("#tgrid"); if (g) g.innerHTML = themeGridHtml();
   });
   let qt;
   $("#q").addEventListener("input", (e) => {

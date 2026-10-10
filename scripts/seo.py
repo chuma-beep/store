@@ -210,6 +210,50 @@ def main():
         write(f"/category/{c['id']}/", render(template, head(title, d, f"/category/{c['id']}/", f"{SITE}/assets/og-default.png", c["name"], jsonld), body))
         urls.append((f"{SITE}/category/{c['id']}/", now, "0.7"))
 
+    # ---- Themes (directory data from omarchythemes.com — credited on every page)
+    themes = cat.get("themes") or []
+    src = cat.get("themes_source") or {"name": "Omarchy Themes", "url": "https://omarchythemes.com"}
+    credit = f'<p>Theme directory courtesy of <a href="{e(src["url"])}" rel="noopener">{e(src["name"])}</a>.</p>'
+
+    def theme_li(t):
+        return (f'<li><a href="/theme/{e(t["id"])}/">' + (f'<img src="/{e(t["image"])}" alt="{e(t["name"])} theme preview" width="160" height="100" loading="lazy"> ' if t.get("image") else "")
+                + f'<strong>{e(t["name"])}</strong></a> by {e(t["author"] or "unknown")}</li>')
+    if themes:
+        d = clip(f"Browse {len(themes)} themes for Omarchy Linux: dark and light color schemes that restyle your terminal, Waybar, launcher, lock screen and wallpaper. Install in one click.")
+        jsonld = [{"@context": "https://schema.org", "@type": "ItemList", "name": "Omarchy themes",
+                   "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}/theme/{t['id']}/", "name": t["name"]} for i, t in enumerate(themes[:100])]},
+                  crumbs(("Omarchy Store", "/"), ("Themes", "/themes/"))]
+        first = next((t for t in themes if t.get("image")), None)
+        write("/themes/", render(template, head("Omarchy Themes – Browse & Install Desktop Themes | Omarchy Store", d, "/themes/",
+                                               abs_url(first["image"]) if first else f"{SITE}/assets/og-default.png", "Omarchy themes", jsonld),
+                                 f'<h1 class="page-title">Themes for Omarchy Linux</h1><p>{e(d)}</p>{credit}<ul class="ssr-list">' + "".join(theme_li(t) for t in themes) + "</ul>"))
+        urls.append((f"{SITE}/themes/", now, "0.8"))
+        for t in themes:
+            mode = {"dark": "dark", "light": "light"}.get(t.get("mode"), "")
+            title = f"{t['name']} Theme for Omarchy – by {t['author'] or 'community'} | Omarchy Store"
+            d = clip(f"{t['name']} is a {mode + ' ' if mode else ''}theme for Omarchy Linux by {t['author'] or 'the community'}. "
+                     + (f"{t['description']} " if t.get("description") and len(t["description"]) < 160 else "")
+                     + "See the preview and color palette, and install it in one click.")
+            cmd = (f"omarchy-theme-set {t['builtin']}" if t.get("builtin") else f"omarchy-theme-install https://github.com/{t['repo']}" if t.get("repo") else "")
+            ld = {"@context": "https://schema.org", "@type": "CreativeWork", "name": f"{t['name']} (Omarchy theme)", "url": f"{SITE}/theme/{t['id']}/",
+                  "author": {"@type": "Person", "name": t["author"] or "Unknown"}, "isAccessibleForFree": True, "description": d}
+            if t.get("image"):
+                ld["image"] = abs_url(t["image"])
+            if t.get("repo"):
+                ld["sameAs"] = [f"https://github.com/{t['repo']}"]
+            body = (f'<nav class="ssr-crumbs"><a href="/">Omarchy Store</a> › <a href="/themes/">Themes</a> › {e(t["name"])}</nav>'
+                    f'<h1 class="page-title">{e(t["name"])} theme for Omarchy</h1><p>by {e(t["author"] or "unknown")}</p>'
+                    + (f'<img src="/{e(t["image"])}" alt="{e(t["name"])} theme on Omarchy" width="800" height="500">' if t.get("image") else "")
+                    + f'<p>{e(d)}</p>'
+                    + (f'<h2>How to install {e(t["name"])}</h2><p>Click <strong>GET</strong> in the Omarchy Store desktop app, or run:</p><pre><code>{e(cmd)}</code></pre>' if cmd else "")
+                    + (f'<h2>Color palette</h2><p>{" ".join(e(c) for c in t["palette"])}</p>' if t.get("palette") else "")
+                    + (f'<h2>What it recolors</h2><p>{e(", ".join(t["apps"]))}</p>' if t.get("apps") else "")
+                    + (f'<p>Source: <a href="https://github.com/{e(t["repo"])}" rel="noopener">github.com/{e(t["repo"])}</a></p>' if t.get("repo") else "")
+                    + f'<p>Listed via <a href="{e(t["source_url"])}" rel="noopener">{e(src["name"])}</a>.</p>')
+            write(f"/theme/{t['id']}/", render(template, head(title, d, f"/theme/{t['id']}/", abs_url(t["image"]) if t.get("image") else f"{SITE}/assets/og-default.png",
+                                                              f"{t['name']} theme", [ld, crumbs(("Omarchy Store", "/"), ("Themes", "/themes/"), (t["name"], f"/theme/{t['id']}/"))]), body))
+            urls.append((f"{SITE}/theme/{t['id']}/", (t.get("updated") or now)[:10], "0.6"))
+
     # ---- Other pages
     simple = {
         "/charts/": ("Top Charts – Most Popular Omarchy Apps | Omarchy Store",

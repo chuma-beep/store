@@ -16,3 +16,6 @@ __pycache__/
 
 # Promo art renders (source is promo/*/scenes.html)
 promo/**/*.png
+site/theme-previews/
+site/themes/
+site/theme/
