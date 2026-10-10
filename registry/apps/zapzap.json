@@ -1,0 +1,17 @@
+{
+  "id": "zapzap",
+  "name": "ZapZap",
+  "category": "communication",
+  "github": "rafatosta/zapzap",
+  "flathub": "com.rtosta.zapzap",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "zapzap"
+    ]
+  },
+  "detect": [
+    "zapzap"
+  ],
+  "kind": "gui"
+}

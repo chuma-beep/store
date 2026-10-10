@@ -1,0 +1,17 @@
+{
+  "id": "cryptomator",
+  "name": "Cryptomator",
+  "category": "productivity",
+  "github": "cryptomator/cryptomator",
+  "flathub": "org.cryptomator.Cryptomator",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "cryptomator"
+    ]
+  },
+  "detect": [
+    "cryptomator"
+  ],
+  "kind": "gui"
+}

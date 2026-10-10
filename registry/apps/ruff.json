@@ -1,0 +1,20 @@
+{
+  "id": "ruff",
+  "name": "Ruff",
+  "category": "terminal",
+  "github": "astral-sh/ruff",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ruff"
+    ]
+  },
+  "detect": [
+    "ruff"
+  ],
+  "kind": "terminal",
+  "summary": "An extremely fast Python linter and code formatter, written in Rust",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/115962839?s=256"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "cinny",
+  "name": "Cinny",
+  "category": "communication",
+  "github": "cinnyapp/cinny",
+  "flathub": "in.cinny.Cinny",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "cinny-desktop"
+    ]
+  },
+  "detect": [
+    "cinny-desktop"
+  ],
+  "kind": "gui"
+}

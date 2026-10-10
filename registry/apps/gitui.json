@@ -1,0 +1,20 @@
+{
+  "id": "gitui",
+  "name": "gitui",
+  "category": "terminal",
+  "github": "gitui-org/gitui",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gitui"
+    ]
+  },
+  "detect": [
+    "gitui"
+  ],
+  "kind": "terminal",
+  "summary": "Blazing fast terminal-ui for git written in rust",
+  "open": "gitui",
+  "icon": "https://avatars.githubusercontent.com/u/200196069?s=256"
+}

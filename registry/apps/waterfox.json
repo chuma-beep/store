@@ -1,0 +1,17 @@
+{
+  "id": "waterfox",
+  "name": "Waterfox",
+  "category": "browsers",
+  "github": "BrowserWorks/waterfox",
+  "flathub": "net.waterfox.waterfox",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "waterfox"
+    ]
+  },
+  "detect": [
+    "waterfox"
+  ],
+  "kind": "gui"
+}

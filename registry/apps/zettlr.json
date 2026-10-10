@@ -1,0 +1,17 @@
+{
+  "id": "zettlr",
+  "name": "Zettlr",
+  "category": "productivity",
+  "github": "Zettlr/Zettlr",
+  "flathub": "com.zettlr.Zettlr",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "zettlr"
+    ]
+  },
+  "detect": [
+    "zettlr"
+  ],
+  "kind": "gui"
+}

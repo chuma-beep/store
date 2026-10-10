@@ -1,0 +1,20 @@
+{
+  "id": "ocrmypdf",
+  "name": "OCRmyPDF",
+  "category": "productivity",
+  "github": "ocrmypdf/OCRmyPDF",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "ocrmypdf"
+    ]
+  },
+  "detect": [
+    "ocrmypdf"
+  ],
+  "kind": "terminal",
+  "summary": "OCRmyPDF adds an OCR text layer to scanned PDF files, allowing them to be searched",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/96028099?s=256"
+}

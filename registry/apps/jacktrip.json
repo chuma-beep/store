@@ -1,0 +1,17 @@
+{
+  "id": "jacktrip",
+  "name": "JackTrip",
+  "category": "utilities",
+  "github": "jacktrip/jacktrip",
+  "flathub": "org.jacktrip.JackTrip",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "jacktrip"
+    ]
+  },
+  "detect": [
+    "jacktrip"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "rnote",
+  "name": "Rnote",
+  "category": "graphics",
+  "github": "flxzt/rnote",
+  "flathub": "com.github.flxzt.rnote",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "rnote"
+    ]
+  },
+  "detect": [
+    "rnote"
+  ],
+  "kind": "gui"
+}

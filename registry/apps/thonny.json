@@ -1,0 +1,17 @@
+{
+  "id": "thonny",
+  "name": "Thonny",
+  "category": "developer-tools",
+  "github": "thonny/thonny",
+  "flathub": "org.thonny.Thonny",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "thonny"
+    ]
+  },
+  "detect": [
+    "thonny"
+  ],
+  "kind": "gui"
+}

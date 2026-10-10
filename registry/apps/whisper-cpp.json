@@ -1,0 +1,20 @@
+{
+  "id": "whisper-cpp",
+  "name": "whisper.cpp",
+  "category": "ai",
+  "github": "ggml-org/whisper.cpp",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "whisper-cpp"
+    ]
+  },
+  "detect": [
+    "whisper-cpp"
+  ],
+  "kind": "terminal",
+  "summary": "Port of OpenAI's Whisper model in C/C++",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/134263123?s=256"
+}

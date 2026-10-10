@@ -1,0 +1,17 @@
+{
+  "id": "nomacs-image-lounge",
+  "name": "nomacs - Image Lounge",
+  "category": "graphics",
+  "github": "nomacs/nomacs",
+  "flathub": "org.nomacs.ImageLounge",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "nomacs"
+    ]
+  },
+  "detect": [
+    "nomacs"
+  ],
+  "kind": "gui"
+}

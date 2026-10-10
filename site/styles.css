@@ -113,6 +113,8 @@ main { overflow-y: auto; overflow-x: hidden; outline: none; scroll-behavior: smo
 
 /* ---------- App lockup (icon + name + GET) ---------- */
 .icon { border-radius: var(--icon-r); background: var(--card); object-fit: cover; flex: none; box-shadow: 0 0 0 .5px var(--line) inset; }
+.icon.mono { display: inline-grid; place-items: center; color: #fff; font-weight: 800; letter-spacing: -.02em; position: relative; overflow: hidden; text-shadow: 0 1px 2px rgba(0,0,0,.25); }
+.icon.mono i { position: absolute; top: 9%; left: 11%; font: 700 11px ui-monospace, monospace; opacity: .55; font-style: normal; }
 .lockup { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); min-width: 0; }
 .rows3 .lockup:nth-child(3n) { border-bottom: 0; }
 .lockup .meta { flex: 1; min-width: 0; }
@@ -147,6 +149,40 @@ main { overflow-y: auto; overflow-x: hidden; outline: none; scroll-behavior: smo
 .ad-app { background: color-mix(in srgb, var(--accent) 10%, transparent); border-radius: var(--radius); padding: 14px 16px; border: 0; margin-bottom: 8px; }
 .ad-app .ad-badge { display: inline-block; font-size: 10px; font-weight: 800; color: var(--accent); border: 1.5px solid var(--accent); border-radius: 4px; padding: 0 4px; margin-right: 6px; vertical-align: 1px; }
 .ad-net { margin-top: 34px; min-height: 120px; }
+
+/* Artist ad — modelled on a Spotify artist header */
+.artist-ad { margin-top: 34px; border-radius: 10px; overflow: hidden; background: #121212; color: #fff; box-shadow: var(--shadow); }
+.aa-hero { position: relative; display: block; aspect-ratio: 1494 / 640; min-height: 190px; overflow: hidden; }
+.aa-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform .6s; }
+.aa-hero:hover img { transform: scale(1.03); }
+.aa-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.55) 100%); }
+.aa-hero .ad-chip { position: absolute; top: 14px; left: 16px; z-index: 1; background: rgba(0,0,0,.55); }
+.aa-name {
+  position: absolute; left: 18px; bottom: 14px; z-index: 1; margin: 0;
+  font: 900 clamp(44px, 9vw, 96px)/.92 "Spotify Mix", "Circular", "Inter", "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: -.045em; text-shadow: 0 2px 18px rgba(0,0,0,.35);
+}
+.aa-bar { display: flex; align-items: center; gap: 22px; padding: 18px 18px 20px; background: linear-gradient(180deg, #2a2a2a, #181818); }
+.aa-play { width: 56px; height: 56px; border-radius: 50%; background: #1ed760; display: grid; place-items: center; flex: none; transition: transform .12s, background .12s; }
+.aa-play:hover { transform: scale(1.05); background: #3be477; }
+.aa-play svg { width: 24px; height: 24px; fill: #000; stroke: none; margin-left: 2px; }
+.aa-icon { color: #b3b3b3; display: grid; place-items: center; }
+.aa-icon:hover { color: #fff; }
+.aa-icon svg { width: 30px; height: 30px; stroke-width: 1.8; }
+.aa-follow { border: 1px solid #878787; border-radius: 999px; padding: 6px 16px; font-weight: 700; font-size: 14px; }
+.aa-follow:hover { border-color: #fff; transform: scale(1.03); }
+.aa-more { color: #b3b3b3; font-size: 18px; letter-spacing: 1px; }
+.aa-more:hover { color: #fff; }
+.aa-cta { margin-left: auto; font-weight: 700; font-size: 14px; color: #1ed760; white-space: nowrap; }
+.aa-cta:hover { text-decoration: underline; }
+
+/* Disclaimer */
+.footer .disclaim { flex-basis: 100%; line-height: 1.5; }
+.footer .disclaim a { text-decoration: underline; }
+.sheet-legal { margin: 14px 0 0; padding-top: 12px; border-top: 1px solid var(--line); line-height: 1.45; }
+.legal h3 { margin: 26px 0 6px; font-size: 17px; }
+.legal p { color: var(--text-2); line-height: 1.6; margin: 0 0 10px; }
+.legal p b { color: var(--text); }
 
 /* ---------- App detail ---------- */
 .detail-head { display: flex; gap: 26px; align-items: center; margin: 8px 0 24px; }
@@ -247,5 +283,8 @@ main { overflow-y: auto; overflow-x: hidden; outline: none; scroll-behavior: smo
   .shots { grid-auto-columns: 88%; }
   .ad-banner { flex-direction: column; align-items: flex-start; gap: 14px; }
   .ad-banner .cta { margin-left: 0; }
+  .aa-bar { gap: 16px; }
+  .aa-cta { display: none; }
+  .aa-hero { aspect-ratio: 2.2 / 1; }
   .hero-card h3 { font-size: 24px; }
 }

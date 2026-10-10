@@ -1,0 +1,17 @@
+{
+  "id": "mpc-qt",
+  "name": "MPC-QT",
+  "category": "media",
+  "github": "mpc-qt/mpc-qt",
+  "flathub": "io.github.mpc_qt.mpc-qt",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "mpc-qt"
+    ]
+  },
+  "detect": [
+    "mpc-qt"
+  ],
+  "kind": "gui"
+}

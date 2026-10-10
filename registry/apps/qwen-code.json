@@ -1,0 +1,20 @@
+{
+  "id": "qwen-code",
+  "name": "Qwen Code",
+  "category": "ai",
+  "github": "QwenLM/qwen-code",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "qwen-code"
+    ]
+  },
+  "detect": [
+    "qwen-code"
+  ],
+  "kind": "terminal",
+  "summary": "An open-source AI coding agent that lives in your terminal",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/141221163?s=256"
+}

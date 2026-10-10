@@ -1,0 +1,20 @@
+{
+  "id": "ripgrep-all",
+  "name": "ripgrep-all",
+  "category": "terminal",
+  "github": "phiresky/ripgrep-all",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ripgrep-all"
+    ]
+  },
+  "detect": [
+    "ripgrep-all"
+  ],
+  "kind": "terminal",
+  "summary": "rga: ripgrep, but also search in PDFs, E-Books, Office documents, zip, tar.gz, etc",
+  "cli": true,
+  "icon": null
+}

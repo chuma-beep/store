@@ -1,0 +1,17 @@
+{
+  "id": "snes9x",
+  "name": "Snes9x",
+  "category": "games",
+  "github": "snes9xgit/snes9x",
+  "flathub": "com.snes9x.Snes9x",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "snes9x"
+    ]
+  },
+  "detect": [
+    "snes9x"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "raspberry-pi-imager",
+  "name": "Raspberry Pi Imager",
+  "category": "utilities",
+  "github": "raspberrypi/rpi-imager",
+  "flathub": "org.raspberrypi.rpi-imager",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "rpi-imager"
+    ]
+  },
+  "detect": [
+    "rpi-imager"
+  ],
+  "kind": "gui"
+}

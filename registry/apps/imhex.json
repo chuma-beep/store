@@ -1,0 +1,17 @@
+{
+  "id": "imhex",
+  "name": "ImHex",
+  "category": "developer-tools",
+  "github": "WerWolv/ImHex",
+  "flathub": "net.werwolv.ImHex",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "imhex-bin"
+    ]
+  },
+  "detect": [
+    "imhex-bin"
+  ],
+  "kind": "gui"
+}

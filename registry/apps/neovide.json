@@ -1,0 +1,17 @@
+{
+  "id": "neovide",
+  "name": "neovide",
+  "category": "utilities",
+  "github": "neovide/neovide",
+  "flathub": "dev.neovide.neovide",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "neovide"
+    ]
+  },
+  "detect": [
+    "neovide"
+  ],
+  "kind": "gui"
+}

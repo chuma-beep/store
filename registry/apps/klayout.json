@@ -1,0 +1,17 @@
+{
+  "id": "klayout",
+  "name": "KLayout",
+  "category": "developer-tools",
+  "github": "KLayout/klayout",
+  "flathub": "de.klayout.KLayout",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "klayout"
+    ]
+  },
+  "detect": [
+    "klayout"
+  ],
+  "kind": "gui"
+}

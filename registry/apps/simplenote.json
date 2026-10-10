@@ -1,0 +1,17 @@
+{
+  "id": "simplenote",
+  "name": "Simplenote",
+  "category": "utilities",
+  "github": "Automattic/simplenote-electron",
+  "flathub": "com.simplenote.Simplenote",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "simplenote-electron-bin"
+    ]
+  },
+  "detect": [
+    "simplenote-electron-bin"
+  ],
+  "kind": "gui"
+}

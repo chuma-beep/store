@@ -1,0 +1,17 @@
+{
+  "id": "jellyfin-desktop",
+  "name": "Jellyfin Desktop",
+  "category": "media",
+  "github": "jellyfin/jellyfin-desktop",
+  "flathub": "org.jellyfin.JellyfinDesktop",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "jellyfin-desktop"
+    ]
+  },
+  "detect": [
+    "jellyfin-desktop"
+  ],
+  "kind": "gui"
+}

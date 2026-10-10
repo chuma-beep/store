@@ -1,0 +1,17 @@
+{
+  "id": "opentabletdriver",
+  "name": "OpenTabletDriver",
+  "category": "utilities",
+  "github": "OpenTabletDriver/OpenTabletDriver",
+  "flathub": "net.opentabletdriver.OpenTabletDriver",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "opentabletdriver"
+    ]
+  },
+  "detect": [
+    "opentabletdriver"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "hamster",
+  "name": "Hamster",
+  "category": "utilities",
+  "github": "projecthamster/hamster",
+  "flathub": "org.gnome.Hamster",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "hamster-time-tracker"
+    ]
+  },
+  "detect": [
+    "hamster-time-tracker"
+  ],
+  "kind": "gui"
+}

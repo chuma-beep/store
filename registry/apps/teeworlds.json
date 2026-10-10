@@ -1,0 +1,17 @@
+{
+  "id": "teeworlds",
+  "name": "Teeworlds",
+  "category": "games",
+  "github": "teeworlds/teeworlds",
+  "flathub": "com.teeworlds.Teeworlds",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "teeworlds"
+    ]
+  },
+  "detect": [
+    "teeworlds"
+  ],
+  "kind": "gui"
+}

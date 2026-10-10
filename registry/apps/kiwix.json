@@ -1,0 +1,17 @@
+{
+  "id": "kiwix",
+  "name": "Kiwix",
+  "category": "education",
+  "github": "kiwix/kiwix-desktop",
+  "flathub": "org.kiwix.desktop",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kiwix-desktop"
+    ]
+  },
+  "detect": [
+    "kiwix-desktop"
+  ],
+  "kind": "gui"
+}

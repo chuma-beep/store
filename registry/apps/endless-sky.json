@@ -1,0 +1,17 @@
+{
+  "id": "endless-sky",
+  "name": "Endless Sky",
+  "category": "games",
+  "github": "endless-sky/endless-sky",
+  "flathub": "io.github.endless_sky.endless_sky",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "endless-sky"
+    ]
+  },
+  "detect": [
+    "endless-sky"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "moonlight",
+  "name": "Moonlight",
+  "category": "games",
+  "github": "moonlight-stream/moonlight-qt",
+  "flathub": "com.moonlight_stream.Moonlight",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "moonlight-qt"
+    ]
+  },
+  "detect": [
+    "moonlight-qt"
+  ],
+  "kind": "gui"
+}

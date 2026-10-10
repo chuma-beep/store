@@ -1,0 +1,20 @@
+{
+  "id": "tmuxinator",
+  "name": "tmuxinator",
+  "category": "terminal",
+  "github": "tmuxinator/tmuxinator",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "tmuxinator"
+    ]
+  },
+  "detect": [
+    "tmuxinator"
+  ],
+  "kind": "terminal",
+  "summary": "Manage complex tmux sessions easily",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/6574276?s=256"
+}

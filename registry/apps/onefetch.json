@@ -1,0 +1,20 @@
+{
+  "id": "onefetch",
+  "name": "onefetch",
+  "category": "terminal",
+  "github": "o2sh/onefetch",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "onefetch"
+    ]
+  },
+  "detect": [
+    "onefetch"
+  ],
+  "kind": "terminal",
+  "summary": "Command-line Git information tool",
+  "cli": true,
+  "icon": null
+}

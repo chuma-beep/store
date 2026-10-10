@@ -1,0 +1,17 @@
+{
+  "id": "melonds",
+  "name": "melonDS",
+  "category": "games",
+  "github": "melonDS-emu/melonDS",
+  "flathub": "net.kuribo64.melonDS",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "melonds"
+    ]
+  },
+  "detect": [
+    "melonds"
+  ],
+  "kind": "gui"
+}

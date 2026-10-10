@@ -1,0 +1,17 @@
+{
+  "id": "hydrus",
+  "name": "Hydrus",
+  "category": "utilities",
+  "github": "hydrusnetwork/hydrus",
+  "flathub": "io.github.hydrusnetwork.hydrus",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "hydrus"
+    ]
+  },
+  "detect": [
+    "hydrus"
+  ],
+  "kind": "gui"
+}

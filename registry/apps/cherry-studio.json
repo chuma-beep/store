@@ -1,0 +1,17 @@
+{
+  "id": "cherry-studio",
+  "name": "Cherry Studio",
+  "category": "ai",
+  "github": "CherryHQ/cherry-studio",
+  "flathub": "com.cherry_ai.CherryStudio",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "cherry-studio-bin"
+    ]
+  },
+  "detect": [
+    "cherry-studio-bin"
+  ],
+  "kind": "gui"
+}

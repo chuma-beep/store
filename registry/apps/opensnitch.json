@@ -1,0 +1,19 @@
+{
+  "id": "opensnitch",
+  "name": "OpenSnitch",
+  "category": "security",
+  "github": "evilsocket/opensnitch",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "opensnitch"
+    ]
+  },
+  "detect": [
+    "opensnitch"
+  ],
+  "kind": "gui",
+  "summary": "OpenSnitch is a GNU/Linux interactive application firewall inspired by Little Snitch",
+  "icon": null
+}

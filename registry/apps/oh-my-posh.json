@@ -1,0 +1,20 @@
+{
+  "id": "oh-my-posh",
+  "name": "Oh My Posh",
+  "category": "terminal",
+  "github": "JanDeDobbeleer/oh-my-posh",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "oh-my-posh-bin"
+    ]
+  },
+  "detect": [
+    "oh-my-posh-bin"
+  ],
+  "kind": "terminal",
+  "summary": "The most customisable and low-latency cross platform/shell prompt renderer",
+  "cli": true,
+  "icon": null
+}

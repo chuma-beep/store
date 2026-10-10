@@ -1,0 +1,17 @@
+{
+  "id": "mixxx-dj-software",
+  "name": "Mixxx DJ Software",
+  "category": "media",
+  "github": "mixxxdj/mixxx",
+  "flathub": "org.mixxx.Mixxx",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mixxx"
+    ]
+  },
+  "detect": [
+    "mixxx"
+  ],
+  "kind": "gui"
+}

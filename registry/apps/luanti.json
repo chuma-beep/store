@@ -1,0 +1,17 @@
+{
+  "id": "luanti",
+  "name": "Luanti",
+  "category": "games",
+  "github": "luanti-org/luanti",
+  "flathub": "org.luanti.luanti",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "luanti"
+    ]
+  },
+  "detect": [
+    "luanti"
+  ],
+  "kind": "gui"
+}

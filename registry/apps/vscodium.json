@@ -1,0 +1,17 @@
+{
+  "id": "vscodium",
+  "name": "VSCodium",
+  "category": "developer-tools",
+  "github": "VSCodium/vscodium",
+  "flathub": "com.vscodium.codium",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "vscodium-bin"
+    ]
+  },
+  "detect": [
+    "vscodium-bin"
+  ],
+  "kind": "gui"
+}

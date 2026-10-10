@@ -1,0 +1,17 @@
+{
+  "id": "contour-terminal-emulator",
+  "name": "Contour Terminal Emulator",
+  "category": "utilities",
+  "github": "contour-terminal/contour",
+  "flathub": "org.contourterminal.Contour",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "contour"
+    ]
+  },
+  "detect": [
+    "contour"
+  ],
+  "kind": "gui"
+}

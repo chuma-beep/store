@@ -1,0 +1,17 @@
+{
+  "id": "bambu-studio",
+  "name": "Bambu Studio",
+  "category": "graphics",
+  "github": "bambulab/BambuStudio",
+  "flathub": "com.bambulab.BambuStudio",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "bambustudio-bin"
+    ]
+  },
+  "detect": [
+    "bambustudio-bin"
+  ],
+  "kind": "gui"
+}

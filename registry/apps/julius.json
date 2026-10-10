@@ -1,0 +1,17 @@
+{
+  "id": "julius",
+  "name": "Julius",
+  "category": "games",
+  "github": "bvschaik/julius",
+  "flathub": "com.github.bvschaik.julius",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "julius"
+    ]
+  },
+  "detect": [
+    "julius"
+  ],
+  "kind": "gui"
+}

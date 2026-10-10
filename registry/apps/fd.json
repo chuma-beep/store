@@ -1,0 +1,20 @@
+{
+  "id": "fd",
+  "name": "fd",
+  "category": "terminal",
+  "github": "sharkdp/fd",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "fd"
+    ]
+  },
+  "detect": [
+    "fd"
+  ],
+  "kind": "terminal",
+  "summary": "A simple, fast and user-friendly alternative to 'find'",
+  "cli": true,
+  "icon": null
+}

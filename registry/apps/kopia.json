@@ -1,0 +1,17 @@
+{
+  "id": "kopia",
+  "name": "Kopia",
+  "category": "utilities",
+  "github": "kopia/kopia",
+  "flathub": "io.kopia.KopiaUI",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "kopia-bin"
+    ]
+  },
+  "detect": [
+    "kopia-bin"
+  ],
+  "kind": "gui"
+}

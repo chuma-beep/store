@@ -1,0 +1,17 @@
+{
+  "id": "planify",
+  "name": "Planify",
+  "category": "utilities",
+  "github": "alainm23/planify",
+  "flathub": "io.github.alainm23.planify",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "planify"
+    ]
+  },
+  "detect": [
+    "planify"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "boinc-manager",
+  "name": "BOINC Manager",
+  "category": "education",
+  "github": "BOINC/boinc",
+  "flathub": "edu.berkeley.BOINC",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "boinc"
+    ]
+  },
+  "detect": [
+    "boinc"
+  ],
+  "kind": "gui"
+}

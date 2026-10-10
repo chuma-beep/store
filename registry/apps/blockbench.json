@@ -1,0 +1,17 @@
+{
+  "id": "blockbench",
+  "name": "Blockbench",
+  "category": "graphics",
+  "github": "JannisX11/blockbench",
+  "flathub": "net.blockbench.Blockbench",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "blockbench-bin"
+    ]
+  },
+  "detect": [
+    "blockbench-bin"
+  ],
+  "kind": "gui"
+}

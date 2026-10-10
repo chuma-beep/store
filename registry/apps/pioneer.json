@@ -1,0 +1,17 @@
+{
+  "id": "pioneer",
+  "name": "Pioneer",
+  "category": "games",
+  "github": "pioneerspacesim/pioneer",
+  "flathub": "net.pioneerspacesim.Pioneer",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "pioneer"
+    ]
+  },
+  "detect": [
+    "pioneer"
+  ],
+  "kind": "gui"
+}

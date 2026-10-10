@@ -1,0 +1,17 @@
+{
+  "id": "qview",
+  "name": "qView",
+  "category": "graphics",
+  "github": "jurplel/qView",
+  "flathub": "com.interversehq.qView",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "qview"
+    ]
+  },
+  "detect": [
+    "qview"
+  ],
+  "kind": "gui"
+}

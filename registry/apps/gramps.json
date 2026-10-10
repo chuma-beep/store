@@ -1,0 +1,17 @@
+{
+  "id": "gramps",
+  "name": "Gramps",
+  "category": "productivity",
+  "github": "gramps-project/gramps",
+  "flathub": "org.gramps_project.Gramps",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gramps"
+    ]
+  },
+  "detect": [
+    "gramps"
+  ],
+  "kind": "gui"
+}

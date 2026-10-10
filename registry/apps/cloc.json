@@ -1,0 +1,20 @@
+{
+  "id": "cloc",
+  "name": "cloc",
+  "category": "terminal",
+  "github": "AlDanial/cloc",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "cloc"
+    ]
+  },
+  "detect": [
+    "cloc"
+  ],
+  "kind": "terminal",
+  "summary": "cloc counts blank lines, comment lines, and physical lines of source code in many programming languages",
+  "cli": true,
+  "icon": null
+}

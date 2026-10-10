@@ -1,0 +1,17 @@
+{
+  "id": "goldendict-ng",
+  "name": "GoldenDict-ng",
+  "category": "education",
+  "github": "xiaoyifang/goldendict-ng",
+  "flathub": "io.github.xiaoyifang.goldendict_ng",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "goldendict-ng"
+    ]
+  },
+  "detect": [
+    "goldendict-ng"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "augustus",
+  "name": "Augustus",
+  "category": "games",
+  "github": "Keriew/augustus",
+  "flathub": "com.github.keriew.augustus",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "augustus"
+    ]
+  },
+  "detect": [
+    "augustus"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "yt-dlp",
+  "name": "yt-dlp",
+  "category": "video-audio",
+  "github": "yt-dlp/yt-dlp",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "yt-dlp"
+    ]
+  },
+  "detect": [
+    "yt-dlp"
+  ],
+  "kind": "terminal",
+  "summary": "A feature-rich command-line audio/video downloader",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/79589310?s=256"
+}

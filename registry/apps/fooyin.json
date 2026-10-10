@@ -1,0 +1,17 @@
+{
+  "id": "fooyin",
+  "name": "fooyin",
+  "category": "media",
+  "github": "fooyin/fooyin",
+  "flathub": "org.fooyin.fooyin",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "fooyin"
+    ]
+  },
+  "detect": [
+    "fooyin"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "qucs-s",
+  "name": "Qucs-S",
+  "category": "education",
+  "github": "ra3xdh/qucs_s",
+  "flathub": "io.github.ra3xdh.qucs_s",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "qucs-s"
+    ]
+  },
+  "detect": [
+    "qucs-s"
+  ],
+  "kind": "gui"
+}

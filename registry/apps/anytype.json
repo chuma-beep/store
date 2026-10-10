@@ -1,0 +1,17 @@
+{
+  "id": "anytype",
+  "name": "Anytype",
+  "category": "utilities",
+  "github": "anyproto/anytype-ts",
+  "flathub": "io.anytype.anytype",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "anytype-bin"
+    ]
+  },
+  "detect": [
+    "anytype-bin"
+  ],
+  "kind": "gui"
+}

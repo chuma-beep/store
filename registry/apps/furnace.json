@@ -1,0 +1,17 @@
+{
+  "id": "furnace",
+  "name": "Furnace",
+  "category": "video-audio",
+  "github": "tildearrow/furnace",
+  "flathub": "org.tildearrow.furnace",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "furnace"
+    ]
+  },
+  "detect": [
+    "furnace"
+  ],
+  "kind": "gui"
+}

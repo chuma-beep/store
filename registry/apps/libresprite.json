@@ -1,0 +1,17 @@
+{
+  "id": "libresprite",
+  "name": "LibreSprite",
+  "category": "graphics",
+  "github": "LibreSprite/LibreSprite",
+  "flathub": "com.github.libresprite.LibreSprite",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "libresprite"
+    ]
+  },
+  "detect": [
+    "libresprite"
+  ],
+  "kind": "gui"
+}

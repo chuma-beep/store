@@ -1,0 +1,20 @@
+{
+  "id": "atuin",
+  "name": "Atuin",
+  "category": "terminal",
+  "github": "atuinsh/atuin",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "atuin"
+    ]
+  },
+  "detect": [
+    "atuin"
+  ],
+  "kind": "terminal",
+  "summary": "Making your shell magical",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/122059230?s=256"
+}

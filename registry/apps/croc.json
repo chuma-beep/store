@@ -1,0 +1,20 @@
+{
+  "id": "croc",
+  "name": "croc",
+  "category": "utilities",
+  "github": "schollz/croc",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "croc"
+    ]
+  },
+  "detect": [
+    "croc"
+  ],
+  "kind": "terminal",
+  "summary": "Easily and securely send things from one computer to another",
+  "cli": true,
+  "icon": null
+}

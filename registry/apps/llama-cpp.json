@@ -1,0 +1,20 @@
+{
+  "id": "llama-cpp",
+  "name": "llama.cpp",
+  "category": "ai",
+  "github": "ggml-org/llama.cpp",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "llama-cpp"
+    ]
+  },
+  "detect": [
+    "llama-cpp"
+  ],
+  "kind": "terminal",
+  "summary": "LLM inference in C/C++",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/134263123?s=256"
+}

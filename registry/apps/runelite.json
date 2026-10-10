@@ -1,0 +1,17 @@
+{
+  "id": "runelite",
+  "name": "RuneLite",
+  "category": "games",
+  "github": "runelite/runelite",
+  "flathub": "net.runelite.RuneLite",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "runelite"
+    ]
+  },
+  "detect": [
+    "runelite"
+  ],
+  "kind": "gui"
+}

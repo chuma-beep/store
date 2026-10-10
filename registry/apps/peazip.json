@@ -1,0 +1,17 @@
+{
+  "id": "peazip",
+  "name": "PeaZip",
+  "category": "utilities",
+  "github": "peazip/PeaZip",
+  "flathub": "io.github.peazip.PeaZip",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "peazip"
+    ]
+  },
+  "detect": [
+    "peazip"
+  ],
+  "kind": "gui"
+}

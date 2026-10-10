@@ -1,0 +1,17 @@
+{
+  "id": "goverlay",
+  "name": "Goverlay",
+  "category": "games",
+  "github": "benjamimgois/goverlay",
+  "flathub": "io.github.benjamimgois.goverlay",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "goverlay"
+    ]
+  },
+  "detect": [
+    "goverlay"
+  ],
+  "kind": "gui"
+}

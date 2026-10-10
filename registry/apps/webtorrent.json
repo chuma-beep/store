@@ -1,0 +1,17 @@
+{
+  "id": "webtorrent",
+  "name": "WebTorrent",
+  "category": "utilities",
+  "github": "webtorrent/webtorrent-desktop",
+  "flathub": "io.webtorrent.WebTorrent",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "webtorrent-desktop"
+    ]
+  },
+  "detect": [
+    "webtorrent-desktop"
+  ],
+  "kind": "gui"
+}

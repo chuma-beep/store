@@ -1,0 +1,20 @@
+{
+  "id": "xh",
+  "name": "xh",
+  "category": "terminal",
+  "github": "ducaale/xh",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "xh"
+    ]
+  },
+  "detect": [
+    "xh"
+  ],
+  "kind": "terminal",
+  "summary": "Friendly and fast tool for sending HTTP requests",
+  "cli": true,
+  "icon": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "dive",
+  "name": "dive",
+  "category": "terminal",
+  "github": "wagoodman/dive",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "dive"
+    ]
+  },
+  "detect": [
+    "dive"
+  ],
+  "kind": "terminal",
+  "summary": "A tool for exploring each layer in a docker image",
+  "cli": true,
+  "icon": null
+}

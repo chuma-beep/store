@@ -1,0 +1,17 @@
+{
+  "id": "protontricks",
+  "name": "Protontricks",
+  "category": "utilities",
+  "github": "Matoking/protontricks",
+  "flathub": "com.github.Matoking.protontricks",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "protontricks"
+    ]
+  },
+  "detect": [
+    "protontricks"
+  ],
+  "kind": "gui"
+}

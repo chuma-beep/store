@@ -1,0 +1,17 @@
+{
+  "id": "deskflow",
+  "name": "Deskflow",
+  "category": "utilities",
+  "github": "deskflow/deskflow",
+  "flathub": "org.deskflow.deskflow",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "deskflow"
+    ]
+  },
+  "detect": [
+    "deskflow"
+  ],
+  "kind": "gui"
+}

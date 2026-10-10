@@ -1,0 +1,17 @@
+{
+  "id": "drawpile",
+  "name": "Drawpile",
+  "category": "graphics",
+  "github": "drawpile/Drawpile",
+  "flathub": "net.drawpile.drawpile",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "drawpile"
+    ]
+  },
+  "detect": [
+    "drawpile"
+  ],
+  "kind": "gui"
+}

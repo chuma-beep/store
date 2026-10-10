@@ -1,0 +1,17 @@
+{
+  "id": "koreader",
+  "name": "KOReader",
+  "category": "productivity",
+  "github": "koreader/koreader",
+  "flathub": "rocks.koreader.KOReader",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "koreader-bin"
+    ]
+  },
+  "detect": [
+    "koreader-bin"
+  ],
+  "kind": "gui"
+}

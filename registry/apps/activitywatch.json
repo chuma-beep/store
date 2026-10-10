@@ -1,0 +1,19 @@
+{
+  "id": "activitywatch",
+  "name": "ActivityWatch",
+  "category": "productivity",
+  "github": "ActivityWatch/activitywatch",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "activitywatch-bin"
+    ]
+  },
+  "detect": [
+    "activitywatch-bin"
+  ],
+  "kind": "gui",
+  "summary": "The best free and open-source automated time tracker. Cross-platform, extensible, privacy-focused",
+  "icon": "https://avatars.githubusercontent.com/u/18249061?s=256"
+}

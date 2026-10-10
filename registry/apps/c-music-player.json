@@ -1,0 +1,18 @@
+{
+  "id": "c-music-player",
+  "name": "C* Music Player",
+  "category": "media",
+  "github": "cmus/cmus",
+  "flathub": "io.github.cmus.cmus",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "cmus"
+    ]
+  },
+  "detect": [
+    "cmus"
+  ],
+  "kind": "terminal",
+  "open": "cmus"
+}

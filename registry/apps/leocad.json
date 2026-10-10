@@ -1,0 +1,17 @@
+{
+  "id": "leocad",
+  "name": "LeoCAD",
+  "category": "graphics",
+  "github": "leozide/leocad",
+  "flathub": "org.leocad.LeoCAD",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "leocad"
+    ]
+  },
+  "detect": [
+    "leocad"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "feishin",
+  "name": "Feishin",
+  "category": "media",
+  "github": "jeffvli/feishin",
+  "flathub": "org.jeffvli.feishin",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "feishin"
+    ]
+  },
+  "detect": [
+    "feishin"
+  ],
+  "kind": "gui"
+}

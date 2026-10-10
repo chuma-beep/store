@@ -1,0 +1,18 @@
+{
+  "id": "ncspot",
+  "name": "ncspot",
+  "category": "media",
+  "github": "hrkfdn/ncspot",
+  "flathub": "io.github.hrkfdn.ncspot",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ncspot"
+    ]
+  },
+  "detect": [
+    "ncspot"
+  ],
+  "kind": "terminal",
+  "open": "ncspot"
+}

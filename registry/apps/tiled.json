@@ -1,0 +1,17 @@
+{
+  "id": "tiled",
+  "name": "Tiled",
+  "category": "graphics",
+  "github": "mapeditor/tiled",
+  "flathub": "org.mapeditor.Tiled",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "tiled"
+    ]
+  },
+  "detect": [
+    "tiled"
+  ],
+  "kind": "gui"
+}

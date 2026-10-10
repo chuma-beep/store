@@ -1,0 +1,20 @@
+{
+  "id": "gitleaks",
+  "name": "Gitleaks",
+  "category": "security",
+  "github": "gitleaks/gitleaks",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gitleaks"
+    ]
+  },
+  "detect": [
+    "gitleaks"
+  ],
+  "kind": "terminal",
+  "summary": "Find secrets with Gitleaks",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/90395851?s=256"
+}

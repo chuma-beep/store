@@ -1,0 +1,20 @@
+{
+  "id": "vhs",
+  "name": "VHS",
+  "category": "terminal",
+  "github": "charmbracelet/vhs",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "vhs"
+    ]
+  },
+  "detect": [
+    "vhs"
+  ],
+  "kind": "terminal",
+  "summary": "Your CLI home video recorder",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/57376114?s=256"
+}

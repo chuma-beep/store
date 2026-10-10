@@ -1,0 +1,17 @@
+{
+  "id": "openboard",
+  "name": "OpenBoard",
+  "category": "education",
+  "github": "OpenBoard-org/OpenBoard",
+  "flathub": "ch.openboard.OpenBoard",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "openboard"
+    ]
+  },
+  "detect": [
+    "openboard"
+  ],
+  "kind": "gui"
+}

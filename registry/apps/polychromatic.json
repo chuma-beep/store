@@ -1,0 +1,17 @@
+{
+  "id": "polychromatic",
+  "name": "Polychromatic",
+  "category": "utilities",
+  "github": "polychromatic/polychromatic",
+  "flathub": "app.polychromatic.controller",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "polychromatic"
+    ]
+  },
+  "detect": [
+    "polychromatic"
+  ],
+  "kind": "gui"
+}

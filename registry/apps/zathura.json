@@ -1,0 +1,17 @@
+{
+  "id": "zathura",
+  "name": "Zathura",
+  "category": "productivity",
+  "github": "pwmt/zathura",
+  "flathub": "org.pwmt.zathura",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "zathura"
+    ]
+  },
+  "detect": [
+    "zathura"
+  ],
+  "kind": "gui"
+}

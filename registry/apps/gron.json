@@ -1,0 +1,20 @@
+{
+  "id": "gron",
+  "name": "gron",
+  "category": "terminal",
+  "github": "tomnomnom/gron",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gron"
+    ]
+  },
+  "detect": [
+    "gron"
+  ],
+  "kind": "terminal",
+  "summary": "Make JSON greppable!",
+  "cli": true,
+  "icon": null
+}

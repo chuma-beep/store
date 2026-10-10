@@ -1,0 +1,17 @@
+{
+  "id": "unison",
+  "name": "Unison",
+  "category": "utilities",
+  "github": "bcpierce00/unison",
+  "flathub": "io.github.bcpierce00.unison",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "unison"
+    ]
+  },
+  "detect": [
+    "unison"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "wivrn-server",
+  "name": "WiVRn server",
+  "category": "games",
+  "github": "WiVRn/WiVRn",
+  "flathub": "io.github.wivrn.wivrn",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "wivrn-server"
+    ]
+  },
+  "detect": [
+    "wivrn-server"
+  ],
+  "kind": "gui"
+}

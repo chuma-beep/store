@@ -1,0 +1,17 @@
+{
+  "id": "lact",
+  "name": "LACT",
+  "category": "utilities",
+  "github": "ilya-zlobintsev/LACT",
+  "flathub": "io.github.ilya_zlobintsev.LACT",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "lact"
+    ]
+  },
+  "detect": [
+    "lact"
+  ],
+  "kind": "gui"
+}

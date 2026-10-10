@@ -7,7 +7,7 @@ Usage:
 
 Stdlib only. Set GITHUB_TOKEN to avoid GitHub's 60 req/hour anonymous limit.
 """
-import json, os, re, sys, time, urllib.error, urllib.request, urllib.parse
+import json, os, re, subprocess, sys, time, urllib.error, urllib.request, urllib.parse
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone, date
 
@@ -58,6 +58,7 @@ def validate():
         det = a.get("detect") or []
         if not det or not all(PKG_RE.match(x) for x in det): e("detect must list package names")
         if a.get("open") and not PKG_RE.match(a["open"]): e("open must be a plain command name")
+        if a.get("cli") and a.get("kind") != "terminal": e("cli apps must be kind=terminal")
         if not (a.get("github") or a.get("flathub") or a.get("homepage")): e("need github, flathub or homepage")
         if a.get("github") and not re.match(r"^[\w.-]+/[\w.-]+$", a["github"]): e("github must be owner/repo")
         for u in [a.get("icon"), a.get("homepage")]:
@@ -74,6 +75,11 @@ def validate():
         if c.get("slot") not in {"banner", "search", "sponsored-app"}: errors.append(f"ads.json: {c.get('id')}: bad slot")
         if c.get("type") == "app" and c.get("app") not in apps: errors.append(f"ads.json: {c.get('id')}: unknown app")
         if c.get("url") and not c["url"].startswith("https://"): errors.append(f"ads.json: {c.get('id')}: url must be https")
+        if c.get("type") not in {"house", "direct", "app", "artist"}: errors.append(f"ads.json: {c.get('id')}: bad type")
+        img = c.get("image")
+        if img and not img.startswith("https://"):
+            if not re.match(r"^ads/[a-z0-9-]+\.(webp|png|jpg|jpeg)$", img) or not os.path.exists(os.path.join(ROOT, "site", img)):
+                errors.append(f"ads.json: {c.get('id')}: image must be https:// or an existing file in site/ads/")
     return apps, cats, feat, ads, errors
 
 
@@ -92,6 +98,49 @@ def get(url, headers=None, tries=4):
         time.sleep(2 ** i)
     print(f"  warn: {url}: {err}", file=sys.stderr)
     return None
+
+
+GQL_FIELDS = """nameWithOwner stargazerCount forkCount description homepageUrl isArchived pushedAt
+  licenseInfo { spdxId } owner { __typename avatarUrl } latestRelease { tagName publishedAt }"""
+
+
+def gh_batch(repos):
+    """Fetch many repos per request via GraphQL (needs GITHUB_TOKEN). Returns {repo: data}."""
+    tok = os.environ.get("GITHUB_TOKEN")
+    if not tok:
+        return {}
+    out = {}
+    for i in range(0, len(repos), 40):
+        chunk = repos[i:i + 40]
+        parts = []
+        for j, r in enumerate(chunk):
+            o, n = r.split("/", 1)
+            parts.append(f"r{j}: repository(owner:{json.dumps(o)}, name:{json.dumps(n)}) {{ {GQL_FIELDS} }}")
+        body = json.dumps({"query": "query{" + " ".join(parts) + "}"}).encode()
+        for t in range(4):
+            try:
+                req = urllib.request.Request("https://api.github.com/graphql", data=body, headers={
+                    "Authorization": "bearer " + tok, "Content-Type": "application/json", "User-Agent": "omarchy-store-build"})
+                with urllib.request.urlopen(req, timeout=60) as resp:
+                    d = (json.load(resp).get("data") or {})
+                break
+            except Exception as ex:
+                d = {}
+                time.sleep(2 ** t)
+        for j, r in enumerate(chunk):
+            v = d.get(f"r{j}")
+            if not v:
+                continue
+            rel = v.get("latestRelease") or {}
+            out[r] = {
+                "stars": v["stargazerCount"], "forks": v["forkCount"], "description": v["description"],
+                "homepage": v["homepageUrl"] or None, "license": (v.get("licenseInfo") or {}).get("spdxId"),
+                "pushed_at": v["pushedAt"], "archived": v["isArchived"],
+                "owner_avatar": (v.get("owner") or {}).get("avatarUrl"),
+                "owner_is_org": (v.get("owner") or {}).get("__typename") == "Organization",
+                "release": rel.get("tagName"), "released_at": rel.get("publishedAt"),
+            }
+    return out
 
 
 def gh(repo):
@@ -150,6 +199,80 @@ def arch(pkg):
     return {"repo": r["repo"], "version": r["pkgver"], "size": r.get("installed_size"), "updated": r.get("last_update")}
 
 
+def arch_bulk(names):
+    """Look up official Arch packages by downloading Arch's repo databases from a mirror
+    (3 files, ~10 MB) — fresh, exact, and immune to archlinux.org's API rate limits.
+    Set ARCH_SOURCE=local to read this machine's pacman sync DB instead (offline, may be stale).
+    Omarchy-repo packages aren't on Arch mirrors; those fall through to the AUR lookup or
+    show without version info."""
+    out = {}
+    if os.environ.get("ARCH_SOURCE", "mirror") == "local":
+        try:
+            res = subprocess.run(["expac", "-S", "%r\t%n\t%v\t%m"], capture_output=True, text=True, timeout=60)
+            for line in res.stdout.splitlines():
+                r, n, v, size = (line.split("\t") + [""] * 4)[:4]
+                if n in names and n not in out and r in ("core", "extra", "multilib", "omarchy"):
+                    out[n] = {"repo": r, "version": v, "size": int(size) if size.isdigit() else None, "updated": None}
+            return out
+        except (FileNotFoundError, subprocess.TimeoutExpired):
+            pass
+    import tarfile, io
+    mirror = os.environ.get("ARCH_MIRROR", "https://geo.mirror.pkgbuild.com")
+    for repo in ("core", "extra", "multilib"):
+        try:
+            req = urllib.request.Request(f"{mirror}/{repo}/os/x86_64/{repo}.db", headers={"User-Agent": "omarchy-store-build"})
+            with urllib.request.urlopen(req, timeout=120) as r:
+                data = r.read()
+            with tarfile.open(fileobj=io.BytesIO(data)) as tf:
+                for m in tf.getmembers():
+                    if not m.name.endswith("/desc"):
+                        continue
+                    desc = tf.extractfile(m).read().decode("utf-8", "replace")
+                    fields, key = {}, None
+                    for ln in desc.splitlines():
+                        if len(ln) > 2 and ln.startswith("%") and ln.endswith("%"):
+                            key = ln.strip("%")
+                        elif ln and key:
+                            fields.setdefault(key, ln)
+                            key = None
+                    n = fields.get("NAME")
+                    if n in names and n not in out:
+                        isize = fields.get("ISIZE", "")
+                        bd = fields.get("BUILDDATE", "")
+                        out[n] = {"repo": repo, "version": fields.get("VERSION"),
+                                  "size": int(isize) if isize.isdigit() else None,
+                                  "updated": datetime.fromtimestamp(int(bd), timezone.utc).isoformat() if bd.isdigit() else None}
+        except Exception as ex:
+            print(f"  warn: couldn't read {repo}.db from {mirror}: {ex}", file=sys.stderr)
+    return out
+
+
+def _unused_arch_bulk_web(names):
+    """Look up official Arch packages. archlinux.org rate-limits per-package calls,
+    so page through the search API by repo instead (a few dozen requests total)."""
+    out = {}
+    for repo, arch_ in (("Core", "x86_64"), ("Core", "any"), ("Extra", "x86_64"), ("Extra", "any"), ("Multilib", "x86_64")):
+        page = 1
+        while True:
+            j = get("https://archlinux.org/packages/search/json/?" + urllib.parse.urlencode({"repo": repo, "arch": arch_, "page": page, "limit": 250}))
+            if not j:
+                break
+            for r in j.get("results", []):
+                if r["pkgname"] in names and r["pkgname"] not in out:
+                    out[r["pkgname"]] = {"repo": r["repo"], "version": r["pkgver"], "size": r.get("installed_size"), "updated": r.get("last_update")}
+            if page >= j.get("num_pages", 1):
+                break
+            page += 1
+            time.sleep(0.2)
+    # Fallback for anything the bulk listing missed (e.g. arch=any packages).
+    for n in sorted(names - set(out)):
+        r = arch(n)
+        if r:
+            out[n] = r
+        time.sleep(0.25)
+    return out
+
+
 def aur(pkgs):
     if not pkgs:
         return {}
@@ -199,26 +322,29 @@ def mirror_icon(app_id, url):
 
 def build(apps, cats, feat, ads):
     print(f"Fetching live data for {len(apps)} apps…")
+    repos = sorted({a["github"] for a in apps.values() if a.get("github")})
+    batch = gh_batch(repos)
     with ThreadPoolExecutor(8) as ex:
-        ghd = dict(zip(apps, ex.map(lambda a: gh(a["github"]) if a.get("github") else None, apps.values())))
+        missing = [r for r in repos if r not in batch]
+        batch.update({r: v for r, v in zip(missing, ex.map(gh, missing)) if v})
+        ghd = {k: batch.get(a["github"]) for k, a in apps.items() if a.get("github")}
         fhd = dict(zip(apps, ex.map(lambda a: flathub(a["flathub"]) if a.get("flathub") else None, apps.values())))
-    # archlinux.org resets bursts of parallel connections — query it one at a time.
     main_pkg = {k: a["detect"][0] for k, a in apps.items()}
-    ard = {}
-    for k in apps:
-        ard[k] = arch(main_pkg[k])
-        time.sleep(0.3)
-    aurd = aur([main_pkg[k] for k in apps if not ard[k]])
+    ard = arch_bulk(set(main_pkg.values()))
+    aurd = {}
+    left = [p for p in main_pkg.values() if p not in ard]
+    for i in range(0, len(left), 100):
+        aurd.update(aur(left[i:i + 100]))
 
     out = []
     for k, a in apps.items():
-        g, f, pk = ghd.get(k) or {}, fhd.get(k) or {}, ard.get(k) or aurd.get(main_pkg[k]) or {}
+        g, f, pk = ghd.get(k) or {}, fhd.get(k) or {}, ard.get(main_pkg[k]) or aurd.get(main_pkg[k]) or {}
         out.append({
             **a,
             "summary": a.get("summary") or f.get("summary") or g.get("description") or "",
             "description": a.get("description") or f.get("description") or g.get("description") or "",
             "developer": a.get("developer") or f.get("developer") or (a["github"].split("/")[0] if a.get("github") else ""),
-            "icon": a.get("icon") or f.get("icon") or g.get("owner_avatar"),
+            "icon": a["icon"] if "icon" in a else (f.get("icon") or (g.get("owner_avatar") if g.get("owner_is_org", True) else None)),
             "screenshots": a.get("screenshots") or f.get("screenshots") or [],
             "homepage": a.get("homepage") or f.get("homepage") or g.get("homepage"),
             "license": g.get("license") if g.get("license") not in (None, "NOASSERTION") else f.get("license"),
@@ -255,7 +381,7 @@ def main():
     with open(OUT, "w") as f:
         json.dump(cat, f, indent=1)
     miss = [a["id"] for a in cat["apps"] if not a["icon"]]
-    print(f"✓ wrote {OUT} ({os.path.getsize(OUT)//1024} KB). Missing icons: {miss or 'none'}")
+    print(f"✓ wrote {OUT} ({os.path.getsize(OUT)//1024} KB). {len(miss)} apps use a generated icon.")
 
 
 if __name__ == "__main__":

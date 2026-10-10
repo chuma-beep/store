@@ -1,0 +1,17 @@
+{
+  "id": "xournalplusplus",
+  "name": "Xournal++",
+  "category": "productivity",
+  "github": "xournalpp/xournalpp",
+  "flathub": "com.github.xournalpp.xournalpp",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "xournalpp"
+    ]
+  },
+  "detect": [
+    "xournalpp"
+  ],
+  "kind": "gui"
+}

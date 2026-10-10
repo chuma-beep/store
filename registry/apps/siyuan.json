@@ -1,0 +1,17 @@
+{
+  "id": "siyuan",
+  "name": "SiYuan",
+  "category": "utilities",
+  "github": "siyuan-note/siyuan",
+  "flathub": "org.b3log.siyuan",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "siyuan-bin"
+    ]
+  },
+  "detect": [
+    "siyuan-bin"
+  ],
+  "kind": "gui"
+}

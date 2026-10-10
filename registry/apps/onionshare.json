@@ -1,0 +1,17 @@
+{
+  "id": "onionshare",
+  "name": "OnionShare",
+  "category": "utilities",
+  "github": "onionshare/onionshare",
+  "flathub": "org.onionshare.OnionShare",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "onionshare"
+    ]
+  },
+  "detect": [
+    "onionshare"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "retext",
+  "name": "ReText",
+  "category": "productivity",
+  "github": "retext-project/retext",
+  "flathub": "me.mitya57.ReText",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "retext"
+    ]
+  },
+  "detect": [
+    "retext"
+  ],
+  "kind": "gui"
+}

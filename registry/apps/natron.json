@@ -1,0 +1,17 @@
+{
+  "id": "natron",
+  "name": "Natron",
+  "category": "graphics",
+  "github": "NatronGitHub/Natron",
+  "flathub": "fr.natron.Natron",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "natron"
+    ]
+  },
+  "detect": [
+    "natron"
+  ],
+  "kind": "gui"
+}

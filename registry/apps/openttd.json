@@ -1,0 +1,17 @@
+{
+  "id": "openttd",
+  "name": "OpenTTD",
+  "category": "games",
+  "github": "OpenTTD/OpenTTD",
+  "flathub": "org.openttd.OpenTTD",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "openttd"
+    ]
+  },
+  "detect": [
+    "openttd"
+  ],
+  "kind": "gui"
+}

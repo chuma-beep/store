@@ -1,0 +1,17 @@
+{
+  "id": "librecad",
+  "name": "LibreCAD",
+  "category": "graphics",
+  "github": "LibreCAD/LibreCAD",
+  "flathub": "org.librecad.librecad",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "librecad"
+    ]
+  },
+  "detect": [
+    "librecad"
+  ],
+  "kind": "gui"
+}

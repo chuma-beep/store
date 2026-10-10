@@ -1,0 +1,20 @@
+{
+  "id": "duf",
+  "name": "duf",
+  "category": "terminal",
+  "github": "muesli/duf",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "duf"
+    ]
+  },
+  "detect": [
+    "duf"
+  ],
+  "kind": "terminal",
+  "summary": "Disk Usage/Free Utility - a better 'df' alternative",
+  "cli": true,
+  "icon": null
+}

@@ -1,0 +1,20 @@
+{
+  "id": "bat",
+  "name": "bat",
+  "category": "terminal",
+  "github": "sharkdp/bat",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "bat"
+    ]
+  },
+  "detect": [
+    "bat"
+  ],
+  "kind": "terminal",
+  "summary": "A cat(1) clone with wings",
+  "cli": true,
+  "icon": null
+}

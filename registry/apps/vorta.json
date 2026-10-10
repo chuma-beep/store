@@ -1,0 +1,17 @@
+{
+  "id": "vorta",
+  "name": "Vorta",
+  "category": "utilities",
+  "github": "borgbase/vorta",
+  "flathub": "com.borgbase.Vorta",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "vorta"
+    ]
+  },
+  "detect": [
+    "vorta"
+  ],
+  "kind": "gui"
+}

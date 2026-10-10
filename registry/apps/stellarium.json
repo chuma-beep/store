@@ -1,0 +1,17 @@
+{
+  "id": "stellarium",
+  "name": "Stellarium",
+  "category": "education",
+  "github": "Stellarium/stellarium",
+  "flathub": "org.stellarium.Stellarium",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "stellarium"
+    ]
+  },
+  "detect": [
+    "stellarium"
+  ],
+  "kind": "gui"
+}

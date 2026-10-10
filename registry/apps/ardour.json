@@ -1,0 +1,17 @@
+{
+  "id": "ardour",
+  "name": "Ardour",
+  "category": "video-audio",
+  "github": "Ardour/ardour",
+  "flathub": "org.ardour.Ardour",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ardour"
+    ]
+  },
+  "detect": [
+    "ardour"
+  ],
+  "kind": "gui"
+}

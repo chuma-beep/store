@@ -1,0 +1,20 @@
+{
+  "id": "opentofu",
+  "name": "OpenTofu",
+  "category": "terminal",
+  "github": "opentofu/opentofu",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "opentofu"
+    ]
+  },
+  "detect": [
+    "opentofu"
+  ],
+  "kind": "terminal",
+  "summary": "OpenTofu lets you declaratively manage your cloud infrastructure",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/142061836?s=256"
+}

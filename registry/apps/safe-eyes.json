@@ -1,0 +1,17 @@
+{
+  "id": "safe-eyes",
+  "name": "Safe Eyes",
+  "category": "utilities",
+  "github": "slgobinath/safeeyes",
+  "flathub": "io.github.slgobinath.SafeEyes",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "safeeyes"
+    ]
+  },
+  "detect": [
+    "safeeyes"
+  ],
+  "kind": "gui"
+}

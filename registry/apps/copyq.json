@@ -1,0 +1,17 @@
+{
+  "id": "copyq",
+  "name": "CopyQ",
+  "category": "utilities",
+  "github": "hluk/CopyQ",
+  "flathub": "com.github.hluk.copyq",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "copyq"
+    ]
+  },
+  "detect": [
+    "copyq"
+  ],
+  "kind": "gui"
+}

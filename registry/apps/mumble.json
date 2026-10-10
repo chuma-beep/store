@@ -1,0 +1,17 @@
+{
+  "id": "mumble",
+  "name": "Mumble",
+  "category": "communication",
+  "github": "mumble-voip/mumble",
+  "flathub": "info.mumble.Mumble",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mumble"
+    ]
+  },
+  "detect": [
+    "mumble"
+  ],
+  "kind": "gui"
+}

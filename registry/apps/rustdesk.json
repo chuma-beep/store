@@ -1,0 +1,17 @@
+{
+  "id": "rustdesk",
+  "name": "RustDesk",
+  "category": "utilities",
+  "github": "rustdesk/rustdesk",
+  "flathub": "com.rustdesk.RustDesk",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "rustdesk-bin"
+    ]
+  },
+  "detect": [
+    "rustdesk-bin"
+  ],
+  "kind": "gui"
+}

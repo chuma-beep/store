@@ -1,0 +1,17 @@
+{
+  "id": "kdiskmark",
+  "name": "KDiskMark",
+  "category": "utilities",
+  "github": "JonMagon/KDiskMark",
+  "flathub": "io.github.jonmagon.kdiskmark",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kdiskmark"
+    ]
+  },
+  "detect": [
+    "kdiskmark"
+  ],
+  "kind": "gui"
+}

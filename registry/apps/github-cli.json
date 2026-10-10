@@ -1,0 +1,20 @@
+{
+  "id": "github-cli",
+  "name": "GitHub CLI",
+  "category": "terminal",
+  "github": "cli/cli",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "github-cli"
+    ]
+  },
+  "detect": [
+    "github-cli"
+  ],
+  "kind": "terminal",
+  "summary": "GitHub’s official command line tool",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/59704711?s=256"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "mediainfo",
+  "name": "MediaInfo",
+  "category": "video-audio",
+  "github": "MediaArea/MediaInfo",
+  "flathub": "net.mediaarea.MediaInfo",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mediainfo"
+    ]
+  },
+  "detect": [
+    "mediainfo"
+  ],
+  "kind": "gui"
+}

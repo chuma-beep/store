@@ -1,0 +1,17 @@
+{
+  "id": "kodi",
+  "name": "Kodi",
+  "category": "media",
+  "github": "xbmc/xbmc",
+  "flathub": "tv.kodi.Kodi",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kodi"
+    ]
+  },
+  "detect": [
+    "kodi"
+  ],
+  "kind": "gui"
+}

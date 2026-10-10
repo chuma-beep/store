@@ -1,0 +1,17 @@
+{
+  "id": "jadx",
+  "name": "JADX",
+  "category": "developer-tools",
+  "github": "skylot/jadx",
+  "flathub": "com.github.skylot.jadx",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "jadx"
+    ]
+  },
+  "detect": [
+    "jadx"
+  ],
+  "kind": "gui"
+}

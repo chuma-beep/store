@@ -1,0 +1,20 @@
+{
+  "id": "navi",
+  "name": "navi",
+  "category": "terminal",
+  "github": "denisidoro/navi",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "navi"
+    ]
+  },
+  "detect": [
+    "navi"
+  ],
+  "kind": "terminal",
+  "summary": "An interactive cheatsheet tool for the command-line",
+  "cli": true,
+  "icon": null
+}

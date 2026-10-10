@@ -1,0 +1,20 @@
+{
+  "id": "broot",
+  "name": "broot",
+  "category": "terminal",
+  "github": "Canop/broot",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "broot"
+    ]
+  },
+  "detect": [
+    "broot"
+  ],
+  "kind": "terminal",
+  "summary": "A new way to see and navigate directory trees",
+  "open": "broot",
+  "icon": null
+}

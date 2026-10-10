@@ -1,0 +1,17 @@
+{
+  "id": "tigervnc-viewer",
+  "name": "TigerVNC Viewer",
+  "category": "utilities",
+  "github": "TigerVNC/tigervnc",
+  "flathub": "org.tigervnc.vncviewer",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "tigervnc"
+    ]
+  },
+  "detect": [
+    "tigervnc"
+  ],
+  "kind": "gui"
+}

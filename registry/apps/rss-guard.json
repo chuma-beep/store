@@ -1,0 +1,17 @@
+{
+  "id": "rss-guard",
+  "name": "RSS Guard",
+  "category": "utilities",
+  "github": "martinrotter/rssguard",
+  "flathub": "io.github.martinrotter.rssguard",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "rssguard"
+    ]
+  },
+  "detect": [
+    "rssguard"
+  ],
+  "kind": "gui"
+}

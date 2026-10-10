@@ -1,0 +1,17 @@
+{
+  "id": "sirikali",
+  "name": "SiriKali",
+  "category": "utilities",
+  "github": "mhogomchungu/sirikali",
+  "flathub": "io.github.mhogomchungu.sirikali",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "sirikali"
+    ]
+  },
+  "detect": [
+    "sirikali"
+  ],
+  "kind": "gui"
+}

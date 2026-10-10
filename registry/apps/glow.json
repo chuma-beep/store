@@ -1,0 +1,20 @@
+{
+  "id": "glow",
+  "name": "Glow",
+  "category": "terminal",
+  "github": "charmbracelet/glow",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "glow"
+    ]
+  },
+  "detect": [
+    "glow"
+  ],
+  "kind": "terminal",
+  "summary": "Render markdown on the CLI, with pizzazz!",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/57376114?s=256"
+}

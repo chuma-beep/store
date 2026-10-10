@@ -1,0 +1,17 @@
+{
+  "id": "ungoogled-chromium",
+  "name": "Ungoogled Chromium",
+  "category": "browsers",
+  "github": "ungoogled-software/ungoogled-chromium",
+  "flathub": "io.github.ungoogled_software.ungoogled_chromium",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "ungoogled-chromium-bin"
+    ]
+  },
+  "detect": [
+    "ungoogled-chromium-bin"
+  ],
+  "kind": "gui"
+}

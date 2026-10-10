@@ -1,0 +1,17 @@
+{
+  "id": "ghidra",
+  "name": "Ghidra",
+  "category": "developer-tools",
+  "github": "NationalSecurityAgency/ghidra",
+  "flathub": "org.ghidra_sre.Ghidra",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ghidra"
+    ]
+  },
+  "detect": [
+    "ghidra"
+  ],
+  "kind": "gui"
+}

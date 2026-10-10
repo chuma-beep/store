@@ -1,0 +1,17 @@
+{
+  "id": "kooha",
+  "name": "Kooha",
+  "category": "utilities",
+  "github": "SeaDve/Kooha",
+  "flathub": "io.github.seadve.Kooha",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "kooha"
+    ]
+  },
+  "detect": [
+    "kooha"
+  ],
+  "kind": "gui"
+}

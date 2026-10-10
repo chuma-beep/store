@@ -1,0 +1,17 @@
+{
+  "id": "db-browser-for-sqlite",
+  "name": "DB Browser for SQLite",
+  "category": "developer-tools",
+  "github": "sqlitebrowser/sqlitebrowser",
+  "flathub": "org.sqlitebrowser.sqlitebrowser",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "sqlitebrowser"
+    ]
+  },
+  "detect": [
+    "sqlitebrowser"
+  ],
+  "kind": "gui"
+}

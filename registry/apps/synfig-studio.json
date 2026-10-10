@@ -1,0 +1,17 @@
+{
+  "id": "synfig-studio",
+  "name": "Synfig Studio",
+  "category": "graphics",
+  "github": "synfig/synfig",
+  "flathub": "org.synfig.SynfigStudio",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "synfig"
+    ]
+  },
+  "detect": [
+    "synfig"
+  ],
+  "kind": "gui"
+}

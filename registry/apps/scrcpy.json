@@ -1,0 +1,19 @@
+{
+  "id": "scrcpy",
+  "name": "scrcpy",
+  "category": "utilities",
+  "github": "Genymobile/scrcpy",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "scrcpy"
+    ]
+  },
+  "detect": [
+    "scrcpy"
+  ],
+  "kind": "gui",
+  "summary": "Display and control your Android device",
+  "icon": "https://avatars.githubusercontent.com/u/3427627?s=256"
+}

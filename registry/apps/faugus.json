@@ -1,0 +1,17 @@
+{
+  "id": "faugus",
+  "name": "Faugus",
+  "category": "games",
+  "github": "Faugus/faugus-launcher",
+  "flathub": "io.github.Faugus.faugus-launcher",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "faugus-launcher"
+    ]
+  },
+  "detect": [
+    "faugus-launcher"
+  ],
+  "kind": "gui"
+}

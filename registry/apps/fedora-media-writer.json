@@ -1,0 +1,17 @@
+{
+  "id": "fedora-media-writer",
+  "name": "Fedora Media Writer",
+  "category": "utilities",
+  "github": "FedoraQt/MediaWriter",
+  "flathub": "org.fedoraproject.MediaWriter",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mediawriter"
+    ]
+  },
+  "detect": [
+    "mediawriter"
+  ],
+  "kind": "gui"
+}

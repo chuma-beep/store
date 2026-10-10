@@ -1,0 +1,17 @@
+{
+  "id": "logisim-evolution",
+  "name": "Logisim-evolution",
+  "category": "education",
+  "github": "logisim-evolution/logisim-evolution",
+  "flathub": "com.github.reds.LogisimEvolution",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "logisim-evolution"
+    ]
+  },
+  "detect": [
+    "logisim-evolution"
+  ],
+  "kind": "gui"
+}

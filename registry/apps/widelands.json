@@ -1,0 +1,17 @@
+{
+  "id": "widelands",
+  "name": "Widelands",
+  "category": "games",
+  "github": "widelands/widelands",
+  "flathub": "org.widelands.Widelands",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "widelands"
+    ]
+  },
+  "detect": [
+    "widelands"
+  ],
+  "kind": "gui"
+}

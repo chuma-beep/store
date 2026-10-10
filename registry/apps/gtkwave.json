@@ -1,0 +1,17 @@
+{
+  "id": "gtkwave",
+  "name": "GTKWave",
+  "category": "utilities",
+  "github": "gtkwave/gtkwave",
+  "flathub": "io.github.gtkwave.GTKWave",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gtkwave"
+    ]
+  },
+  "detect": [
+    "gtkwave"
+  ],
+  "kind": "gui"
+}

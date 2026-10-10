@@ -1,0 +1,17 @@
+{
+  "id": "devilutionx",
+  "name": "DevilutionX",
+  "category": "games",
+  "github": "diasurgical/DevilutionX",
+  "flathub": "org.diasurgical.DevilutionX",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "devilutionx"
+    ]
+  },
+  "detect": [
+    "devilutionx"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "quickemu",
+  "name": "Quickemu",
+  "category": "utilities",
+  "github": "quickemu-project/quickemu",
+  "flathub": null,
+  "install": {
+    "method": "aur",
+    "packages": [
+      "quickemu"
+    ]
+  },
+  "detect": [
+    "quickemu"
+  ],
+  "kind": "terminal",
+  "summary": "Quickly create and run optimised Windows, macOS and Linux virtual machines",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/94315903?s=256"
+}

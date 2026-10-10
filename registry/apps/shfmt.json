@@ -1,0 +1,20 @@
+{
+  "id": "shfmt",
+  "name": "shfmt",
+  "category": "terminal",
+  "github": "mvdan/sh",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "shfmt"
+    ]
+  },
+  "detect": [
+    "shfmt"
+  ],
+  "kind": "terminal",
+  "summary": "A shell parser, formatter, and interpreter with bash and zsh support; includes shfmt",
+  "cli": true,
+  "icon": null
+}

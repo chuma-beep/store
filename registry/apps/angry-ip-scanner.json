@@ -1,0 +1,17 @@
+{
+  "id": "angry-ip-scanner",
+  "name": "Angry IP Scanner",
+  "category": "utilities",
+  "github": "angryip/ipscan",
+  "flathub": "org.angryip.ipscan",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "ipscan"
+    ]
+  },
+  "detect": [
+    "ipscan"
+  ],
+  "kind": "gui"
+}

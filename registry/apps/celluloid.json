@@ -1,0 +1,17 @@
+{
+  "id": "celluloid",
+  "name": "Celluloid",
+  "category": "media",
+  "github": "celluloid-player/celluloid",
+  "flathub": "io.github.celluloid_player.Celluloid",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "celluloid"
+    ]
+  },
+  "detect": [
+    "celluloid"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "azahar",
+  "name": "Azahar",
+  "category": "games",
+  "github": "azahar-emu/azahar",
+  "flathub": "org.azahar_emu.Azahar",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "azahar"
+    ]
+  },
+  "detect": [
+    "azahar"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "smplayer",
+  "name": "SMPlayer",
+  "category": "video-audio",
+  "github": "smplayer-dev/smplayer",
+  "flathub": "info.smplayer.SMPlayer",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "smplayer"
+    ]
+  },
+  "detect": [
+    "smplayer"
+  ],
+  "kind": "gui"
+}

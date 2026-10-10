@@ -1,0 +1,17 @@
+{
+  "id": "fluxer",
+  "name": "Fluxer",
+  "category": "communication",
+  "github": "fluxerapp/fluxer",
+  "flathub": "app.fluxer.Fluxer",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "fluxer-bin"
+    ]
+  },
+  "detect": [
+    "fluxer-bin"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,17 @@
+{
+  "id": "warzone-2100",
+  "name": "Warzone 2100",
+  "category": "games",
+  "github": "Warzone2100/warzone2100",
+  "flathub": "net.wz2100.wz2100",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "warzone2100"
+    ]
+  },
+  "detect": [
+    "warzone2100"
+  ],
+  "kind": "gui"
+}

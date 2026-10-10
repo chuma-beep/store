@@ -1,0 +1,17 @@
+{
+  "id": "super-productivity",
+  "name": "Super Productivity",
+  "category": "productivity",
+  "github": "super-productivity/super-productivity",
+  "flathub": "com.super_productivity.SuperProductivity",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "super-productivity"
+    ]
+  },
+  "detect": [
+    "super-productivity"
+  ],
+  "kind": "gui"
+}

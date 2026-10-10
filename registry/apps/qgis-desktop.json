@@ -1,0 +1,17 @@
+{
+  "id": "qgis-desktop",
+  "name": "QGIS Desktop",
+  "category": "education",
+  "github": "qgis/QGIS",
+  "flathub": "org.qgis.qgis",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "qgis"
+    ]
+  },
+  "detect": [
+    "qgis"
+  ],
+  "kind": "gui"
+}

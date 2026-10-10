@@ -1,0 +1,17 @@
+{
+  "id": "easy-effects",
+  "name": "Easy Effects",
+  "category": "video-audio",
+  "github": "wwmm/easyeffects",
+  "flathub": "com.github.wwmm.easyeffects",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "easyeffects"
+    ]
+  },
+  "detect": [
+    "easyeffects"
+  ],
+  "kind": "gui"
+}

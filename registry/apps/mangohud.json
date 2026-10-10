@@ -1,0 +1,20 @@
+{
+  "id": "mangohud",
+  "name": "MangoHud",
+  "category": "games",
+  "github": "flightlessmango/MangoHud",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mangohud"
+    ]
+  },
+  "detect": [
+    "mangohud"
+  ],
+  "kind": "terminal",
+  "summary": "A Vulkan and OpenGL overlay for monitoring FPS, temperatures, CPU/GPU load and more",
+  "cli": true,
+  "icon": null
+}

@@ -1,0 +1,17 @@
+{
+  "id": "floorp",
+  "name": "Floorp",
+  "category": "browsers",
+  "github": "Floorp-Projects/Floorp",
+  "flathub": "one.ablaze.floorp",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "floorp-bin"
+    ]
+  },
+  "detect": [
+    "floorp-bin"
+  ],
+  "kind": "gui"
+}

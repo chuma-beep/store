@@ -1,0 +1,17 @@
+{
+  "id": "nextcloud-desktop-client",
+  "name": "Nextcloud Desktop Client",
+  "category": "utilities",
+  "github": "nextcloud/desktop",
+  "flathub": "com.nextcloud.desktopclient.nextcloud",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "nextcloud"
+    ]
+  },
+  "detect": [
+    "nextcloud"
+  ],
+  "kind": "gui"
+}

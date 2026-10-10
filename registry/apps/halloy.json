@@ -1,0 +1,17 @@
+{
+  "id": "halloy",
+  "name": "Halloy",
+  "category": "communication",
+  "github": "squidowl/halloy",
+  "flathub": "org.squidowl.halloy",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "halloy"
+    ]
+  },
+  "detect": [
+    "halloy"
+  ],
+  "kind": "gui"
+}

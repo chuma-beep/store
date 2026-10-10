@@ -1,0 +1,17 @@
+{
+  "id": "oversteer",
+  "name": "Oversteer",
+  "category": "games",
+  "github": "berarma/oversteer",
+  "flathub": "io.github.berarma.Oversteer",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "oversteer"
+    ]
+  },
+  "detect": [
+    "oversteer"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "aws-cli",
+  "name": "AWS CLI",
+  "category": "terminal",
+  "github": "aws/aws-cli",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "aws-cli"
+    ]
+  },
+  "detect": [
+    "aws-cli"
+  ],
+  "kind": "terminal",
+  "summary": "Universal Command Line Interface for Amazon Web Services",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/2232217?s=256"
+}

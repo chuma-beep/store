@@ -1,0 +1,20 @@
+{
+  "id": "magic-wormhole",
+  "name": "Magic Wormhole",
+  "category": "utilities",
+  "github": "magic-wormhole/magic-wormhole",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "magic-wormhole"
+    ]
+  },
+  "detect": [
+    "magic-wormhole"
+  ],
+  "kind": "terminal",
+  "summary": "get things from one computer to another, safely",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/59107264?s=256"
+}

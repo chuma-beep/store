@@ -1,0 +1,17 @@
+{
+  "id": "godot-engine",
+  "name": "Godot Engine",
+  "category": "developer-tools",
+  "github": "godotengine/godot",
+  "flathub": "org.godotengine.Godot",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "godot"
+    ]
+  },
+  "detect": [
+    "godot"
+  ],
+  "kind": "gui"
+}

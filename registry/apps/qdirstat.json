@@ -1,0 +1,17 @@
+{
+  "id": "qdirstat",
+  "name": "QDirStat",
+  "category": "utilities",
+  "github": "shundhammer/qdirstat",
+  "flathub": "io.github.shundhammer.qdirstat",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "qdirstat"
+    ]
+  },
+  "detect": [
+    "qdirstat"
+  ],
+  "kind": "gui"
+}

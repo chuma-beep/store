@@ -1,0 +1,17 @@
+{
+  "id": "flameshot",
+  "name": "Flameshot",
+  "category": "utilities",
+  "github": "flameshot-org/flameshot",
+  "flathub": "org.flameshot.Flameshot",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "flameshot"
+    ]
+  },
+  "detect": [
+    "flameshot"
+  ],
+  "kind": "gui"
+}

@@ -1,0 +1,20 @@
+{
+  "id": "fzf",
+  "name": "fzf",
+  "category": "terminal",
+  "github": "junegunn/fzf",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "fzf"
+    ]
+  },
+  "detect": [
+    "fzf"
+  ],
+  "kind": "terminal",
+  "summary": "A command-line fuzzy finder",
+  "cli": true,
+  "icon": null
+}

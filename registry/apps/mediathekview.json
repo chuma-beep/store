@@ -1,0 +1,17 @@
+{
+  "id": "mediathekview",
+  "name": "MediathekView",
+  "category": "media",
+  "github": "mediathekview/MediathekView",
+  "flathub": "de.mediathekview.MediathekView",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mediathekview"
+    ]
+  },
+  "detect": [
+    "mediathekview"
+  ],
+  "kind": "gui"
+}

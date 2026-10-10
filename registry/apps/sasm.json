@@ -1,0 +1,17 @@
+{
+  "id": "sasm",
+  "name": "SASM",
+  "category": "developer-tools",
+  "github": "Dman95/SASM",
+  "flathub": "io.github.dman95.SASM",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "sasm"
+    ]
+  },
+  "detect": [
+    "sasm"
+  ],
+  "kind": "gui"
+}

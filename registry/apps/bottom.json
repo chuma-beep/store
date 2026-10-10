@@ -1,0 +1,20 @@
+{
+  "id": "bottom",
+  "name": "bottom",
+  "category": "terminal",
+  "github": "ClementTsang/bottom",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "bottom"
+    ]
+  },
+  "detect": [
+    "bottom"
+  ],
+  "kind": "terminal",
+  "summary": "Yet another cross-platform graphical process/system monitor",
+  "open": "btm",
+  "icon": null
+}

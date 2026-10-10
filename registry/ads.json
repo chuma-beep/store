@@ -1,14 +1,23 @@
 {
-  "_comment": "Ad inventory. Every ad is ALWAYS labelled 'Sponsored' in the UI. See ADVERTISE.md for pricing and rules. Expired campaigns are hidden automatically.",
-
+  "_comment": "Ad inventory. Every ad is ALWAYS labelled 'Sponsored' in the UI. Paid campaigns (type != house) take priority over house ads in the same slot. Expired campaigns are hidden automatically. See ADVERTISE.md.",
   "network": {
     "_comment": "Optional ad network (e.g. Carbon Ads, EthicalAds). Leave enabled=false until you have an account. When on, it fills slots that have no direct campaign.",
     "enabled": false,
     "provider": "ethicalads",
     "publisher_id": ""
   },
-
   "campaigns": [
+    {
+      "id": "billy-legal-spotify",
+      "slot": "banner",
+      "type": "artist",
+      "title": "Billy Legal",
+      "cta": "Listen on Spotify",
+      "url": "https://open.spotify.com/artist/0hrBaKHfPnEGXWk1XTaCzs",
+      "image": "ads/billy-legal.webp",
+      "starts": "2026-10-10",
+      "ends": "2099-12-31"
+    },
     {
       "id": "house-advertise",
       "slot": "banner",
@@ -18,7 +27,10 @@
       "cta": "Advertise here",
       "url": "https://github.com/omarchy-community/store/blob/main/ADVERTISE.md",
       "image": null,
-      "gradient": ["#24283b", "#7aa2f7"],
+      "gradient": [
+        "#24283b",
+        "#7aa2f7"
+      ],
       "starts": "2026-01-01",
       "ends": "2099-12-31"
     },
@@ -31,7 +43,10 @@
       "cta": "Submit your app",
       "url": "https://github.com/omarchy-community/store/blob/main/CONTRIBUTING.md",
       "image": null,
-      "gradient": ["#1a1b26", "#9ece6a"],
+      "gradient": [
+        "#1a1b26",
+        "#9ece6a"
+      ],
       "starts": "2026-01-01",
       "ends": "2099-12-31"
     },

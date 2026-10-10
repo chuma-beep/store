@@ -1,0 +1,17 @@
+{
+  "id": "portal-for-teams",
+  "name": "Portal for Teams",
+  "category": "communication",
+  "github": "IsmaelMartinez/teams-for-linux",
+  "flathub": "com.github.IsmaelMartinez.teams_for_linux",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "teams-for-linux-bin"
+    ]
+  },
+  "detect": [
+    "teams-for-linux-bin"
+  ],
+  "kind": "gui"
+}

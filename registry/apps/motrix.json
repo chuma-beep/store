@@ -1,0 +1,17 @@
+{
+  "id": "motrix",
+  "name": "Motrix",
+  "category": "utilities",
+  "github": "agalwood/Motrix",
+  "flathub": "net.agalwood.Motrix",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "motrix"
+    ]
+  },
+  "detect": [
+    "motrix"
+  ],
+  "kind": "gui"
+}

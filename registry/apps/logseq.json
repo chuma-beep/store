@@ -1,0 +1,17 @@
+{
+  "id": "logseq",
+  "name": "Logseq",
+  "category": "productivity",
+  "github": "logseq/logseq",
+  "flathub": "com.logseq.Logseq",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "logseq-desktop"
+    ]
+  },
+  "detect": [
+    "logseq-desktop"
+  ],
+  "kind": "gui"
+}

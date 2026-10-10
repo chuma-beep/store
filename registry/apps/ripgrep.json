@@ -1,0 +1,20 @@
+{
+  "id": "ripgrep",
+  "name": "ripgrep",
+  "category": "terminal",
+  "github": "BurntSushi/ripgrep",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ripgrep"
+    ]
+  },
+  "detect": [
+    "ripgrep"
+  ],
+  "kind": "terminal",
+  "summary": "ripgrep recursively searches directories for a regex pattern while respecting your gitignore",
+  "cli": true,
+  "icon": null
+}

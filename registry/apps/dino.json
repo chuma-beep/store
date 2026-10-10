@@ -1,0 +1,17 @@
+{
+  "id": "dino",
+  "name": "Dino",
+  "category": "communication",
+  "github": "dino/dino",
+  "flathub": "im.dino.Dino",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "dino"
+    ]
+  },
+  "detect": [
+    "dino"
+  ],
+  "kind": "gui"
+}

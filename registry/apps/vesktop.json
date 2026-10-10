@@ -1,0 +1,17 @@
+{
+  "id": "vesktop",
+  "name": "Vesktop",
+  "category": "communication",
+  "github": "Vencord/Vesktop",
+  "flathub": "dev.vencord.Vesktop",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "vesktop"
+    ]
+  },
+  "detect": [
+    "vesktop"
+  ],
+  "kind": "gui"
+}

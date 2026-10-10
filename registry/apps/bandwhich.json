@@ -1,0 +1,20 @@
+{
+  "id": "bandwhich",
+  "name": "bandwhich",
+  "category": "terminal",
+  "github": "imsnif/bandwhich",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "bandwhich"
+    ]
+  },
+  "detect": [
+    "bandwhich"
+  ],
+  "kind": "terminal",
+  "summary": "Terminal bandwidth utilization tool",
+  "cli": true,
+  "icon": null
+}

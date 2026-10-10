@@ -1,0 +1,17 @@
+{
+  "id": "mitmproxy",
+  "name": "mitmproxy",
+  "category": "developer-tools",
+  "github": "mitmproxy/mitmproxy",
+  "flathub": "org.mitmproxy.mitmproxy",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mitmproxy"
+    ]
+  },
+  "detect": [
+    "mitmproxy"
+  ],
+  "kind": "gui"
+}

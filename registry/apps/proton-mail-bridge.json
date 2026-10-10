@@ -1,0 +1,17 @@
+{
+  "id": "proton-mail-bridge",
+  "name": "Proton Mail Bridge",
+  "category": "productivity",
+  "github": "ProtonMail/proton-bridge",
+  "flathub": "ch.protonmail.protonmail-bridge",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "protonmail-bridge"
+    ]
+  },
+  "detect": [
+    "protonmail-bridge"
+  ],
+  "kind": "gui"
+}

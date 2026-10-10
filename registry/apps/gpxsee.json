@@ -1,0 +1,17 @@
+{
+  "id": "gpxsee",
+  "name": "GPXSee",
+  "category": "utilities",
+  "github": "tumic0/GPXSee",
+  "flathub": "org.gpxsee.GPXSee",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gpxsee"
+    ]
+  },
+  "detect": [
+    "gpxsee"
+  ],
+  "kind": "gui"
+}

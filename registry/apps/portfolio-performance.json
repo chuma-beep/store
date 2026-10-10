@@ -1,0 +1,17 @@
+{
+  "id": "portfolio-performance",
+  "name": "Portfolio Performance",
+  "category": "productivity",
+  "github": "portfolio-performance/portfolio",
+  "flathub": "info.portfolio_performance.PortfolioPerformance",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "portfolio"
+    ]
+  },
+  "detect": [
+    "portfolio"
+  ],
+  "kind": "gui"
+}

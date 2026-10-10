@@ -1,0 +1,17 @@
+{
+  "id": "mame",
+  "name": "MAME",
+  "category": "games",
+  "github": "mamedev/mame",
+  "flathub": "org.mamedev.MAME",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mame"
+    ]
+  },
+  "detect": [
+    "mame"
+  ],
+  "kind": "gui"
+}

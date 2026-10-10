@@ -1,0 +1,20 @@
+{
+  "id": "mise",
+  "name": "mise",
+  "category": "terminal",
+  "github": "jdx/mise",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mise"
+    ]
+  },
+  "detect": [
+    "mise"
+  ],
+  "kind": "terminal",
+  "summary": "dev tools, env vars, task runner",
+  "cli": true,
+  "icon": null
+}

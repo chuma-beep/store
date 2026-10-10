@@ -1,0 +1,17 @@
+{
+  "id": "webcamoid",
+  "name": "Webcamoid",
+  "category": "media",
+  "github": "webcamoid/webcamoid",
+  "flathub": "io.github.webcamoid.Webcamoid",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "webcamoid"
+    ]
+  },
+  "detect": [
+    "webcamoid"
+  ],
+  "kind": "gui"
+}

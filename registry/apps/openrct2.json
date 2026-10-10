@@ -1,0 +1,17 @@
+{
+  "id": "openrct2",
+  "name": "OpenRCT2",
+  "category": "games",
+  "github": "OpenRCT2/OpenRCT2",
+  "flathub": "io.openrct2.OpenRCT2",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "openrct2"
+    ]
+  },
+  "detect": [
+    "openrct2"
+  ],
+  "kind": "gui"
+}

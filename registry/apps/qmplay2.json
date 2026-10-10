@@ -1,0 +1,17 @@
+{
+  "id": "qmplay2",
+  "name": "QMPlay2",
+  "category": "media",
+  "github": "zaps166/QMPlay2",
+  "flathub": "io.github.zaps166.QMPlay2",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "qmplay2"
+    ]
+  },
+  "detect": [
+    "qmplay2"
+  ],
+  "kind": "gui"
+}

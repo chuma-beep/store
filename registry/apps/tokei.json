@@ -1,0 +1,20 @@
+{
+  "id": "tokei",
+  "name": "tokei",
+  "category": "terminal",
+  "github": "XAMPPRocky/tokei",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "tokei"
+    ]
+  },
+  "detect": [
+    "tokei"
+  ],
+  "kind": "terminal",
+  "summary": "Count your code, quickly",
+  "cli": true,
+  "icon": null
+}

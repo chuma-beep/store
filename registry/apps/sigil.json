@@ -1,0 +1,17 @@
+{
+  "id": "sigil",
+  "name": "Sigil",
+  "category": "productivity",
+  "github": "Sigil-Ebook/Sigil",
+  "flathub": "com.sigil_ebook.Sigil",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "sigil"
+    ]
+  },
+  "detect": [
+    "sigil"
+  ],
+  "kind": "gui"
+}

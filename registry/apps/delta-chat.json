@@ -1,0 +1,17 @@
+{
+  "id": "delta-chat",
+  "name": "Delta Chat",
+  "category": "communication",
+  "github": "deltachat/deltachat-desktop",
+  "flathub": "chat.delta.desktop",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "deltachat-desktop"
+    ]
+  },
+  "detect": [
+    "deltachat-desktop"
+  ],
+  "kind": "gui"
+}

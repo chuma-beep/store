@@ -1,0 +1,20 @@
+{
+  "id": "bun",
+  "name": "Bun",
+  "category": "terminal",
+  "github": "oven-sh/bun",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "bun"
+    ]
+  },
+  "detect": [
+    "bun"
+  ],
+  "kind": "terminal",
+  "summary": "Incredibly fast JavaScript runtime, bundler, test runner, and package manager – all in one",
+  "cli": true,
+  "icon": "https://avatars.githubusercontent.com/u/108928776?s=256"
+}

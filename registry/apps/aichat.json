@@ -1,0 +1,20 @@
+{
+  "id": "aichat",
+  "name": "AIChat",
+  "category": "ai",
+  "github": "sigoden/aichat",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "aichat"
+    ]
+  },
+  "detect": [
+    "aichat"
+  ],
+  "kind": "terminal",
+  "summary": "All-in-one LLM CLI tool featuring Shell Assistant, Chat-REPL, RAG, AI Tools & Agents, with access to OpenAI, Claude, Gem",
+  "open": "aichat",
+  "icon": null
+}

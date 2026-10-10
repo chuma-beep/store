@@ -66,6 +66,8 @@
     chat: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',
     check: '<rect x="3" y="3" width="18" height="18" rx="4"/><path d="m8 12 3 3 5-6"/>',
     shield: '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/>',
+    terminal: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="m7 9 3 3-3 3M12 15h5"/>',
+    book: '<path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M8 7h7"/>',
     wrench: '<path d="M14.7 6.3a4 4 0 0 0 5 5L13 18a2.1 2.1 0 0 1-3-3l6.7-6.7a4 4 0 0 0-5-5z"/>',
     star: '<path d="M12 2l3 6.6 7 .8-5.2 4.8 1.4 7L12 17.8 5.8 21.2l1.4-7L2 9.4l7-.8z"/>',
     share: '<path d="M12 3v12M8 7l4-4 4 4M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-7"/>',
@@ -143,12 +145,23 @@
   }
 
   // ---------- components ----------
-  const iconImg = (a, size) => `<img class="icon" src="${esc(a.icon)}" alt="" width="${size}" height="${size}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.visibility='hidden'">`;
+  const MONO = ["#7aa2f7", "#bb9af7", "#9ece6a", "#e0af68", "#f7768e", "#7dcfff", "#ff9e64", "#2ac3de"];
+  const monogram = (a, size) => {
+    let h = 0; for (const c of a.id) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    const bg = MONO[h % MONO.length];
+    const t = a.name.replace(/[^A-Za-z0-9]/g, "").slice(0, a.kind === "terminal" ? 2 : 1) || "?";
+    return `<span class="icon mono" style="width:${size}px;height:${size}px;background:linear-gradient(135deg,${bg},color-mix(in srgb,${bg} 55%,#000));font-size:${Math.round(size * (t.length > 1 ? .36 : .46))}px">${a.kind === "terminal" ? '<i>&gt;_</i>' : ""}${esc(t)}</span>`;
+  };
+  const iconImg = (a, size) => a.icon
+    ? `<img class="icon" src="${esc(a.icon)}" alt="" width="${size}" height="${size}" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'icon mono',style:'width:${size}px;height:${size}px;background:#414868'}))">`
+    : monogram(a, size);
 
   function getBtn(a, big = false) {
     const cls = "get" + (big ? " big" : "");
     if (S.busy.has(a.id)) return `<button class="${cls} busy" data-get="${a.id}"><span class="ring"></span></button>`;
-    if (S.desktop && isInstalled(a)) return `<button class="${cls} installed" data-open="${a.id}">OPEN</button>`;
+    if (S.desktop && isInstalled(a)) return a.cli
+      ? `<button class="${cls} installed" data-open="${a.id}" title="Opens a terminal — run: ${esc(a.detect[0])}">INSTALLED</button>`
+      : `<button class="${cls} installed" data-open="${a.id}">OPEN</button>`;
     return `<button class="${cls}" data-get="${a.id}">GET</button>`;
   }
 
@@ -178,10 +191,36 @@
   const ads = (slot) => (S.catalog.ads?.campaigns || []).filter((c) => c.slot === slot);
   const adUrl = (u) => u + (u.includes("?") ? "&" : "?") + "utm_source=omarchy-store&utm_medium=" + (S.desktop ? "desktop" : "web");
 
+  // Ad images can be relative (hosted with the site). The desktop app serves a local copy
+  // of the site without the ads/ folder, so point those at the live site instead.
+  const adImg = (p) => !p ? "" : /^https:\/\//.test(p) ? p : (S.desktop ? SITE + p : p);
+
+  function artistAd(c) {
+    const u = esc(adUrl(c.url));
+    const L = `href="${u}" target="_blank" rel="sponsored noopener"`;
+    return `<section class="artist-ad" aria-label="Sponsored: ${esc(c.title)}">
+      <a class="aa-hero" ${L}>
+        <img src="${esc(adImg(c.image))}" alt="" loading="lazy">
+        <span class="ad-chip">Sponsored</span>
+        <h3 class="aa-name">${esc(c.title)}</h3>
+      </a>
+      <div class="aa-bar">
+        <a class="aa-play" ${L} title="Play on Spotify"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l11-6.5z"/></svg></a>
+        <a class="aa-icon" ${L} title="Shuffle"><svg viewBox="0 0 24 24"><path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/></svg></a>
+        <a class="aa-follow" ${L}>Follow</a>
+        <a class="aa-more" ${L} title="More">•••</a>
+        <a class="aa-cta" ${L}>${esc(c.cta || "Listen on Spotify")}</a>
+      </div>
+    </section>`;
+  }
+
   function bannerAd() {
-    const list = ads("banner");
+    const all = ads("banner");
+    const paid = all.filter((c) => c.type !== "house");
+    const list = paid.length ? paid : all;
     if (list.length) {
       const c = list[Math.floor(Math.random() * list.length)];
+      if (c.type === "artist") return artistAd(c);
       const [g1, g2] = c.gradient || ["#333", "#555"];
       return `<a class="ad-banner" href="${esc(adUrl(c.url))}" target="_blank" rel="sponsored noopener" style="background:linear-gradient(120deg,${g1},${g2})">
         <div><span class="ad-chip">Sponsored</span><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p></div>
@@ -248,6 +287,7 @@
       ${collections.slice(1).map((c) => shelf(c.title, c.apps.map((id) => S.byId[id]))).join("")}
       ${shelf("Fresh Updates", fresh)}
       ${shelf("Games", games, "#/category/games")}
+      ${shelf("Terminal power tools", apps.filter((a) => a.category === "terminal"), "#/category/terminal")}
       ${footer()}
     </div>`;
   }
@@ -257,7 +297,7 @@
     const list = S.catalog.apps.filter((a) => S.chartCat === "all" || a.category === S.chartCat);
     return `<div class="page">
       <h1 class="page-title">Top Charts</h1>
-      <p class="page-sub">Ranked by GitHub stars. Updated weekly.</p>
+      <p class="page-sub">${S.catalog.apps.length} apps ranked by GitHub stars. Updated weekly.</p>
       <div class="tabs">${cats.map((c) => `<button data-chart="${c.id}" class="${S.chartCat === c.id ? "on" : ""}">${esc(c.name)}</button>`).join("")}</div>
       <div class="chart">${list.map((a, i) => lockup(a, { rank: i + 1, sub: catName(a.category) })).join("")}</div>
       ${footer()}
@@ -282,6 +322,7 @@
     const list = S.catalog.apps.filter((a) => a.category === id);
     return `<div class="page">
       <h1 class="page-title">${esc(c.name)}</h1>
+      <p class="page-sub">${list.length} apps · sorted by GitHub stars</p>
       ${sponsoredApp((a) => a.category === id)}
       <div class="grid">${list.map((a) => lockup(a)).join("")}</div>
       ${footer()}
@@ -382,7 +423,8 @@
           ? (a.archived ? "This project's GitHub repository is archived and no longer maintained." : "This AUR package is flagged out of date by the community.")
           : a.install.method === "aur"
             ? "Installs from the AUR, Arch's community repository. Builds are community-maintained; the store only lists packages with an active maintainer and good standing."
-            : "Installs from a signed, official package source. The store never runs code from a web page — it only calls your system package manager."}</div></div>
+            : "Installs from a signed, official package source. The store never runs code from a web page — it only calls your system package manager."}
+          <div style="margin-top:6px">Third-party software, provided as-is. Install at your own risk — <a style="color:var(--accent)" href="#/legal">disclaimer</a>.</div></div></div>
       </section>
 
       ${related.length ? `<section class="shelf"><div class="shelf-head"><h2>More ${esc(cat?.name)}</h2><a href="#/category/${a.category}">See All</a></div>
@@ -403,8 +445,34 @@
     </div>`;
   }
 
+  const DISCLAIMER_SHORT = "Apps in this store are third-party software made by other people. Omarchy Store does not create, own, review the code of, or control them, and provides them as-is with no warranty. You install and use them at your own risk.";
+
+  function pageLegal() {
+    return `<div class="page legal" style="max-width:780px">
+      <h1 class="page-title">Disclaimer</h1>
+      <p class="muted small">Last updated October 10, 2026</p>
+      <h3>Third-party software</h3>
+      <p>Every app listed in Omarchy Store is created, owned and maintained by independent third parties. Omarchy Store is a directory: it shows public information about those apps and, in the desktop app, asks your computer's own package manager (pacman, or an AUR helper) to install them from Arch Linux, the Arch User Repository (AUR), or Omarchy's package sources. Omarchy Store does not write, build, host, audit or control any of that software.</p>
+      <h3>No warranty</h3>
+      <p>Omarchy Store, its listings, and the software installed through it are provided <b>"AS IS" and "AS AVAILABLE", without warranty of any kind</b>, express or implied, including merchantability, fitness for a particular purpose, security, and non-infringement. We do not guarantee that any app is free of viruses, malware, spyware, bugs or other harmful components, or that listing information is accurate or current.</p>
+      <h3>Limitation of liability</h3>
+      <p>To the maximum extent permitted by law, the operators, maintainers and contributors of Omarchy Store <b>are not liable for any damage or loss</b> of any kind arising from your use of the store or of any software you install through it, including viruses or malware, data loss, system damage, security breaches, lost profits, or any direct, indirect, incidental or consequential damages, even if advised of the possibility of such damage.</p>
+      <h3>Your responsibility</h3>
+      <p>You are solely responsible for deciding what to install. Before installing, review the app's source code, package, license and reputation, and keep backups of important data. Packages from the AUR are community-maintained and are not reviewed or signed by Arch Linux. Installing system software requires administrator access; only proceed if you trust the app.</p>
+      <h3>Advertising</h3>
+      <p>Sponsored content is labelled "Sponsored" or "Ad" and links to third-party websites. Advertisers are solely responsible for their content, products and services. An ad is not an endorsement, and we are not responsible for anything on sites you visit through it.</p>
+      <h3>Trademarks</h3>
+      <p>App names, logos, icons and screenshots belong to their respective owners and are shown only to identify the software. Omarchy Store is an unofficial community project and is not affiliated with Omarchy, Basecamp, 37signals, Arch Linux, GitHub, Flathub or any listed developer.</p>
+      <h3>Removal requests</h3>
+      <p>If you own an app or trademark and want a listing changed or removed, <a style="color:var(--accent)" href="${REPO}/issues/new" target="_blank" rel="noopener">open an issue</a> and we will act promptly.</p>
+      <p class="muted small">By using Omarchy Store you agree to this disclaimer. If you do not agree, do not use the store.</p>
+      ${footer()}
+    </div>`;
+  }
+
   const notFound = () => `<div class="page"><div class="empty">That page doesn’t exist. <a style="color:var(--accent)" href="#/">Back to Discover</a></div></div>`;
   const footer = () => `<div class="footer">
+    <span class="disclaim">${DISCLAIMER_SHORT} <a href="#/legal">Full disclaimer</a></span>
     <span>Omarchy Store — unofficial, community-run. Not affiliated with Omarchy or Basecamp.</span>
     <a href="${REPO}" target="_blank" rel="noopener">GitHub</a>
     <a href="${REPO}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Submit an app</a>
@@ -425,6 +493,7 @@
     else if (p === "search") html = pageSearch(arg || "");
     else if (p === "installed") html = pageInstalled();
     else if (p === "get-desktop") html = pageGetDesktop();
+    else if (p === "legal") html = pageLegal();
     else html = notFound();
     view.innerHTML = html;
     markNav(nav);
@@ -452,7 +521,22 @@
       <div class="small muted">Paste this into a terminal (<b>Super + Return</b>):</div>
       <div class="code"><code>${esc(cmd)}</code><button class="btn" data-copy="${esc(cmd)}">Copy</button></div>
       <div class="small muted">Want one-click installs? <a style="color:var(--accent)" href="#/get-desktop" data-close>Get the desktop app</a>.</div>
+      <p class="small muted sheet-legal">${esc(DISCLAIMER_SHORT)} <a style="color:var(--accent)" href="#/legal" data-close>Disclaimer</a></p>
       <div style="text-align:right;margin-top:16px"><button class="btn ghost" data-close>Done</button></div>
+    </div>`);
+  }
+
+  const ACCEPT_KEY = "omarchy-store-disclaimer-accepted-v1";
+  function confirmThenGet(a) {
+    if (localStorage.getItem(ACCEPT_KEY)) return desktopGet(a);
+    showSheet(`<div class="sheet-card" role="dialog" aria-label="Before you install">
+      <div class="row">${iconImg(a, 56)}<div><h3>Before you install</h3><div class="muted small">${esc(a.name)} · from ${esc(sourceLabel(a))}</div></div></div>
+      <p>${esc(DISCLAIMER_SHORT)}</p>
+      <p class="small muted">Omarchy Store and its maintainers are not responsible for viruses, malware, data loss or any other damage caused by installed software. Read the <a style="color:var(--accent)" href="#/legal" data-close>full disclaimer</a>.</p>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px">
+        <button class="btn ghost" data-close>Cancel</button>
+        <button class="btn" data-accept="${a.id}">I understand — install</button>
+      </div>
     </div>`);
   }
 
@@ -483,12 +567,15 @@
   }
 
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-get],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],#more,.sheet");
+    const t = e.target.closest("[data-get],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],#more,.sheet");
     if (!t) return;
     if (t.matches("[data-get]")) {
       e.preventDefault(); e.stopPropagation();
       const a = S.byId[t.dataset.get];
-      S.desktop ? desktopGet(a) : webGet(a);
+      S.desktop ? confirmThenGet(a) : webGet(a);
+    } else if (t.matches("[data-accept]")) {
+      localStorage.setItem(ACCEPT_KEY, new Date().toISOString());
+      closeSheet(); desktopGet(S.byId[t.dataset.accept]);
     } else if (t.matches("[data-open]")) {
       e.preventDefault(); e.stopPropagation(); desktopOpen(S.byId[t.dataset.open]);
     } else if (t.matches("[data-copy]")) {

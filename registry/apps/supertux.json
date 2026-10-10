@@ -1,0 +1,17 @@
+{
+  "id": "supertux",
+  "name": "SuperTux",
+  "category": "games",
+  "github": "SuperTux/supertux",
+  "flathub": "org.supertuxproject.SuperTux",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "supertux"
+    ]
+  },
+  "detect": [
+    "supertux"
+  ],
+  "kind": "gui"
+}

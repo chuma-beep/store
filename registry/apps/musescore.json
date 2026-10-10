@@ -1,0 +1,17 @@
+{
+  "id": "musescore",
+  "name": "MuseScore",
+  "category": "video-audio",
+  "github": "musescore/MuseScore",
+  "flathub": "org.musescore.MuseScore",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "musescore"
+    ]
+  },
+  "detect": [
+    "musescore"
+  ],
+  "kind": "gui"
+}

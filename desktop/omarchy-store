@@ -124,6 +124,14 @@ def run_install(app):
 def run_open(app):
     opn = app.get("open")
     if app.get("kind") == "terminal":
+        if app.get("cli"):
+            # Command-line tool with no full-screen UI: open a terminal and show how to use it.
+            cmd = app["detect"][0]
+            if not CMD_RE.match(cmd):
+                raise ValueError("bad command")
+            msg = f"echo {shlex.quote(app['name'] + ' is installed. Try:')}; echo; echo '  {cmd} --help'; echo; exec bash"
+            subprocess.Popen(["xdg-terminal-exec", "bash", "-c", msg], stdin=subprocess.DEVNULL, start_new_session=True)
+            return
         cmd = opn or app["detect"][0]
         if not CMD_RE.match(cmd):
             raise ValueError("bad command")
