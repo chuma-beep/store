@@ -80,6 +80,7 @@
     ok: '<path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/><path d="m9 12 2 2 4-4"/>',
     warn: '<path d="M12 3 2 20h20zM12 10v4M12 17h.01"/>',
     refresh: '<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',
+    rocket: '<path d="M12 2c3 2 5 6 5 10l-2 4H9l-2-4c0-4 2-8 5-10z"/><circle cx="12" cy="10" r="1.8"/><path d="M9 16l-3 3 1-5M15 16l3 3-1-5M10 20h4"/>',
     usb: '<path d="M8 2h8v6H8z"/><path d="M6 8h12v10a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4z"/><path d="M10 4.5h.01M14 4.5h.01"/>',
   };
   const ico = (n) => `<svg viewBox="0 0 24 24">${ICONS[n] || ""}</svg>`;
@@ -144,7 +145,7 @@
       <a href="/" data-r="">${ico("discover")}Discover</a>
       <a href="/charts/" data-r="charts">${ico("charts")}Top Charts</a>
       <a href="/categories/" data-r="categories">${ico("grid")}Categories</a>
-      <a href="/ignite/" data-r="ignite"><img class="nav-ic" src="/featured/ignite/icon-64.png" alt="">Ignite<span class="nav-new">NEW</span></a>
+      <a href="/get-omarchy/" data-r="get-omarchy">${ico("rocket")}Get Omarchy<span class="nav-new">NEW</span></a>
       ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes">${ico("palette")}Themes<span class="nav-new">NEW</span></a>` : ""}
       ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>
       <a href="/updates/" data-r="updates">${ico("refresh")}Updates<span class="nav-count" id="upd-count" hidden></span></a>` : ""}
@@ -494,13 +495,13 @@
   const fico = (n) => `<svg viewBox="0 0 24 24">${FICON[n] || ""}</svg>`;
   function igniteBanner() {
     const iso = S.catalog.omarchy_iso;
-    return `<a class="spot full ignite-spot" href="/ignite/">
-      <img class="spot-bg" src="/featured/ignite/billboard.webp" alt="Ignite for Omarchy: make an Omarchy installer USB" loading="lazy">
+    return `<a class="spot full ignite-spot" href="/get-omarchy/">
+      <img class="spot-bg" src="/featured/ignite/billboard.webp" alt="Get Omarchy: make an installer USB with Ignite" loading="lazy">
       <div class="spot-copy">
-        <div class="spot-badge fire"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>Featured tool</div>
-        <h2>Ignite your next PC.</h2>
-        <p>Make an Omarchy installer USB in one click: always the newest official release, checked genuine before writing. Keeping Windows? Ignite helps you install Omarchy right next to it.</p>
-        <div class="spot-lock"><img class="icon" src="/featured/ignite/icon-128.png" width="64" height="64" alt=""><div><div class="name">Ignite for Omarchy</div><div class="sub">Free${iso ? ` · Omarchy ${esc(iso.version)}` : ""}</div></div><span class="get big">OPEN</span></div>
+        <div class="spot-badge fire"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>New to Omarchy?</div>
+        <h2>Get Omarchy. Free.</h2>
+        <p>The beautiful Linux desktop everyone's talking about. Make the installer USB with Ignite, keep Windows if you like, and have the Omarchy Store ready in minutes.</p>
+        <div class="spot-lock"><img class="icon" src="/featured/ignite/icon-128.png" width="64" height="64" alt=""><div><div class="name">Get Omarchy</div><div class="sub">Free${iso ? ` · Omarchy ${esc(iso.version)}` : ""} · about 15 minutes</div></div><span class="get big">START</span></div>
       </div>
     </a>`;
   }
@@ -675,6 +676,78 @@
       await loadUpdates(false);
       if (!(S.upd?.running || []).length || Date.now() - t0 > 30 * 60e3) { clearInterval(tick); refreshInstalled(); }
     }, 8000);
+  }
+
+
+  // ---------- Get Omarchy: the landing page for people who don't have Omarchy yet ----------
+  function pageGetOmarchy() {
+    const iso = S.catalog.omarchy_iso;
+    const inst = `curl -fsSL ${SITE}install.sh | bash`;
+    const shots = (S.catalog.themes || []).filter((t) => t.image && t.stars).slice(0, 6);
+    const step = (n, title, body) => `<li class="go-step"><span class="go-n">${n}</span><div><h3>${title}</h3>${body}</div></li>`;
+    return `<div class="page go">
+      <section class="go-hero">
+        <div class="go-copy">
+          <div class="eyebrow">THE LINUX DESKTOP EVERYONE'S TALKING ABOUT</div>
+          <h1>Get Omarchy.</h1>
+          <p>Omarchy is a free, fast and beautiful desktop for your PC, made by DHH (creator of Ruby on Rails). It replaces Windows, or lives right next to it. Here's the whole thing, step by step, in about 15 minutes.</p>
+          <div class="go-cta">
+            <a class="btn big" href="#step1">Start: make the USB</a>
+            ${iso ? `<span class="muted small">Latest: Omarchy ${esc(iso.version)} · free · ${gb(iso.size)}</span>` : ""}
+          </div>
+        </div>
+        <div class="go-mosaic">${shots.map((t) => `<img src="${esc(themeImg(t))}" alt="Omarchy with the ${esc(t.name)} theme" loading="eager">`).join("")}</div>
+      </section>
+
+      <section class="go-need">
+        <div><b>A PC</b><span>Any 64-bit PC or laptop from the last ~10 years</span></div>
+        <div><b>A USB stick</b><span>8 GB or bigger. It will be erased</span></div>
+        <div><b>15 minutes</b><span>Most of it is waiting</span></div>
+        <div><b>Keep Windows?</b><span>Yes, if you want. <a href="/ignite/#windows">How</a></span></div>
+      </section>
+
+      <ol class="go-steps">
+        ${step(1, `<span id="step1"></span>Make the installer USB`, `
+          <div class="go-two">
+            <div class="go-opt">
+              <div class="go-tag">On Windows or Mac</div>
+              <ol class="usb-list">
+                <li>${iso ? `<a class="btn" href="${esc(iso.url)}">Download Omarchy ${esc(iso.version)}</a>` : `<a class="btn" href="https://omarchy.org/" target="_blank" rel="noopener">Download Omarchy</a>`}</li>
+                <li>Get free <a href="https://rufus.ie" target="_blank" rel="noopener">Rufus</a> (Windows) or <a href="https://etcher.balena.io" target="_blank" rel="noopener">balenaEtcher</a> (Windows &amp; Mac).</li>
+                <li>Choose the Omarchy file, choose your USB stick, press <b>Start</b> / <b>Flash</b>. In Rufus pick <b>GPT</b>.</li>
+              </ol></div>
+            <div class="go-opt ignite-opt">
+              <div class="go-tag"><img src="/featured/ignite/icon-64.png" alt="">Already on Omarchy or Linux?</div>
+              <p class="small">Use <b>Ignite</b> in the Omarchy Store app: it downloads the newest Omarchy, checks it's genuine and writes the USB in one click. Great for setting up a friend's PC.</p>
+              <a class="btn ghost" href="/ignite/">Open Ignite</a></div>
+          </div>`)}
+        ${step(2, "Choose: replace Windows, or keep it", `
+          <div class="go-two">
+            <div class="go-opt"><div class="go-tag">Simplest</div><h4>Omarchy only</h4><p class="small">The installer uses the whole drive. <b>Everything on it is erased</b>, so back up your files first.</p></div>
+            <div class="go-opt"><div class="go-tag">Keep Windows</div><h4>Omarchy next to Windows</h4><p class="small">Make some empty space on the drive first (about 2 minutes in Windows), then choose <b>Free space install</b>. You pick Windows or Omarchy every time you start the PC.</p><a class="btn ghost" href="/ignite/#windows">Show me how</a></div>
+          </div>`)}
+        ${step(3, "Install Omarchy", `<ol class="usb-list">
+            <li>Plug in the USB stick and restart. Open the boot menu: usually <b>F12</b>, <b>F11</b>, <b>F8</b> or <b>Esc</b> right after power-on, and pick the USB stick.</li>
+            <li>If it won't start, turn off <b>Secure Boot</b> in the BIOS settings.</li>
+            <li>Answer a few questions (name, password, keyboard). Omarchy installs itself in a few minutes.</li></ol>`)}
+        ${step(4, "Get the Omarchy Store", `<p class="small">Your new desktop is ready. Add the store to install apps, themes and SnapDock with one click:</p>
+          <ol class="usb-list">
+            <li>Press <b>Super + Enter</b> to open a terminal. (Super is the Windows key.)</li>
+            <li>Paste this and press Enter:
+              <div class="code"><code>${esc(inst)}</code><button class="btn" data-copy="${esc(inst)}">Copy</button></div></li>
+            <li>Open <b>Omarchy Store</b> from the app launcher (<b>Super + Space</b>). Done.</li></ol>`)}
+      </ol>
+
+      <section class="shelf"><div class="shelf-head"><h2>Questions</h2></div>
+        <div class="faq">
+          <details><summary>Is Omarchy really free?</summary><p>Yes. Omarchy is free and open source. So is the Omarchy Store, and almost every app in it.</p></details>
+          <details><summary>Will it erase my computer?</summary><p>Only if you choose to use the whole drive. To keep Windows and your files, follow "Keep Windows" in step 2 and choose Free space install. Always back up important files first.</p></details>
+          <details><summary>Can I play games?</summary><p>Yes. Steam runs most Windows games on Omarchy, and the store has Steam, Heroic (Epic &amp; GOG), Lutris and more.</p></details>
+          <details><summary>I'm coming from Windows. Will I feel lost?</summary><p>Install <a href="/app/snapdock/">SnapDock</a> from the store: a frosted glass dock and Windows-style window snapping, so it feels familiar from day one.</p></details>
+          <details><summary>Who makes Omarchy?</summary><p>Omarchy is made by DHH and the Omarchy community. The Omarchy Store is an independent community project; we link to the official Omarchy download and don't change it.</p></details>
+        </div></section>
+      ${footer()}
+    </div>`;
   }
 
   // ---------- USB maker ----------
@@ -973,7 +1046,8 @@
     else if (p === "search") html = pageSearch(arg || "");
     else if (p === "installed") html = pageInstalled();
     else if (p === "updates") html = pageUpdates();
-    else if (p === "usb" || p === "ignite") { if (p === "usb") history.replaceState(null, "", "/ignite/"); html = pageUsb(); nav = "ignite"; }
+    else if (p === "usb" || p === "ignite") { if (p === "usb") history.replaceState(null, "", "/ignite/"); html = pageUsb(); nav = "get-omarchy"; }
+    else if (p === "get-omarchy" || p === "get") { if (p === "get") history.replaceState(null, "", "/get-omarchy/"); html = pageGetOmarchy(); nav = "get-omarchy"; }
     else if (p === "get-desktop") html = pageGetDesktop();
     else if (p === "legal") html = pageLegal();
     else html = notFound();
@@ -986,7 +1060,7 @@
     if (d && m && d.scrollHeight > d.clientHeight + 4) m.hidden = false;
     document.title = pageTitle(p, arg);
   }
-  const TITLES = { themes: "Omarchy Themes – Browse & Install Desktop Themes", charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed", updates: "Updates", usb: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", ignite: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click" };
+  const TITLES = { themes: "Omarchy Themes – Browse & Install Desktop Themes", charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed", updates: "Updates", usb: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", ignite: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", "get-omarchy": "Get Omarchy – How to Install Omarchy Linux (Free, Step by Step)", get: "Get Omarchy – How to Install Omarchy Linux (Free, Step by Step)" };
   function pageTitle(p, arg) {
     const a = p === "app" && S.byId[arg];
     if (a) return `${a.name} for Omarchy Linux – Install ${a.name} | Omarchy Store`;

@@ -1,4 +1,4 @@
 {
-  "_comment": "Set helper_ready to true only after Make-room-for-Omarchy has been tested on real Windows 10 and 11 PCs.",
+  "_comment": "Set helper_ready to true only after windows-helper/Make-room-for-Omarchy has been tested on real Windows 10 and 11 PCs, then zip it into site/ignite/Make-room-for-Omarchy.zip.",
   "helper_ready": false
 }

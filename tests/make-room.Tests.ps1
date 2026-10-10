@@ -1,6 +1,6 @@
 # Logic test for Make-room-for-Omarchy.ps1 on Linux PowerShell: every Windows storage
 # command is replaced by a fake that returns a scripted computer. Nothing real is touched.
-param([string]$Script = "$PSScriptRoot/../site/ignite/Make-room-for-Omarchy.ps1")
+param([string]$Script = "$PSScriptRoot/../windows-helper/Make-room-for-Omarchy.ps1")
 $env:OMARCHY_NO_PAUSE = '1'
 $env:SystemDrive = 'C:'
 $GB = 1GB

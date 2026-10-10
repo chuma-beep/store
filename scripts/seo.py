@@ -265,6 +265,13 @@ def main():
                          '<h1 class="page-title">Categories</h1><ul>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>"),
         "/legal/": ("Disclaimer | Omarchy Store", "Omarchy Store lists third-party software provided as-is, without warranty. Read the full disclaimer.",
                     '<h1 class="page-title">Disclaimer</h1>'),
+        "/get-omarchy/": ("Get Omarchy – How to Install Omarchy Linux, Free & Step by Step | Omarchy Store",
+                  "How to install Omarchy Linux in about 15 minutes: make the installer USB, keep Windows or replace it, install, then add the Omarchy Store for one-click apps and themes.",
+                  '<h1 class="page-title">Get Omarchy</h1><p>Omarchy is a free, fast and beautiful Linux desktop made by DHH. Install it in about 15 minutes.</p>'
+                  '<h2>1. Make the installer USB</h2><p>Download the latest Omarchy ISO, then write it to an 8 GB+ USB stick with Rufus (Windows), balenaEtcher (Windows and Mac) or Ignite in the Omarchy Store.</p>'
+                  '<h2>2. Replace Windows or keep it</h2><p>Use the whole drive, or shrink Windows in Disk Management and choose Free space install to dual boot.</p>'
+                  '<h2>3. Install</h2><p>Boot from the USB (F12, F11, F8 or Esc), turn off Secure Boot if needed, and answer a few questions.</p>'
+                  '<h2>4. Get the Omarchy Store</h2><pre><code>curl -fsSL https://omarchystore.com/install.sh | bash</code></pre>'),
         "/ignite/": ("Ignite for Omarchy – Make an Omarchy Installer USB & Dual Boot with Windows | Omarchy Store",
                   "Ignite makes a bootable Omarchy USB installer in one click: always the latest official Omarchy ISO, SHA-256 verified. Plus how to install Omarchy next to Windows (dual boot) without erasing it.",
                   '<h1 class="page-title">Ignite for Omarchy</h1>'
@@ -283,6 +290,12 @@ def main():
     for path, (t, d, b) in simple.items():
         write(path, render(template, head(t, d, path, f"{SITE}/assets/og-default.png", "Omarchy Store", [org]), b))
         urls.append((f"{SITE}{path}", now, "0.5" if path in ("/legal/",) else "0.6"))
+
+    # ---- short links for social media
+    for short in ("/get/", "/omarchy/"):
+        write(short, '<!doctype html><meta charset="utf-8"><title>Get Omarchy</title>'
+              f'<link rel="canonical" href="{SITE}/get-omarchy/"><meta http-equiv="refresh" content="0; url=/get-omarchy/">'
+              '<meta name="robots" content="noindex"><a href="/get-omarchy/">Get Omarchy</a>')
 
     # ---- old address: /usb/ -> /ignite/
     write("/usb/", '<!doctype html><meta charset="utf-8"><title>Ignite for Omarchy</title>'
