@@ -499,6 +499,7 @@
   function featuredSections(a) {
     const f = a.featured;
     return `
+      ${f.heads_up ? `<section class="trust warn" style="margin:22px 0 6px">${ico("warn")}<div><b>${esc(f.heads_up.title)}</b><div style="margin-top:4px">${esc(f.heads_up.body)}</div></div></section>` : ""}
       ${f.promise ? `<section class="promise"><span class="feat-ic">${fico("infinity")}</span><div><h3>${esc(f.promise.title)}</h3><p>${esc(f.promise.body)}</p></div></section>` : ""}
       <section class="shelf feat-grid">${f.features.map((x) => `<div class="feat"><span class="feat-ic">${fico(x.icon)}</span><h3>${esc(x.title)}</h3><p>${esc(x.body)}</p></div>`).join("")}</section>
       <section class="shelf"><div class="shelf-head"><h2>Get started in 3 steps</h2></div>
@@ -927,6 +928,7 @@
       <div class="small muted">Paste this into a terminal (<b>Super + Return</b>):</div>
       <div class="code"><code>${esc(cmd)}</code><button class="btn" data-copy="${esc(cmd)}">Copy</button></div>
       ${a.install.method === "release" ? `<div class="small muted">${esc(a.name)} isn't in the Arch repos or the AUR, so <code>omarchy pkg add ${esc(a.id)}</code> won't find it. This command downloads it from the developer, checks its fingerprint (SHA-256) against the store, then installs it. It asks for your password. <a style="color:var(--accent)" href="${SITE}get.sh" target="_blank" rel="noopener">Read the script</a>.</div>` : ""}
+      ${a.featured?.heads_up ? `<div class="trust warn" style="margin-top:10px">${ico("warn")}<div>${esc(a.featured.heads_up.body)}</div></div>` : ""}
       <div class="small muted">Want one-click installs? <a style="color:var(--accent)" href="/get-desktop/" data-close>Get the desktop app</a>.</div>
       <p class="small muted sheet-legal">${esc(DISCLAIMER_SHORT)} <a style="color:var(--accent)" href="/legal/" data-close>Disclaimer</a></p>
       <div style="text-align:right;margin-top:16px"><button class="btn ghost" data-close>Done</button></div>
@@ -935,9 +937,10 @@
 
   const ACCEPT_KEY = "omarchy-store-disclaimer-accepted-v1";
   function confirmThenGet(a) {
-    if (localStorage.getItem(ACCEPT_KEY)) return desktopGet(a);
+    if (localStorage.getItem(ACCEPT_KEY) && !a.featured?.heads_up) return desktopGet(a);
     showSheet(`<div class="sheet-card" role="dialog" aria-label="Before you install">
       <div class="row">${iconImg(a, 56)}<div><h3>Before you install</h3><div class="muted small">${esc(a.name)} · from ${esc(sourceLabel(a))}</div></div></div>
+      ${a.featured?.heads_up ? `<div class="trust warn" style="margin:0 0 12px">${ico("warn")}<div><b>${esc(a.featured.heads_up.title)}</b><div style="margin-top:4px">${esc(a.featured.heads_up.body)}</div></div></div>` : ""}
       <p>${esc(DISCLAIMER_SHORT)}</p>
       <p class="small muted">Omarchy Store and its maintainers are not responsible for viruses, malware, data loss or any other damage caused by installed software. Read the <a style="color:var(--accent)" href="/legal/" data-close>full disclaimer</a>.</p>
       <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px">

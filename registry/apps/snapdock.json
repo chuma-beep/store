@@ -141,7 +141,7 @@
       },
       {
         "q": "Will it mess up my setup?",
-        "a": "No. SnapDock backs up every file it changes, and Uninstall restores everything exactly the way it was."
+        "a": "SnapDock replaces your current dock and changes your Hyprland window settings the first time you open it. If you already set up your own dock (nwg-dock) or title bars, SnapDock takes over from them. It backs up every file it changes, and Uninstall puts them back, but it's smart to make your own copy first: cp -r ~/.config/hypr ~/.config/hypr.backup"
       },
       {
         "q": "Does it work with my theme?",
@@ -159,6 +159,10 @@
     "promise": {
       "title": "Early adopters get lifetime updates — free",
       "body": "Install SnapDock now and every future version is yours at no cost, forever — even if it becomes a paid app later. Updates show up in the store's Updates tab."
+    },
+    "heads_up": {
+      "title": "Heads up: SnapDock replaces your current dock",
+      "body": "The first time you open it, SnapDock swaps out your existing dock and adjusts your Hyprland window settings (title bars, snapping, shortcuts). It backs up everything it changes and Uninstall restores it. If you've customized your dock or title bars, copy ~/.config/hypr somewhere safe first."
     }
   },
   "tags": [
