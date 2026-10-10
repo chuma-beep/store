@@ -95,7 +95,7 @@ def install_cmd(a):
     if i["method"] == "omarchy":
         return i["command"]
     if i["method"] == "release":
-        return f"sudo pacman -U {i['url']}"
+        return f"curl -fsSL {SITE}/get.sh | bash -s {a['id']}"
     return ("omarchy pkg aur add " if i["method"] == "aur" else "omarchy pkg add ") + " ".join(i["packages"])
 
 

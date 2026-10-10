@@ -39,7 +39,7 @@ jobs:
           rm -f _site/assets/og-template.svg
           # Files the desktop installer (install.sh) downloads (the plain app shell, no SEO pages):
           cp -r site _site/desktop-files/site
-          rm -f _site/desktop-files/site/install.sh
+          rm -f _site/desktop-files/site/install.sh _site/desktop-files/site/get.sh
           rm -rf _site/desktop-files/site/icons _site/desktop-files/site/theme-previews
           cp desktop/omarchy-store desktop/uninstall.sh _site/desktop-files/
           # One real, indexable page per app/category + sitemap.xml + robots.txt

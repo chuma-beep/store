@@ -32,7 +32,7 @@
   const cmdFor = (a) => {
     const i = a.install;
     if (i.method === "omarchy") return i.command;
-    if (i.method === "release") return `sudo pacman -U ${i.url}`;
+    if (i.method === "release") return `curl -fsSL ${SITE}get.sh | bash -s ${a.id}`;
     if (i.method === "aur") return `omarchy pkg aur add ${i.packages.join(" ")}`;
     return `omarchy pkg add ${i.packages.join(" ")}`;
   };
@@ -926,6 +926,7 @@
       <div class="row">${iconImg(a, 56)}<div><h3>Get ${esc(a.name)}</h3><div class="muted small">Installs from ${esc(sourceLabel(a))}</div></div></div>
       <div class="small muted">Paste this into a terminal (<b>Super + Return</b>):</div>
       <div class="code"><code>${esc(cmd)}</code><button class="btn" data-copy="${esc(cmd)}">Copy</button></div>
+      ${a.install.method === "release" ? `<div class="small muted">${esc(a.name)} isn't in the Arch repos or the AUR, so <code>omarchy pkg add ${esc(a.id)}</code> won't find it. This command downloads it from the developer, checks its fingerprint (SHA-256) against the store, then installs it. It asks for your password. <a style="color:var(--accent)" href="${SITE}get.sh" target="_blank" rel="noopener">Read the script</a>.</div>` : ""}
       <div class="small muted">Want one-click installs? <a style="color:var(--accent)" href="/get-desktop/" data-close>Get the desktop app</a>.</div>
       <p class="small muted sheet-legal">${esc(DISCLAIMER_SHORT)} <a style="color:var(--accent)" href="/legal/" data-close>Disclaimer</a></p>
       <div style="text-align:right;margin-top:16px"><button class="btn ghost" data-close>Done</button></div>
