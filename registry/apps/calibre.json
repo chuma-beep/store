@@ -1,0 +1,21 @@
+{
+  "id": "calibre",
+  "name": "calibre",
+  "category": "media",
+  "github": "kovidgoyal/calibre",
+  "flathub": "com.calibre_ebook.calibre",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "calibre"
+    ]
+  },
+  "detect": [
+    "calibre"
+  ],
+  "kind": "gui",
+  "tags": [
+    "ebooks",
+    "reading"
+  ]
+}

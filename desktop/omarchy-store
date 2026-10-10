@@ -1,0 +1,354 @@
+#!/usr/bin/env python3
+"""omarchy-store — desktop helper for the Omarchy Store.
+
+Serves the store UI on http://127.0.0.1:<port> and adds a tiny local API so the
+GET button can really install apps. Opens the store as a window via
+omarchy-launch-webapp.
+
+Security model (read this before changing anything):
+  * Binds to 127.0.0.1 only — nothing on your network can reach it.
+  * The API never accepts a command. It accepts an app *id*, looks the app up in
+    the catalog shipped with the store, and runs that app's install recipe.
+    Recipes are validated against a strict allow-list (package names / an
+    'omarchy install ...' command), so a tampered catalog can't smuggle shell.
+  * Every POST needs a per-session secret token that only the store page knows
+    (injected into the page served by this process), and an Origin header that
+    matches this server — so other websites in your browser can't trigger
+    installs (CSRF protection).
+  * Installs run in a visible Omarchy floating terminal, so you see exactly what
+    happens and type your own password. The helper never sees or stores it.
+
+Usage:
+  omarchy-store                 open the store (starts helper if needed)
+  omarchy-store --serve         run helper in foreground (debug)
+  omarchy-store --update        pull the latest catalog now
+  omarchy-store --uninstall     remove the desktop app
+"""
+import hashlib, json, os, re, secrets, shlex, shutil, signal, socket, subprocess, sys, threading, time
+import urllib.request
+from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+
+APP_DIR = os.path.expanduser(os.environ.get("OMARCHY_STORE_HOME", "~/.local/share/omarchy-store"))
+SITE_DIR = os.path.join(APP_DIR, "site")
+STATE_DIR = os.path.expanduser("~/.local/state/omarchy-store")
+PORT_FILE = os.path.join(STATE_DIR, "port")
+THEME = os.path.expanduser("~/.local/state/omarchy/current/theme/colors.toml")
+REMOTE = os.environ.get("OMARCHY_STORE_REMOTE", "https://omarchy-community.github.io/store/")
+DEFAULT_PORT = 47823
+UPDATE_EVERY = 6 * 3600
+
+PKG_RE = re.compile(r"^[a-z0-9@._+-]+$")
+OMARCHY_RE = re.compile(r"^omarchy install [a-z0-9 '._-]+$", re.I)
+CMD_RE = re.compile(r"^[a-z0-9._-]+$")
+
+TOKEN = secrets.token_urlsafe(24)
+JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
+JOBS_LOCK = threading.Lock()
+
+
+# ---------------------------------------------------------------- catalog ----
+def load_catalog():
+    with open(os.path.join(SITE_DIR, "catalog.json")) as f:
+        return {a["id"]: a for a in json.load(f)["apps"]}
+
+
+def recipe(app):
+    """Return argv that installs `app`, or raise ValueError if the recipe isn't safe."""
+    inst = app.get("install") or {}
+    m = inst.get("method")
+    if m in ("pacman", "aur"):
+        pk = inst.get("packages") or []
+        if not pk or not all(PKG_RE.match(p) for p in pk):
+            raise ValueError("bad package list")
+        return (["omarchy-pkg-add"] if m == "pacman" else ["omarchy-pkg-aur-add"]) + pk
+    if m == "omarchy":
+        cmd = inst.get("command", "")
+        if not OMARCHY_RE.match(cmd):
+            raise ValueError("bad omarchy command")
+        return shlex.split(cmd)
+    raise ValueError("unknown install method")
+
+
+def installed_ids(catalog):
+    try:
+        have = set(subprocess.run(["pacman", "-Qq"], capture_output=True, text=True, timeout=15).stdout.split())
+    except Exception:
+        return []
+    return [i for i, a in catalog.items() if a.get("detect") and all(p in have for p in a["detect"])]
+
+
+def read_theme():
+    try:
+        out = {}
+        for line in open(THEME):
+            m = re.match(r'\s*(\w+)\s*=\s*"(#[0-9a-fA-F]{3,8}|light|dark)"', line)
+            if m:
+                out[m.group(1)] = m.group(2)
+        return out or None
+    except OSError:
+        return None
+
+
+# ---------------------------------------------------------------- actions ----
+def run_install(app):
+    argv = recipe(app)
+    name = app["name"]
+    # Show the install in Omarchy's floating terminal so the user sees progress and
+    # types their own sudo password. We pass a fixed, quoted command string.
+    shown = " ".join(shlex.quote(a) for a in argv)
+    script = f"echo {shlex.quote('Installing ' + name + ' from the Omarchy Store…')}; echo; {shown}"
+    if shutil.which("omarchy-launch-floating-terminal-with-presentation"):
+        launcher = ["omarchy-launch-floating-terminal-with-presentation", script]
+    else:
+        launcher = ["xdg-terminal-exec", "bash", "-c", script + "; read -n1 -p 'Press any key to close'"]
+    with JOBS_LOCK:
+        JOBS[app["id"]] = {"state": "running", "started": time.time()}
+    proc = subprocess.Popen(launcher, stdin=subprocess.DEVNULL, start_new_session=True)
+
+    def watch():
+        # The launcher execs into a detached terminal, so we track completion by
+        # polling pacman rather than the process.
+        proc.wait()
+        deadline = time.time() + 30 * 60
+        while time.time() < deadline:
+            time.sleep(3)
+            if app["id"] in installed_ids({app["id"]: app}):
+                with JOBS_LOCK:
+                    JOBS[app["id"]]["state"] = "done"
+                return
+        with JOBS_LOCK:
+            JOBS[app["id"]]["state"] = "failed"
+    threading.Thread(target=watch, daemon=True).start()
+
+
+def run_open(app):
+    opn = app.get("open")
+    if app.get("kind") == "terminal":
+        cmd = opn or app["detect"][0]
+        if not CMD_RE.match(cmd):
+            raise ValueError("bad command")
+        launcher = ["omarchy-launch-or-focus-tui", cmd] if shutil.which("omarchy-launch-or-focus-tui") else ["xdg-terminal-exec", cmd]
+        subprocess.Popen(launcher, stdin=subprocess.DEVNULL, start_new_session=True)
+        return
+    # GUI: find its .desktop file from the installed package's file list.
+    desktop = None
+    for pkg in app["detect"]:
+        out = subprocess.run(["pacman", "-Qlq", pkg], capture_output=True, text=True).stdout.split()
+        ds = [f for f in out if f.startswith("/usr/share/applications/") and f.endswith(".desktop")]
+        if ds:
+            desktop = os.path.basename(sorted(ds, key=len)[0])
+            break
+    if not desktop:
+        raise ValueError("couldn't find a launcher for this app")
+    subprocess.Popen(["setsid", "gtk-launch", desktop] if shutil.which("gtk-launch") else ["uwsm-app", "--", desktop],
+                     stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+
+
+# ----------------------------------------------------------------- server ----
+class Handler(SimpleHTTPRequestHandler):
+    server_version = "omarchy-store"
+
+    def __init__(self, *a, **kw):
+        super().__init__(*a, directory=SITE_DIR, **kw)
+
+    def log_message(self, *a):
+        pass
+
+    def end_headers(self):
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Cache-Control", "no-cache")
+        super().end_headers()
+
+    def _json(self, code, obj):
+        body = json.dumps(obj).encode()
+        self.send_response(code)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(body)))
+        self.end_headers()
+        self.wfile.write(body)
+
+    def _host_ok(self):
+        # Defeat DNS rebinding: only answer to our own loopback host names.
+        host = (self.headers.get("Host") or "").split(":")[0]
+        return host in ("127.0.0.1", "localhost")
+
+    def do_GET(self):
+        if not self._host_ok():
+            return self._json(403, {"error": "forbidden"})
+        path = self.path.split("?")[0]
+        if path in ("/", "/index.html"):
+            # Inject the session token so only this page can call the API.
+            html = open(os.path.join(SITE_DIR, "index.html"), encoding="utf-8").read()
+            html = html.replace("<head>", f'<head>\n<meta name="store-token" content="{TOKEN}">', 1)
+            body = html.encode()
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            return self.wfile.write(body)
+        if path == "/api/status":
+            cat = load_catalog()
+            return self._json(200, {"desktop": True, "installed": installed_ids(cat), "theme": read_theme()})
+        if path.startswith("/api/job/"):
+            aid = path.rsplit("/", 1)[1]
+            cat = load_catalog()
+            with JOBS_LOCK:
+                job = dict(JOBS.get(aid, {}))
+            return self._json(200, {**job, "installed": aid in cat and aid in installed_ids({aid: cat[aid]})})
+        if path.startswith("/api/"):
+            return self._json(404, {"error": "not found"})
+        return super().do_GET()
+
+    def do_POST(self):
+        if not self._host_ok():
+            return self._json(403, {"error": "forbidden"})
+        origin = self.headers.get("Origin", "")
+        if origin not in (f"http://127.0.0.1:{self.server.server_port}", f"http://localhost:{self.server.server_port}"):
+            return self._json(403, {"error": "bad origin"})
+        if not secrets.compare_digest(self.headers.get("X-Store-Token", ""), TOKEN):
+            return self._json(403, {"error": "bad token"})
+        try:
+            n = min(int(self.headers.get("Content-Length", 0)), 4096)
+            data = json.loads(self.rfile.read(n) or b"{}")
+            aid = str(data.get("id", ""))
+        except Exception:
+            return self._json(400, {"error": "bad request"})
+        cat = load_catalog()
+        app = cat.get(aid)
+        if not app:
+            return self._json(404, {"error": "unknown app"})
+        try:
+            if self.path == "/api/install":
+                with JOBS_LOCK:
+                    if JOBS.get(aid, {}).get("state") == "running":
+                        return self._json(409, {"error": "already installing"})
+                run_install(app)
+                return self._json(202, {"ok": True})
+            if self.path == "/api/open":
+                run_open(app)
+                return self._json(200, {"ok": True})
+        except ValueError as e:
+            return self._json(400, {"error": str(e)})
+        except FileNotFoundError as e:
+            return self._json(500, {"error": f"missing program: {e.filename}"})
+        return self._json(404, {"error": "not found"})
+
+
+# ---------------------------------------------------------------- updates ----
+def update_catalog(quiet=False):
+    """Pull the newest catalog + icons from GitHub Pages. Never touches code files."""
+    try:
+        with urllib.request.urlopen(REMOTE + "catalog.json", timeout=20) as r:
+            data = r.read()
+        cat = json.loads(data)
+        assert isinstance(cat.get("apps"), list) and cat["apps"]
+        # Validate every recipe *before* accepting the new catalog.
+        for a in cat["apps"]:
+            recipe(a)
+            if not re.match(r"^[a-z0-9-]+$", a["id"]):
+                raise ValueError("bad id " + a["id"])
+        icons = os.path.join(SITE_DIR, "icons")
+        os.makedirs(icons, exist_ok=True)
+        for a in cat["apps"]:
+            ic = a.get("icon") or ""
+            m = re.match(r"^icons/([a-z0-9-]+\.(png|svg|jpg|webp))$", ic)
+            if m and not os.path.exists(os.path.join(SITE_DIR, ic)):
+                try:
+                    with urllib.request.urlopen(REMOTE + ic, timeout=20) as r:
+                        open(os.path.join(icons, m.group(1)), "wb").write(r.read(2_000_000))
+                except Exception:
+                    pass
+        tmp = os.path.join(SITE_DIR, ".catalog.json.tmp")
+        open(tmp, "wb").write(data)
+        os.replace(tmp, os.path.join(SITE_DIR, "catalog.json"))
+        if not quiet:
+            print(f"✓ catalog updated: {len(cat['apps'])} apps")
+        return True
+    except Exception as e:
+        if not quiet:
+            print(f"✗ update failed: {e}")
+        return False
+
+
+def updater():
+    while True:
+        update_catalog(quiet=True)
+        time.sleep(UPDATE_EVERY)
+
+
+# ---------------------------------------------------------------- startup ----
+def alive(port):
+    try:
+        with urllib.request.urlopen(f"http://127.0.0.1:{port}/api/status", timeout=2) as r:
+            return json.load(r).get("desktop") is True
+    except Exception:
+        return False
+
+
+def free_port():
+    for p in range(DEFAULT_PORT, DEFAULT_PORT + 20):
+        with socket.socket() as s:
+            try:
+                s.bind(("127.0.0.1", p))
+                return p
+            except OSError:
+                continue
+    raise SystemExit("no free port")
+
+
+def serve():
+    os.makedirs(STATE_DIR, exist_ok=True)
+    port = free_port()
+    httpd = ThreadingHTTPServer(("127.0.0.1", port), Handler)
+    open(PORT_FILE, "w").write(str(port))
+    threading.Thread(target=updater, daemon=True).start()
+    signal.signal(signal.SIGTERM, lambda *a: sys.exit(0))
+    try:
+        httpd.serve_forever()
+    finally:
+        try:
+            os.remove(PORT_FILE)
+        except OSError:
+            pass
+
+
+def open_window(port):
+    url = f"http://127.0.0.1:{port}/"
+    for cmd in (["omarchy-launch-webapp", url], ["xdg-open", url]):
+        if shutil.which(cmd[0]):
+            subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+            return
+    print("Open", url)
+
+
+def main():
+    args = sys.argv[1:]
+    if "--serve" in args:
+        return serve()
+    if "--update" in args:
+        sys.exit(0 if update_catalog() else 1)
+    if "--uninstall" in args:
+        return subprocess.call([os.path.join(APP_DIR, "uninstall.sh")])
+    port = None
+    try:
+        port = int(open(PORT_FILE).read())
+    except Exception:
+        pass
+    if not (port and alive(port)):
+        subprocess.Popen([sys.executable, os.path.abspath(__file__), "--serve"], stdin=subprocess.DEVNULL,
+                         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+        for _ in range(50):
+            time.sleep(0.1)
+            try:
+                port = int(open(PORT_FILE).read())
+                if alive(port):
+                    break
+            except Exception:
+                pass
+        else:
+            raise SystemExit("omarchy-store: helper failed to start (try: omarchy-store --serve)")
+    open_window(port)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,21 @@
+{
+  "id": "bottles",
+  "name": "Bottles",
+  "category": "games",
+  "github": "bottlesdevs/Bottles",
+  "flathub": "com.usebottles.bottles",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "bottles"
+    ]
+  },
+  "detect": [
+    "bottles"
+  ],
+  "kind": "gui",
+  "tags": [
+    "wine",
+    "windows-apps"
+  ]
+}

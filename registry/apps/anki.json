@@ -1,0 +1,21 @@
+{
+  "id": "anki",
+  "name": "Anki",
+  "category": "productivity",
+  "github": "ankitects/anki",
+  "flathub": "net.ankiweb.Anki",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "anki"
+    ]
+  },
+  "detect": [
+    "anki"
+  ],
+  "kind": "gui",
+  "tags": [
+    "flashcards",
+    "study"
+  ]
+}

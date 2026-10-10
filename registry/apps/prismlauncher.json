@@ -1,0 +1,20 @@
+{
+  "id": "prismlauncher",
+  "name": "Prism Launcher",
+  "category": "games",
+  "github": "PrismLauncher/PrismLauncher",
+  "flathub": "org.prismlauncher.PrismLauncher",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "prismlauncher"
+    ]
+  },
+  "detect": [
+    "prismlauncher"
+  ],
+  "kind": "gui",
+  "tags": [
+    "minecraft"
+  ]
+}

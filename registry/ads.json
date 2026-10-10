@@ -1,0 +1,50 @@
+{
+  "_comment": "Ad inventory. Every ad is ALWAYS labelled 'Sponsored' in the UI. See ADVERTISE.md for pricing and rules. Expired campaigns are hidden automatically.",
+
+  "network": {
+    "_comment": "Optional ad network (e.g. Carbon Ads, EthicalAds). Leave enabled=false until you have an account. When on, it fills slots that have no direct campaign.",
+    "enabled": false,
+    "provider": "ethicalads",
+    "publisher_id": ""
+  },
+
+  "campaigns": [
+    {
+      "id": "house-advertise",
+      "slot": "banner",
+      "type": "house",
+      "title": "Reach every Omarchy user",
+      "body": "Put your app or product in front of Linux power users. Banner and featured slots available.",
+      "cta": "Advertise here",
+      "url": "https://github.com/omarchy-community/store/blob/main/ADVERTISE.md",
+      "image": null,
+      "gradient": ["#24283b", "#7aa2f7"],
+      "starts": "2026-01-01",
+      "ends": "2099-12-31"
+    },
+    {
+      "id": "house-submit",
+      "slot": "search",
+      "type": "house",
+      "title": "Built something for Omarchy?",
+      "body": "Get it listed in the store for free.",
+      "cta": "Submit your app",
+      "url": "https://github.com/omarchy-community/store/blob/main/CONTRIBUTING.md",
+      "image": null,
+      "gradient": ["#1a1b26", "#9ece6a"],
+      "starts": "2026-01-01",
+      "ends": "2099-12-31"
+    },
+    {
+      "id": "example-sponsored-app",
+      "_comment": "Template for a paid 'sponsored app' placement. type=app promotes a store listing; set enabled=true once paid.",
+      "enabled": false,
+      "slot": "sponsored-app",
+      "type": "app",
+      "app": "tailscale",
+      "sponsor": "Tailscale",
+      "starts": "2026-10-01",
+      "ends": "2026-10-31"
+    }
+  ]
+}

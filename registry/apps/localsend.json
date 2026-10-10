@@ -1,0 +1,21 @@
+{
+  "id": "localsend",
+  "name": "LocalSend",
+  "category": "productivity",
+  "github": "localsend/localsend",
+  "flathub": "org.localsend.localsend_app",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "localsend-bin"
+    ]
+  },
+  "detect": [
+    "localsend-bin"
+  ],
+  "kind": "gui",
+  "tags": [
+    "file-sharing",
+    "airdrop"
+  ]
+}

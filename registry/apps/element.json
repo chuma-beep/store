@@ -1,0 +1,21 @@
+{
+  "id": "element",
+  "name": "Element",
+  "category": "communication",
+  "github": "element-hq/element-web",
+  "flathub": "im.riot.Riot",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "element-desktop"
+    ]
+  },
+  "detect": [
+    "element-desktop"
+  ],
+  "kind": "gui",
+  "tags": [
+    "matrix",
+    "chat"
+  ]
+}

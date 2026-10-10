@@ -1,0 +1,21 @@
+{
+  "id": "upscayl",
+  "name": "Upscayl",
+  "category": "ai",
+  "github": "upscayl/upscayl",
+  "flathub": "org.upscayl.Upscayl",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "upscayl-bin"
+    ]
+  },
+  "detect": [
+    "upscayl-bin"
+  ],
+  "kind": "gui",
+  "tags": [
+    "images",
+    "upscaling"
+  ]
+}

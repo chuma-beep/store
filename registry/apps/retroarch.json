@@ -1,0 +1,19 @@
+{
+  "id": "retroarch",
+  "name": "RetroArch",
+  "category": "games",
+  "github": "libretro/RetroArch",
+  "flathub": "org.libretro.RetroArch",
+  "install": {
+    "method": "omarchy",
+    "command": "omarchy install gaming retroarch"
+  },
+  "detect": [
+    "retroarch"
+  ],
+  "kind": "gui",
+  "tags": [
+    "emulation",
+    "retro"
+  ]
+}

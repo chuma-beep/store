@@ -1,0 +1,21 @@
+{
+  "id": "gimp",
+  "name": "GIMP",
+  "category": "graphics",
+  "github": "GNOME/gimp",
+  "flathub": "org.gimp.GIMP",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gimp"
+    ]
+  },
+  "detect": [
+    "gimp"
+  ],
+  "kind": "gui",
+  "tags": [
+    "photo",
+    "editing"
+  ]
+}

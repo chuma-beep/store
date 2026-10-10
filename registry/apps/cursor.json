@@ -1,0 +1,25 @@
+{
+  "id": "cursor",
+  "name": "Cursor",
+  "category": "developer-tools",
+  "github": null,
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "cursor-bin"
+    ]
+  },
+  "detect": [
+    "cursor-bin"
+  ],
+  "kind": "gui",
+  "tags": [
+    "editor",
+    "ai"
+  ],
+  "icon": "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/Papirus/64x64/apps/cursor.svg",
+  "homepage": "https://cursor.com",
+  "summary": "The AI code editor",
+  "developer": "Anysphere"
+}

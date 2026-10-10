@@ -1,0 +1,21 @@
+{
+  "id": "audacity",
+  "name": "Audacity",
+  "category": "video-audio",
+  "github": "audacity/audacity",
+  "flathub": "org.audacityteam.Audacity",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "audacity"
+    ]
+  },
+  "detect": [
+    "audacity"
+  ],
+  "kind": "gui",
+  "tags": [
+    "audio",
+    "recording"
+  ]
+}

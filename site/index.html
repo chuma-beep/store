@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Omarchy Store</title>
+<meta name="description" content="The community app store for Omarchy Linux. Discover and install the best apps, curated from GitHub.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <a class="brand" href="#/">
+      <img src="assets/logo.svg" alt="" width="28" height="28">
+      <span>Omarchy Store</span>
+    </a>
+    <label class="search">
+      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Search" autocomplete="off" spellcheck="false">
+    </label>
+    <nav id="nav"></nav>
+    <div class="side-foot">
+      <a id="mode-badge" class="mode-badge" href="#/get-desktop"></a>
+    </div>
+  </aside>
+  <main id="view" tabindex="-1"><div class="loading"><div class="spinner"></div></div></main>
+</div>
+<div id="sheet" class="sheet" hidden></div>
+<div id="toast" class="toast" hidden></div>
+<script src="app.js"></script>
+</body>
+</html>

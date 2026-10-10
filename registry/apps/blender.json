@@ -1,0 +1,21 @@
+{
+  "id": "blender",
+  "name": "Blender",
+  "category": "graphics",
+  "github": "blender/blender",
+  "flathub": "org.blender.Blender",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "blender"
+    ]
+  },
+  "detect": [
+    "blender"
+  ],
+  "kind": "gui",
+  "tags": [
+    "3d",
+    "animation"
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "obsidian",
+  "name": "Obsidian",
+  "category": "productivity",
+  "github": "obsidianmd/obsidian-releases",
+  "flathub": "md.obsidian.Obsidian",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "obsidian"
+    ]
+  },
+  "detect": [
+    "obsidian"
+  ],
+  "kind": "gui",
+  "tags": [
+    "notes",
+    "markdown"
+  ]
+}

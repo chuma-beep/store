@@ -1,0 +1,22 @@
+{
+  "id": "mission-center",
+  "name": "Mission Center",
+  "category": "utilities",
+  "github": null,
+  "flathub": "io.missioncenter.MissionCenter",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mission-center"
+    ]
+  },
+  "detect": [
+    "mission-center"
+  ],
+  "kind": "gui",
+  "tags": [
+    "monitor",
+    "task-manager"
+  ],
+  "homepage": "https://gitlab.com/mission-center-devs/mission-center"
+}

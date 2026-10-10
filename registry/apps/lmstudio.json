@@ -1,0 +1,23 @@
+{
+  "id": "lmstudio",
+  "name": "LM Studio",
+  "category": "ai",
+  "github": null,
+  "flathub": null,
+  "install": {
+    "method": "omarchy",
+    "command": "omarchy install app 'LM Studio' lmstudio-bin"
+  },
+  "detect": [
+    "lmstudio-bin"
+  ],
+  "kind": "gui",
+  "tags": [
+    "llm",
+    "local-ai"
+  ],
+  "icon": "https://github.com/lmstudio-ai.png?size=256",
+  "homepage": "https://lmstudio.ai",
+  "summary": "Discover, download, and run local LLMs",
+  "developer": "Element Labs"
+}

@@ -1,0 +1,21 @@
+{
+  "id": "discord",
+  "name": "Discord",
+  "category": "communication",
+  "github": null,
+  "flathub": "com.discordapp.Discord",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "discord"
+    ]
+  },
+  "detect": [
+    "discord"
+  ],
+  "kind": "gui",
+  "tags": [
+    "chat",
+    "voice"
+  ]
+}

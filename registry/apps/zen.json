@@ -1,0 +1,19 @@
+{
+  "id": "zen",
+  "name": "Zen Browser",
+  "category": "browsers",
+  "github": "zen-browser/desktop",
+  "flathub": "app.zen_browser.zen",
+  "install": {
+    "method": "omarchy",
+    "command": "omarchy install browser zen"
+  },
+  "detect": [
+    "zen-browser-bin"
+  ],
+  "kind": "gui",
+  "tags": [
+    "web",
+    "firefox"
+  ]
+}

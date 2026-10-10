@@ -1,0 +1,13 @@
+[
+  {"id": "browsers",        "name": "Browsers",          "icon": "globe"},
+  {"id": "developer-tools", "name": "Developer Tools",   "icon": "code"},
+  {"id": "ai",              "name": "AI",                "icon": "sparkles"},
+  {"id": "graphics",        "name": "Graphics & Design", "icon": "brush"},
+  {"id": "video-audio",     "name": "Video & Audio",     "icon": "film"},
+  {"id": "media",           "name": "Entertainment",     "icon": "play"},
+  {"id": "games",           "name": "Games",             "icon": "gamepad"},
+  {"id": "communication",   "name": "Social",            "icon": "chat"},
+  {"id": "productivity",    "name": "Productivity",      "icon": "check"},
+  {"id": "security",        "name": "Security",          "icon": "shield"},
+  {"id": "utilities",       "name": "Utilities",         "icon": "wrench"}
+]

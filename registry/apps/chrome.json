@@ -1,0 +1,19 @@
+{
+  "id": "chrome",
+  "name": "Google Chrome",
+  "category": "browsers",
+  "github": null,
+  "flathub": "com.google.Chrome",
+  "install": {
+    "method": "omarchy",
+    "command": "omarchy install browser chrome"
+  },
+  "detect": [
+    "google-chrome"
+  ],
+  "kind": "gui",
+  "tags": [
+    "web",
+    "google"
+  ]
+}

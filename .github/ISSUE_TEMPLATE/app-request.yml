@@ -1,0 +1,27 @@
+name: App request
+description: Suggest an app for the Omarchy Store
+title: "App request: "
+labels: ["app-request"]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: App name
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: GitHub repo or website
+      placeholder: https://github.com/owner/repo
+    validations:
+      required: true
+  - type: input
+    id: package
+    attributes:
+      label: Arch / AUR package name (if you know it)
+      placeholder: e.g. krita or upscayl-bin
+  - type: textarea
+    id: why
+    attributes:
+      label: Why should it be in the store?

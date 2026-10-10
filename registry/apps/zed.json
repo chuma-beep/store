@@ -1,0 +1,19 @@
+{
+  "id": "zed",
+  "name": "Zed",
+  "category": "developer-tools",
+  "github": "zed-industries/zed",
+  "flathub": "dev.zed.Zed",
+  "install": {
+    "method": "omarchy",
+    "command": "omarchy install editor zed"
+  },
+  "detect": [
+    "zed"
+  ],
+  "kind": "gui",
+  "tags": [
+    "editor",
+    "rust"
+  ]
+}

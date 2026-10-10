@@ -1,0 +1,25 @@
+{
+  "id": "zellij",
+  "name": "Zellij",
+  "category": "developer-tools",
+  "github": "zellij-org/zellij",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "zellij"
+    ]
+  },
+  "detect": [
+    "zellij"
+  ],
+  "kind": "terminal",
+  "open": "zellij",
+  "tags": [
+    "terminal",
+    "multiplexer"
+  ],
+  "icon": "https://github.com/zellij-org.png?size=256",
+  "summary": "A terminal workspace with batteries included",
+  "developer": "Zellij contributors"
+}

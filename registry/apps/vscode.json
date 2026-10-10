@@ -1,0 +1,19 @@
+{
+  "id": "vscode",
+  "name": "Visual Studio Code",
+  "category": "developer-tools",
+  "github": "microsoft/vscode",
+  "flathub": "com.visualstudio.code",
+  "install": {
+    "method": "omarchy",
+    "command": "omarchy install editor vscode"
+  },
+  "detect": [
+    "visual-studio-code-bin"
+  ],
+  "kind": "gui",
+  "tags": [
+    "editor",
+    "ide"
+  ]
+}

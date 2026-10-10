@@ -1,0 +1,19 @@
+{
+  "id": "lutris",
+  "name": "Lutris",
+  "category": "games",
+  "github": "lutris/lutris",
+  "flathub": "net.lutris.Lutris",
+  "install": {
+    "method": "omarchy",
+    "command": "omarchy install gaming lutris"
+  },
+  "detect": [
+    "lutris"
+  ],
+  "kind": "gui",
+  "tags": [
+    "wine",
+    "gaming"
+  ]
+}

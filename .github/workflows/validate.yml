@@ -1,0 +1,47 @@
+name: Validate registry
+
+# Runs on every pull request. Blocks merges that break the catalog format or
+# try to sneak arbitrary shell commands into an install recipe.
+on:
+  pull_request:
+    paths: ["registry/**", "scripts/**", "site/**", "desktop/**"]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Check registry
+        run: python3 scripts/build.py --check
+      - name: Check packages exist (Arch repos or AUR)
+        run: |
+          python3 - <<'PY'
+          import json, glob, sys, time, urllib.request, urllib.parse
+          bad = []
+          for f in sorted(glob.glob("registry/apps/*.json")):
+              a = json.load(open(f))
+              for p in a["detect"]:
+                  ok = False
+                  for attempt in range(3):
+                      try:
+                          j = json.load(urllib.request.urlopen("https://archlinux.org/packages/search/json/?" + urllib.parse.urlencode({"name": p}), timeout=20))
+                          ok = bool(j["results"])
+                          if not ok:
+                              j = json.load(urllib.request.urlopen("https://aur.archlinux.org/rpc/v5/info?arg[]=" + urllib.parse.quote(p), timeout=20))
+                              ok = bool(j["results"])
+                          break
+                      except Exception:
+                          time.sleep(2 ** attempt)
+                  # Omarchy's own repo isn't searchable from CI; omarchy-installed apps are exempt.
+                  if not ok and a["install"]["method"] != "omarchy" and not p.endswith("-bin"):
+                      bad.append(f"{f}: package {p!r} not found in Arch repos or AUR")
+                  time.sleep(0.3)
+          print("\n".join(bad) or "✓ all packages found")
+          sys.exit(1 if bad else 0)
+          PY

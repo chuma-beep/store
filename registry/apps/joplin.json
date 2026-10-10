@@ -1,0 +1,21 @@
+{
+  "id": "joplin",
+  "name": "Joplin",
+  "category": "productivity",
+  "github": "laurent22/joplin",
+  "flathub": "net.cozic.joplin_desktop",
+  "install": {
+    "method": "aur",
+    "packages": [
+      "joplin-desktop"
+    ]
+  },
+  "detect": [
+    "joplin-desktop"
+  ],
+  "kind": "gui",
+  "tags": [
+    "notes",
+    "sync"
+  ]
+}

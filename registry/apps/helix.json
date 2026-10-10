@@ -1,0 +1,20 @@
+{
+  "id": "helix",
+  "name": "Helix",
+  "category": "developer-tools",
+  "github": "helix-editor/helix",
+  "flathub": "com.helix_editor.Helix",
+  "install": {
+    "method": "omarchy",
+    "command": "omarchy install editor helix"
+  },
+  "detect": [
+    "helix"
+  ],
+  "kind": "terminal",
+  "open": "helix",
+  "tags": [
+    "editor",
+    "modal"
+  ]
+}

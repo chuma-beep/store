@@ -1,0 +1,21 @@
+{
+  "id": "mpv",
+  "name": "mpv",
+  "category": "media",
+  "github": "mpv-player/mpv",
+  "flathub": "io.mpv.Mpv",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "mpv"
+    ]
+  },
+  "detect": [
+    "mpv"
+  ],
+  "kind": "gui",
+  "tags": [
+    "video",
+    "player"
+  ]
+}

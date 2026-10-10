@@ -1,0 +1,23 @@
+{
+  "id": "fastfetch",
+  "name": "fastfetch",
+  "category": "utilities",
+  "github": "fastfetch-cli/fastfetch",
+  "flathub": null,
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "fastfetch"
+    ]
+  },
+  "detect": [
+    "fastfetch"
+  ],
+  "kind": "terminal",
+  "tags": [
+    "system-info"
+  ],
+  "icon": "https://github.com/fastfetch-cli.png?size=256",
+  "summary": "Show system information in your terminal",
+  "developer": "fastfetch-cli"
+}
