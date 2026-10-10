@@ -479,12 +479,31 @@
     grid: '<rect x="3" y="3" width="8" height="18" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>',
     window: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M15 6.5h.01M18 6.5h.01"/>',
     camera: '<path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/>',
+    backup: '<path d="M12 3v10m0 0-4-4m4 4 4-4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>',
+    drag: '<rect x="3" y="4" width="18" height="16" rx="2"/><rect x="3" y="4" width="9" height="16" rx="2" fill="currentColor" opacity=".35"/><path d="M15 12h4m-2-2 2 2-2 2"/>',
+    assist: '<rect x="3" y="4" width="8" height="16" rx="2"/><rect x="13" y="4" width="8" height="7" rx="1.5"/><rect x="13" y="13" width="8" height="7" rx="1.5" stroke-dasharray="2 2"/>',
+    pin: '<path d="M9 4h6l-1 5 3 3H7l3-3zM12 12v8"/>',
+    resize: '<path d="M4 9V4h5M20 15v5h-5M4 4l6 6M20 20l-6-6"/>',
+    palette: '<path d="M12 3a9 9 0 0 0 0 18c1.1 0 1.7-.8 1.7-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a5 5 0 0 0 5-5C21 6.4 17 3 12 3z"/>',
+    power: '<path d="M12 3v9M6.3 6.3a8 8 0 1 0 11.4 0"/>',
+    doctor: '<path d="M12 21s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.6-7 10-7 10z"/><path d="M9 12h2l1-2 1 4 1-2h1"/>',
+    update: '<path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/>',
     infinity: '<path d="M18.2 8.4c-2.4 0-4 3.6-6.2 3.6S8.2 8.4 5.8 8.4a3.6 3.6 0 0 0 0 7.2c2.4 0 4-3.6 6.2-3.6s3.8 3.6 6.2 3.6a3.6 3.6 0 0 0 0-7.2z"/>',
   };
   const fico = (n) => `<svg viewBox="0 0 24 24">${FICON[n] || ""}</svg>`;
   function spotlight(a) {
     const f = a.featured;
     const [g1, g2, g3] = f.gradient;
+    if (f.billboard) return `<a class="spot full" href="/app/${a.id}/" style="--g1:${g1};--g2:${g2};--g3:${g3 || g2}">
+      <img class="spot-bg" src="${esc(asset(f.billboard))}" alt="${esc(a.name)}: ${esc(f.headline)}" loading="eager">
+      <div class="spot-copy">
+        <div class="spot-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>${esc(f.badge)}</div>
+        <h2>${esc(f.headline)}</h2>
+        <p>${esc(f.tagline)}</p>
+        ${f.chips ? `<div class="spot-chips">${f.chips.map((c) => `<span>${esc(c)}</span>`).join("")}</div>` : ""}
+        <div class="spot-lock">${iconImg(a, 64)}<div><div class="name">${esc(a.name)}</div><div class="sub">${esc(f.launch_offer || f.price)}</div></div>${getBtn(a, true)}</div>
+      </div>
+    </a>`;
     return `<a class="spot" href="/app/${a.id}/" style="--g1:${g1};--g2:${g2};--g3:${g3 || g2}">
       <div class="spot-copy">
         <div class="spot-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>${esc(f.badge)}</div>
@@ -496,12 +515,40 @@
     </a>`;
   }
 
+  // "How to install": the traditional step-by-step, three ways.
+  function installWays(a, ins) {
+    const cmd = cmdFor(a);
+    return `<section class="shelf" id="install"><div class="shelf-head"><h2>How to install ${esc(a.name)}</h2></div>
+      <div class="install-ways">
+        <div><span class="tag">Easiest</span><h3>With the Omarchy Store app</h3><ol>
+          <li>Get the Omarchy Store app: <a style="color:var(--accent)" href="/get-desktop/">instructions</a> (one time only).</li>
+          <li>Open it (<b>Super + Space</b>, type <b>Omarchy Store</b>) and find ${esc(a.name)}.</li>
+          <li>Press <b>GET</b>. A window opens: type your computer's password and press Enter.</li>
+          <li>Done. Open ${esc(a.name)} from the app launcher.</li></ol></div>
+        <div><span class="tag">One command</span><h3>In a terminal</h3><ol>
+          <li>Open a terminal: <b>Super + Enter</b>.</li>
+          <li>Copy this line, paste it (<b>Ctrl + Shift + V</b>) and press Enter:
+            <div class="code"><code>${esc(cmd)}</code><button class="btn ghost" data-copy="${esc(cmd)}">Copy</button></div></li>
+          <li>Type your password when asked (nothing shows while you type) and press Enter.</li>
+          <li>When it says <b>installed</b>, open ${esc(a.name)} from the app launcher.</li></ol></div>
+        <div><span class="tag">Download</span><h3>Installer file</h3><ol>
+          <li><a style="color:var(--accent)" href="${esc(ins.file)}" download>Download the installer</a> (${esc(ins.file_name)}). It goes to your Downloads folder.</li>
+          <li>Open a terminal: <b>Super + Enter</b>.</li>
+          <li>Type <code>bash ~/Downloads/${esc(ins.file_name)}</code> and press Enter.</li>
+          <li>When it says <b>Done!</b>, open ${esc(a.name)} from the app launcher. This way doesn't need your password.</li></ol></div>
+      </div>
+      ${ins.note ? `<div class="trust">${ico("ok")}<div>${esc(ins.note)}</div></div>` : ""}
+    </section>`;
+  }
+
   function featuredSections(a) {
     const f = a.featured;
     return `
       ${f.heads_up ? `<section class="trust warn" style="margin:22px 0 6px">${ico("warn")}<div><b>${esc(f.heads_up.title)}</b><div style="margin-top:4px">${esc(f.heads_up.body)}</div></div></section>` : ""}
       ${f.promise ? `<section class="promise"><span class="feat-ic">${fico("infinity")}</span><div><h3>${esc(f.promise.title)}</h3><p>${esc(f.promise.body)}</p></div></section>` : ""}
-      <section class="shelf feat-grid">${f.features.map((x) => `<div class="feat"><span class="feat-ic">${fico(x.icon)}</span><h3>${esc(x.title)}</h3><p>${esc(x.body)}</p></div>`).join("")}</section>
+      ${f.features.length > 4 ? `<section class="shelf"><div class="shelf-head"><h2>Everything SnapDock does</h2></div></section>` : ""}
+      <section class="shelf feat-grid ${f.features.length > 4 ? "many" : ""}">${f.features.map((x, i) => `<div class="feat ${x.hero ? "hero-feat" : ""}"><span class="feat-ic">${fico(x.icon)}</span><div><h3>${esc(x.title)}</h3><p>${esc(x.body)}</p></div></div>`).join("")}</section>
+      ${f.install ? installWays(a, f.install) : ""}
       <section class="shelf"><div class="shelf-head"><h2>Get started in 3 steps</h2></div>
         <ol class="steps">${f.steps.map((s, i) => `<li><span class="n">${i + 1}</span><div><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p></div></li>`).join("")}</ol></section>
       <section class="shelf"><div class="shelf-head"><h2>Keyboard shortcuts</h2></div>

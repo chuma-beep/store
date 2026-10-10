@@ -151,7 +151,50 @@ if (s === "hero") {
            [[4, 6, 60, 88, 1], [68, 6, 28, 88]], [[4, 6, 92, 88, 1]], [[20, 14, 60, 72, 1]]]
           .map((r) => `<div class="l">${r.map(([x, y, w, h, hl]) => `<i class="${hl ? "h" : ""}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%"></i>`).join("")}</div>`).join("")}
       </div>`
-    + `<div class="head" style="top:930px"><kbd>Super</kbd>+<kbd>Z</kbd><span style="margin:0 26px;opacity:.6;font:600 22px 'Adwaita Sans'">or</span><kbd>Super</kbd>+<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd></div>`);
+    + `<div class="head" style="top:930px"><kbd>Super</kbd>+<kbd>Z</kbd><span style="margin:0 26px;opacity:.6;font:600 22px 'Adwaita Sans'">or</span><kbd>Super</kbd>+<kbd>←</kbd><kbd>→</kbd><kbd>↑</kbd><kbd>↓</kbd><span style="margin:0 26px;opacity:.6;font:600 22px 'Adwaita Sans'">or drag to an edge</span></div>`);
+} else if (s === "billboard") {
+  // Full-bleed Discover billboard (2400x900). Left ~45% stays calm for the headline;
+  // the right shows the glass dock floating over the wave, catching its colours.
+  document.body.style.width = "2400px"; document.body.style.height = "900px";
+  d.style.width = "2400px"; d.style.height = "900px";
+  d.style.backgroundPosition = "62% 55%"; d.style.backgroundSize = "2600px auto";
+  const big = `<div class="dock" style="left:auto;right:110px;bottom:290px;transform:scale(1.28);transform-origin:right bottom;
+      background:rgba(255,255,255,.12);backdrop-filter:blur(30px) saturate(190%);
+      box-shadow:0 50px 120px rgba(0,0,0,.55),0 0 90px rgba(140,110,255,.35),inset 0 1px 0 rgba(255,255,255,.45),inset 0 -1px 0 rgba(255,255,255,.08),0 0 0 1px rgba(255,255,255,.22)">
+    ${apps.map((a) => `<div class="a ${running[a] ? "on" : ""}"><img src="icon-${a}.png"></div>`).join("")}
+    <div class="sep"></div><div class="a cam">${cam}</div><div class="a"><img src="sd-icon.png"></div></div>`;
+  // soft reflection of the dock on the "floor"
+  const refl = `<div style="position:absolute;right:110px;bottom:130px;width:930px;height:140px;border-radius:40px;
+      background:linear-gradient(180deg,rgba(255,255,255,.10),transparent 70%);filter:blur(18px);opacity:.7"></div>`;
+  const picker = `<div class="pick" style="left:auto;right:240px;top:110px;transform:scale(1.35);transform-origin:top right">
+        <div class="cap">Snap layouts</div>
+        ${[[[4, 6, 44, 88, 1], [52, 6, 44, 88]], [[4, 6, 44, 41], [52, 6, 44, 41, 1], [4, 53, 44, 41], [52, 53, 44, 41]], [[4, 6, 28, 88], [36, 6, 28, 88], [68, 6, 28, 88]],
+           [[4, 6, 60, 88], [68, 6, 28, 88]], [[4, 6, 92, 88]], [[20, 14, 60, 72]]]
+          .map((r) => `<div class="l">${r.map(([x, y, w, h, hl]) => `<i class="${hl ? "h" : ""}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%"></i>`).join("")}</div>`).join("")}
+      </div>`;
+  const toast = `<div style="position:absolute;right:230px;bottom:70px;display:flex;gap:16px;align-items:center;padding:18px 24px;border-radius:20px;
+      background:rgba(255,255,255,.12);backdrop-filter:blur(26px) saturate(170%);color:#fff;font:600 21px 'Adwaita Sans';
+      box-shadow:0 30px 70px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.35),0 0 0 1px rgba(255,255,255,.18)">
+      <span style="display:grid;place-items:center;width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,#4fe0c0,#2f6fd8);font-size:24px">✓</span>
+      <span>Your setup is backed up<br><span style="font-weight:500;font-size:17px;opacity:.75">Downloads · SnapDock-Backup.tar.gz</span></span></div>`;
+  d.insertAdjacentHTML("beforeend", picker + toast + refl + big
+    + `<div style="position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(90deg,rgba(7,6,24,.96) 0%,rgba(7,6,24,.86) 30%,rgba(7,6,24,.35) 50%,rgba(7,6,24,0) 64%)"></div>`);
+
+} else if (s === "backup") {
+  const menu = (title, rows, x, y, sel) => `<div style="position:absolute;left:${x}px;top:${y}px;width:640px;padding:18px;border-radius:22px;z-index:6;
+      background:rgba(24,24,48,.82);backdrop-filter:blur(28px) saturate(160%);color:#fff;box-shadow:0 40px 90px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.14)">
+      <div style="font:700 15px 'Adwaita Sans';letter-spacing:.08em;text-transform:uppercase;opacity:.6;padding:6px 12px 12px">${title}</div>
+      ${rows.map((r, i) => `<div style="padding:16px 14px;border-radius:12px;font:500 22px 'Adwaita Sans';${i === sel ? "background:rgba(125,211,252,.18);color:#bfe9ff" : ""}">${r}</div>`).join("")}</div>`;
+  const file = (name, sub, x, y) => `<div style="position:absolute;left:${x}px;top:${y}px;display:flex;gap:20px;align-items:center;padding:22px 26px;border-radius:20px;z-index:6;width:640px;
+      background:rgba(255,255,255,.10);backdrop-filter:blur(24px);color:#fff;box-shadow:0 30px 70px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.16)">
+      <span style="display:grid;place-items:center;flex:none;width:64px;height:64px;border-radius:16px;background:linear-gradient(135deg,#ffe17a,#ffb547);color:#3a2600;font:900 26px 'Adwaita Sans'">⤓</span>
+      <span style="min-width:0"><div style="font:700 21px 'Adwaita Sans'">${name}</div><div style="font:500 17px 'Adwaita Sans';opacity:.7;margin-top:4px">${sub}</div></span></div>`;
+  d.insertAdjacentHTML("beforeend", bar
+    + `<div class="head" style="top:110px"><h1>Your setup, always safe.</h1><p>SnapDock saves your settings before it changes anything. Put them back any time.</p></div>`
+    + menu("Backup &amp; restore", ["⤓&nbsp;&nbsp; Save my settings to a backup file now", "↺&nbsp;&nbsp; Restore a backup", "▤&nbsp;&nbsp; Open the Downloads folder"], 240, 400, 1)
+    + menu("Which backup?", ["Original setup (before SnapDock) · Oct 10, 6:21 PM", "Saved by you · Oct 12, 9:03 AM", "Automatic, made before a restore · Oct 12"], 1040, 400, 0)
+    + file("SnapDock-Backup-Before-SnapDock.tar.gz", "In Downloads · your original setup", 640, 790)
+    + dock(false).replace('class="dock"', 'class="dock" style="opacity:0"'));
 } else if (s === "og") {
   document.body.style.width = "1200px"; document.body.style.height = "630px";
   d.style.width = "1200px"; d.style.height = "630px";
