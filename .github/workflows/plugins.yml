@@ -1,0 +1,47 @@
+name: Refresh plugins
+
+# Keeps the store's plugin list in step with the official Omarchy Plugin Marketplace.
+# Every 30 minutes: re-read the marketplace, and if anything changed, publish plugins.json
+# to the `data` branch. The store (web + desktop app) reads it live from there, so new plugins
+# and status changes (Verified / Unverified) appear without rebuilding the whole site.
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: plugins
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Collect plugins
+        run: python3 scripts/plugins.py /tmp/plugins.json
+      - name: Publish to data branch if changed
+        run: |
+          set -e
+          git config user.name "omarchy-store-bot"
+          git config user.email "bot@omarchystore.com"
+          if git ls-remote --exit-code --heads origin data >/dev/null 2>&1; then
+            git fetch -q --depth 1 origin data
+            git worktree add -q /tmp/data origin/data
+            cd /tmp/data && git checkout -q -B data
+          else
+            git worktree add -q --detach /tmp/data
+            cd /tmp/data && git checkout -q --orphan data && git rm -rfq . && git clean -fdq
+          fi
+          cp /tmp/plugins.json plugins.json
+          printf '# Data branch\nMachine-written data for omarchystore.com. Do not edit.\n' > README.md
+          git add plugins.json README.md
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -qm "plugins: $(python3 -c 'import json;d=json.load(open("plugins.json"));print(d["count"],"plugins")')"
+          git push -q origin data

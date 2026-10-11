@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.3.0"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.4.0"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
@@ -118,6 +118,73 @@ def run_theme_use(t):
         raise ValueError("theme is not installed")
     subprocess.Popen(["omarchy-theme-set", name], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
                      stderr=subprocess.DEVNULL, start_new_session=True)
+
+
+# ---------------------------------------------------------------- plugins ----
+# Omarchy shell plugins, listed live from the official Omarchy Plugin Marketplace.
+PLUGINS_LIVE = "https://raw.githubusercontent.com/omarchy-community/store/data/plugins.json"
+PLUGIN_ID_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,120}$")
+PLUGIN_REPO_RE = re.compile(r"^https://github\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+PLUGINS = {"data": None, "raw": None, "at": 0}
+PLUGINS_LOCK = threading.Lock()
+
+
+def plugins_data(max_age=1800):
+    """Marketplace plugin list: live copy (refreshed every 30 min), cached on disk for offline use."""
+    with PLUGINS_LOCK:
+        if PLUGINS["data"] and time.time() - PLUGINS["at"] < max_age:
+            return PLUGINS["data"], PLUGINS["raw"]
+        cache = os.path.join(SITE_DIR, "plugins.json")
+        raw = None
+        for url in (PLUGINS_LIVE, REMOTE + "plugins.json"):
+            try:
+                with urllib.request.urlopen(url, timeout=20) as r:
+                    raw = r.read(20_000_000)
+                d = json.loads(raw)
+                assert isinstance(d.get("plugins"), list) and d["plugins"]
+                tmp = cache + ".tmp"
+                open(tmp, "wb").write(raw)
+                os.replace(tmp, cache)
+                break
+            except Exception:
+                raw = None
+        if raw is None:
+            try:
+                raw = open(cache, "rb").read()
+            except OSError:
+                raw = b'{"plugins": [], "categories": [], "source": {}}'
+        PLUGINS.update(data=json.loads(raw), raw=raw, at=time.time())
+        return PLUGINS["data"], raw
+
+
+def installed_plugins():
+    try:
+        out = subprocess.run(["omarchy", "plugin", "list", "--json"], capture_output=True, text=True, timeout=20).stdout
+        return sorted(p["id"] for p in json.loads(out or "[]") if not p.get("firstParty"))
+    except Exception:
+        return []
+
+
+def run_plugin_add(pid):
+    if not PLUGIN_ID_RE.match(pid):
+        raise ValueError("bad plugin id")
+    d, _ = plugins_data()
+    x = next((p for p in d.get("plugins", []) if p.get("id") == pid), None)
+    if not x:
+        raise ValueError("unknown plugin")
+    repo = x.get("r") or ""
+    if not x.get("i") or not PLUGIN_REPO_RE.match(repo) or ".." in repo:
+        raise ValueError("this plugin needs manual setup")
+    url = repo + ".git"
+    head = f"Adding the {x.get('n', pid)} plugin from the Omarchy Store…"
+    warn = "" if x.get("ok") else "echo 'Note: this plugin is Unverified (the marketplace has not checked its code yet).'; echo; "
+    script = (f"echo {shlex.quote(head)}; echo; {warn}"
+              f"omarchy plugin add {shlex.quote(url)} --enable")
+    if shutil.which("omarchy-launch-floating-terminal-with-presentation"):
+        launcher = ["omarchy-launch-floating-terminal-with-presentation", script]
+    else:
+        launcher = ["xdg-terminal-exec", "bash", "-c", script + "; read -n1 -p 'Press any key to close'"]
+    subprocess.Popen(launcher, stdin=subprocess.DEVNULL, start_new_session=True)
 
 
 def recipe(app):
@@ -605,6 +672,18 @@ class Handler(SimpleHTTPRequestHandler):
             with JOBS_LOCK:
                 running = [k[7:] for k, j in JOBS.items() if k.startswith("update:") and j["state"] == "running"]
             return self._json(200, {**data, "running": running})
+        if path == "/api/plugins":
+            d, raw = plugins_data()
+            inst = json.dumps(installed_plugins()).encode()
+            # Send the list as-is plus the user's installed plugins, without re-serialising 2 MB.
+            body = raw.rstrip()[:-1] + b',"installed":' + inst + b"}" if raw.rstrip().endswith(b"}") else raw
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Content-Length", str(len(body)))
+            self.end_headers()
+            return self.wfile.write(body)
+        if path == "/api/plugins/installed":
+            return self._json(200, {"installed": installed_plugins()})
         if path.startswith("/api/job/"):
             aid = path.rsplit("/", 1)[1]
             cat = load_catalog()
@@ -675,6 +754,14 @@ class Handler(SimpleHTTPRequestHandler):
                 os.execv(sys.executable, [sys.executable, os.path.join(APP_DIR, "omarchy-store"), "--serve"])
             threading.Thread(target=again, daemon=True).start()
             return self._json(200, {"ok": True})
+        if self.path == "/api/plugin/add":
+            try:
+                run_plugin_add(aid)
+                return self._json(202, {"ok": True})
+            except ValueError as e:
+                return self._json(400, {"error": str(e)})
+            except FileNotFoundError as e:
+                return self._json(500, {"error": f"missing program: {e.filename}"})
         if self.path in ("/api/theme/install", "/api/theme/use"):
             th = load_themes().get(aid)
             if not th:

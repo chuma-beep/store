@@ -36,6 +36,16 @@ body:
       label: Are you the developer?
       options: ["Yes, I made it", "No, I'm a fan"]
     validations: { required: true }
+  - type: dropdown
+    id: pricing
+    attributes:
+      label: Free or paid?
+      description: |
+        Free apps are always free to list. For paid apps the store keeps just **10% of each sale**,
+        much less than Apple's App Store and Google Play (15–30%). You keep 90%, paid out in crypto
+        (USDC, SOL, BTC, ETH or XRP). Paid apps need an approved developer account; we'll contact you.
+      options: ["Free", "Paid (I agree to the 10% store fee)", "Not sure yet"]
+    validations: { required: true }
   - type: checkboxes
     id: rules
     attributes:

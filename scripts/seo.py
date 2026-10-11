@@ -264,6 +264,48 @@ def main():
                                                               f"{t['name']} theme", [ld, crumbs(("Omarchy Store", "/"), ("Themes", "/themes/"), (t["name"], f"/theme/{t['id']}/"))]), body))
             urls.append((f"{SITE}/theme/{t['id']}/", (t.get("updated") or now)[:10], "0.6"))
 
+    # ---- Plugins (Omarchy Plugin Marketplace — credited on every page). Pages for the top plugins;
+    # the store app shows all of them live.
+    try:
+        pdata = json.load(open(os.path.join(ROOT, "site", "plugins.json")))
+    except Exception:
+        pdata = {"plugins": []}
+    plugs = pdata.get("plugins") or []
+    if plugs:
+        psrc = pdata.get("source") or {"name": "Omarchy Plugin Marketplace", "url": "https://plugins.omarchy.org/"}
+        pcredit = f'<p>Plugin listings courtesy of the <a href="{e(psrc["url"])}" rel="noopener">{e(psrc["name"])}</a>.</p>'
+        from urllib.parse import quote as _q
+        purl = lambda x: f"/plugin/{_q(x['id'], safe='')}/"
+        d = clip(f"Browse {len(plugs):,} community plugins for Omarchy Linux: bar widgets, system tools, productivity add-ons and more, "
+                 f"each marked Verified or Unverified. Updated every 30 minutes.")
+        top = sorted(plugs, key=lambda x: (-(x.get("s") or 0), not x.get("ok")))[:1500]
+        write("/plugins/", render(template, head("Omarchy Plugins – Bar Widgets & Desktop Add-ons | Omarchy Store", d, "/plugins/",
+                                                 f"{SITE}/assets/og-default.png", "Omarchy plugins",
+                                                 [crumbs(("Omarchy Store", "/"), ("Plugins", "/plugins/"))]),
+                                  f'<h1 class="page-title">Plugins for Omarchy Linux</h1><p>{e(d)}</p>{pcredit}<ul class="ssr-list">'
+                                  + "".join(f'<li><a href="{purl(x)}"><strong>{e(x["n"])}</strong></a> by {e(x.get("a") or "community")}'
+                                            f' – {"Verified" if x.get("ok") else "Unverified"}</li>' for x in top[:300]) + "</ul>"))
+        urls.append((f"{SITE}/plugins/", now, "0.8"))
+        for x in top:
+            status = "Verified" if x.get("ok") else "Unverified"
+            title = f"{x['n']} – Omarchy Plugin by {x.get('a') or 'community'} | Omarchy Store"
+            d = clip(f"{x['n']} is a plugin for Omarchy Linux by {x.get('a') or 'the community'}. {x.get('d') or ''} "
+                     f"Status: {status}.")
+            cmd = f"omarchy plugin add {x['r']}.git --enable" if x.get("i") and x.get("r") else ""
+            body = (f'<nav class="ssr-crumbs"><a href="/">Omarchy Store</a> › <a href="/plugins/">Plugins</a> › {e(x["n"])}</nav>'
+                    f'<h1 class="page-title">{e(x["n"])} plugin for Omarchy</h1><p>by {e(x.get("a") or "community")} · {status}</p>'
+                    f'<p>{e(x.get("d") or "")}</p>'
+                    + (f'<h2>How to add {e(x["n"])}</h2><p>Click <strong>GET</strong> in the Omarchy Store desktop app, or run:</p><pre><code>{e(cmd)}</code></pre>' if cmd else
+                       f'<h2>Setup</h2><p>{e(x.get("note") or "Manual setup: see the plugin page.")}</p>')
+                    + (f'<p>Source: <a href="{e(x["r"])}" rel="noopener">{e(x["r"].replace("https://", ""))}</a></p>' if x.get("r") else "")
+                    + f'<p>Listed on the <a href="{e(psrc["url"])}plugin.html?id={_q(x["id"], safe="")}" rel="noopener">{e(psrc["name"])}</a>.</p>')
+            ld = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": x["n"], "applicationCategory": "UtilitiesApplication",
+                  "operatingSystem": "Omarchy Linux", "url": f"{SITE}{purl(x)}", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+                  "author": {"@type": "Person", "name": x.get("a") or "Unknown"}, "description": d}
+            write(purl(x), render(template, head(title, d, purl(x), f"{SITE}/assets/og-default.png", x["n"],
+                                                 [ld, crumbs(("Omarchy Store", "/"), ("Plugins", "/plugins/"), (x["n"], purl(x)))]), body))
+            urls.append((f"{SITE}{purl(x)}", (x.get("u") or now)[:10], "0.5"))
+
     # ---- Other pages
     simple = {
         "/charts/": ("Top Charts – Most Popular Omarchy Apps | Omarchy Store",

@@ -13,7 +13,8 @@
   const INSTALLER = `curl -fsSL ${SITE}install.sh | bash`;
 
   const S = { catalog: null, byId: {}, themeById: {}, desktop: false, installed: new Set(), busy: new Set(), chartCat: "all",
-    themeFilter: "all", themeQ: "", themesHave: new Set(), themeNow: "" };
+    themeFilter: "all", themeQ: "", themesHave: new Set(), themeNow: "",
+    plugins: null, plugById: {}, plugFilter: "popular", plugCat: "all", plugQ: "", plugShown: 60, plugsHave: new Set() };
   const $ = (s, el = document) => el.querySelector(s);
   const view = $("#view");
   // Desktop helper injects a per-session token; every install/open request must carry it.
@@ -56,6 +57,8 @@
   };
 
   const ICONS = {
+    puzzle: '<path d="M10 3h4v3a2 2 0 1 0 4 0V3h3v7h-3a2 2 0 1 0 0 4h3v7h-7v-3a2 2 0 1 0-4 0v3H3v-7h3a2 2 0 1 0 0-4H3V3h7z"/>',
+    verified: '<path d="M12 2l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
     plus: '<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/>',
     megaphone: '<path d="M3 10v4a1 1 0 0 0 1 1h3l6 4V5L7 9H4a1 1 0 0 0-1 1z"/><path d="M17 8.5a5 5 0 0 1 0 7"/><path d="M19.5 6a8.5 8.5 0 0 1 0 12"/>',
     mail: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/>',
@@ -171,7 +174,8 @@
       <a href="/" data-r="">${ico("discover")}Discover</a>
       <a href="/charts/" data-r="charts">${ico("charts")}Top Charts</a>
       <a href="/categories/" data-r="categories">${ico("grid")}Categories</a>
-      ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes">${ico("palette")}Themes<span class="nav-new">NEW</span></a>` : ""}
+      ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes">${ico("palette")}Themes</a>` : ""}
+      <a href="/plugins/" data-r="plugins">${ico("puzzle")}Plugins<span class="nav-new">NEW</span></a>
       ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>
       <a href="/updates/" data-r="updates">${ico("refresh")}Updates<span class="nav-count" id="upd-count" hidden></span></a>` : ""}
       <div class="sec">Categories</div>
@@ -339,7 +343,7 @@
     const img = themeImg(t);
     return `<a class="theme-card" href="/theme/${t.id}/">
       <div class="tc-img" style="background:${esc(t.palette?.[0] || "var(--card)")}">${img ? `<img src="${esc(img)}" alt="${esc(t.name)} theme preview" loading="lazy">` : ""}
-        ${t.builtin ? `<span class="tc-chip">Built in</span>` : ""}${S.desktop && themeIsCurrent(t) ? `<span class="tc-chip on">In use</span>` : ""}</div>
+        ${t.builtin ? `<span class="tc-chip">Comes with Omarchy</span>` : ""}${S.desktop && themeIsCurrent(t) ? `<span class="tc-chip on">In use</span>` : ""}</div>
       <div class="tc-meta">
         <div style="min-width:0;flex:1"><div class="name">${esc(t.name)}</div><div class="sub">by ${esc(t.author || "unknown")}</div>
           ${t.palette?.length ? `<div class="swatch">${swatches(t)}</div>` : ""}</div>
@@ -357,8 +361,9 @@
   }
 
   const THEME_FILTERS = [["all", "All"], ["dark", "Dark"], ["light", "Light"], ["builtin", "Built into Omarchy"], ["popular", "Most starred"], ["new", "Recently updated"]];
+  const notBuiltinFirst = (l) => [...l.filter((t) => !t.builtin), ...l.filter((t) => t.builtin)];
   function themeList() {
-    let l = S.catalog.themes.slice();
+    let l = notBuiltinFirst(S.catalog.themes);
     const f = S.themeFilter, q = S.themeQ.trim().toLowerCase();
     if (f === "dark" || f === "light") l = l.filter((t) => t.mode === f);
     if (f === "builtin") l = l.filter((t) => t.builtin);
@@ -375,7 +380,7 @@
   function pageThemes() {
     const all = S.catalog.themes, src = S.catalog.themes_source || {};
     const filters = S.desktop ? [...THEME_FILTERS, ["installed", "On this computer"]] : THEME_FILTERS;
-    const pick = all.filter((t) => t.palette?.length && t.image && t.stars).slice(0, 3);
+    const pick = all.filter((t) => !t.builtin && t.palette?.length && t.image && t.stars).slice(0, 3);
     return `<div class="page">
       <h1 class="page-title">Themes</h1>
       <p class="page-sub">${all.length} community themes that recolor your whole Omarchy desktop: terminal, bar, launcher, lock screen and wallpaper. Directory from <a style="color:var(--accent)" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a>.</p>
@@ -440,6 +445,163 @@
     </div>`;
   }
 
+  // ---------- Plugins (live from the official Omarchy Plugin Marketplace) ----------
+  // plugins.json is refreshed every 30 minutes by a GitHub Action and published to the `data`
+  // branch; we read that live copy first, so new plugins appear without rebuilding the store.
+  const PLUG_LIVE = "https://raw.githubusercontent.com/omarchy-community/store/data/plugins.json";
+  const PLUG_FILTERS = [["popular", "Popular"], ["verified", "Verified"], ["new", "New"], ["all", "All"]];
+  const ACCENTS = { violet: "#9d7cf2", lime: "#9ece6a", amber: "#e0af68", coral: "#f7768e", cyan: "#7dcfff", blue: "#7aa2f7", teal: "#2ac3de", pink: "#ff79c6", orange: "#ff9e64", green: "#73daca", red: "#f7768e", yellow: "#e0af68", purple: "#bb9af7", indigo: "#7aa2f7", sky: "#7dcfff", rose: "#ff7a93", mint: "#73daca", slate: "#565f89" };
+  let plugLoading = null;
+  function loadPlugins() {
+    if (S.plugins || plugLoading) return plugLoading;
+    const fetchJson = (u) => fetch(u, { cache: "no-cache" }).then((r) => { if (!r.ok) throw 0; return r.json(); });
+    plugLoading = (S.desktop ? fetchJson("/api/plugins") : fetchJson(PLUG_LIVE))
+      .catch(() => fetchJson("/plugins.json"))
+      .then((d) => {
+        S.plugins = d; S.plugById = {};
+        for (const x of d.plugins || []) S.plugById[x.id] = x;
+        if (d.installed) S.plugsHave = new Set(d.installed);
+        rerender();
+      })
+      .catch(() => { S.plugins = { plugins: [], source: {}, categories: [], failed: true }; rerender(); });
+    return plugLoading;
+  }
+  const plugImg = (x, big) => x.img ? (S.plugins.source.img_base || "https://plugins.omarchy.org/assets/img/plugins/") + x.img.replace(/\.(\w+)$/, (big ? "-detail" : "-card") + ".$1") : "";
+  const plugCmd = (x) => `omarchy plugin add ${x.r}.git --enable`;
+  const plugBadge = (x) => x.ok ? `<span class="pv ok" title="Passed the marketplace's automated security check">${ico("verified")}Verified</span>` : `<span class="pv" title="Not yet checked by the marketplace">Unverified</span>`;
+  function plugTile(x) {
+    const col = ACCENTS[x.ac] || "#7aa2f7";
+    return `<span class="pl-ini" style="--pc:${col}">${esc(x.ini || "")}</span>`;
+  }
+  function plugBtn(x, big = false, inCard = false) {
+    const cls = "get" + (big ? " big" : "");
+    // Inside a card (which is itself a link) a nested <a> breaks the layout: use a span, the card opens the plugin page.
+    if (!x.i) return inCard ? `<span class="${cls} ghosty">VIEW</span>` : `<a class="${cls} ghosty" href="${esc(x.r || S.plugins.source.url)}" target="_blank" rel="noopener">VIEW</a>`;
+    if (S.busy.has("plugin:" + x.id)) return `<button class="${cls} busy"><span class="ring"></span></button>`;
+    if (S.desktop && S.plugsHave.has(x.id)) return `<button class="${cls} installed" disabled>ADDED</button>`;
+    return `<button class="${cls}" data-plug-get="${esc(x.id)}">GET</button>`;
+  }
+  function plugCard(x) {
+    const img = plugImg(x);
+    return `<a class="plug-card" href="/plugin/${encodeURIComponent(x.id)}/">
+      <div class="pc-img">${img ? `<img src="${esc(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ""}${plugTile(x)}</div>
+      <div class="pc-meta"><div style="min-width:0;flex:1"><div class="name">${esc(x.n)}</div>
+        <div class="sub">${esc(x.a || "Community")}${x.s ? ` · ★ ${k(x.s)}` : ""}</div>
+        <div class="pc-tags">${plugBadge(x)}</div></div>${plugBtn(x, false, true)}</div>
+    </a>`;
+  }
+  function plugList() {
+    let l = (S.plugins?.plugins || []).slice();
+    const f = S.plugFilter, c = S.plugCat, q = S.plugQ.trim().toLowerCase();
+    if (c !== "all") l = l.filter((x) => x.c === c);
+    if (f === "verified") l = l.filter((x) => x.ok);
+    if (f === "new") l = l.filter((x) => x.add).sort((a, b) => (b.add > a.add ? 1 : b.add < a.add ? -1 : b.s - a.s));
+    if (q) l = l.filter((x) => (x.n + " " + x.a + " " + x.d + " " + (x.t || []).join(" ") + " " + x.id).toLowerCase().includes(q));
+    return l;
+  }
+  function plugGridHtml() {
+    const l = plugList(), shown = l.slice(0, S.plugShown);
+    return (shown.length ? shown.map(plugCard).join("") : `<div class="empty" style="grid-column:1/-1">No plugins match.</div>`) +
+      (l.length > shown.length ? `<div style="grid-column:1/-1;text-align:center;margin-top:8px"><button class="btn ghost" data-plug-more>Show more (${(l.length - shown.length).toLocaleString()} left)</button></div>` : "");
+  }
+  function pagePlugins() {
+    if (!S.plugins) { loadPlugins(); return `<div class="page"><h1 class="page-title">Plugins</h1><div class="empty">Loading the plugin marketplace…</div></div>`; }
+    const d = S.plugins, src = d.source || {}, all = d.plugins || [];
+    const ok = all.filter((x) => x.ok).length;
+    const cats = [{ id: "all", name: "All categories" }, ...(d.categories || [])];
+    return `<div class="page">
+      <h1 class="page-title">Plugins</h1>
+      <p class="page-sub">${all.length.toLocaleString()} community plugins for Omarchy's bar and desktop: widgets, tools, system controls and more. ${ok.toLocaleString()} are Verified. Live from the official <a style="color:var(--accent)" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a>, updated every 30 minutes.</p>
+      <div class="theme-tools">
+        <div class="tabs">${PLUG_FILTERS.map(([id, n]) => `<button data-pfilter="${id}" class="${S.plugFilter === id ? "on" : ""}">${esc(n)}</button>`).join("")}</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <select id="pcat" class="sel" aria-label="Plugin category">${cats.map((c) => `<option value="${c.id}" ${S.plugCat === c.id ? "selected" : ""}>${esc(c.name)}</option>`).join("")}</select>
+          <input id="pq" type="search" placeholder="Search plugins" value="${esc(S.plugQ)}" autocomplete="off" aria-label="Search plugins">
+        </div>
+      </div>
+      <div class="plug-grid" id="pgrid">${plugGridHtml()}</div>
+      <div class="trust">${ico("ok")}<div><b>Verified</b> means the plugin passed the marketplace's automated security check for the version listed. It isn't a guarantee: plugins are made by independent developers and run on your computer, so only add ones you trust. Remove any plugin with <code>omarchy plugin remove &lt;id&gt;</code>.
+        <div style="margin-top:6px">Plugin listings courtesy of the <a style="color:var(--accent)" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a> by <a style="color:var(--accent)" href="${esc(src.by_url)}" target="_blank" rel="noopener">${esc(src.by || "HANCORE")}</a>.</div></div></div>
+      ${footer()}
+    </div>`;
+  }
+  function pagePlugin(id) {
+    if (!S.plugins) { loadPlugins(); return `<div class="page"><div class="empty">Loading…</div></div>`; }
+    const x = S.plugById[decodeURIComponent(id || "")];
+    if (!x) return notFound();
+    const src = S.plugins.source || {};
+    const img = plugImg(x, true);
+    const more = (S.plugins.plugins || []).filter((y) => y.c === x.c && y.id !== x.id).slice(0, 12);
+    const market = `${src.url || "https://plugins.omarchy.org/"}plugin.html?id=${encodeURIComponent(x.id)}`;
+    return `<div class="page">
+      <div class="detail-head">
+        <div class="pl-big">${plugTile(x)}</div>
+        <div style="min-width:0">
+          <h1>${esc(x.n)}</h1>
+          <div class="sub">${esc(x.d || "A plugin for Omarchy")}</div>
+          ${x.r ? `<a class="dev" href="${esc(x.r)}" target="_blank" rel="noopener">${esc(x.a || "Community")}</a>` : `<span class="dev">${esc(x.a || "Community")}</span>`}
+          <div class="actions">${plugBtn(x, true)}
+            ${x.r ? `<a class="icon-btn" href="${esc(x.r)}" target="_blank" rel="noopener" title="Source code on GitHub">${ico("github")}</a>` : ""}
+            <button class="icon-btn" data-copy="${esc(SITE + "plugin/" + encodeURIComponent(x.id) + "/")}" title="Copy link">${ico("share")}</button></div>
+        </div>
+      </div>
+      <div class="strip">
+        <div><div class="k">Status</div><div class="v" style="font-size:16px">${plugBadge(x)}</div><div class="s">Marketplace check</div></div>
+        <div><div class="k">GitHub Stars</div><div class="v">${k(x.s)}</div><div class="s">Popularity</div></div>
+        <div><div class="k">Category</div><div class="v" style="font-size:16px">${esc((S.plugins.categories || []).find((c) => c.id === x.c)?.name || "Other")}</div><div class="s">Plugin</div></div>
+        <div><div class="k">Version</div><div class="v" style="font-size:16px">${esc(x.v || "—")}</div><div class="s">Listed</div></div>
+        <div><div class="k">Updated</div><div class="v" style="font-size:16px">${x.u ? ago(x.u) : "—"}</div><div class="s">On GitHub</div></div>
+        <div><div class="k">Price</div><div class="v">Free</div><div class="s">${esc(x.l || "Open source")}</div></div>
+      </div>
+      ${img ? `<section class="shelf"><div class="shelf-head"><h2>Preview</h2></div><div class="pl-shot"><img src="${esc(img)}" alt="${esc(x.n)} preview" loading="lazy" referrerpolicy="no-referrer" data-zoom onerror="this.closest('.shelf').remove()"></div></section>` : ""}
+      <section class="shelf"><div class="shelf-head"><h2>How to add it</h2></div>
+        ${x.i ? `<p class="muted small">${S.desktop ? "Click GET, or paste" : "Paste"} this into a terminal (<b>Super + Return</b>):</p>
+          <div class="code"><code>${esc(plugCmd(x))}</code><button class="btn" data-copy="${esc(plugCmd(x))}">Copy</button></div>
+          <p class="muted small">Remove it any time: <code>omarchy plugin remove ${esc(x.id)}</code></p>`
+        : `<p>${esc(x.note || "This one needs manual setup.")} Follow the instructions on <a style="color:var(--accent)" href="${esc(x.r || market)}" target="_blank" rel="noopener">its GitHub page</a>.</p>`}
+        ${x.t?.length ? `<div class="chips" style="margin-top:12px">${x.t.map((t) => `<span>${esc(t)}</span>`).join("")}</div>` : ""}
+        <div class="trust">${ico("ok")}<div>${x.ok ? "Verified: this plugin passed the Omarchy Plugin Marketplace's automated security check for the version listed." : "Unverified: the marketplace hasn't checked this plugin's code yet. That doesn't mean it's unsafe, but review it before adding."} Plugins run on your computer with your permissions, so only add ones you trust.
+          <div style="margin-top:6px">Plugin by ${esc(x.a || "its creator")} · listed on the <a style="color:var(--accent)" href="${esc(market)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a>. Third-party code, provided as-is: <a style="color:var(--accent)" href="/legal/">disclaimer</a>.</div></div></div>
+      </section>
+      ${more.length ? `<section class="shelf"><div class="shelf-head"><h2>More like this</h2><a href="/plugins/">See All</a></div><div class="scroller plug-row">${more.map(plugCard).join("")}</div></section>` : ""}
+      ${footer()}
+    </div>`;
+  }
+  function plugShelf() {
+    if (!S.plugins) { loadPlugins(); return ""; }
+    const l = (S.plugins.plugins || []).filter((x) => x.ok && x.img).slice(0, 14);
+    if (!l.length) return "";
+    return `<section class="shelf"><div class="shelf-head"><h2>Plugins: supercharge your bar</h2><a href="/plugins/">See All ${(S.plugins.plugins.length).toLocaleString()}</a></div>
+      <div class="scroller plug-row">${l.map(plugCard).join("")}</div></section>`;
+  }
+  async function desktopPlugin(x) {
+    const key = "plugin:" + x.id;
+    S.busy.add(key); rerender();
+    try {
+      const r = await post("/api/plugin/add", { id: x.id });
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.statusText);
+      toast(`Adding ${x.n}… follow the terminal window`);
+      const t0 = Date.now();
+      while (Date.now() - t0 < 5 * 60e3) {
+        await new Promise((res) => setTimeout(res, 2500));
+        const st = await (await fetch("/api/plugins/installed", { cache: "no-store" })).json().catch(() => ({}));
+        S.plugsHave = new Set(st.installed || []);
+        if (S.plugsHave.has(x.id)) { toast(`${x.n} added`); break; }
+      }
+    } catch (e) { toast("Plugin failed: " + e.message); }
+    S.busy.delete(key); rerender();
+  }
+  function webPluginGet(x) {
+    const cmd = plugCmd(x);
+    showSheet(`<div class="sheet-card" role="dialog" aria-label="Get ${esc(x.n)}">
+      <div class="row">${plugTile(x)}<div><h3>Add ${esc(x.n)}</h3><div class="muted small">${x.ok ? "Verified by the Omarchy Plugin Marketplace" : "Unverified: review the code first"}</div></div></div>
+      <div class="small muted">Paste this into a terminal (<b>Super + Return</b>):</div>
+      <div class="code"><code>${esc(cmd)}</code><button class="btn" data-copy="${esc(cmd)}">Copy</button></div>
+      <div class="small muted">Want one-click plugins? <a style="color:var(--accent)" href="/get-desktop/" data-close>Get the desktop app</a>.</div>
+      <div style="text-align:right;margin-top:16px"><button class="btn ghost" data-close>Done</button></div>
+    </div>`);
+  }
+
   function webThemeGet(t) {
     const cmd = themeCmd(t);
     showSheet(`<div class="sheet-card" role="dialog" aria-label="Get ${esc(t.name)}">
@@ -491,7 +653,8 @@
         </a>`;
       }).join("")}</div>
       ${themesBanner()}
-      ${themeShelf("Make it yours: Themes", S.catalog.themes.filter((t) => t.palette?.length && t.image).slice(0, 14), "/themes/")}
+      ${themeShelf("Make it yours: Themes", S.catalog.themes.filter((t) => !t.builtin && t.palette?.length && t.image).slice(0, 14), "/themes/")}
+      ${plugShelf()}
       ${shelf(collections[0].title, collections[0].apps.map((id) => S.byId[id]))}
       ${bannerAd()}
       <section class="shelf">
@@ -754,7 +917,7 @@
           <li>Top Charts are ranked by GitHub stars only.</li>
         </ul></section>
       <section class="shelf"><div class="shelf-head"><h2>Developers: sell your app</h2></div>
-        <p>Paid apps are coming to the Omarchy Store, with payouts in crypto and a 10% store fee. <a style="color:var(--accent)" href="${REPO}/issues/new?template=submit-app.yml" target="_blank" rel="noopener">Submit your app</a> and say you're interested.</p></section>
+        <p>Paid apps are coming to the Omarchy Store. Built something people would pay for? Get it in front of every Omarchy user, get paid fast, and keep the lion's share. <a style="color:var(--accent)" href="${REPO}/issues/new?template=submit-app.yml" target="_blank" rel="noopener">Submit your app</a> and tell us you'd like to sell it.</p></section>
       <p class="small muted">Technical people can also open a pull request directly: <a style="color:var(--accent)" href="https://raw.githubusercontent.com/omarchy-community/store/main/CONTRIBUTING.md" target="_blank" rel="noopener">contributor guide</a>.</p>
       ${footer()}
     </div>`;
@@ -1005,6 +1168,8 @@
       <h1 class="page-title">Results for “${esc(q)}”</h1>
       ${sponsoredApp((a) => res.includes(a))}
       ${themeShelf("Themes", tres.slice(0, 20), tres.length ? "/themes/" : "")}
+      ${(() => { if (!S.plugins) { loadPlugins(); return ""; } const ql = q.toLowerCase(); const pr = (S.plugins.plugins || []).filter((x) => (x.n + " " + x.d + " " + (x.t || []).join(" ")).toLowerCase().includes(ql)).slice(0, 20);
+        return pr.length ? `<section class="shelf"><div class="shelf-head"><h2>Plugins</h2><a href="/plugins/" data-plug-search="${esc(q)}">See All</a></div><div class="scroller plug-row">${pr.map(plugCard).join("")}</div></section>` : ""; })()}
       ${res.length ? `<div class="grid">${res.map((a) => lockup(a)).join("")}</div>`
         : tres.length ? "" : `<div class="empty">No apps match “${esc(q)}”.<br><br><a class="btn ghost" href="${REPO}/issues/new?template=app-request.yml&title=${encodeURIComponent("App request: " + q)}" target="_blank" rel="noopener">Request this app</a></div>`}
       ${searchAd()}
@@ -1173,6 +1338,8 @@
     else if (p === "categories") html = pageCategories();
     else if (p === "themes") html = pageThemes();
     else if (p === "theme") html = pageTheme(arg), nav = "themes";
+    else if (p === "plugins") html = pagePlugins();
+    else if (p === "plugin") html = pagePlugin((arg || "").replace(/\/$/, "")), nav = "plugins";
     else if (p === "category") html = pageCategory(arg), nav = "category/" + arg;
     else if (p === "app") html = pageApp(arg), nav = "category/" + (S.byId[arg]?.category || "");
     else if (p === "search") html = pageSearch(arg || "");
@@ -1203,6 +1370,9 @@
     if (c) return `Best ${c.name} Apps for Omarchy Linux | Omarchy Store`;
     const th = p === "theme" && S.themeById[arg];
     if (th) return `${th.name} Theme for Omarchy – by ${th.author} | Omarchy Store`;
+    const pl = p === "plugin" && S.plugById[decodeURIComponent((arg || "").replace(/\/$/, ""))];
+    if (pl) return `${pl.n} – Omarchy Plugin | Omarchy Store`;
+    if (p === "plugins") return "Omarchy Plugins – Bar Widgets & Desktop Add-ons | Omarchy Store";
     return TITLES[p] ? `${TITLES[p]} | Omarchy Store` : "Omarchy Store – The App Store for Omarchy Linux";
   }
   const rerender = () => { const top = view.scrollTop; route(); view.scrollTop = top; };
@@ -1271,7 +1441,7 @@
   }
 
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-share-theme],#more,.sheet");
+    const t = e.target.closest("[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-share-theme],#more,.sheet");
     if (!t) return;
     if (t.matches("[data-usb-dl]")) {
       post("/api/usb/download", {}).then(async (r) => { if (!r.ok) toast((await r.json().catch(() => ({}))).error || "Download failed"); loadUsb(); });
@@ -1310,6 +1480,16 @@
       const th = S.themeById[t.dataset.themeGet || t.dataset.themeUse];
       if (!S.desktop) webThemeGet(th);
       else desktopTheme(th, t.dataset.themeUse ? "/api/theme/use" : "/api/theme/install");
+    } else if (t.matches("[data-plug-get]")) {
+      e.preventDefault(); e.stopPropagation();
+      const x = S.plugById[t.dataset.plugGet];
+      if (x) { if (S.desktop) desktopPlugin(x); else webPluginGet(x); }
+    } else if (t.matches("[data-plug-search]")) {
+      S.plugQ = t.dataset.plugSearch; S.plugShown = 60;
+    } else if (t.matches("[data-pfilter]")) {
+      S.plugFilter = t.dataset.pfilter; S.plugShown = 60; rerender();
+    } else if (t.matches("[data-plug-more]")) {
+      S.plugShown += 120; const g = $("#pgrid"); if (g) g.innerHTML = plugGridHtml();
     } else if (t.matches("[data-tfilter]")) {
       S.themeFilter = t.dataset.tfilter; rerender();
     } else if (t.matches("[data-share-theme]")) {
@@ -1348,9 +1528,13 @@
   });
   // Theme search box filters the grid in place (no re-render, so the cursor stays put).
   document.addEventListener("input", (e) => {
+    if (e.target.id === "pq") { S.plugQ = e.target.value; S.plugShown = 60; const g = $("#pgrid"); if (g) g.innerHTML = plugGridHtml(); return; }
     if (e.target.id !== "tq") return;
     S.themeQ = e.target.value;
     const g = $("#tgrid"); if (g) g.innerHTML = themeGridHtml();
+  });
+  document.addEventListener("change", (e) => {
+    if (e.target.id === "pcat") { S.plugCat = e.target.value; S.plugShown = 60; const g = $("#pgrid"); if (g) g.innerHTML = plugGridHtml(); }
   });
   let qt;
   $("#q").addEventListener("input", (e) => {
