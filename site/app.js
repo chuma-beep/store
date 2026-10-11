@@ -967,7 +967,6 @@
       <div class="spot-copy">
         <div class="spot-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>${esc(f.badge)}</div>
         <h2>${esc(f.headline)}</h2>
-        ${f.new_line ? `<div class="spot-new"><span class="new-tag">NEW</span>${esc(f.new_line.replace(/^New in [^:]*:\s*/, ""))}</div>` : ""}
         <p>${esc(f.tagline)}</p>
         ${f.chips ? `<div class="spot-chips">${f.chips.map((c) => `<span>${esc(c)}</span>`).join("")}</div>` : ""}
         <div class="spot-lock">${iconImg(a, 64)}<div><div class="name">${esc(a.name)}</div><div class="sub">${esc(f.launch_offer || f.price)}</div></div>${getBtn(a, true)}</div>
@@ -977,7 +976,6 @@
       <div class="spot-copy">
         <div class="spot-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>${esc(f.badge)}</div>
         <h2>${esc(f.headline)}</h2>
-        ${f.new_line ? `<div class="spot-new"><span class="new-tag">NEW</span>${esc(f.new_line.replace(/^New in [^:]*:\s*/, ""))}</div>` : ""}
         <p>${esc(f.tagline)}</p>
         <div class="spot-lock">${iconImg(a, 64)}<div><div class="name">${esc(a.name)}</div><div class="sub">${esc(f.launch_offer || f.price)}</div></div>${getBtn(a, true)}</div>
       </div>
