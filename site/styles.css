@@ -822,7 +822,7 @@ svg .fill { fill: currentColor; stroke: none; }
 
 /* Billy Legal / artist ad: never wider than the phone (min-height + aspect-ratio forced it to 418px) */
 .artist-ad { max-width: 100%; }
-@media (max-width: 720px) { .aa-hero { aspect-ratio: auto; min-height: 0; height: 190px; width: 100%; } }
+@media (max-width: 720px) { .aa-hero { aspect-ratio: auto; min-height: 0; height: 120px; width: 100%; } .artist-ad { margin-top: 22px; } }
 
 /* sidebar: row of brand-coloured social icons right under Categories */
 #nav .nav-socials { display: flex; gap: 5px; padding: 8px 10px 4px; flex-wrap: nowrap; }
