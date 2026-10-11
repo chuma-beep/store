@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin · Omarchy Store</title>
+<link rel="icon" href="/assets/favicon.ico">
+<style>
+  :root { --bg: #0f1020; --card: #1a1b2e; --card2: #23253d; --line: #2e3150; --text: #eef0ff; --t2: #a9adcf; --t3: #6f74a0;
+    --accent: #7aa2f7; --good: #9ece6a; --warn: #e0af68; --bad: #f7768e; color-scheme: dark; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font: 15px/1.45 "Adwaita Sans", "Inter", "Segoe UI", system-ui, sans-serif; }
+  a { color: var(--accent); }
+  button { font: inherit; cursor: pointer; border: 0; }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 28px 24px 80px; }
+  header { display: flex; align-items: center; gap: 14px; margin-bottom: 22px; }
+  header img { width: 40px; height: 40px; }
+  header h1 { font-size: 22px; letter-spacing: -.01em; }
+  header .sp { flex: 1; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px; }
+  .tabs button { padding: 8px 16px; border-radius: 999px; background: var(--card); color: var(--t2); font-weight: 600; }
+  .tabs button.on { background: var(--accent); color: #0f1020; }
+  .tabs .n { margin-left: 6px; padding: 0 7px; border-radius: 999px; background: var(--bad); color: #fff; font-size: 12px; }
+  .btn { padding: 8px 16px; border-radius: 999px; background: var(--accent); color: #0f1020; font-weight: 700; }
+  .btn.ghost { background: var(--card2); color: var(--text); }
+  .btn.ok { background: var(--good); } .btn.no { background: var(--bad); color: #fff; } .btn.sm { padding: 5px 12px; font-size: 13px; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .kpi { background: var(--card); border-radius: 16px; padding: 16px 18px; }
+  .kpi .k { color: var(--t2); font-size: 13px; font-weight: 600; }
+  .kpi .v { font-size: 30px; font-weight: 800; letter-spacing: -.02em; margin-top: 4px; }
+  .kpi .s { color: var(--t3); font-size: 12px; }
+  .card { background: var(--card); border-radius: 16px; padding: 18px; margin-bottom: 14px; }
+  .card h2 { font-size: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; }
+  .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 14px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  td, th { text-align: left; padding: 7px 6px; border-top: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--t3); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; border-top: 0; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .bar { height: 6px; border-radius: 3px; background: var(--accent); opacity: .8; }
+  .muted { color: var(--t2); } .small { font-size: 13px; }
+  .chart { width: 100%; height: 220px; }
+  .pill { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 12px; font-weight: 700; background: var(--card2); }
+  .pill.pending { background: color-mix(in srgb, var(--warn) 25%, transparent); color: var(--warn); }
+  .pill.approved, .pill.paid { background: color-mix(in srgb, var(--good) 22%, transparent); color: var(--good); }
+  .pill.rejected, .pill.expired { background: color-mix(in srgb, var(--bad) 20%, transparent); color: var(--bad); }
+  .pill.seen { background: color-mix(in srgb, var(--accent) 22%, transparent); color: var(--accent); }
+  .dev { border-top: 1px solid var(--line); padding: 14px 0; display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+  .dev:first-of-type { border-top: 0; }
+  .dev p { color: var(--t2); font-size: 14px; white-space: pre-wrap; margin: 6px 0; }
+  .acts { display: flex; gap: 6px; align-items: flex-start; flex-wrap: wrap; justify-content: flex-end; }
+  .login { max-width: 420px; margin: 12vh auto; background: var(--card); border-radius: 20px; padding: 28px; text-align: center; }
+  .login img { width: 64px; height: 64px; }
+  .login h1 { font-size: 22px; margin: 10px 0 4px; }
+  .login input { width: 100%; margin: 18px 0 10px; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: var(--bg); color: var(--text); font: inherit; }
+  .err { color: var(--bad); font-weight: 600; min-height: 1.4em; font-size: 14px; }
+  .addr { font-family: ui-monospace, "JetBrainsMono NF", monospace; font-size: 12px; word-break: break-all; }
+  .stars { color: #ff9f0a; letter-spacing: 1px; }
+  .hidden-row { opacity: .45; }
+  select { background: var(--card2); color: var(--text); border: 0; border-radius: 999px; padding: 7px 12px; font: inherit; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+(() => {
+  const API = "https://omarchy-store-api.omarchystore.workers.dev";
+  const KEY = "omarchy-store-admin-key";
+  const $ = (s) => document.querySelector(s);
+  const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const num = (n) => Number(n || 0).toLocaleString();
+  const when = (ts) => new Date(ts).toLocaleString([], { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  const S = { tab: "overview", days: 30 };
+  const api = async (path, opts = {}) => {
+    const r = await fetch(API + path, { ...opts, headers: { "Content-Type": "application/json", Authorization: "Bearer " + localStorage.getItem(KEY), ...(opts.headers || {}) } });
+    const j = await r.json().catch(() => ({}));
+    if (r.status === 401) { localStorage.removeItem(KEY); login("Your admin key was rejected — enter it again."); throw new Error("auth"); }
+    if (!r.ok) throw new Error(j.error || r.statusText);
+    return j;
+  };
+
+  function login(msg = "") {
+    $("#app").innerHTML = `<form class="login" id="lf">
+      <img src="/assets/logo.svg" alt=""><h1>Omarchy Store admin</h1>
+      <p class="muted small">Enter your admin key. It's saved in this browser only.</p>
+      <input id="k" type="password" autocomplete="current-password" placeholder="osk_…" autofocus>
+      <div class="err">${esc(msg)}</div>
+      <button class="btn" style="width:100%">Sign in</button></form>`;
+    $("#lf").onsubmit = async (e) => {
+      e.preventDefault();
+      localStorage.setItem(KEY, $("#k").value.trim());
+      try { await api("/admin/check"); load(); } catch (er) { if (er.message !== "auth") login(er.message); }
+    };
+  }
+
+  async function load() {
+    $("#app").innerHTML = `<div class="wrap"><p class="muted">Loading…</p></div>`;
+    try {
+      const [stats, devs, revs, ords] = await Promise.all([api(`/admin/stats?days=${S.days}`), api("/admin/developers"), api("/admin/reviews"), api("/admin/orders")]);
+      Object.assign(S, { stats, devs: devs.developers, revs: revs.reviews, ords: ords.orders, wallets: ords.wallets });
+      render();
+    } catch (e) { if (e.message !== "auth") $("#app").innerHTML = `<div class="wrap"><p class="err">Couldn't load: ${esc(e.message)}</p></div>`; }
+  }
+
+  function chart(series) {
+    const W = 1000, H = 220, P = 28, max = Math.max(5, ...series.map((d) => d.views));
+    const x = (i) => P + (i * (W - 2 * P)) / Math.max(1, series.length - 1);
+    const y = (v) => H - P - (v / max) * (H - 2 * P);
+    const line = (k) => series.map((d, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(d[k]).toFixed(1)}`).join("");
+    const area = `${line("views")}L${x(series.length - 1)},${H - P}L${x(0)},${H - P}Z`;
+    const ticks = [0, Math.round(max / 2), max].map((v) => `<text x="4" y="${y(v) + 4}" fill="#6f74a0" font-size="11">${v}</text><line x1="${P}" x2="${W - P}" y1="${y(v)}" y2="${y(v)}" stroke="#2e3150"/>`).join("");
+    const labels = series.filter((_, i) => i % Math.ceil(series.length / 8) === 0 || i === series.length - 1)
+      .map((d) => `<text x="${x(series.indexOf(d))}" y="${H - 6}" fill="#6f74a0" font-size="11" text-anchor="middle">${d.day.slice(5)}</text>`).join("");
+    return `<svg class="chart" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${ticks}
+      <path d="${area}" fill="rgba(122,162,247,.15)"/><path d="${line("views")}" fill="none" stroke="#7aa2f7" stroke-width="2.5"/>
+      <path d="${line("visitors")}" fill="none" stroke="#9ece6a" stroke-width="2" stroke-dasharray="5 4"/>${labels}</svg>
+      <div class="small muted"><span style="color:#7aa2f7">━</span> Page views &nbsp; <span style="color:#9ece6a">┅</span> Unique visitors (per day)</div>`;
+  }
+  const table = (rows, cols, empty = "Nothing yet") => {
+    if (!rows?.length) return `<p class="muted small">${empty}</p>`;
+    const max = Math.max(...rows.map((r) => r[cols[1][0]] || 0));
+    return `<table><tr>${cols.map(([, h], i) => `<th class="${i ? "num" : ""}">${h}</th>`).join("")}</tr>
+      ${rows.map((r) => `<tr><td>${esc(r[cols[0][0]] || "(direct)")}<div class="bar" style="width:${((r[cols[1][0]] || 0) / max) * 100}%"></div></td>
+        ${cols.slice(1).map(([k]) => `<td class="num">${num(r[k])}</td>`).join("")}</tr>`).join("")}</table>`;
+  };
+
+  function overview() {
+    const s = S.stats, sum = (arr, k) => (arr || []).reduce((t, r) => t + (r[k] || 0), 0);
+    const pend = S.devs.filter((d) => d.status === "pending").length;
+    const paid = (s.orders || []).find((o) => o.status === "paid");
+    const installs = (s.kinds || []).find((k) => k.kind === "install")?.n || 0;
+    return `<div class="kpis">
+        <div class="kpi"><div class="k">Visitors today</div><div class="v">${num(s.today?.visitors)}</div><div class="s">${num(s.today?.views)} page views</div></div>
+        <div class="kpi"><div class="k">Visitors · last ${s.days} days</div><div class="v">${num(s.totals?.visitors)}</div><div class="s">${num(s.totals?.views)} page views</div></div>
+        <div class="kpi"><div class="k">Installs · last ${s.days} days</div><div class="v">${num(installs)}</div><div class="s">from the desktop app</div></div>
+        <div class="kpi"><div class="k">Reviews</div><div class="v">${num(s.reviews?.n)}</div><div class="s">${s.reviews?.avg ? `average ${s.reviews.avg} ★` : "none yet"}</div></div>
+        <div class="kpi"><div class="k">Developers waiting</div><div class="v" style="color:${pend ? "var(--warn)" : ""}">${pend}</div><div class="s">${S.devs.length} sign-ups total</div></div>
+        <div class="kpi"><div class="k">Sales</div><div class="v">$${num(paid?.usd || 0)}</div><div class="s">${num(paid?.n || 0)} paid orders</div></div>
+      </div>
+      <div class="card"><h2>Traffic <select id="days">${[7, 30, 90, 365].map((d) => `<option value="${d}" ${d === S.days ? "selected" : ""}>Last ${d} days</option>`).join("")}</select></h2>${chart(s.series)}</div>
+      <div class="grid2">
+        <div class="card"><h2>Top pages</h2>${table(s.pages, [["path", "Page"], ["views", "Views"]])}</div>
+        <div class="card"><h2>Where visitors come from</h2>${table(s.refs, [["ref", "Site"], ["views", "Views"]], "No referrals yet — visits so far were direct.")}</div>
+        <div class="card"><h2>Countries</h2>${table(s.countries, [["country", "Country"], ["visitors", "Visitors"]])}</div>
+        <div class="card"><h2>Devices</h2>${table((s.devices || []).map((d) => ({ ...d, device: { "desktop-app": "Omarchy Store desktop app", phone: "Phone / tablet", computer: "Computer (web)" }[d.device] || d.device })), [["device", "Device"], ["visitors", "Visitors"]])}</div>
+        <div class="card"><h2>Most installed</h2>${table(s.installs, [["item", "App"], ["n", "Installs"]], "No installs tracked yet.")}</div>
+      </div>
+      <p class="small muted">Privacy: no cookies and no IP addresses are stored. Unique visitors are counted with a one-way code that changes every day.</p>`;
+  }
+
+  function developers() {
+    if (!S.devs.length) return `<div class="card"><p class="muted">No developer sign-ups yet. They apply at <a href="/submit/#developers" target="_blank">omarchystore.com/submit</a>.</p></div>`;
+    const order = { pending: 0, approved: 1, rejected: 2 };
+    return `<div class="card">${[...S.devs].sort((a, b) => order[a.status] - order[b.status] || b.ts - a.ts).map((d) => {
+      const pay = JSON.parse(d.payout || "{}");
+      return `<div class="dev"><div>
+          <div><span class="pill ${d.status}">${d.status}</span> &nbsp;<b>${esc(d.app_name)}</b> by ${esc(d.name)} · <a href="mailto:${esc(d.email)}">${esc(d.email)}</a></div>
+          <div class="small muted">#${d.id} · ${when(d.ts)}${d.website ? ` · <a href="${esc(d.website)}" target="_blank" rel="noopener">website</a>` : ""}${d.github ? ` · GitHub <a href="https://github.com/${esc(d.github)}" target="_blank" rel="noopener">${esc(d.github)}</a>` : ""}${d.app_url ? ` · <a href="${esc(d.app_url)}" target="_blank" rel="noopener">app link</a>` : ""}</div>
+          <p>${esc(d.app_desc)}</p>
+          <div class="small">${d.wants_paid ? `💲 Wants to sell at <b>$${d.price_usd}</b> — developer gets 90%, you get 10%.` : "Free app"}</div>
+          ${Object.keys(pay).length ? `<div class="small muted">Payout: ${Object.entries(pay).map(([k, v]) => `${k.toUpperCase()} <span class="addr">${esc(v)}</span>`).join(" · ")}</div>` : ""}
+          ${d.note ? `<div class="small muted">Your note: ${esc(d.note)}</div>` : ""}
+        </div><div class="acts">
+          ${d.status !== "approved" ? `<button class="btn ok sm" data-dev="${d.id}" data-st="approved">Approve</button>` : ""}
+          ${d.status !== "rejected" ? `<button class="btn no sm" data-dev="${d.id}" data-st="rejected">Reject</button>` : ""}
+          ${d.status !== "pending" ? `<button class="btn ghost sm" data-dev="${d.id}" data-st="pending">Back to pending</button>` : ""}
+        </div></div>`; }).join("")}</div>`;
+  }
+
+  function reviews() {
+    if (!S.revs.length) return `<div class="card"><p class="muted">No reviews yet. People write them on each app's page.</p></div>`;
+    return `<div class="card"><table><tr><th>App</th><th>Rating</th><th>Review</th><th>When</th><th></th></tr>
+      ${S.revs.map((r) => `<tr class="${r.hidden ? "hidden-row" : ""}"><td><a href="/app/${esc(r.app)}/" target="_blank">${esc(r.app)}</a></td>
+        <td class="stars">${"★".repeat(r.rating)}${"☆".repeat(5 - r.rating)}</td>
+        <td><b>${esc(r.title)}</b> ${esc(r.body)}<div class="small muted">— ${esc(r.name)}</div></td>
+        <td class="small muted">${when(r.ts)}</td>
+        <td><div class="acts"><button class="btn ghost sm" data-hide="${r.id}" data-h="${r.hidden ? 0 : 1}">${r.hidden ? "Show" : "Hide"}</button>
+          <button class="btn no sm" data-del="${r.id}">Delete</button></div></td></tr>`).join("")}</table></div>`;
+  }
+
+  function sales() {
+    const w = S.wallets || {};
+    const EXP = { btc: "https://mempool.space/tx/", "usdc-base": "https://basescan.org/tx/", "eth-base": "https://basescan.org/tx/", "usdc-eth": "https://etherscan.io/tx/", sol: "https://solscan.io/tx/", "usdc-sol": "https://solscan.io/tx/", xrp: "https://livenet.xrpl.org/transactions/" };
+    return `<div class="card"><h2>Your payout wallets <span class="small muted">public addresses · payments go straight here</span></h2>
+        <table>${[["Bitcoin", w.btc], ["Ethereum & Base (USDC, ETH)", w.evm], ["Solana (SOL, USDC)", w.sol], ["XRP", w.xrp]].map(([n, a]) => `<tr><td>${n}</td><td class="addr">${a ? esc(a) : `<span class="muted">not set</span>`}</td></tr>`).join("")}</table></div>
+      <div class="card"><h2>Orders <button class="btn ghost sm" id="chk">Check blockchains now</button></h2>
+        ${S.ords.length ? `<table><tr><th>Order</th><th>App</th><th>Paid with</th><th class="num">Price</th><th>Status</th><th>When</th></tr>
+          ${S.ords.map((o) => `<tr><td class="addr">${esc(o.id)}</td><td>${esc(o.app)}</td><td>${esc(o.chain)}</td><td class="num">$${o.usd}</td>
+            <td><span class="pill ${o.status}">${o.status}</span>${o.txid ? ` <a class="small" href="${EXP[o.chain]}${esc(o.txid)}" target="_blank" rel="noopener">tx</a>` : ""}</td><td class="small muted">${when(o.ts)}</td></tr>`).join("")}</table>`
+          : `<p class="muted small">No orders yet. Checkout appears on paid apps once you set a price on an approved developer's app.</p>`}
+        <p class="small muted" style="margin-top:10px">The store checks the public blockchain every 10 minutes and marks an order paid once the exact amount arrives. It never holds keys or moves money.</p></div>`;
+  }
+
+  function render() {
+    const pend = S.devs.filter((d) => d.status === "pending").length;
+    const tabs = [["overview", "Overview"], ["developers", "Developers", pend], ["reviews", "Reviews"], ["sales", "Sales"]];
+    $("#app").innerHTML = `<div class="wrap">
+      <header><img src="/assets/logo.svg" alt=""><h1>Omarchy Store admin</h1><span class="sp"></span>
+        <a class="btn ghost sm" href="/" target="_blank">Open store</a><button class="btn ghost sm" id="out">Sign out</button></header>
+      <nav class="tabs">${tabs.map(([id, n, c]) => `<button data-tab="${id}" class="${S.tab === id ? "on" : ""}">${n}${c ? `<span class="n">${c}</span>` : ""}</button>`).join("")}</nav>
+      ${{ overview, developers, reviews, sales }[S.tab]()}
+    </div>`;
+  }
+
+  document.addEventListener("click", async (e) => {
+    const t = e.target.closest("button"); if (!t) return;
+    try {
+      if (t.dataset.tab) { S.tab = t.dataset.tab; render(); }
+      else if (t.id === "out") { localStorage.removeItem(KEY); login(); }
+      else if (t.dataset.dev) {
+        const note = t.dataset.st === "rejected" ? prompt("Optional note (only you see it):") ?? "" : "";
+        await api(`/admin/developers/${t.dataset.dev}`, { method: "POST", body: JSON.stringify({ status: t.dataset.st, note }) }); load();
+      } else if (t.dataset.hide) { await api(`/admin/reviews/${t.dataset.hide}`, { method: "POST", body: JSON.stringify({ hidden: t.dataset.h === "1" }) }); load(); }
+      else if (t.dataset.del) { if (confirm("Delete this review for good?")) { await api(`/admin/reviews/${t.dataset.del}`, { method: "DELETE" }); load(); } }
+      else if (t.id === "chk") { t.textContent = "Checking…"; const r = await api("/admin/check-orders", { method: "POST" }); alert(`Checked ${r.checked} open order(s), ${r.paid || 0} newly paid.`); load(); }
+    } catch (er) { if (er.message !== "auth") alert(er.message); }
+  });
+  document.addEventListener("change", (e) => { if (e.target.id === "days") { S.days = Number(e.target.value); load(); } });
+
+  localStorage.getItem(KEY) ? load() : login();
+})();
+</script>
+</body>
+</html>

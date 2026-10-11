@@ -374,7 +374,7 @@ def main():
             f.write(f"  <url><loc>{loc}</loc><lastmod>{lm}</lastmod><priority>{pr}</priority></url>\n")
         f.write("</urlset>\n")
     with open(os.path.join(OUT, "robots.txt"), "w") as f:
-        f.write(f"User-agent: *\nAllow: /\nDisallow: /search/\nDisallow: /api/\nDisallow: /desktop-files/\n\nSitemap: {SITE}/sitemap.xml\n")
+        f.write(f"User-agent: *\nAllow: /\nDisallow: /search/\nDisallow: /api/\nDisallow: /desktop-files/\nDisallow: /admin/\n\nSitemap: {SITE}/sitemap.xml\n")
     print(f"✓ SEO: {len(urls)} pages + sitemap.xml + robots.txt → {OUT}")
 
 

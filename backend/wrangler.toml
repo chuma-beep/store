@@ -1,0 +1,26 @@
+name = "omarchy-store-api"
+main = "src/index.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "omarchy-store"
+database_id = "7d424b51-d172-41f2-abc0-8497b99d2b65"
+
+[vars]
+SITE = "https://omarchystore.com"
+# Public payout addresses (cold storage). PUBLIC addresses only — never keys or seed phrases.
+WALLET_BTC = "bc1qpslg4dsu58eshpkmjwlchet7l0ma6qkx87jez7"
+WALLET_EVM = "0x4075e5738E8bb1e6f7b05B3BB83E74F1838F643c"   # Ethereum + Base (USDC and ETH)
+WALLET_SOL = "4Mpud9mbrjKEFWN8HP1VoVaxf5yRmgZVRG6rJVWbUAuk"  # Solana (SOL and USDC)
+WALLET_XRP = "rPDuYdmQcw2GWJBBui2vbTA9B6YiAP8rQ6"            # XRP Ledger
+TURNSTILE_SITEKEY = "0x4AAAAAAFTiarDYb1tekwRe"
+
+# Secrets (set with `wrangler secret put`, never committed):
+#   ADMIN_KEY          admin portal password
+#   TURNSTILE_SECRET   anti-spam check
+#   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID   owner alerts
+
+[triggers]
+crons = ["*/10 * * * *"]   # check waiting crypto orders every 10 minutes

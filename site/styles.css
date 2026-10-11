@@ -667,3 +667,52 @@ select.sel { background: var(--pill); color: var(--text); border: 0; border-radi
 .inst-main .sub { color: var(--text-2); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .inst-main .pl-ini { width: 48px; height: 48px; border-radius: 12px; flex: none; }
 .inst-act { display: flex; gap: 8px; align-items: center; flex: none; }
+
+/* ---------- Ratings & reviews ---------- */
+.rv-sum { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; }
+.rv-big { display: flex; flex-direction: column; align-items: center; min-width: 96px; }
+.rv-big b { font-size: 58px; line-height: 1; font-weight: 800; letter-spacing: -.03em; }
+.rv-big span { color: var(--text-2); font-size: 13px; font-weight: 600; }
+.rv-bars { flex: 1; min-width: 200px; max-width: 360px; display: grid; gap: 3px; }
+.rv-bar { display: flex; align-items: center; gap: 8px; font-size: 11px; color: var(--text-3); }
+.rv-bar span { width: 10px; text-align: right; }
+.rv-bar i { flex: 1; height: 4px; border-radius: 2px; background: var(--pill); overflow: hidden; }
+.rv-bar b { display: block; height: 100%; background: var(--text-2); }
+.rv-count { color: var(--text-2); font-size: 13px; align-self: flex-end; }
+.rv-cards { margin-top: 18px; grid-auto-columns: minmax(300px, 380px); }
+.rv-card { background: var(--card); border-radius: 16px; padding: 16px 18px; display: flex; flex-direction: column; gap: 6px; }
+.rv-top { display: flex; justify-content: space-between; gap: 10px; }
+.rv-meta { display: flex; align-items: center; gap: 10px; }
+.rv-card p { color: var(--text-2); font-size: 14px; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.stars-row i { font-style: normal; font-size: var(--s); color: var(--pill); }
+.stars-row i.on { color: #ff9f0a; }
+.rv-empty { margin-top: 14px; padding: 18px; border-radius: 14px; background: var(--card); color: var(--text-2); }
+.rv-empty a, .shelf-head a[data-review] { color: var(--accent); }
+.rv-form { display: flex; flex-direction: column; gap: 10px; }
+.rv-form input, .rv-form textarea, .dev-form input, .dev-form textarea {
+  width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg-2, rgba(255,255,255,.04)); color: var(--text); font: inherit; }
+.rv-form textarea, .dev-form textarea { resize: vertical; }
+.rv-pick { display: flex; gap: 6px; justify-content: center; margin: 4px 0; }
+.rv-pick button { font-size: 34px; color: var(--pill); background: none; line-height: 1; transition: transform .1s; }
+.rv-pick button:hover { transform: scale(1.12); }
+.rv-pick button.on { color: #ff9f0a; }
+.form-err { color: #ff6b81; font-size: 14px; font-weight: 600; }
+.ts-box { min-height: 65px; }
+/* ---------- Developer sign-up ---------- */
+.dev-form { background: var(--card); border-radius: 20px; padding: 24px; display: flex; flex-direction: column; gap: 14px; }
+.dev-form h2 { font-size: 22px; }
+.fgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.fgrid label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; }
+.fgrid label.wide { grid-column: 1 / -1; }
+@media (max-width: 700px) { .fgrid { grid-template-columns: 1fr; } }
+.dev-form .check { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; }
+.dev-form .check input { width: auto; margin-top: 3px; }
+.paid-box { padding: 16px; border-radius: 14px; background: color-mix(in srgb, var(--accent) 10%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 35%, transparent); display: flex; flex-direction: column; gap: 12px; }
+.paid-box[hidden] { display: none; }
+.dev-form .btn.big { align-self: flex-start; }
+.dev-done { display: flex; gap: 16px; align-items: center; padding: 22px; border-radius: 18px; background: var(--card); }
+.dev-done svg { width: 40px; height: 40px; flex: none; fill: none; stroke: var(--good, #30d158); stroke-width: 2; }
+
+.fgrid label { display: block; }
+.fgrid label input, .fgrid label textarea { display: block; margin-top: 6px; }
+.fgrid label .muted { font-weight: 500; }

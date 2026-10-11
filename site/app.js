@@ -10,6 +10,7 @@
 
   const SITE = "https://omarchystore.com/";
   const REPO = "https://github.com/omarchy-community/store";
+  const API = "https://omarchy-store-api.omarchystore.workers.dev";
   const INSTALLER = `curl -fsSL ${SITE}install.sh | bash`;
 
   const S = { catalog: null, byId: {}, themeById: {}, desktop: false, installed: new Set(), busy: new Set(), chartCat: "all",
@@ -978,8 +979,9 @@
           <li>Apps that stop being maintained (archived repo, orphaned package) are removed.</li>
           <li>Top Charts are ranked by GitHub stars only.</li>
         </ul></section>
+      <section class="shelf" id="developers">${devFormHtml()}</section>
       <section class="shelf"><div class="shelf-head"><h2>Developers: sell your app</h2></div>
-        <p>Paid apps are coming to the Omarchy Store. Built something people would pay for? Get it in front of every Omarchy user, get paid fast, and keep the lion's share. <a style="color:var(--accent)" href="${REPO}/issues/new?template=submit-app.yml" target="_blank" rel="noopener">Submit your app</a> and tell us you'd like to sell it.</p></section>
+        <p>Built something people would pay for? Sign up above and tick <b>I want to sell this app</b>. Buyers pay in crypto — USDC on Base, Ethereum or Solana, plus SOL, Bitcoin and XRP — and your share goes straight to your own wallet. No waiting for payouts.</p></section>
       <p class="small muted">Technical people can also open a pull request directly: <a style="color:var(--accent)" href="https://raw.githubusercontent.com/omarchy-community/store/main/CONTRIBUTING.md" target="_blank" rel="noopener">contributor guide</a>.</p>
       ${footer()}
     </div>`;
@@ -1288,6 +1290,8 @@
         <button class="more" id="more" hidden>more</button>
       </section>
 
+      ${reviewsSection(a)}
+
       ${a.release || p.version ? `<section class="shelf">
         <div class="shelf-head"><h2>What’s New</h2>${ghUrl ? `<a href="${ghUrl}/releases" target="_blank" rel="noopener">Version History</a>` : ""}</div>
         <div class="whatsnew"><span>Version ${esc(a.release || p.version)}</span><span>${ago(a.released_at || p.updated)}</span></div>
@@ -1320,6 +1324,148 @@
     </div>`;
   }
 
+  // ---------- backend: analytics, reviews, developer sign-up ----------
+  const apiPost = (path, b) => fetch(API + path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(b) });
+  function track() {
+    // Privacy-friendly page count: no cookies, no IP stored (see /legal/).
+    const path = location.pathname;
+    if (track.last === path) return; track.last = path;
+    apiPost("/hit", { path, ref: document.referrer || "", desktop: !!S.desktop }).catch(() => {});
+  }
+  const trackEvent = (kind, item) => apiPost("/event", { kind, item }).catch(() => {});
+  S.reviews = {};
+  async function loadReviews(id) {
+    try { S.reviews[id] = await (await fetch(`${API}/reviews?app=${encodeURIComponent(id)}`)).json(); }
+    catch { S.reviews[id] = { error: true, reviews: [], count: 0 }; }
+    if (currentPath() === "app/" + id) { const el = $("#reviews"); if (el) el.outerHTML = reviewsSection(S.byId[id]); }
+  }
+  const starRow = (n, size = 14) => `<span class="stars-row" style="--s:${size}px">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= Math.round(n) ? "on" : ""}">★</i>`).join("")}</span>`;
+  function reviewsSection(a) {
+    const R = S.reviews[a.id];
+    if (!R) { setTimeout(() => loadReviews(a.id)); }
+    const n = R?.count || 0, avg = R?.average || 0;
+    const bars = [5, 4, 3, 2, 1].map((s) => { const c = R?.stars?.[s] || 0; return `<div class="rv-bar"><span>${s}</span><i><b style="width:${n ? (c / n) * 100 : 0}%"></b></i></div>`; }).join("");
+    return `<section class="shelf" id="reviews">
+      <div class="shelf-head"><h2>Ratings & Reviews</h2><a href="#" data-review="${a.id}">Write a Review</a></div>
+      ${!R ? `<div class="muted small">Loading reviews…</div>` : `
+      <div class="rv-sum">
+        <div class="rv-big"><b>${n ? avg.toFixed(1) : "—"}</b><span>out of 5</span></div>
+        <div class="rv-bars">${bars}</div>
+        <div class="rv-count">${n ? `${n} rating${n === 1 ? "" : "s"}` : "No ratings yet"}</div>
+      </div>
+      ${R.reviews?.length ? `<div class="scroller rv-cards">${R.reviews.map((r) => `<article class="rv-card">
+          <div class="rv-top"><b>${esc(r.title || (r.rating >= 4 ? "Great app" : r.rating === 3 ? "It's okay" : "Not for me"))}</b><span class="muted small">${ago(new Date(r.ts).toISOString())}</span></div>
+          <div class="rv-meta">${starRow(r.rating, 13)}<span class="muted small">${esc(r.name)}</span></div>
+          ${r.body ? `<p>${esc(r.body)}</p>` : ""}</article>`).join("")}</div>`
+        : `<div class="rv-empty">Be the first to review ${esc(a.name)}. <a href="#" data-review="${a.id}">Write a review</a></div>`}`}
+    </section>`;
+  }
+  // Cloudflare Turnstile (privacy-friendly spam check) — loaded only when a form opens.
+  let tsReady;
+  function turnstileLoad() {
+    return tsReady ||= new Promise((res, rej) => {
+      const s = document.createElement("script");
+      s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"; s.async = true;
+      s.onload = () => res(window.turnstile); s.onerror = () => rej(new Error("spam check didn't load"));
+      document.head.appendChild(s);
+    });
+  }
+  async function turnstileMount(el) {
+    try {
+      const ts = await turnstileLoad();
+      el.dataset.token = "";
+      ts.render(el, { sitekey: TURNSTILE_KEY, theme: "dark", callback: (t) => (el.dataset.token = t), "expired-callback": () => (el.dataset.token = "") });
+    } catch (e) { el.textContent = "Couldn't load the spam check — check your connection."; }
+  }
+  const TURNSTILE_KEY = "0x4AAAAAAFTiarDYb1tekwRe";
+  function openReview(a) {
+    showSheet(`<form class="sheet-card rv-form" role="dialog" aria-label="Review ${esc(a.name)}" data-review-form="${a.id}">
+      <div class="row">${iconImg(a, 56)}<div><h3>Review ${esc(a.name)}</h3><div class="muted small">Your review is public. Please be kind and specific.</div></div></div>
+      <div class="rv-pick" role="radiogroup" aria-label="Your rating">${[1, 2, 3, 4, 5].map((i) => `<button type="button" data-rate="${i}" aria-label="${i} star${i > 1 ? "s" : ""}">★</button>`).join("")}</div>
+      <input name="title" maxlength="80" placeholder="Title (optional)">
+      <textarea name="body" maxlength="2000" rows="4" placeholder="What did you like or dislike? (optional)"></textarea>
+      <input name="name" maxlength="40" placeholder="Your name or nickname (optional)">
+      <div class="ts-box"></div>
+      <div class="form-err" hidden></div>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:6px">
+        <button type="button" class="btn ghost" data-close>Cancel</button><button class="btn" type="submit">Submit</button></div>
+    </form>`);
+    turnstileMount($(".rv-form .ts-box"));
+  }
+  async function submitForm(form, path, payload, done) {
+    const err = form.querySelector(".form-err"), btn = form.querySelector('[type="submit"]');
+    err.hidden = true;
+    const token = form.querySelector(".ts-box")?.dataset.token;
+    if (!token) { err.textContent = "Please complete the anti-spam check (the box above)."; err.hidden = false; return; }
+    btn.disabled = true; btn.textContent = "Sending…";
+    try {
+      const r = await apiPost(path, { ...payload, turnstile: token });
+      const j = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(j.error || "Something went wrong");
+      done(j);
+    } catch (e) {
+      err.textContent = e.message; err.hidden = false; btn.disabled = false; btn.textContent = "Submit";
+      try { window.turnstile?.reset(form.querySelector(".ts-box")); } catch {}
+    }
+  }
+  document.addEventListener("submit", (e) => {
+    const f = e.target;
+    if (f.matches("[data-review-form]")) {
+      e.preventDefault();
+      const id = f.dataset.reviewForm, rating = Number(f.dataset.rating || 0);
+      if (!rating) { const er = f.querySelector(".form-err"); er.textContent = "Tap the stars to rate it."; er.hidden = false; return; }
+      submitForm(f, "/reviews", { app: id, rating, title: f.title.value, body: f.body.value, name: f.name.value }, () => {
+        closeSheet(); toast("Thanks — your review is live"); loadReviews(id);
+      });
+    } else if (f.matches("#dev-form")) {
+      e.preventDefault();
+      const v = (n) => (f.elements[n]?.value || "").trim();
+      const paid = f.elements.wants_paid.checked;
+      submitForm(f, "/developers", {
+        name: v("name"), email: v("email"), website: v("website"), github: v("github"),
+        app_name: v("app_name"), app_desc: v("app_desc"), app_url: v("app_url"),
+        wants_paid: paid, price_usd: paid ? Number(v("price_usd")) : null,
+        payout: paid ? { btc: v("p_btc"), base: v("p_evm"), sol: v("p_sol"), xrp: v("p_xrp") } : {},
+        agree: f.elements.agree.checked,
+      }, (j) => {
+        f.outerHTML = `<div class="dev-done">${ico("ok")}<div><h3>Thanks — you're on the list!</h3><p>Application #${j.id} is waiting for approval. We'll email <b>${esc(v("email"))}</b>, usually within 1–2 days.</p></div></div>`;
+      });
+    }
+  });
+  function devFormHtml() {
+    return `<form id="dev-form" class="dev-form">
+      <h2>Developer sign-up</h2>
+      <p class="muted small">Every developer is approved by a person before their apps go live.</p>
+      <div class="fgrid">
+        <label>Your name<input name="name" required maxlength="80"></label>
+        <label>Email<input name="email" type="email" required maxlength="120"></label>
+        <label>Website <span class="muted">(optional)</span><input name="website" type="url" placeholder="https://" maxlength="200"></label>
+        <label>GitHub username <span class="muted">(optional)</span><input name="github" maxlength="100"></label>
+        <label class="wide">App name<input name="app_name" required maxlength="80"></label>
+        <label class="wide">What does it do?<textarea name="app_desc" required minlength="20" maxlength="3000" rows="4"></textarea></label>
+        <label class="wide">Link to the app or its source <span class="muted">(optional)</span><input name="app_url" type="url" placeholder="https://" maxlength="300"></label>
+      </div>
+      <label class="check"><input type="checkbox" name="wants_paid" data-toggle-paid> I want to <b>sell</b> this app</label>
+      <div class="paid-box" hidden>
+        <p class="small">Paid apps are paid for in crypto. <b>You keep 90%</b> — the store's fee is 10% (Apple and Google take 15–30%). Your 90% goes straight to your own wallet: enter the PUBLIC addresses you want to be paid to. Never enter a seed phrase or private key.</p>
+        <div class="fgrid">
+          <label>Price (USD)<input name="price_usd" type="number" min="0.99" max="999" step="0.01" placeholder="4.99"></label>
+          <label>Base / Ethereum address <span class="muted">(0x…)</span><input name="p_evm" maxlength="42" placeholder="0x…"></label>
+          <label>Solana address<input name="p_sol" maxlength="44"></label>
+          <label>Bitcoin address <span class="muted">(bc1…)</span><input name="p_btc" maxlength="74"></label>
+          <label>XRP address <span class="muted">(r…)</span><input name="p_xrp" maxlength="35"></label>
+        </div>
+      </div>
+      <label class="check"><input type="checkbox" name="agree" required> My app is mine to publish, contains no malware, and I accept the <a href="/legal/" style="color:var(--accent)">store terms</a>.</label>
+      <div class="ts-box"></div>
+      <div class="form-err" hidden></div>
+      <button class="btn big" type="submit">Submit application</button>
+    </form>`;
+  }
+  document.addEventListener("change", (e) => {
+    if (e.target.matches("[data-toggle-paid]")) e.target.closest("form").querySelector(".paid-box").hidden = !e.target.checked;
+  });
+
   function pageGetDesktop() {
     return `<div class="page" style="max-width:760px">
       <h1 class="page-title">Get the desktop app</h1>
@@ -1347,6 +1493,10 @@
       <p>To the maximum extent permitted by law, the operators, maintainers and contributors of Omarchy Store <b>are not liable for any damage or loss</b> of any kind arising from your use of the store or of any software you install through it, including viruses or malware, data loss, system damage, security breaches, lost profits, or any direct, indirect, incidental or consequential damages, even if advised of the possibility of such damage.</p>
       <h3>Your responsibility</h3>
       <p>You are solely responsible for deciding what to install. Before installing, review the app's source code, package, license and reputation, and keep backups of important data. Packages from the AUR are community-maintained and are not reviewed or signed by Arch Linux. Installing system software requires administrator access; only proceed if you trust the app.</p>
+      <h3>Privacy</h3>
+      <p>We count page views and installs to improve the store, without cookies and without storing your IP address. Each visit is counted with a one-way code that changes every day, so we can't follow anyone over time. Reviews and developer applications you submit are stored on Cloudflare. Forms use Cloudflare Turnstile to block spam.</p>
+      <h3>Paid apps and payments</h3>
+      <p>Paid apps are sold by their developers and paid for in cryptocurrency, sent directly from your wallet to the developer's and the store's public addresses. Blockchain payments can't be reversed, so check the app page, the amount and the network before you pay. Refunds are at the developer's discretion.</p>
       <h3>Advertising</h3>
       <p>Sponsored content is labelled "Sponsored" or "Ad" and links to third-party websites. Advertisers are solely responsible for their content, products and services. An ad is not an endorsement, and we are not responsible for anything on sites you visit through it.</p>
       <h3>Trademarks</h3>
@@ -1423,6 +1573,8 @@
     const d = $("#desc"), m = $("#more");
     if (d && m && d.scrollHeight > d.clientHeight + 4) m.hidden = false;
     document.title = pageTitle(p, arg);
+    track();
+    if (p === "submit") { const b = $("#dev-form .ts-box"); if (b) turnstileMount(b); }
   }
   const TITLES = { submit: "Submit an App – List Your App Free", advertise: "Advertise on the Omarchy Store", themes: "Omarchy Themes – Browse & Install Desktop Themes", charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed", updates: "Updates", usb: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", ignite: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", "get-omarchy": "Get Omarchy – How to Install Omarchy Linux (Free, Step by Step)", get: "Get Omarchy – How to Install Omarchy Linux (Free, Step by Step)" };
   function pageTitle(p, arg) {
@@ -1480,6 +1632,7 @@
     S.busy.add(a.id); rerender();
     try {
       const r = await post("/api/install", { id: a.id });
+      trackEvent("install", a.id);
       if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.statusText);
       toast(`Installing ${a.name} — follow the terminal window`);
       // Poll until the package shows up (install runs in a floating terminal and may ask for your password).
@@ -1589,6 +1742,14 @@
     } else if (t.matches(".sheet") && (e.target === t || t.classList.contains("lightbox"))) {
       closeSheet();
     }
+  });
+  document.addEventListener("click", (e) => {
+    const r = e.target.closest("[data-review],[data-rate]");
+    if (!r) return;
+    e.preventDefault();
+    if (r.matches("[data-review]")) return openReview(S.byId[r.dataset.review]);
+    const f = r.closest("form"); f.dataset.rating = r.dataset.rate;
+    f.querySelectorAll("[data-rate]").forEach((b) => b.classList.toggle("on", Number(b.dataset.rate) <= Number(r.dataset.rate)));
   });
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape") closeSheet();

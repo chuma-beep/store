@@ -20,3 +20,4 @@ site/theme-previews/
 site/themes/
 site/theme/
 site/plugins.json
+.wrangler/
