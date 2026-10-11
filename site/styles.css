@@ -874,7 +874,10 @@ html[data-look="white"] .brand .wordmark img[src*="wordmark-store"] { filter: sa
 /* keep the appearance switch reachable: the sidebar's bottom area sticks to the bottom while the list scrolls */
 @media (min-width: 721px) { .side-foot { position: sticky; bottom: -14px; padding-bottom: 14px; background: var(--sidebar); z-index: 2; }
   .side-foot { box-shadow: 0 -10px 14px -6px var(--sidebar); }
-  html[data-look="glass"] .side-foot { background: rgba(16,18,30,.92); box-shadow: 0 -12px 16px -4px rgba(16,18,30,.92); } }
+  /* Glass: the bottom panel is fully solid (nothing may show through the switch or the card) */
+  html[data-look="glass"] .side-foot { background: #11131f; box-shadow: 0 -14px 16px -2px #11131f; }
+  html[data-look="glass"] .side-foot .look-switch, html[data-look="glass"] .side-foot .mode-badge {
+    background: #1d2030 !important; backdrop-filter: none; -webkit-backdrop-filter: none; } }
 
 /* Community block: last thing on every page. Phones: compact 2-up tiles (icon, name, button), no long text. */
 .community { margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--line); }

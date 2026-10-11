@@ -18,8 +18,22 @@ for (const look of ["dark", "glass", "white"]) {
   const clicked = (await send("Runtime.evaluate", { returnByValue: true, expression: `(() => { const b = document.querySelector('.look-switch [data-look="${look}"]'); if (!b) return "no switch (width " + innerWidth + ")"; b.click(); return "ok"; })()` })).result.value;
   if (clicked !== "ok") console.log(look, clicked);
   await sleep(800);
-  await send("Runtime.evaluate", { expression: `document.querySelector(".sidebar").scrollTop = 1e6` });
-  await sleep(600);
+  // Overlap shows while the menu is scrolled PART way (at the very bottom nothing is under the panel), so test several positions.
+  const scan = (await send("Runtime.evaluate", { returnByValue: true, awaitPromise: true, expression: `(async () => {
+    const sb = document.querySelector(".sidebar"), out = [];
+    for (const y of [0, 150, 300, 450, 1e6]) {
+      sb.scrollTop = y; await new Promise((r) => setTimeout(r, 120));
+      const foot = document.querySelector(".side-foot").getBoundingClientRect();
+      // a link counts as "showing through" if its text is under the panel AND the panel isn't covering it
+      const under = [...sb.querySelectorAll("nav a")].filter((a) => { const r = a.getBoundingClientRect(); return r.bottom > foot.top + 2 && r.top < foot.bottom - 2; });
+      const hit = under.filter((a) => { const r = a.getBoundingClientRect(); const x = r.left + 40, yy = Math.min(Math.max(r.top + r.height / 2, foot.top + 3), foot.bottom - 3);
+        const el = document.elementFromPoint(x, yy); return el && a.contains(el); });
+      out.push({ y, under: under.length, visibleThrough: hit.length, footTop: Math.round(foot.top), footBottom: Math.round(foot.bottom), view: innerHeight });
+    }
+    sb.scrollTop = 300; return out;
+  })()` })).result.value;
+  console.log(look, JSON.stringify(scan));
+  await sleep(400);
   const r = await send("Runtime.evaluate", { returnByValue: true, expression: `(() => {
     // does any GET button sit within 4px of its row's right edge, or poke outside it?
     const bad = [...document.querySelectorAll(".chart .lockup")].slice(0, 30).filter((row) => {
