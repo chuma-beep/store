@@ -867,7 +867,6 @@
           <div class="lockup">${iconImg(a, 48)}<div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${esc(a.summary)}</div></div>${getBtn(a)}</div>
         </a>`;
       }).join("")}</div>
-      ${communityBlock()}
       ${shelf(collections[0].title, collections[0].apps.map((id) => S.byId[id]))}
       ${bannerAd()}
       ${plugShelf()}
@@ -1221,7 +1220,7 @@
         <a class="info-card" href="/submit/"><span class="go-n">${ico("plus")}</span><div><h3>Developers</h3><p>List your app for free, or ask about selling it.</p></div></a>
         <a class="info-card" href="/advertise/"><span class="go-n">${ico("megaphone")}</span><div><h3>Advertisers</h3><p>Banners and sponsored listings, clearly labelled.</p></div></a>
       </div>
-      ${soc.length ? communityBlock("Follow us") : ""}
+
       <section class="shelf"><div class="shelf-head"><h2>Report a problem with an app</h2></div>
         <p>Something wrong with a listing (broken install, wrong info, unsafe)? Email us with the app's name, or <a style="color:var(--accent)" href="${REPO}/issues" target="_blank" rel="noopener">open an issue on GitHub</a>.</p></section>
       ${footer()}
@@ -1733,12 +1732,12 @@
   }
 
   const notFound = () => `<div class="page"><div class="empty">That page doesn’t exist. <a style="color:var(--accent)" href="/">Back to Discover</a></div></div>`;
-  const footer = () => `<div class="footer-cta">
+  const footer = () => `${footerInner()}${communityBlock()}`;
+  const footerInner = () => `<div class="footer-cta">
     <a class="fc" href="/submit/"><span class="fc-i">${ico("plus")}</span><span><b>Made an app?</b>List it in the store for free</span></a>
     <a class="fc" href="/advertise/"><span class="fc-i">${ico("megaphone")}</span><span><b>Advertise with us</b>Reach Omarchy users</span></a>
     <a class="fc" href="/contact/"><span class="fc-i">${ico("mail")}</span><span><b>Contact us</b>${CONTACT_EMAIL}</span></a>
   </div>
-  ${communityBlock("Follow the Omarchy Store")}
   <div class="footer">
     <span class="disclaim">${DISCLAIMER_SHORT} <a href="/legal/">Full disclaimer</a></span>
     <span>Omarchy Store — unofficial, community-run. Not affiliated with Omarchy or Basecamp.</span>

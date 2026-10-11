@@ -876,3 +876,16 @@ html[data-look="white"] .brand .wordmark img[src*="wordmark-store"] { filter: sa
 /* keep the appearance switch reachable: the sidebar's bottom area sticks to the bottom while the list scrolls */
 @media (min-width: 721px) { .side-foot { position: sticky; bottom: -14px; padding-bottom: 14px; background: var(--sidebar); z-index: 2; }
   html[data-look="glass"] .side-foot { background: transparent; } }
+
+/* Community block: last thing on every page. Phones: compact 2-up tiles (icon, name, button), no long text. */
+.community { margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--line); }
+@media (max-width: 720px) {
+  .community { display: block; margin-top: 26px; }
+  .community .shelf-head h2 { font-size: 18px; }
+  .comm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .comm-card { flex-direction: column; align-items: center; text-align: center; gap: 8px; padding: 14px 8px; }
+  .comm-ico { width: 40px; height: 40px; border-radius: 12px; }
+  .comm-txt span { display: none; }
+  .comm-txt b { font-size: 14px; }
+  .comm-cta { padding: 6px 16px; font-size: 12px; }
+}
