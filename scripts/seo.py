@@ -314,7 +314,7 @@ def main():
                       + '</p>'
                     + (('<h2>More ' + (mode + ' ' if mode else '') + 'themes for Omarchy</h2><ul class="ssr-list">'
                         + "".join(theme_li(o) for o in [o for o in themes if o["id"] != t["id"] and (not mode or o.get("mode") == t.get("mode"))][:6]) + '</ul>'))
-                    + f'<p>Listed via <a href="{su(t["source_url"])}" rel="noopener">{e(src["name"])}</a>. {e(DISCLAIMER)}</p>')
+                    + f'<p>Listed via <a href="{su(t["source_url"])}" rel="noopener">{e({"omarchy.org": "Omarchy.org", "omarchytheme.com": "omarchytheme.com"}.get(t.get("via"), src["name"]))}</a>. {e(DISCLAIMER)}</p>')
             write(f"/theme/{t['id']}/", render(template, head(title, d, f"/theme/{t['id']}/", abs_url(t["image"]) if t.get("image") else OG_DEFAULT,
                                                               f"{t['name']} theme", [ld, crumbs(("Omarchy Store", "/"), ("Themes", "/themes/"), (t["name"], f"/theme/{t['id']}/"))]), body))
             urls.append((f"{SITE}/theme/{t['id']}/", (t.get("updated") or now)[:10], "0.6"))

@@ -14,7 +14,7 @@
   const INSTALLER = `curl -fsSL ${SITE}install.sh | bash`;
 
   const S = { catalog: null, byId: {}, themeById: {}, desktop: false, installed: new Set(), busy: new Set(), chartCat: "all",
-    themeFilter: "all", themeQ: "", themesHave: new Set(), themeNow: "",
+    themeFilter: "featured", themeQ: "", themesHave: new Set(), themeNow: "",
     plugins: null, plugById: {}, plugFilter: "popular", plugCat: "all", plugQ: "", plugShown: 60, plugsHave: new Set(), savers: null, saverF: "all", saverQ: "", saverShown: 60 };
   const $ = (s, el = document) => el.querySelector(s);
   const view = $("#view");
@@ -366,7 +366,8 @@
   }
 
 
-  // ---------- themes (directory data from omarchythemes.com, credited on every page) ----------
+  // ---------- themes (omarchythemes.com + omarchy.org/themes + omarchytheme.com, credited on every page) ----------
+  const themeVia = (t, src) => ({ "omarchy.org": "Omarchy.org", "omarchytheme.com": "omarchytheme.com" })[t.via] || src.name || "Omarchy Themes";
   // In the desktop app the local site copy has no preview images, so load them from the live site.
   const themeImg = (t) => !t.image ? "" : /^https:\/\//.test(t.image) ? t.image : (S.desktop ? SITE + t.image : "/" + t.image);
   const canInstallTheme = (t) => !!(t.builtin || t.repo);
@@ -397,6 +398,41 @@
     </a>`;
   }
 
+  // "Featured" order for themes: the most colourful, best-looking first, with neighbouring cards in
+  // different colours. Score = how vivid the palette is (saturation x a usable brightness) + a small
+  // bonus for stars and a preview picture. Then we deal them out round-robin by hue (red, orange,
+  // green, cyan, blue, purple, pink) so a row looks like a rainbow, not ten shades of grey.
+  function hsl(hex) {
+    const n = parseInt(String(hex).slice(1), 16); if (isNaN(n)) return [0, 0, 0];
+    const r = (n >> 16 & 255) / 255, g = (n >> 8 & 255) / 255, b = (n & 255) / 255;
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, d = mx - mn;
+    if (!d) return [0, 0, l];
+    const sat = d / (1 - Math.abs(2 * l - 1));
+    const h = mx === r ? ((g - b) / d + 6) % 6 : mx === g ? (b - r) / d + 2 : (r - g) / d + 4;
+    return [h * 60, sat, l];
+  }
+  function themeVivid(t) {
+    if (t._v !== undefined) return t._v;
+    const cols = (t.palette || []).slice(1).map(hsl).filter(([, s, l]) => l > 0.18 && l < 0.88);
+    const sat = cols.map(([, s]) => s).sort((a, b) => b - a);
+    const vivid = sat.length ? (sat[0] + (sat[1] || 0) + (sat[2] || 0)) / 3 : 0;
+    const hues = new Set(cols.filter(([, s]) => s > 0.35).map(([h]) => Math.floor(h / 45))).size;   // how many colour families
+    const bg = hsl(t.palette?.[0] || "#000");
+    t._hue = cols.length ? cols.reduce((best, c) => (c[1] > best[1] ? c : best))[0] : 0;
+    // t.vivid = how colourful the actual preview picture is (measured at build time, ~0-150).
+    const pic = t.vivid !== undefined ? Math.min(t.vivid, 110) / 30 : vivid;
+    t._v = pic * 1.6 + vivid * 0.8 + hues * 0.2 + bg[1] * 0.4 + (t.image ? 0.6 : -2) + Math.min(Math.log10((t.stars || 0) + 1), 2.5) * 0.3 - (t.archived ? 2 : 0);
+    return t._v;
+  }
+  function featuredThemes(n, pool) {
+    const ranked = (pool || S.catalog.themes).filter((t) => !t.builtin && t.image && t.palette?.length >= 3)
+      .sort((a, b) => themeVivid(b) - themeVivid(a)).slice(0, Math.max(n * 3, 30));
+    const buckets = [[], [], [], [], [], [], [], []];
+    for (const t of ranked) buckets[Math.floor(((t._hue % 360) + 360) % 360 / 45)].push(t);
+    const out = [];
+    while (out.length < n && buckets.some((b) => b.length)) for (const b of buckets) if (b.length && out.length < n) out.push(b.shift());
+    return out;
+  }
   function themeShelf(title, list, seeAll) {
     if (!list.length) return "";
     return `<section class="shelf">
@@ -405,11 +441,12 @@
     </section>`;
   }
 
-  const THEME_FILTERS = [["all", "All"], ["dark", "Dark"], ["light", "Light"], ["builtin", "Built into Omarchy"], ["popular", "Most starred"], ["new", "Recently updated"]];
+  const THEME_FILTERS = [["featured", "Featured"], ["all", "All"], ["dark", "Dark"], ["light", "Light"], ["builtin", "Built into Omarchy"], ["popular", "Most starred"], ["new", "Recently updated"]];
   const notBuiltinFirst = (l) => [...l.filter((t) => !t.builtin), ...l.filter((t) => t.builtin)];
   function themeList() {
     let l = notBuiltinFirst(S.catalog.themes);
     const f = S.themeFilter, q = S.themeQ.trim().toLowerCase();
+    if (f === "featured") { const top = featuredThemes(36); const seen = new Set(top); l = [...top, ...l.filter((t) => !seen.has(t)).sort((a, b) => themeVivid(b) - themeVivid(a))]; }
     if (f === "dark" || f === "light") l = l.filter((t) => t.mode === f);
     if (f === "builtin") l = l.filter((t) => t.builtin);
     if (f === "popular") l = l.filter((t) => t.stars).sort((a, b) => b.stars - a.stars);
@@ -429,7 +466,7 @@
     return `<div class="page">
       <h1 class="page-title">Themes</h1>
       ${themesBanner(true)}
-      <p class="page-sub">${all.length} community themes that recolor your whole Omarchy desktop: terminal, bar, launcher, lock screen and wallpaper. Directory from <a style="color:var(--accent)" href="${safeUrl(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a>.</p>
+      <p class="page-sub">${all.length} community themes that recolor your whole Omarchy desktop: terminal, bar, launcher, lock screen and wallpaper. Gathered from <a style="color:var(--accent)" href="https://omarchythemes.com" target="_blank" rel="noopener">omarchythemes.com</a>, the official <a style="color:var(--accent)" href="https://omarchy.org/themes/" target="_blank" rel="noopener">Omarchy.org</a> gallery and <a style="color:var(--accent)" href="https://omarchytheme.com" target="_blank" rel="noopener">omarchytheme.com</a>.</p>
       ${false && pick.length ? `<div class="scroller theme-hero">${pick.map((t) => `<a class="th-card" href="/theme/${t.id}/"><img src="${esc(themeImg(t))}" alt="" loading="eager">
         <div class="th-over"><div class="eyebrow">Most loved</div><h3>${esc(t.name)}</h3><div class="swatch">${swatches(t)}</div></div></a>`).join("")}</div>` : ""}
       <div class="theme-tools">
@@ -438,7 +475,7 @@
       </div>
       <div class="theme-grid" id="tgrid">${themeGridHtml()}</div>
       <div class="trust">${ico("ok")}<div>Themes only change colors, fonts and wallpapers; they don't install programs or need your password. Installing copies the theme from its GitHub page into <code>~/.config/omarchy/themes</code> and switches to it. Switch back any time from the Omarchy menu: <b>Super + Ctrl + Shift + Space</b>.
-        <div style="margin-top:6px">Themes are made by independent creators. Listing data courtesy of <a style="color:var(--accent)" href="${safeUrl(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a> by <a style="color:var(--accent)" href="${safeUrl(src.by_url)}" target="_blank" rel="noopener">${esc(src.by)}</a>.</div></div></div>
+        <div style="margin-top:6px">Themes are made by independent creators. Listing data courtesy of <a style="color:var(--accent)" href="${safeUrl(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a> by <a style="color:var(--accent)" href="${safeUrl(src.by_url)}" target="_blank" rel="noopener">${esc(src.by)}</a>, the <a style="color:var(--accent)" href="https://omarchy.org/themes/" target="_blank" rel="noopener">Omarchy.org theme gallery</a> and <a style="color:var(--accent)" href="https://omarchytheme.com" target="_blank" rel="noopener">omarchytheme.com</a> by limehawk.</div></div></div>
       ${footer()}
     </div>`;
   }
@@ -480,11 +517,11 @@
         <div class="info-grid">
           <div><div class="k">Creator</div><div class="v">${esc(t.author || "—")}</div></div>
           ${gh ? `<div><div class="k">Source code</div><a class="v" href="${esc(gh)}" target="_blank" rel="noopener">github.com/${esc(t.repo)}</a></div>` : ""}
-          <div><div class="k">Listed on</div><a class="v" href="${safeUrl(t.source_url)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Themes")}</a></div>
+          <div><div class="k">Listed on</div><a class="v" href="${safeUrl(t.source_url)}" target="_blank" rel="noopener">${esc(themeVia(t, src))}</a></div>
           ${canInstallTheme(t) ? `<div><div class="k">Install command</div><div class="v"><code class="small">${esc(themeCmd(t))}</code></div></div>` : ""}
         </div>
         <div class="trust">${ico("ok")}<div>${t.builtin ? "This theme ships with Omarchy, so nothing is downloaded: the store just switches to it." : "Installing copies this theme from its GitHub page into ~/.config/omarchy/themes and switches to it. Themes change colors and wallpapers only."}
-          <div style="margin-top:6px">Theme by ${esc(t.author || "its creator")} · listed via <a style="color:var(--accent)" href="${safeUrl(t.source_url)}" target="_blank" rel="noopener">${esc(src.name || "omarchythemes.com")}</a>. Third-party content, provided as-is: <a style="color:var(--accent)" href="/legal/">disclaimer</a>.</div></div></div>
+          <div style="margin-top:6px">Theme by ${esc(t.author || "its creator")} · listed via <a style="color:var(--accent)" href="${safeUrl(t.source_url)}" target="_blank" rel="noopener">${esc(themeVia(t, src))}</a>. Third-party content, provided as-is: <a style="color:var(--accent)" href="/legal/">disclaimer</a>.</div></div></div>
       </section>
       ${themeShelf(t.mode === "light" ? "More light themes" : "More dark themes", more, "/themes/")}
       ${footer()}
@@ -809,7 +846,7 @@
       ${bannerAd()}
       ${plugShelf()}
       ${saverShelf()}
-      ${themeShelf("Make it yours: Themes", S.catalog.themes.filter((t) => !t.builtin && t.palette?.length && t.image).slice(0, 14), "/themes/")}
+      ${themeShelf("Make it yours: Themes", featuredThemes(14), "/themes/")}
       <section class="shelf">
         <div class="shelf-head"><h2>Top Charts</h2><a href="/charts/">See All</a></div>
         <div class="scroller rows3">${apps.slice(0, 12).map((a, i) => lockup(a, { rank: i + 1 })).join("")}</div>
@@ -858,11 +895,8 @@
   }
   const fico = (n) => `<svg viewBox="0 0 24 24">${FICON[n] || ""}</svg>`;
   function themesBanner(onPage = false) {
-    const th = S.catalog.themes.filter((t) => t.image && t.palette?.length && t.mode !== "light");
-    if (th.length < 12) return "";
-    const pick = [];
-    const step = Math.floor(th.length / 12);
-    for (let i = 0; i < 12; i++) pick.push(th[i * step]);
+    const pick = featuredThemes(12, S.catalog.themes.filter((t) => t.mode !== "light"));
+    if (pick.length < 12) return "";
     const creators = new Set(S.catalog.themes.map((t) => t.author).filter(Boolean)).size;
     const tag = onPage ? "div" : "a";
     return `<${tag} class="spot full theme-spot${onPage ? " on-page" : ""}" ${onPage ? `role="button" tabindex="0" onclick="document.getElementById('tgrid')?.scrollIntoView({behavior:'smooth'})"` : `href="/themes/"`}>

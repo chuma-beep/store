@@ -30,6 +30,8 @@ jobs:
           python-version: "3.12"
       - name: Add new apps from the official Omarchy package repo
         run: python3 scripts/omarchy_repo.py --write
+      - name: ImageMagick (measures how colourful each theme preview is, for Featured themes)
+        run: command -v convert >/dev/null || (sudo apt-get update -qq && sudo apt-get install -y -qq imagemagick)
       - name: Build catalog from live data
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

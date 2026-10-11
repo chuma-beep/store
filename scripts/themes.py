@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Collect Omarchy themes for the store's Themes section.
 
-Source: https://omarchythemes.com (community directory by Mubs — credited on every
-theme page). For each theme we read its name, author, preview and GitHub repo, then
+Sources (each credited on every theme it contributed):
+  1. https://omarchythemes.com — community directory by Mubs
+  2. https://omarchy.org/themes/ — the official Omarchy site's theme gallery
+  3. https://omarchytheme.com — gallery by limehawk (MIT, data read from its public GitHub repo)
+Themes found in several places are listed once (matched by GitHub repo). For each theme we read its name, author, preview and GitHub repo, then
 ask GitHub for stars, last update and the theme's colors.toml (palette swatches +
 dark/light detection). Previews are mirrored into site/themes/img/ so we never
 hotlink their server.
@@ -11,7 +14,7 @@ Used by build.py (adds "themes" to catalog.json). Run alone to test:
   python3 scripts/themes.py            # prints a summary, writes nothing
 Stdlib only. Set GITHUB_TOKEN for colors/stars (GraphQL needs a token).
 """
-import html, json, os, re, sys, time, urllib.error, urllib.request
+import html, json, os, re, sys, time, urllib.error, urllib.parse, urllib.request
 from concurrent.futures import ThreadPoolExecutor
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -64,6 +67,62 @@ def listing():
         out.append({"slug": slug, "name": html.unescape(img.group(2)) if img else slug.replace("-", " ").title(),
                     "author": html.unescape(by.group(1)) if by else "", "thumb": img.group(1) if img else None})
     return out
+
+
+# ---- extra sources -------------------------------------------------------------
+OFFICIAL = "https://omarchy.org/themes/"
+LIMEHAWK_DATA = "https://raw.githubusercontent.com/limehawk/omarchy-theme-website/main/src/data/themes-data.json"
+LIMEHAWK = "https://omarchytheme.com"
+OFFICIAL_IMG_RE = re.compile(r"^https://omarchy\.org/assets/themes/[a-z0-9-]+\.(webp|png|jpg)$")
+RAW_IMG_RE = re.compile(r"^https://raw\.githubusercontent\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+/[^?#]+\.(png|jpe?g|webp|gif)$", re.I)
+
+
+def slugify(s):
+    return re.sub(r"-+", "-", re.sub(r"[^a-z0-9]+", "-", s.lower())).strip("-")[:80] or "theme"
+
+
+def official_listing():
+    """omarchy.org/themes/: <a href="https://github.com/O/R"><img src="/assets/themes/x.webp" alt="Name theme screenshot">"""
+    page = fetch(OFFICIAL) or ""
+    out = []
+    for m in re.finditer(r'<a[^>]+href="(https://github\.com/[^"]+)"[^>]*>(.*?)</a>', page, re.S):
+        img = re.search(r'<img[^>]+src="([^"]+)"[^>]*alt="([^"]*?) theme screenshot"', m.group(2)) or \
+              re.search(r'<img[^>]+alt="([^"]*?) theme screenshot"[^>]*src="([^"]+)"', m.group(2))
+        if not img:
+            continue
+        src, name = (img.group(1), img.group(2)) if "src=" in img.group(0)[:img.group(0).find("alt=")] else (img.group(2), img.group(1))
+        src = urllib.parse.urljoin(OFFICIAL, html.unescape(src))
+        rm = REPO_RE.match(m.group(1))
+        if rm:
+            out.append({"name": html.unescape(name), "repo": f"{rm.group(1)}/{rm.group(2)}",
+                        "img": src if OFFICIAL_IMG_RE.match(src) else None, "source_url": OFFICIAL, "via": "omarchy.org"})
+    return out
+
+
+def limehawk_listing():
+    try:
+        data = json.loads(fetch(LIMEHAWK_DATA) or "[]")
+    except Exception:
+        return []
+    out = []
+    for x in data:
+        if x.get("is_builtin"):
+            continue
+        rm = REPO_RE.match(str(x.get("github_url") or ""))
+        if not rm:
+            continue
+        img = str(x.get("preview_url") or "")
+        slug = str(x.get("slug") or "")
+        out.append({"name": str(x.get("name") or rm.group(2)), "repo": f"{rm.group(1)}/{rm.group(2)}",
+                    "author": str(x.get("github_owner") or ""), "description": str(x.get("description") or "")[:300],
+                    "apps": [a for a in (json.loads(x["apps_json"]) if x.get("apps_json") else []) if re.match(r"^[a-z0-9 _-]{2,20}$", str(a))],
+                    "img": img if RAW_IMG_RE.match(img) else None,
+                    "source_url": f"{LIMEHAWK}/themes/{slug}/" if SLUG_RE.match(slug) else LIMEHAWK, "via": "omarchytheme.com"})
+    return out
+
+
+SOURCES = {"omarchythemes.com": ("omarchythemes.com", "https://omarchythemes.com"),
+           "omarchy.org": ("Omarchy.org", OFFICIAL), "omarchytheme.com": ("omarchytheme.com", LIMEHAWK)}
 
 
 def detail(t):
@@ -154,7 +213,7 @@ IMG_SIGS = {b"\xff\xd8\xff": ".jpg", b"\x89PNG": ".png", b"RIFF": ".webp", b"GIF
 
 
 def mirror(slug, url):
-    if not url or not url.startswith(SRC + "/"):
+    if not url or not (url.startswith(SRC + "/") or OFFICIAL_IMG_RE.match(url) or RAW_IMG_RE.match(url)):
         return None
     data = fetch(url, binary=True)
     if not data:
@@ -168,11 +227,64 @@ def mirror(slug, url):
     return f"theme-previews/{slug}{ext}"
 
 
+def vividness(path):
+    """How colourful a preview picture looks (Hasler & Suesstrunk 'colorfulness', ~0-120). Uses ImageMagick
+    (installed on GitHub's build machines and Omarchy) to shrink the picture to 48x48 raw RGB pixels."""
+    import shutil, subprocess
+    full = os.path.join(ROOT, "site", path)
+    try:
+        exe = shutil.which("magick") and ["magick"] or ["convert"]
+        raw = subprocess.run(exe + [full + "[0]", "-resize", "48x48!", "-depth", "8", "rgb:-"],
+                             capture_output=True, timeout=20).stdout
+    except Exception:
+        return None
+    if len(raw) < 48 * 48 * 3:
+        return None
+    rg, yb, light = [], [], []
+    for i in range(0, len(raw) - 2, 3):
+        r, g, b = raw[i], raw[i + 1], raw[i + 2]
+        rg.append(r - g); yb.append((r + g) / 2 - b); light.append((r + g + b) / 3)
+    mean = lambda v: sum(v) / len(v)
+    sd = lambda v, m: (sum((x - m) ** 2 for x in v) / len(v)) ** 0.5
+    mrg, myb = mean(rg), mean(yb)
+    c = (sd(rg, mrg) ** 2 + sd(yb, myb) ** 2) ** 0.5 + 0.3 * (mrg ** 2 + myb ** 2) ** 0.5
+    ml = mean(light)
+    if ml < 35:          # almost-black screenshots look dull on a card even when the accents are bright
+        c *= 0.7
+    # Mostly one flat colour (a blank wallpaper with no windows) looks empty as a featured card.
+    rows = [mean(light[r * 48:(r + 1) * 48]) for r in range(48)]
+    edges = mean([abs(light[i] - light[i + 1]) for i in range(len(light) - 1) if (i + 1) % 48])
+    if edges < 6 or sd(rows, mean(rows)) + sd(light, ml) < 22:
+        c *= 0.35
+    return round(c, 1)
+
+
 def collect(mirror_images=True):
     base = listing()
     print(f"Themes: {len(base)} listed on omarchythemes.com — reading details…")
     with ThreadPoolExecutor(4) as ex:  # be gentle with a small community site
         themes = list(ex.map(detail, base))
+    # Add themes the other two galleries list that omarchythemes.com doesn't (same GitHub repo = same theme).
+    for t in themes:
+        t["via"] = "omarchythemes.com"
+    have = {t["repo"].lower() for t in themes if t["repo"]}
+    ids = {t["slug"] for t in themes}
+    extra = official_listing() + limehawk_listing()
+    print(f"  + omarchy.org / omarchytheme.com list {len(extra)} entries")
+    for x in extra:
+        k = x["repo"].lower()
+        if k in have:
+            continue
+        have.add(k)
+        slug = slugify(x["name"])
+        if slug in ids:
+            slug = slugify(x["repo"].replace("/", "-"))
+        if slug in ids or not SLUG_RE.match(slug):
+            continue
+        ids.add(slug)
+        themes.append({"slug": slug, "name": x["name"], "author": x.get("author") or x["repo"].split("/")[0],
+                       "thumb": x.get("img"), "preview_src": x.get("img"), "repo": x["repo"], "apps": x.get("apps") or [],
+                       "description": x.get("description") or "", "via": x["via"], "source": x["source_url"]})
     repos = sorted({t["repo"] for t in themes if t["repo"]})
     g = github(repos)
     built = set(builtins())
@@ -183,6 +295,8 @@ def collect(mirror_images=True):
         if t["repo"] and v and not (root & THEME_FILES):
             print(f"  skip repo for {t['slug']}: {t['repo']} doesn't look like a theme", file=sys.stderr)
             t["repo"], v = None, {}
+        if t["via"] != "omarchythemes.com" and (not v or not t["repo"] or v.get("isArchived")):
+            continue  # extra sources: only list themes whose repo exists, is live and is a real theme
         # Built into Omarchy? (no repo needed — the store just switches to it)
         bname = t["slug"] if t["slug"] in built else (theme_name(t["repo"]) if t["repo"] and theme_name(t["repo"]) in built else None)
         colors = parse_colors((v.get("colors") or {}).get("text"))
@@ -204,7 +318,8 @@ def collect(mirror_images=True):
             "apps": t["apps"], "mode": mode, "palette": palette,
             "backgrounds": len(((v.get("bg") or {}).get("entries")) or []),
             "stars": v.get("stargazerCount"), "updated": v.get("pushedAt"), "archived": v.get("isArchived"),
-            "source_url": f"{SRC}/themes/{t['slug']}",
+            "source_url": t.get("source") or f"{SRC}/themes/{t['slug']}",
+            "via": t["via"],
             "_thumb": t["thumb"], "_preview": t["preview_src"],
         })
     if mirror_images:
@@ -216,6 +331,11 @@ def collect(mirror_images=True):
     for t, p in zip(out, paths):
         t["image"] = p
         del t["_thumb"], t["_preview"]
+    if mirror_images:
+        with ThreadPoolExecutor(8) as ex:
+            for t, v in zip(out, ex.map(lambda t: vividness(t["image"]) if t["image"] else None, out)):
+                if v is not None:
+                    t["vivid"] = v
     # Installable themes first, then by stars, then name.
     out.sort(key=lambda t: (not (t["repo"] or t["builtin"]), -(t["stars"] or 0), t["name"].lower()))
     return out
