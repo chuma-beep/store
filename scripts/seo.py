@@ -107,6 +107,14 @@ def app_li(a):
 def main():
     cat = json.load(open(os.path.join(OUT, "catalog.json")))
     template = open(os.path.join(ROOT, "site", "index.html"), encoding="utf-8").read()
+    # Cache-busting: every deploy points pages at this exact version of styles/app code,
+    # so browsers (phones especially) never mix new pages with an old saved stylesheet.
+    import hashlib
+    def _ver(f):
+        try: return hashlib.sha1(open(os.path.join(ROOT, "site", f), "rb").read()).hexdigest()[:10]
+        except OSError: return "0"
+    template = (template.replace('href="/styles.css"', f'href="/styles.css?v={_ver("styles.css")}"')
+                        .replace('src="/app.js"', f'src="/app.js?v={_ver("app.js")}"'))
     apps, cats = cat["apps"], cat["categories"]
     cname = {c["id"]: c["name"] for c in cats}
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
