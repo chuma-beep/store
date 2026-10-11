@@ -744,8 +744,8 @@
     if (!S.savers) { loadSavers(); return ""; }
     if (!S.plugins) return "";
     // Plugin objects carry their own "r" (repo) field, so tag each entry explicitly instead of guessing by shape.
-    const l = (S.savers.plugins || []).filter((p) => p.k === "saver").map((p) => S.plugById[p.id]).filter((x) => x && x.img).slice(0, 8).map((p) => ({ p }))
-      .concat((S.savers.repos || []).filter((r) => r.k === "saver" && r.img).slice(0, 8).map((r) => ({ repo: r })));
+    // Discover shows only one-click (GET) screensavers; VIEW-only ones stay on the Screensavers page.
+    const l = (S.savers.plugins || []).filter((p) => p.k === "saver").map((p) => S.plugById[p.id]).filter((x) => x && x.img && x.i).slice(0, 12).map((p) => ({ p }));
     if (!l.length) return "";
     return `<section class="shelf"><div class="shelf-head"><h2>Screensavers</h2><a href="/screensavers/">See All ${S.savers.count}</a></div>
       <div class="scroller plug-row">${l.map((x) => x.repo ? saverCard(x.repo) : plugCard(x.p)).join("")}</div></section>`;
