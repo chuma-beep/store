@@ -97,16 +97,19 @@
   };
   // Official accounts. Fill in a link and it appears in the footer and on the Contact page.
   const CONTACT_EMAIL = "info@omarchystore.com";
+  // `what` is the one-line reason to follow, shown on the big Community cards.
   const SOCIALS = [
-    { id: "x", name: "X", url: "" },
-    { id: "instagram", name: "Instagram", url: "https://www.instagram.com/omarchystore/" },
-    { id: "tiktok", name: "TikTok", url: "https://www.tiktok.com/@omarchy.store" },
-    { id: "youtube", name: "YouTube", url: "https://www.youtube.com/@OmarchyStore" },
-    { id: "telegram", name: "Telegram", url: "https://t.me/omarchystore" },
+    { id: "discord", name: "Discord", url: "https://discord.gg/zC5P7VtcZH", what: "Chat, get help, show your setup", cta: "Join" },
+    { id: "youtube", name: "YouTube", url: "https://www.youtube.com/@OmarchyStore", what: "Themes and apps in action", cta: "Subscribe" },
+    { id: "tiktok", name: "TikTok", url: "https://www.tiktok.com/@omarchy.store", what: "Daily themes in 20 seconds", cta: "Follow" },
+    { id: "instagram", name: "Instagram", url: "https://www.instagram.com/omarchystore/", what: "Desktop setups and reels", cta: "Follow" },
+    { id: "x", name: "X", url: "https://x.com/omarchystore", what: "Store news and new apps", cta: "Follow" },
+    { id: "telegram", name: "Telegram", url: "https://t.me/omarchystore", what: "App of the day + search bot", cta: "Join" },
     { id: "whatsapp", name: "WhatsApp", url: "" },
   ];
   const SOC_ICO = {
-    x: '<path d="M4 4l16 16M20 4L4 20" />',
+    x: '<path class="fill" d="M17.8 3h3.1l-6.8 7.7L22 21h-6.2l-4.9-6.3L5.3 21H2.2l7.2-8.3L2 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/>',
+    discord: '<path class="fill" d="M19.6 5.3A16.5 16.5 0 0 0 15.5 4l-.5 1a15.3 15.3 0 0 0-6 0L8.5 4a16.5 16.5 0 0 0-4.1 1.3C1.8 9.2 1.1 13 1.4 16.7A16.6 16.6 0 0 0 6.5 19.3l1.1-1.8a10.7 10.7 0 0 1-1.7-.8l.4-.3a11.8 11.8 0 0 0 11.4 0l.4.3c-.5.3-1.1.6-1.7.8l1.1 1.8a16.5 16.5 0 0 0 5.1-2.6c.4-4.3-.7-8.1-3-11.4zM8.7 14.5c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2z"/>',
     instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/>',
     tiktok: '<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 3 2.5 5 5.5 5"/>',
     youtube: '<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z"/>',
@@ -114,7 +117,16 @@
     whatsapp: '<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 1c-1-.5-2-1.5-2.5-2.5l1-1-1-2z"/>',
   };
   const liveSocials = () => SOCIALS.filter((s) => s.url);
-  const socialRow = () => liveSocials().length ? `<div class="socials"><span class="soc-label">Follow us</span>${liveSocials().map((s) => `<a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.name}" title="${s.name}"><svg viewBox="0 0 24 24">${SOC_ICO[s.id]}</svg></a>`).join("")}</div>` : "";
+  const socIcon = (s) => `<svg viewBox="0 0 24 24">${SOC_ICO[s.id]}</svg>`;
+  // Prominent "Join the community" block: one coloured card per platform.
+  const communityBlock = (title = "Join the Omarchy Store community") => liveSocials().length ? `<section class="shelf community">
+      <div class="shelf-head"><h2>${title}</h2><a href="/contact/">All links</a></div>
+      <div class="comm-grid">${liveSocials().map((s) => `<a class="comm-card soc-${s.id}" href="${s.url}" target="_blank" rel="noopener">
+        <span class="comm-ico">${socIcon(s)}</span>
+        <span class="comm-txt"><b>${s.name}</b><span>${esc(s.what || "")}</span></span>
+        <span class="comm-cta">${s.cta || "Follow"}</span></a>`).join("")}</div>
+    </section>` : "";
+  const socialRow = () => liveSocials().length ? `<div class="socials"><span class="soc-label">Follow us</span>${liveSocials().map((s) => `<a class="soc-${s.id}" href="${s.url}" target="_blank" rel="noopener" aria-label="${s.name}" title="${s.name}">${socIcon(s)}</a>`).join("")}</div>` : "";
   const ico = (n) => `<svg viewBox="0 0 24 24">${ICONS[n] || ""}</svg>`;
   const CAT_COLORS = ["#0a84ff", "#5e5ce6", "#bf5af2", "#ff375f", "#ff9f0a", "#ff453a", "#30d158", "#64d2ff", "#32ade6", "#ac8e68", "#8e8e93"];
 
@@ -181,6 +193,7 @@
       <a href="/" data-r="">${ico("discover")}Discover</a>
       <a href="/charts/" data-r="charts">${ico("charts")}Top Charts</a>
       <a href="/categories/" data-r="categories">${ico("grid")}Categories</a>
+      <div class="nav-socials m-hide">${liveSocials().map((x) => `<a class="soc-${x.id}" href="${x.url}" target="_blank" rel="noopener" title="${x.name}" aria-label="${x.name}"><svg viewBox="0 0 24 24">${SOC_ICO[x.id]}</svg></a>`).join("")}</div>
       ${S.catalog.themes.length ? `<a class="d-hide" href="/themes/" data-r="themes">${ico("palette")}Themes</a>` : ""}
       <a class="d-hide" href="/plugins/" data-r="plugins">${ico("puzzle")}Plugins</a>
       <a class="d-hide" href="/screensavers/" data-r="screensavers">${ico("moon")}Screensavers</a>
@@ -196,7 +209,8 @@
       <a class="m-hide" href="/submit/" data-r="submit">${ico("plus")}Submit an app</a>
       <a class="m-hide" href="/advertise/" data-r="advertise">${ico("megaphone")}Advertise with us</a>
       <a class="m-hide" href="/contact/" data-r="contact">${ico("mail")}Contact us</a>
-      <a class="m-hide" href="https://t.me/omarchystore" target="_blank" rel="noopener"><svg viewBox="0 0 24 24">${SOC_ICO.telegram}</svg>Telegram channel</a>`;
+      <div class="sec m-hide">Community</div>
+      ${liveSocials().map((s) => `<a class="m-hide nav-soc soc-${s.id}" href="${s.url}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24">${SOC_ICO[s.id]}</svg>${s.name}</a>`).join("")}`;
   }
   function markNav(r) {
     document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("on", a.dataset.r === r || a.dataset.r === r + "-cat"));
@@ -842,6 +856,7 @@
           <div class="lockup">${iconImg(a, 48)}<div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${esc(a.summary)}</div></div>${getBtn(a)}</div>
         </a>`;
       }).join("")}</div>
+      ${communityBlock()}
       ${shelf(collections[0].title, collections[0].apps.map((id) => S.byId[id]))}
       ${bannerAd()}
       ${plugShelf()}
@@ -1195,8 +1210,7 @@
         <a class="info-card" href="/submit/"><span class="go-n">${ico("plus")}</span><div><h3>Developers</h3><p>List your app for free, or ask about selling it.</p></div></a>
         <a class="info-card" href="/advertise/"><span class="go-n">${ico("megaphone")}</span><div><h3>Advertisers</h3><p>Banners and sponsored listings, clearly labelled.</p></div></a>
       </div>
-      ${soc.length ? `<section class="shelf"><div class="shelf-head"><h2>Follow us</h2></div>
-        <div class="soc-big">${soc.map((s) => `<a href="${s.url}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24">${SOC_ICO[s.id]}</svg>${s.name}</a>`).join("")}</div></section>` : ""}
+      ${soc.length ? communityBlock("Follow us") : ""}
       <section class="shelf"><div class="shelf-head"><h2>Report a problem with an app</h2></div>
         <p>Something wrong with a listing (broken install, wrong info, unsafe)? Email us with the app's name, or <a style="color:var(--accent)" href="${REPO}/issues" target="_blank" rel="noopener">open an issue on GitHub</a>.</p></section>
       ${footer()}
@@ -1713,7 +1727,7 @@
     <a class="fc" href="/advertise/"><span class="fc-i">${ico("megaphone")}</span><span><b>Advertise with us</b>Reach Omarchy users</span></a>
     <a class="fc" href="/contact/"><span class="fc-i">${ico("mail")}</span><span><b>Contact us</b>${CONTACT_EMAIL}</span></a>
   </div>
-  ${socialRow()}
+  ${communityBlock("Follow the Omarchy Store")}
   <div class="footer">
     <span class="disclaim">${DISCLAIMER_SHORT} <a href="/legal/">Full disclaimer</a></span>
     <span>Omarchy Store — unofficial, community-run. Not affiliated with Omarchy or Basecamp.</span>
