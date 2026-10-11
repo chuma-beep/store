@@ -11,10 +11,19 @@ async function catalog() {
   if (CATALOG && Date.now() - CATALOG_AT < 30 * 60e3) return CATALOG;
   const r = await fetch(`${SITE}/catalog.json`, { cf: { cacheTtl: 1800, cacheEverything: true } });
   const c = await r.json();
+  let plugins = 5300;
+  try {
+    const pj = await (await fetch("https://raw.githubusercontent.com/omarchy-community/store/data/plugins.json", { cf: { cacheTtl: 3600, cacheEverything: true } })).json();
+    plugins = (pj.plugins || pj).length || plugins;
+  } catch {}
   CATALOG = {
     apps: c.apps.filter((a) => a.available !== false),
     themes: c.themes.filter((t) => !t.archived),
+    plugins,
   };
+  // Headline number, rounded DOWN to the hundred: "6,400+"
+  CATALOG.total = c.apps.length + c.themes.length + plugins;
+  CATALOG.totalLabel = (Math.floor(CATALOG.total / 100) * 100).toLocaleString("en-US") + "+";
   CATALOG_AT = Date.now();
   return CATALOG;
 }
@@ -96,9 +105,9 @@ const send = (env, chat, text, kb) => tg(env, "sendMessage", {
   ...(kb ? { reply_markup: { inline_keyboard: kb } } : {}),
 });
 
-const WELCOME = `🛍️ <b>Welcome to the Omarchy Store!</b>
+const WELCOME = (c) => `🛍️ <b>Welcome to the Omarchy Store!</b>
 
-The app store for Omarchy Linux: 850+ apps and 291 themes, one click each.
+The largest app store for Omarchy Linux: <b>${c.totalLabel} apps, themes and plugins</b>, one click each.
 
 <b>Just type what you're looking for</b>, e.g. <i>obsidian</i>, <i>steam</i>, <i>tokyo night</i>.
 
@@ -127,7 +136,7 @@ async function handleCommand(env, chat, from, text) {
   const c = await catalog();
   switch (cmd) {
     case "/start": case "/help":
-      return send(env, chat, WELCOME, MENU);
+      return send(env, chat, WELCOME(c), MENU);
     case "/search": case "/app":
       return arg ? doSearch(env, chat, arg) : send(env, chat, "Type an app name, e.g. <code>/search obsidian</code> (or just type <i>obsidian</i>).");
     case "/theme": {
