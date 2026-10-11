@@ -28,14 +28,14 @@
     "featured/snapdock/backup.webp"
   ],
   "summary": "A frosted glass dock for Omarchy, plus Windows-style snapping, smart title bars, one-click screenshots and automatic backups.",
-  "description": "SnapDock gives Omarchy a beautiful frosted glass dock, and makes your desktop feel instantly familiar if you're coming from Windows or macOS.\n\nA DOCK MADE OF GLASS\nA frosted glass dock floats at the bottom of your screen and blurs whatever is behind it, like the dock on a Mac. It recolours itself every time you switch Omarchy themes. Or choose your own: theme, theme accent, theme dark, black, white or any colour code, with four glass levels from solid to strong. Running apps get a little dot. The dock is set up for you the first time, with your files, terminal and browser pinned and only apps you actually have.\n\nPIN WHAT YOU USE\nPin and unpin apps from SnapDock's menu: it lists every app on your computer. Built-in buttons include Reboot (asks first, so no accidents), Screenshot and Settings, plus an all-apps button that opens Omarchy's app list. Turn the dock off and on any time.\n\nSNAP LIKE WINDOWS\nArrange windows exactly like Windows 11:\n• Super + arrow keys: left or right half, then the same arrow again for a quarter, up to fill the screen, down to put it back.\n• Drag a window to a screen edge for half, a corner for a quarter, or the top to fill. A see-through preview shows where it will land.\n• Super + Z, or the ⊞ button on any title bar, shows every layout: halves, quarters, thirds, two-thirds, fill and centre.\n\nSNAP ASSIST\nSnap one window and SnapDock offers your other open windows to fill the space that's left. Click one and your side-by-side layout is done.\n\nSMART TITLE BARS\nWith Omarchy's title bars on, every window gets snap ⊞ and maximize □ buttons next to close. Double-click a title bar to maximize or restore. The buttons follow your theme colours.\n\nRESIZE FROM ANY EDGE\nGrab any window edge with the mouse and drag to resize it, snapped windows included.\n\nSCREENSHOTS IN ONE CLICK\nTap the camera on the dock or press Shift + Print. The whole screen is copied to your clipboard and saved in Pictures.\n\nYOUR SETUP, ALWAYS SAFE\nBefore SnapDock changes anything, it saves your current desktop settings to a backup file in your Downloads folder. Save a new backup any time, and restore any backup from the menu. Uninstalling offers to put back your exact setup from before SnapDock.\n\nFIXES ITSELF\n\"Check for problems\" finds the usual conflicts (two docks, settings errors, missing parts), saves a report you can send for help, and repairs SnapDock in one click.\n\nMADE FOR OMARCHY\nEverything lives in Omarchy's own menu style and theme colours. Updates show up in the Omarchy Store's Updates tab and inside SnapDock. Early adopters get every future update free, for life.",
+  "description": "SnapDock gives Omarchy a beautiful frosted glass dock, and makes your desktop feel instantly familiar if you're coming from Windows or macOS.\n\nA DOCK MADE OF GLASS\nA frosted glass dock floats at the bottom of your screen and blurs whatever is behind it, like the dock on a Mac. It recolours itself every time you switch Omarchy themes. Or choose your own: theme, theme accent, theme dark, black, white or any colour code, with four glass levels from solid to strong. Running apps get a little dot. The dock is set up for you the first time, with your files, terminal and browser pinned and only apps you actually have.\n\nPIN WHAT YOU USE\nPin and unpin apps from SnapDock's menu: it lists every app on your computer. Built-in buttons include Reboot (asks first, so no accidents), Screenshot and Settings, plus an all-apps button that opens Omarchy's app list. Turn the dock off and on any time.\n\nSNAP LIKE WINDOWS\nArrange windows exactly like Windows 11:\n• Super + arrow keys: left or right half, then the same arrow again for a quarter, up to fill the screen, down to put it back.\n• Drag a window to a screen edge for half, a corner for a quarter, or the top to fill. A see-through preview shows where it will land.\n• Super + Z, or the ⊞ button on any title bar, shows every layout: halves, quarters, thirds, two-thirds, fill and centre.\n\nSNAP ASSIST\nSnap one window and SnapDock offers your other open windows to fill the space that's left. Click one and your side-by-side layout is done.\n\nSMART TITLE BARS\nWith Omarchy's title bars on, every window gets snap ⊞ and maximize □ buttons next to close. Double-click a title bar to maximize or restore. The buttons follow your theme colours.\n\nRESIZE FROM ANY EDGE\nGrab any window edge with the mouse and drag to resize it, snapped windows included.\n\nSCREENSHOTS IN ONE CLICK\nTap the camera on the dock or press Shift + Print. The whole screen is copied to your clipboard and saved in Pictures.\n\nYOUR SETUP, ALWAYS SAFE\nBefore SnapDock changes anything, it saves your current desktop settings to a backup file in your Downloads folder. Save a new backup any time, and restore any backup from the menu. Uninstalling offers to put back your exact setup from before SnapDock.\n\nFIXES ITSELF\n\"Check for problems\" finds the usual conflicts (two docks, settings errors, missing parts), saves a report you can send for help, and repairs SnapDock in one click.\n\nMADE FOR OMARCHY\nEverything lives in Omarchy's own menu style and theme colours. Updates show up in the Omarchy Store's Updates tab and inside SnapDock.\n\nFREE FOR A LIMITED TIME\nSnapDock is free during launch. Get it now and you keep free updates for life, even after it becomes a paid app.",
   "featured": {
     "badge": "Editors' Choice",
     "eyebrow": "FEATURED APP",
     "headline": "A frosted glass dock for Omarchy.",
     "tagline": "Plus Windows-style snapping, Snap Assist, smart title bars, one-click screenshots and automatic backups of your setup.",
     "price": "Free",
-    "launch_offer": "Early adopters get lifetime updates free",
+    "launch_offer": "Limited time · free updates for life",
     "gradient": [
       "#1b1640",
       "#2f47b8",
@@ -179,7 +179,7 @@
     "faq": [
       {
         "q": "Is SnapDock free?",
-        "a": "Yes — and everyone who installs it during launch is an early adopter: you get lifetime updates at no cost, even if SnapDock becomes a paid app later."
+        "a": "Yes, for a limited time. SnapDock is free during launch, and if you get it now you keep free updates for life, even after it becomes a paid app."
       },
       {
         "q": "Does it work with my theme?",
@@ -211,8 +211,8 @@
       }
     ],
     "promise": {
-      "title": "Early adopters get lifetime updates — free",
-      "body": "Install SnapDock now and every future version is yours at no cost, forever — even if it becomes a paid app later. Updates show up in the store's Updates tab."
+      "title": "Free for a limited time. Free updates for life.",
+      "body": "SnapDock is free during launch. Get it now and every future update is yours at no cost, for life, even after SnapDock becomes a paid app. Updates show up in the store's Updates tab."
     },
     "chips": [
       "Frosted glass dock",
