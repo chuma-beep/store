@@ -1,0 +1,21 @@
+// Menu scrolls to the very last link (Telegram) on a short window; phone layout still has its top menu.
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const base = process.argv[2] || "http://127.0.0.1:8794";
+const tabs = await (await fetch("http://127.0.0.1:9346/json")).json();
+const ws = new WebSocket(tabs.find((t) => t.type === "page").webSocketDebuggerUrl);
+await new Promise((r) => (ws.onopen = r));
+let id = 0; const wait = {};
+const send = (m, p = {}) => new Promise((res) => { const i = ++id; wait[i] = res; ws.send(JSON.stringify({ id: i, method: m, params: p })); });
+ws.onmessage = (m) => { const d = JSON.parse(m.data); if (d.id && wait[d.id]) { wait[d.id](d.result || d.error); delete wait[d.id]; } };
+const ev = async (x) => (await send("Runtime.evaluate", { expression: x, returnByValue: true })).result?.value;
+await send("Emulation.setDeviceMetricsOverride", { width: 1253, height: 600, deviceScaleFactor: 1, mobile: false });
+await send("Page.navigate", { url: base + "/" }); await sleep(5000);
+console.log("desktop:", JSON.stringify(await ev(`(() => { const n = document.querySelector(".sidebar nav"); n.scrollTop = 1e6;
+  const last = [...n.querySelectorAll("a")].pop(), r = last.getBoundingClientRect(), f = document.querySelector(".side-foot").getBoundingClientRect();
+  return { last: last.textContent.trim(), lastFullyAboveFooter: r.bottom <= f.top, pageScrolls: document.querySelector(".sidebar").scrollHeight > innerHeight + 2 }; })()`)));
+await send("Emulation.setDeviceMetricsOverride", { width: 390, height: 844, deviceScaleFactor: 2, mobile: true });
+await send("Page.navigate", { url: base + "/" }); await sleep(5000);
+console.log("phone:", JSON.stringify(await ev(`({ navLinks: document.querySelectorAll(".sidebar nav a").length, footHidden: getComputedStyle(document.querySelector(".side-foot")).display === "none", sidebarHeight: Math.round(document.querySelector(".sidebar").getBoundingClientRect().height) })`)));
+const s = await send("Page.captureScreenshot", { format: "png" });
+(await import("fs")).writeFileSync("/tmp/phone-top.png", Buffer.from(s.data, "base64"));
+process.exit(0);

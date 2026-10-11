@@ -871,13 +871,18 @@ html[data-look="glass"] .look-switch button.on { background: rgba(255,255,255,.2
 @media (max-width: 720px) { html[data-look="glass"] .sidebar { background: rgba(18,20,30,.65) !important; } }
 html[data-look="white"] .brand .wordmark img[src*="wordmark-omarchy"] { filter: invert(1) brightness(.12); }
 html[data-look="white"] .brand .wordmark img[src*="wordmark-store"] { filter: saturate(1.6) brightness(.72); }
-/* keep the appearance switch reachable: the sidebar's bottom area sticks to the bottom while the list scrolls */
-@media (min-width: 721px) { .side-foot { position: sticky; bottom: -14px; padding-bottom: 14px; background: var(--sidebar); z-index: 2; }
-  .side-foot { box-shadow: 0 -10px 14px -6px var(--sidebar); }
-  /* Glass: the bottom panel is fully solid (nothing may show through the switch or the card) */
-  html[data-look="glass"] .side-foot { background: #11131f; box-shadow: 0 -14px 16px -2px #11131f; }
-  html[data-look="glass"] .side-foot .look-switch, html[data-look="glass"] .side-foot .mode-badge {
-    background: #1d2030 !important; backdrop-filter: none; -webkit-backdrop-filter: none; } }
+/* Sidebar on computers: the menu scrolls in its own area, and the appearance switch + desktop-app card
+   sit BELOW it as a fixed footer. Nothing is layered on top of anything, so nothing can overlap. */
+@media (min-width: 721px) {
+  .sidebar { overflow: hidden; padding-bottom: 12px; }
+  .sidebar nav { flex: 1 1 auto; min-height: 0; overflow-y: auto; margin: 0 -10px; padding: 0 10px 8px;
+    scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+    /* soft fade where the menu meets the search box and the footer, instead of cutting text in half */
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 22px), transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0, #000 14px, #000 calc(100% - 22px), transparent 100%); }
+  .sidebar .search { margin-bottom: 6px; }
+  .side-foot { flex: none; margin-top: 0; padding: 12px 4px 0; border-top: 1px solid var(--line); }
+}
 
 /* Community block: last thing on every page. Phones: compact 2-up tiles (icon, name, button), no long text. */
 .community { margin-top: 34px; padding-top: 22px; border-top: 1px solid var(--line); }

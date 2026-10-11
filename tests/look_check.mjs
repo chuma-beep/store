@@ -20,12 +20,12 @@ for (const look of ["dark", "glass", "white"]) {
   await sleep(800);
   // Overlap shows while the menu is scrolled PART way (at the very bottom nothing is under the panel), so test several positions.
   const scan = (await send("Runtime.evaluate", { returnByValue: true, awaitPromise: true, expression: `(async () => {
-    const sb = document.querySelector(".sidebar"), out = [];
+    const sb = document.querySelector(".sidebar nav"), out = [];   // the menu is the part that scrolls
     for (const y of [0, 150, 300, 450, 1e6]) {
       sb.scrollTop = y; await new Promise((r) => setTimeout(r, 120));
       const foot = document.querySelector(".side-foot").getBoundingClientRect();
       // a link counts as "showing through" if its text is under the panel AND the panel isn't covering it
-      const under = [...sb.querySelectorAll("nav a")].filter((a) => { const r = a.getBoundingClientRect(); return r.bottom > foot.top + 2 && r.top < foot.bottom - 2; });
+      const under = [...sb.querySelectorAll("a")].filter((a) => { const r = a.getBoundingClientRect(); return r.bottom > foot.top + 2 && r.top < foot.bottom - 2; });
       const hit = under.filter((a) => { const r = a.getBoundingClientRect(); const x = r.left + 40, yy = Math.min(Math.max(r.top + r.height / 2, foot.top + 3), foot.bottom - 3);
         const el = document.elementFromPoint(x, yy); return el && a.contains(el); });
       out.push({ y, under: under.length, visibleThrough: hit.length, footTop: Math.round(foot.top), footBottom: Math.round(foot.bottom), view: innerHeight });
