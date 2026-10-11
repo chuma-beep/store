@@ -724,7 +724,7 @@
         <div class="spot-badge fire"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>New to Omarchy?</div>
         <h2>Get Omarchy. Free.</h2>
         <p>The beautiful Linux desktop everyone's talking about. Make the installer USB with Ignite, keep Windows if you like, and have the Omarchy Store ready in minutes.</p>
-        <div class="spot-lock"><img class="icon" src="/featured/ignite/icon-128.png" width="64" height="64" alt=""><div><div class="name">Get Omarchy</div><div class="sub">Free${iso ? ` · Omarchy ${esc(iso.version)}` : ""} · about 15 minutes</div></div><span class="get big">START</span></div>
+        <div class="spot-lock"><img class="icon" src="/featured/ignite/icon-128.png" width="64" height="64" alt=""><div><div class="name">Ignite for Omarchy</div><div class="sub">Free${iso ? ` · installs Omarchy ${esc(iso.version)}` : ""} · about 15 minutes</div></div><span class="get big">START</span></div>
       </div>
     </a>`;
   }
