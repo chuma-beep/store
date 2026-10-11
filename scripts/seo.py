@@ -21,6 +21,10 @@ from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SITE = "https://omarchystore.com"
+# Share picture address carries a fingerprint of the file, so Telegram/X/Facebook etc. fetch the new
+# picture whenever it changes instead of showing an old cached one.
+import hashlib as _h, os as _os
+OG_DEFAULT = f"{SITE}/assets/og-default.png?v=" + _h.sha1(open(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "..", "site", "assets", "og-default.png"), "rb").read()).hexdigest()[:10]
 OUT = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(ROOT, "site")
 
 e = lambda s: html.escape(str(s or ""), quote=True)
@@ -39,7 +43,7 @@ def k(n):
 
 def abs_url(p):
     if not p:
-        return f"{SITE}/assets/og-default.png"
+        return OG_DEFAULT
     return p if p.startswith("http") else f"{SITE}/{p.lstrip('/')}"
 
 
@@ -134,7 +138,7 @@ def main():
             f'<p>{e(desc)} Every app installs through Arch Linux packages, the AUR, or Omarchy\'s own installers.</p>'
             '<h2>Top apps</h2><ul class="ssr-list">' + "".join(app_li(a) for a in top) + "</ul>"
             '<h2>Categories</h2><ul>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>")
-    write("/", render(template, head("Omarchy Store – The App Store for Omarchy Linux", desc, "/", f"{SITE}/assets/og-default.png", "Omarchy Store", jsonld), body))
+    write("/", render(template, head("Omarchy Store – The App Store for Omarchy Linux", desc, "/", OG_DEFAULT, "Omarchy Store", jsonld), body))
     urls.append((f"{SITE}/", now, "1.0"))
 
     # ---- Apps
@@ -217,7 +221,7 @@ def main():
                   crumbs(("Omarchy Store", "/"), (c["name"], f"/category/{c['id']}/"))]
         body = (f'<h1 class="page-title">Best {e(c["name"])} apps for Omarchy Linux</h1><p>{e(d)}</p>'
                 '<ol class="ssr-list">' + "".join(app_li(a) for a in lst) + "</ol>")
-        write(f"/category/{c['id']}/", render(template, head(title, d, f"/category/{c['id']}/", f"{SITE}/assets/og-default.png", c["name"], jsonld), body))
+        write(f"/category/{c['id']}/", render(template, head(title, d, f"/category/{c['id']}/", OG_DEFAULT, c["name"], jsonld), body))
         urls.append((f"{SITE}/category/{c['id']}/", now, "0.7"))
 
     # ---- Themes (directory data from omarchythemes.com — credited on every page)
@@ -235,7 +239,7 @@ def main():
                   crumbs(("Omarchy Store", "/"), ("Themes", "/themes/"))]
         first = next((t for t in themes if t.get("image")), None)
         write("/themes/", render(template, head("Omarchy Themes – Browse & Install Desktop Themes | Omarchy Store", d, "/themes/",
-                                               abs_url(first["image"]) if first else f"{SITE}/assets/og-default.png", "Omarchy themes", jsonld),
+                                               abs_url(first["image"]) if first else OG_DEFAULT, "Omarchy themes", jsonld),
                                  f'<h1 class="page-title">Themes for Omarchy Linux</h1><p>{e(d)}</p>{credit}<ul class="ssr-list">' + "".join(theme_li(t) for t in themes) + "</ul>"))
         urls.append((f"{SITE}/themes/", now, "0.8"))
         for t in themes:
@@ -260,7 +264,7 @@ def main():
                     + (f'<h2>What it recolors</h2><p>{e(", ".join(t["apps"]))}</p>' if t.get("apps") else "")
                     + (f'<p>Source: <a href="https://github.com/{e(t["repo"])}" rel="noopener">github.com/{e(t["repo"])}</a></p>' if t.get("repo") else "")
                     + f'<p>Listed via <a href="{e(t["source_url"])}" rel="noopener">{e(src["name"])}</a>.</p>')
-            write(f"/theme/{t['id']}/", render(template, head(title, d, f"/theme/{t['id']}/", abs_url(t["image"]) if t.get("image") else f"{SITE}/assets/og-default.png",
+            write(f"/theme/{t['id']}/", render(template, head(title, d, f"/theme/{t['id']}/", abs_url(t["image"]) if t.get("image") else OG_DEFAULT,
                                                               f"{t['name']} theme", [ld, crumbs(("Omarchy Store", "/"), ("Themes", "/themes/"), (t["name"], f"/theme/{t['id']}/"))]), body))
             urls.append((f"{SITE}/theme/{t['id']}/", (t.get("updated") or now)[:10], "0.6"))
 
@@ -280,7 +284,7 @@ def main():
                  f"each marked Verified or Unverified. Updated every 30 minutes.")
         top = sorted(plugs, key=lambda x: (-(x.get("s") or 0), not x.get("ok")))[:1500]
         write("/plugins/", render(template, head("Omarchy Plugins – Bar Widgets & Desktop Add-ons | Omarchy Store", d, "/plugins/",
-                                                 f"{SITE}/assets/og-default.png", "Omarchy plugins",
+                                                 OG_DEFAULT, "Omarchy plugins",
                                                  [crumbs(("Omarchy Store", "/"), ("Plugins", "/plugins/"))]),
                                   f'<h1 class="page-title">Plugins for Omarchy Linux</h1><p>{e(d)}</p>{pcredit}<ul class="ssr-list">'
                                   + "".join(f'<li><a href="{purl(x)}"><strong>{e(x["n"])}</strong></a> by {e(x.get("a") or "community")}'
@@ -302,7 +306,7 @@ def main():
             ld = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": x["n"], "applicationCategory": "UtilitiesApplication",
                   "operatingSystem": "Omarchy Linux", "url": f"{SITE}{purl(x)}", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
                   "author": {"@type": "Person", "name": x.get("a") or "Unknown"}, "description": d}
-            write(purl(x), render(template, head(title, d, purl(x), f"{SITE}/assets/og-default.png", x["n"],
+            write(purl(x), render(template, head(title, d, purl(x), OG_DEFAULT, x["n"],
                                                  [ld, crumbs(("Omarchy Store", "/"), ("Plugins", "/plugins/"), (x["n"], purl(x)))]), body))
             urls.append((f"{SITE}{purl(x)}", (x.get("u") or now)[:10], "0.5"))
 
@@ -325,7 +329,7 @@ def main():
                 + "".join(f'<li><a href="https://github.com/{e(x["id"])}" rel="noopener"><strong>{e(x["n"])}</strong></a> by {e(x["a"])} – {e(x.get("d") or "")}</li>' for x in sr)
                 + '</ul><p>One-click listings courtesy of the <a href="https://plugins.omarchy.org/" rel="noopener">Omarchy Plugin Marketplace</a>.</p>')
         write("/screensavers/", render(template, head("Omarchy Screensavers – Custom Screensavers & Idle Tools | Omarchy Store", d, "/screensavers/",
-                                                      f"{SITE}/assets/og-default.png", "Omarchy screensavers",
+                                                      OG_DEFAULT, "Omarchy screensavers",
                                                       [crumbs(("Omarchy Store", "/"), ("Screensavers", "/screensavers/"))]), body))
         urls.append((f"{SITE}/screensavers/", now, "0.8"))
 
@@ -372,7 +376,7 @@ def main():
                           '<h1 class="page-title">Get the desktop app</h1><pre><code>curl -fsSL https://omarchystore.com/install.sh | bash</code></pre>'),
     }
     for path, (t, d, b) in simple.items():
-        write(path, render(template, head(t, d, path, f"{SITE}/assets/og-default.png", "Omarchy Store", [org]), b))
+        write(path, render(template, head(t, d, path, OG_DEFAULT, "Omarchy Store", [org]), b))
         urls.append((f"{SITE}{path}", now, "0.5" if path in ("/legal/",) else "0.6"))
 
     # ---- short links for social media
