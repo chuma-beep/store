@@ -4,6 +4,8 @@
 //   Admin:   /admin/* with "Authorization: Bearer <ADMIN_KEY>"
 // Privacy: no IP addresses or cookies are stored. A daily-rotating hash counts unique visitors.
 
+import { storeBot, dailyDrop } from "./bot.js";
+
 const ORIGINS = [/^https:\/\/(www\.)?omarchystore\.com$/, /^https:\/\/omarchy-community\.github\.io$/, /^http:\/\/(127\.0\.0\.1|localhost):\d+$/];
 const ID_RE = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
@@ -28,6 +30,8 @@ export default {
   },
   async scheduled(evt, env, ctx) {
     ctx.waitUntil(checkOrders(env));
+    // Daily drop to the Telegram channel + subscribers, once a day after 16:00 UTC (noon EDT).
+    if (new Date(evt.scheduledTime).getUTCHours() >= 16) ctx.waitUntil(dailyDrop(env).catch((e) => console.error(e)));
   },
 };
 
@@ -99,6 +103,7 @@ async function route(req, env, ctx, url, okOrigin) {
   const M = req.method;
 
   if (p === "/" ) return json({ ok: true, service: "omarchy-store-api" });
+  if (p.startsWith("/tg/") && M === "POST") return storeBot(req, env, ctx, p.slice(4));
   if (p === "/config" && M === "GET")
     return json({ turnstile: env.TURNSTILE_SITEKEY, payments: methods(env) }, 200, { "Cache-Control": "public, max-age=300" });
 
