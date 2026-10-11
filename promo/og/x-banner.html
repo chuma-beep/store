@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1500px;height:500px;overflow:hidden;font-family:"Adwaita Sans","Inter","Noto Sans",sans-serif;color:#fff;-webkit-font-smoothing:antialiased;background:#111118;position:relative}
+/* full-width wall of real Omarchy themes */
+.wall{position:absolute;left:-160px;top:-170px;width:1900px;display:grid;grid-template-columns:repeat(7,1fr);gap:16px;transform:rotate(-8deg);opacity:.9}
+.wall img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;box-shadow:0 14px 30px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08)}
+/* darken only where the text sits; screenshots stay bright on both sides */
+.shade{position:absolute;inset:0;background:
+  radial-gradient(760px 330px at 830px 250px, rgba(14,14,21,.95) 0%, rgba(14,14,21,.88) 50%, rgba(14,14,21,.35) 80%, rgba(14,14,21,0) 100%),
+  linear-gradient(90deg, rgba(14,14,21,.25), rgba(14,14,21,.25))}
+.glow{position:absolute;inset:0;background:radial-gradient(700px 400px at 1250px 80px, rgba(157,124,242,.28), transparent 60%),radial-gradient(600px 400px at 150px 450px, rgba(158,206,106,.18), transparent 60%)}
+.safe{position:absolute;left:380px;top:0;width:900px;height:500px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.wm{display:flex;gap:26px;align-items:center;margin-bottom:22px}
+.wm img{height:68px;image-rendering:pixelated}
+h1{font-size:76px;line-height:1.0;font-weight:800;letter-spacing:-2px}
+h1 span{color:#9ece6a}
+.sub{font-size:31px;color:rgba(255,255,255,.9);margin-top:16px;font-weight:600}
+.url{display:inline-block;margin-top:18px;font-size:32px;font-weight:800;color:#111118;background:#9ece6a;padding:10px 34px;border-radius:40px}
+</style></head><body>
+<div class="wall">
+ <img src="t/omarchy-lumon-theme.jpg"><img src="t/aetheria.jpg"><img src="t/miasma.jpg"><img src="t/osaka-jade.jpg"><img src="t/copper-night.jpg"><img src="t/retropc.jpg"><img src="t/aamis.jpg">
+ <img src="t/void.jpg"><img src="t/felix.jpg"><img src="t/blackturq.jpg"><img src="t/mecha-no-onna.jpg"><img src="t/rose-pine-dark.jpg"><img src="t/omarchy-lumon-theme.jpg"><img src="t/aetheria.jpg">
+ <img src="t/retropc.jpg"><img src="t/copper-night.jpg"><img src="t/aamis.jpg"><img src="t/miasma.jpg"><img src="t/osaka-jade.jpg"><img src="t/void.jpg"><img src="t/felix.jpg">
+ <img src="t/mecha-no-onna.jpg"><img src="t/rose-pine-dark.jpg"><img src="t/blackturq.jpg"><img src="t/aetheria.jpg"><img src="t/omarchy-lumon-theme.jpg"><img src="t/retropc.jpg"><img src="t/miasma.jpg">
+ <img src="t/osaka-jade.jpg"><img src="t/void.jpg"><img src="t/copper-night.jpg"><img src="t/felix.jpg"><img src="t/aamis.jpg"><img src="t/blackturq.jpg"><img src="t/mecha-no-onna.jpg">
+</div>
+<div class="glow"></div>
+<div class="shade"></div>
+<div class="safe">
+  <div class="wm"><img src="wordmark-omarchy.svg"><img src="wordmark-store.svg"></div>
+  <h1>The largest <span>Omarchy</span><br>app store on Earth.</h1>
+  <div class="sub">Apps, themes and plugins. One click each. Free.</div>
+  <div class="url">omarchystore.com</div>
+</div>
+</body></html>
