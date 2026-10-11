@@ -160,6 +160,15 @@
     }
   }
 
+  // ---------- Appearance switch (Dark · Glass · White), remembered on this device ----------
+  function setLook(l, save = true) {
+    document.documentElement.dataset.look = l;
+    if (save) try { localStorage.setItem("os-look", l); } catch {}
+    document.querySelectorAll("[data-look]").forEach((b) => { const on = b.dataset.look === l; b.classList.toggle("on", on); b.setAttribute("aria-checked", on); });
+  }
+  document.addEventListener("click", (e) => { const b = e.target.closest("button[data-look]"); if (b) setLook(b.dataset.look); });
+  setLook(document.documentElement.dataset.look || "dark", false);
+
   function applyTheme(t) {
     const r = document.documentElement.style;
     document.documentElement.classList.add("themed");
@@ -690,8 +699,9 @@
   }
   function saverList() {
     const d = S.savers || {}, f = S.saverF, q = S.saverQ.trim().toLowerCase();
+    // Anything with a GET button (one-click install) comes first; VIEW-only ones go to the bottom.
     let l = (d.plugins || []).map((p) => ({ p: S.plugById[p.id], k: p.k })).filter((x) => x.p)
-      .sort((a, b) => ((b.p.ok && b.p.img ? 1 : 0) - (a.p.ok && a.p.img ? 1 : 0)) || (b.p.s - a.p.s));
+      .sort((a, b) => ((b.p.i ? 1 : 0) - (a.p.i ? 1 : 0)) || ((b.p.ok && b.p.img ? 1 : 0) - (a.p.ok && a.p.img ? 1 : 0)) || (b.p.s - a.p.s));
     if (f !== "one") l = l.concat((d.repos || []).map((r) => ({ r, k: r.k })));
     if (f === "saver" || f === "tool") l = l.filter((x) => x.k === f);
     if (q) l = l.filter((x) => { const o = x.p || x.r; return (o.n + " " + o.a + " " + o.d + " " + o.id).toLowerCase().includes(q); });

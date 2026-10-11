@@ -823,3 +823,56 @@ svg .fill { fill: currentColor; stroke: none; }
 
 /* Long unbroken strings (checksums, hashes, long URLs) must wrap on phones */
 code.small, .hash, .sha, .checksum { overflow-wrap: anywhere; word-break: break-all; white-space: normal !important; }
+
+/* ---------- Appearance: Dark (default) · Glass (frosted, see-through like SnapDock) · White ---------- */
+.look-switch { display: flex; gap: 2px; padding: 3px; margin-bottom: 10px; border-radius: 10px; background: var(--pill); }
+.look-switch button { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 6px 2px; border: 0; border-radius: 8px;
+  background: none; color: var(--text-2); font: 600 11px/1 inherit; cursor: pointer; }
+.look-switch svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.look-switch button:hover { color: var(--text); }
+.look-switch button.on { background: var(--card); color: var(--text); box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+
+/* White: forced light colours (beats the user's Omarchy theme colours and the system setting) */
+html[data-look="white"] {
+  --bg: #fff !important; --bg-2: #f5f5f7 !important; --sidebar: #f2f2f4 !important; --card: #f5f5f7 !important; --card-hover: #ebebef !important;
+  --line: rgba(0,0,0,.09) !important; --text: #1d1d1f !important; --text-2: rgba(60,60,67,.68) !important; --text-3: rgba(60,60,67,.42) !important;
+  --pill: #eceef3 !important; --pill-text: #0071e3 !important; --accent: #0071e3 !important; --accent-text: #fff !important; --shadow: 0 10px 30px rgba(0,0,0,.12) !important;
+  color-scheme: light;
+}
+/* Dark: always dark, even if the computer is set to light mode */
+html[data-look="dark"]:not(.themed) {
+  --bg: #1c1c1e; --bg-2: #232326; --sidebar: #161618; --card: #2a2a2e; --card-hover: #333338; --line: rgba(255,255,255,.08);
+  --text: #f2f2f7; --text-2: rgba(235,235,245,.62); --text-3: rgba(235,235,245,.38); --pill: rgba(255,255,255,.12); --pill-text: #0a84ff; --accent: #0a84ff;
+  color-scheme: dark;
+}
+/* Glass: a colourful backdrop behind frosted, see-through panels */
+html[data-look="glass"] {
+  --bg: transparent !important; --sidebar: rgba(18,20,30,.42) !important; --card: rgba(255,255,255,.075) !important; --card-hover: rgba(255,255,255,.13) !important;
+  --line: rgba(255,255,255,.14) !important; --pill: rgba(255,255,255,.12) !important; --bg-2: rgba(255,255,255,.06) !important;
+  --text: #f5f7ff !important; --text-2: rgba(235,240,255,.72) !important; --text-3: rgba(235,240,255,.45) !important;
+  --shadow: 0 16px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.12) !important;
+  color-scheme: dark;
+}
+html[data-look="glass"] body {
+  background:
+    radial-gradient(60vw 60vw at 8% 0%, rgba(122,162,247,.55), transparent 60%),
+    radial-gradient(55vw 55vw at 100% 20%, rgba(187,154,247,.5), transparent 60%),
+    radial-gradient(60vw 50vw at 60% 110%, rgba(42,195,222,.45), transparent 60%),
+    radial-gradient(40vw 40vw at 30% 70%, rgba(247,118,142,.30), transparent 60%),
+    #0d1020;
+  background-attachment: fixed;
+}
+html[data-look="glass"] .sidebar { backdrop-filter: blur(28px) saturate(160%); -webkit-backdrop-filter: blur(28px) saturate(160%); }
+html[data-look="glass"] :is(.icon, .feat, .steps li, .trust, .cat-tile, .theme-card, .th-card, .upd-list, .usb-card, .install-ways > div, .go-step,
+  .info-card, .footer-cta .fc, .plug-card, .inst-row, .rv-card, .rv-empty, .dev-form, .cl-entry, .self-upd, .sheet-card, .lockup, .mode-badge, .search, .faq details, .look-switch) {
+  backdrop-filter: blur(22px) saturate(150%); -webkit-backdrop-filter: blur(22px) saturate(150%);
+  border: 1px solid rgba(255,255,255,.12);
+}
+html[data-look="glass"] .sheet-card { background: rgba(28,30,44,.72) !important; }
+html[data-look="glass"] .look-switch button.on { background: rgba(255,255,255,.2); }
+@media (max-width: 720px) { html[data-look="glass"] .sidebar { background: rgba(18,20,30,.65) !important; } }
+html[data-look="white"] .brand .wordmark img[src*="wordmark-omarchy"] { filter: invert(1) brightness(.12); }
+html[data-look="white"] .brand .wordmark img[src*="wordmark-store"] { filter: saturate(1.6) brightness(.72); }
+/* keep the appearance switch reachable: the sidebar's bottom area sticks to the bottom while the list scrolls */
+@media (min-width: 721px) { .side-foot { position: sticky; bottom: -14px; padding-bottom: 14px; background: var(--sidebar); z-index: 2; }
+  html[data-look="glass"] .side-foot { background: transparent; } }
