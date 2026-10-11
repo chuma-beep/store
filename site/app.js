@@ -122,7 +122,7 @@
       if (r.ok) {
         const st = await r.json();
         S.desktop = true; S.status = st;
-        S.installed = new Set(st.installed || []); S.removable = new Set(st.removable || []);
+        S.installed = new Set(st.installed || []); S.removable = new Set(st.removable || []); S.updatable = new Set(st.updatable || []);
         S.themesHave = new Set(st.themes_installed || []); S.themeNow = st.theme_current || "";
         if (st.theme) applyTheme(st.theme);
       }
@@ -160,7 +160,7 @@
     try {
       const st = await (await fetch("/api/status", { cache: "no-store" })).json();
       S.status = st;
-      S.installed = new Set(st.installed || []); S.removable = new Set(st.removable || []);
+      S.installed = new Set(st.installed || []); S.removable = new Set(st.removable || []); S.updatable = new Set(st.updatable || []);
       S.themesHave = new Set(st.themes_installed || []); S.themeNow = st.theme_current || "";
     } catch {}
   }
@@ -223,6 +223,7 @@
     const cls = "get" + (big ? " big" : "");
     if (a.available === false) return `<button class="${cls} soon" data-soon="${a.id}" title="Launching soon">SOON</button>`;
     if (S.busy.has(a.id)) return `<button class="${cls} busy" data-get="${a.id}"><span class="ring"></span></button>`;
+    if (S.desktop && isInstalled(a) && S.updatable?.has(a.id)) return `<button class="${cls}" data-upd="${a.id}" title="A newer version is ready">UPDATE</button>`;
     if (S.desktop && isInstalled(a)) return a.cli
       ? `<button class="${cls} installed" data-open="${a.id}" title="Opens a terminal — run: ${esc(a.open || a.detect[0])}">INSTALLED</button>`
       : `<button class="${cls} installed" data-open="${a.id}">OPEN</button>`;
@@ -686,6 +687,9 @@
     dock: '<rect x="3" y="15" width="18" height="5" rx="2.5"/><rect x="5" y="4" width="14" height="8" rx="2"/>',
     grid: '<rect x="3" y="3" width="8" height="18" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/>',
     window: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M15 6.5h.01M18 6.5h.01"/>',
+    minimize: '<rect x="3" y="3" width="18" height="12" rx="2"/><path d="M8 20h8M12 11v6M9.5 14.5 12 17l2.5-2.5"/>',
+    desktops: '<rect x="2" y="4" width="9" height="7" rx="1.5"/><rect x="13" y="4" width="9" height="7" rx="1.5"/><rect x="2" y="13" width="9" height="7" rx="1.5"/><rect x="13" y="13" width="9" height="7" rx="1.5"/><path d="M6.5 7.5h0"/>',
+    language: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>',
     camera: '<path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.5"/>',
     backup: '<path d="M12 3v10m0 0-4-4m4 4 4-4"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>',
     drag: '<rect x="3" y="4" width="18" height="16" rx="2"/><rect x="3" y="4" width="9" height="16" rx="2" fill="currentColor" opacity=".35"/><path d="M15 12h4m-2-2 2 2-2 2"/>',
@@ -698,6 +702,20 @@
     update: '<path d="M20 12a8 8 0 1 1-2.3-5.7M20 4v5h-5"/>',
     infinity: '<path d="M18.2 8.4c-2.4 0-4 3.6-6.2 3.6S8.2 8.4 5.8 8.4a3.6 3.6 0 0 0 0 7.2c2.4 0 4-3.6 6.2-3.6s3.8 3.6 6.2 3.6a3.6 3.6 0 0 0 0-7.2z"/>',
   };
+  // What's New: the newest version's changes in full, older versions folded away.
+  function changelogSection(a, ghUrl) {
+    const fmt = (d) => { const t = new Date(d + "T12:00:00"); return isNaN(t) ? esc(d || "") : t.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" }); };
+    const entry = (c, open) => `<details class="cl-entry"${open ? " open" : ""}>
+        <summary><span class="cl-ver">Version ${esc(c.version)}</span><span class="cl-title">${esc(c.title || "")}</span><span class="cl-date">${fmt(c.date)}</span></summary>
+        ${c.note ? `<p class="cl-note">${esc(c.note)}</p>` : ""}
+        <ul>${(c.items || []).map((i) => `<li>${esc(i)}</li>`).join("")}</ul>
+      </details>`;
+    const [first, ...rest] = a.changelog;
+    return `<section class="shelf" id="whats-new">
+        <div class="shelf-head"><h2>What’s New</h2>${ghUrl ? `<a href="${ghUrl}/releases" target="_blank" rel="noopener">Version History</a>` : ""}</div>
+        <div class="changelog">${entry(first, true)}${rest.length ? `<div class="cl-older">${rest.map((c) => entry(c, false)).join("")}</div>` : ""}</div>
+      </section>`;
+  }
   const fico = (n) => `<svg viewBox="0 0 24 24">${FICON[n] || ""}</svg>`;
   function themesBanner(onPage = false) {
     const th = S.catalog.themes.filter((t) => t.image && t.palette?.length && t.mode !== "light");
@@ -737,6 +755,7 @@
       <div class="spot-copy">
         <div class="spot-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>${esc(f.badge)}</div>
         <h2>${esc(f.headline)}</h2>
+        ${f.new_line ? `<div class="spot-new"><span class="new-tag">NEW</span>${esc(f.new_line.replace(/^New in [^:]*:\s*/, ""))}</div>` : ""}
         <p>${esc(f.tagline)}</p>
         ${f.chips ? `<div class="spot-chips">${f.chips.map((c) => `<span>${esc(c)}</span>`).join("")}</div>` : ""}
         <div class="spot-lock">${iconImg(a, 64)}<div><div class="name">${esc(a.name)}</div><div class="sub">${esc(f.launch_offer || f.price)}</div></div>${getBtn(a, true)}</div>
@@ -746,6 +765,7 @@
       <div class="spot-copy">
         <div class="spot-badge"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>${esc(f.badge)}</div>
         <h2>${esc(f.headline)}</h2>
+        ${f.new_line ? `<div class="spot-new"><span class="new-tag">NEW</span>${esc(f.new_line.replace(/^New in [^:]*:\s*/, ""))}</div>` : ""}
         <p>${esc(f.tagline)}</p>
         <div class="spot-lock">${iconImg(a, 64)}<div><div class="name">${esc(a.name)}</div><div class="sub">${esc(f.launch_offer || f.price)}</div></div>${getBtn(a, true)}</div>
       </div>
@@ -785,7 +805,7 @@
       ${f.heads_up ? `<section class="trust warn" style="margin:22px 0 6px">${ico("warn")}<div><b>${esc(f.heads_up.title)}</b><div style="margin-top:4px">${esc(f.heads_up.body)}</div></div></section>` : ""}
       ${f.promise ? `<section class="promise"><span class="feat-ic">${fico("infinity")}</span><div><h3>${esc(f.promise.title)}</h3><p>${esc(f.promise.body)}</p></div></section>` : ""}
       ${f.features.length > 4 ? `<section class="shelf"><div class="shelf-head"><h2>Everything SnapDock does</h2></div></section>` : ""}
-      <section class="shelf feat-grid ${f.features.length > 4 ? "many" : ""}">${f.features.map((x, i) => `<div class="feat ${x.hero ? "hero-feat" : ""}"><span class="feat-ic">${fico(x.icon)}</span><div><h3>${esc(x.title)}</h3><p>${esc(x.body)}</p></div></div>`).join("")}</section>
+      <section class="shelf feat-grid ${f.features.length > 4 ? "many" : ""}">${f.features.map((x, i) => `<div class="feat ${x.hero ? "hero-feat" : ""}"><span class="feat-ic">${fico(x.icon)}</span><div><h3>${esc(x.title)}${x.new ? `<span class="new-tag">NEW</span>` : ""}</h3><p>${esc(x.body)}</p></div></div>`).join("")}</section>
       ${f.install ? installWays(a, f.install) : ""}
       <section class="shelf"><div class="shelf-head"><h2>Get started in 3 steps</h2></div>
         <ol class="steps">${f.steps.map((s, i) => `<li><span class="n">${i + 1}</span><div><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p></div></li>`).join("")}</ol></section>
@@ -1292,7 +1312,7 @@
 
       ${reviewsSection(a)}
 
-      ${a.release || p.version ? `<section class="shelf">
+      ${a.changelog?.length ? changelogSection(a, ghUrl) : a.release || p.version ? `<section class="shelf">
         <div class="shelf-head"><h2>What’s New</h2>${ghUrl ? `<a href="${ghUrl}/releases" target="_blank" rel="noopener">Version History</a>` : ""}</div>
         <div class="whatsnew"><span>Version ${esc(a.release || p.version)}</span><span>${ago(a.released_at || p.updated)}</span></div>
       </section>` : ""}

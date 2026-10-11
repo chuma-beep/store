@@ -9,9 +9,9 @@
     "packages": [
       "snapdock"
     ],
-    "version": "0.5.0",
-    "url": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v0.5.0/snapdock-0.5.0-1-any.pkg.tar.zst",
-    "sha256": "0986442b514976d3c818767bb7a9b43b04c4008f8d4152c252eba929872a4e15"
+    "version": "0.7.0",
+    "url": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v0.7.0/snapdock-0.7.0-1-any.pkg.tar.zst",
+    "sha256": "4f7d0071dc886122e97ab041dbd21a0a8f488e552d519a44b15b6d254cdb5a03"
   },
   "detect": [
     "snapdock"
@@ -27,13 +27,13 @@
     "featured/snapdock/layouts.webp",
     "featured/snapdock/backup.webp"
   ],
-  "summary": "A frosted glass dock for Omarchy, plus Windows-style snapping, smart title bars, one-click screenshots and automatic backups.",
-  "description": "SnapDock gives Omarchy a beautiful frosted glass dock, and makes your desktop feel instantly familiar if you're coming from Windows or macOS.\n\nA DOCK MADE OF GLASS\nA frosted glass dock floats at the bottom of your screen and blurs whatever is behind it, like the dock on a Mac. It recolours itself every time you switch Omarchy themes. Or choose your own: theme, theme accent, theme dark, black, white or any colour code, with four glass levels from solid to strong. Running apps get a little dot. The dock is set up for you the first time, with your files, terminal and browser pinned and only apps you actually have.\n\nPIN WHAT YOU USE\nPin and unpin apps from SnapDock's menu: it lists every app on your computer. Built-in buttons include Reboot (asks first, so no accidents), Screenshot and Settings, plus an all-apps button that opens Omarchy's app list. Turn the dock off and on any time.\n\nSNAP LIKE WINDOWS\nArrange windows exactly like Windows 11:\n• Super + arrow keys: left or right half, then the same arrow again for a quarter, up to fill the screen, down to put it back.\n• Drag a window to a screen edge for half, a corner for a quarter, or the top to fill. A see-through preview shows where it will land.\n• Super + Z, or the ⊞ button on any title bar, shows every layout: halves, quarters, thirds, two-thirds, fill and centre.\n\nSNAP ASSIST\nSnap one window and SnapDock offers your other open windows to fill the space that's left. Click one and your side-by-side layout is done.\n\nSMART TITLE BARS\nWith Omarchy's title bars on, every window gets snap ⊞ and maximize □ buttons next to close. Double-click a title bar to maximize or restore. The buttons follow your theme colours.\n\nRESIZE FROM ANY EDGE\nGrab any window edge with the mouse and drag to resize it, snapped windows included.\n\nSCREENSHOTS IN ONE CLICK\nTap the camera on the dock or press Shift + Print. The whole screen is copied to your clipboard and saved in Pictures.\n\nYOUR SETUP, ALWAYS SAFE\nBefore SnapDock changes anything, it saves your current desktop settings to a backup file in your Downloads folder. Save a new backup any time, and restore any backup from the menu. Uninstalling offers to put back your exact setup from before SnapDock.\n\nFIXES ITSELF\n\"Check for problems\" finds the usual conflicts (two docks, settings errors, missing parts), saves a report you can send for help, and repairs SnapDock in one click.\n\nMADE FOR OMARCHY\nEverything lives in Omarchy's own menu style and theme colours. Updates show up in the Omarchy Store's Updates tab and inside SnapDock.\n\nFREE FOR A LIMITED TIME. UPDATES FOR LIFE FOR EARLY ADOPTERS\nSnapDock is free right now, but only for a limited time: it becomes a paid app after launch. Get it while it's free and you're an early adopter, with every future update included at no cost, for life.",
+  "summary": "A frosted dock and Windows-style window tools for Omarchy: snapping, Snap Assist, minimize and move to desktop",
+  "description": "SnapDock gives Omarchy a beautiful frosted glass dock, and makes your desktop feel instantly familiar if you're coming from Windows or macOS.\n\nA DOCK MADE OF GLASS\nA frosted glass dock floats at the bottom of your screen and blurs whatever is behind it, like the dock on a Mac. It recolours itself every time you switch Omarchy themes. Or choose your own: theme, theme accent, theme dark, black, white or any colour code, with four glass levels from solid to strong. Running apps get a little dot. The dock is set up for you the first time, with your files, terminal and browser pinned and only apps you actually have.\n\nPIN WHAT YOU USE\nPin and unpin apps from SnapDock's menu: it lists every app on your computer. Built-in buttons include Reboot (asks first, so no accidents), Screenshot and Settings, plus an all-apps button that opens Omarchy's app list. Turn the dock off and on any time.\n\nSNAP LIKE WINDOWS\nArrange windows exactly like Windows 11:\n• Super + arrow keys: left or right half, then the same arrow again for a quarter, up to fill the screen, down to put it back (or, on a window that isn't snapped, minimize it).\n• Drag a window to a screen edge for half, a corner for a quarter, or the top to fill. A see-through preview shows where it will land.\n• Super + Z, or the ⊞ button on any title bar, shows every layout: halves, quarters, thirds, two-thirds, fill and centre.\n\nMINIMIZE, LIKE WINDOWS\nClick — on any title bar, or press Super + Down, and the window gets out of the way while its icon stays in the dock. Click the icon and it comes back exactly where it was, on the desktop it came from. Bring every minimized window back at once from SnapDock's menu.\n\nMOVE WINDOWS BETWEEN DESKTOPS\nThe numbers 1 2 3 4 5 at the top left of Omarchy are separate desktops. Send a window to one in a click: press ⧉ on its title bar and pick a number. Or drag the window toward the top left corner: numbered tiles appear, and dropping it on one moves it there, same size, while you stay where you are.\n\nSNAP ASSIST\nSnap one window and SnapDock offers your other open windows to fill the space that's left. Click one and your side-by-side layout is done.\n\nSMART TITLE BARS\nWith Omarchy's title bars on, every window gets desktops ⧉, snap ⊞, minimize — and maximize □ buttons next to close. Double-click a title bar to maximize or restore. The buttons follow your theme colours.\n\nRESIZE FROM ANY EDGE\nGrab any window edge with the mouse and drag to resize it, snapped windows included.\n\nSCREENSHOTS IN ONE CLICK\nTap the camera on the dock or press Shift + Print. The whole screen is copied to your clipboard and saved in Pictures.\n\nYOUR SETUP, ALWAYS SAFE\nBefore SnapDock changes anything, it saves your current desktop settings to a backup file in your Downloads folder. Save a new backup any time, and restore any backup from the menu. Uninstalling offers to put back your exact setup from before SnapDock.\n\nFIXES ITSELF\n\"Check for problems\" finds the usual conflicts (two docks, settings errors, missing parts), saves a report you can send for help, and repairs SnapDock in one click.\n\nSPEAKS YOUR LANGUAGE\nSnapDock is in 33 languages and follows your computer's language automatically. Pick another one any time from its menu.\n\nMADE FOR OMARCHY\nEverything lives in Omarchy's own menu style and theme colours. Updates show up in the Omarchy Store's Updates tab and inside SnapDock.\n\nFREE FOR A LIMITED TIME. UPDATES FOR LIFE FOR EARLY ADOPTERS\nSnapDock is free right now, but only for a limited time: it becomes a paid app after launch. Get it while it's free and you're an early adopter, with every future update included at no cost, for life.",
   "featured": {
     "badge": "Editors' Choice",
     "eyebrow": "FEATURED APP",
     "headline": "A frosted glass dock for Omarchy.",
-    "tagline": "Plus Windows-style snapping, Snap Assist, smart title bars, one-click screenshots and automatic backups. Free for a limited time, and early adopters get free updates for life.",
+    "tagline": "Now with minimize and move-to-desktop. Plus Windows-style snapping, Snap Assist, smart title bars, one-click screenshots and automatic backups, in 33 languages. Free for a limited time, and early adopters get free updates for life.",
     "price": "Free",
     "launch_offer": "Free for a limited time · early adopters get free updates for life",
     "gradient": [
@@ -49,6 +49,18 @@
         "hero": true,
         "title": "A frosted glass dock",
         "body": "A see-through dock that blurs what's behind it and recolours itself with every Omarchy theme. Or pick any colour and one of four glass levels, from solid to strong. Running apps get a dot."
+      },
+      {
+        "icon": "minimize",
+        "new": true,
+        "title": "Minimize, like Windows",
+        "body": "The — button on any title bar hides the window and keeps its icon in the dock. Click the icon and it comes back exactly where it was. Super + Down minimizes too."
+      },
+      {
+        "icon": "desktops",
+        "new": true,
+        "title": "Move to another desktop",
+        "body": "Send a window to desktop 1–5 (the numbers at the top left): click ⧉ on its title bar and pick a number, or drag it to the top left corner and drop it on a numbered tile."
       },
       {
         "icon": "pin",
@@ -78,7 +90,7 @@
       {
         "icon": "window",
         "title": "Smart title bars",
-        "body": "Snap and maximize buttons next to close. Double-click to maximize or restore."
+        "body": "Desktops ⧉, snap layouts ⊞, minimize —, maximize □ and close ✕ on every title bar. Double-click to maximize or restore."
       },
       {
         "icon": "resize",
@@ -104,6 +116,11 @@
         "icon": "doctor",
         "title": "Check for problems",
         "body": "Finds conflicts, saves a report and repairs SnapDock in one click."
+      },
+      {
+        "icon": "language",
+        "title": "Speaks your language",
+        "body": "33 languages, picked automatically from your computer's language. Choose another one any time: SnapDock → Language."
       }
     ],
     "steps": [
@@ -147,7 +164,7 @@
           "Super",
           "↓"
         ],
-        "does": "Put the window back, or from a half, snap to the bottom quarter"
+        "does": "Put the window back, or from a half, snap to the bottom quarter. On a window that isn't snapped: minimize"
       },
       {
         "keys": [
@@ -155,6 +172,24 @@
           "Z"
         ],
         "does": "Show every snap layout for the current window"
+      },
+      {
+        "keys": [
+          "— on title bar"
+        ],
+        "does": "Minimize; click the app's dock icon to bring it back"
+      },
+      {
+        "keys": [
+          "⧉ on title bar"
+        ],
+        "does": "Move the window to desktop 1–5 (click a number or type it)"
+      },
+      {
+        "keys": [
+          "Drag to top left"
+        ],
+        "does": "Drop the window on a numbered tile to move it to that desktop"
       },
       {
         "keys": [
@@ -190,6 +225,14 @@
         "a": "No. The first time it opens, SnapDock saves your current desktop settings (window settings, dock, top bar, launcher and app shortcuts) to a backup file in your Downloads folder. It replaces your current dock and adjusts your window settings, and you can put everything back any time: SnapDock menu → Backup & restore → Restore a backup."
       },
       {
+        "q": "Where does a minimized window go?",
+        "a": "It waits out of sight, and its icon stays in the dock. Click the icon and it comes back on the desktop it came from, in the same spot. To bring every minimized window back at once: SnapDock → Snap layouts → Bring back all minimized windows."
+      },
+      {
+        "q": "What are the desktops 1 2 3 4 5?",
+        "a": "The numbers at the top left of Omarchy are separate desktops, each with its own windows (like Task View desktops on Windows). Click a number to switch to it. SnapDock lets you send a window to one: ⧉ on the title bar, or drag the window onto the tiles that appear at the top left."
+      },
+      {
         "q": "Where is my backup?",
         "a": "In your Downloads folder, named SnapDock-Backup-Before-SnapDock-<date>.tar.gz. Keep it somewhere safe. It works even without SnapDock: the file explains the one command that puts it back."
       },
@@ -215,20 +258,23 @@
       "body": "SnapDock is free right now, but not forever: it becomes a paid app after launch. Get it while it's free and you're an early adopter: every future update is included at no cost, for life."
     },
     "chips": [
+      "NEW: Minimize",
+      "NEW: Move to desktop",
       "Frosted glass dock",
       "Drag to snap",
       "Snap Assist",
       "Smart title bars",
-      "Screenshots",
+      "33 languages",
       "Auto backup"
     ],
     "billboard": "featured/snapdock/billboard.webp",
     "install": {
-      "file": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v0.5.0/snapdock-install.sh",
+      "file": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v0.7.0/snapdock-0.7.0-install.sh",
       "file_name": "snapdock-install.sh",
       "note": "Already using a dock or title bar setup of your own? SnapDock saves it to a backup file in Downloads before it changes anything, and Uninstall can put it back exactly."
     },
-    "price_note": "Limited time"
+    "price_note": "Limited time",
+    "new_line": "New in 0.7.0: Minimize · Move windows between desktops"
   },
   "tags": [
     "dock",
@@ -241,6 +287,60 @@
     "hyprland",
     "tiling",
     "title bar",
-    "macos"
+    "macos",
+    "minimize",
+    "workspaces"
+  ],
+  "changelog": [
+    {
+      "version": "0.7.0",
+      "date": "2026-10-11",
+      "title": "Minimize and move to desktop",
+      "items": [
+        "Minimize, like Windows: a new — button on every title bar hides the window. Its icon stays in the dock; click it and the window comes back exactly where it was, on the desktop it came from.",
+        "Super + Down minimizes a window that isn't snapped, just like Win + Down. On a snapped window it first puts it back the way it was; press it again to minimize.",
+        "Move a window to another desktop (the 1 2 3 4 5 at the top left) with the new ⧉ title bar button: click a number in the little card, or just type it.",
+        "Or drag a window toward the top left corner: numbered tiles appear under the desktop numbers. Let go over one and the window moves there, keeping its size. You stay where you are.",
+        "New in the menu: SnapDock → Snap layouts → Bring back all minimized windows.",
+        "Title bar, left to right: ⧉ desktops · ⊞ snap layouts · — minimize · □ maximize · ✕ close. SnapDock → Title bars turns them on or off.",
+        "Uninstall puts minimized windows back on their desktops first, so nothing stays hidden.",
+        "All new texts are translated into the 33 languages.",
+        "The Omarchy Store app now always recognises SnapDock, even if you installed it with the installer file, so it shows UPDATE and Remove for it."
+      ]
+    },
+    {
+      "version": "0.6.0",
+      "date": "2026-10-10",
+      "title": "SnapDock speaks your language",
+      "note": "Arrives together with 0.7.0.",
+      "items": [
+        "33 languages: English, Spanish, French, German, Portuguese, Italian, Dutch, Polish, Swedish, Danish, Norwegian, Finnish, Icelandic, Turkish, Greek, Hungarian, Lithuanian, Irish, Catalan, Bosnian, Arabic, Urdu, Hindi, Bengali, Tamil, Sinhala, Thai, Vietnamese, Filipino, Japanese, Korean, Simplified Chinese and Uzbek.",
+        "Follows your computer's language automatically. Pick another one: SnapDock → Language.",
+        "Menus, messages, notifications, the snap layout picker, key names in Omarchy's key list, the backup note and the app launchers are all translated.",
+        "Your choice is kept after updates."
+      ]
+    },
+    {
+      "version": "0.5.0",
+      "date": "2026-10-10",
+      "title": "Backups and Check for problems",
+      "items": [
+        "Before SnapDock changes anything, it saves your desktop settings to a backup file in Downloads.",
+        "Backup & restore menu: save your settings any time, and put any backup back.",
+        "Uninstall can put back your exact setup from before SnapDock.",
+        "Check for problems finds conflicts (two docks, settings errors, missing parts), saves a report and can repair.",
+        "Older Omarchy versions get a clear message instead of a half setup."
+      ]
+    },
+    {
+      "version": "0.4.0",
+      "date": "2026-10-10",
+      "title": "Windows-style snapping",
+      "items": [
+        "Super + arrow keys snap like Win + arrows.",
+        "Drag a window to an edge or corner to snap it, with a see-through preview.",
+        "Snap layouts (Super + Z or ⊞ on the title bar) and Snap Assist."
+      ]
+    }
   ]
 }

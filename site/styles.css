@@ -716,3 +716,21 @@ select.sel { background: var(--pill); color: var(--text); border: 0; border-radi
 .fgrid label { display: block; }
 .fgrid label input, .fgrid label textarea { display: block; margin-top: 6px; }
 .fgrid label .muted { font-weight: 500; }
+
+/* What's New changelog */
+.changelog { display: grid; gap: 10px; }
+.cl-older { display: grid; gap: 10px; }
+.cl-entry { padding: 14px 18px; border-radius: 16px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+.cl-entry summary { display: flex; gap: 12px; align-items: baseline; cursor: pointer; list-style: none; flex-wrap: wrap; }
+.cl-entry summary::-webkit-details-marker { display: none; }
+.cl-entry summary::before { content: "›"; color: var(--text-2); transition: transform .15s; display: inline-block; }
+.cl-entry[open] summary::before { transform: rotate(90deg); }
+.cl-ver { font-weight: 700; }
+.cl-title { color: var(--text); flex: 1; }
+.cl-date { color: var(--text-2); font-size: 13px; }
+.cl-note { margin: 10px 0 0; color: var(--text-2); font-size: 13px; }
+.cl-entry ul { margin: 10px 0 2px; padding-left: 20px; color: var(--text-2); font-size: 14px; line-height: 1.5; }
+.cl-entry li + li { margin-top: 6px; }
+.new-tag { display: inline-block; margin-left: 8px; padding: 2px 7px; border-radius: 999px; font-size: 10px; font-weight: 800; letter-spacing: .06em; vertical-align: 2px; color: #04130e; background: linear-gradient(135deg, #4fe0c0, #9ff27a); }
+.spot-new { display: inline-flex; align-items: center; gap: 2px; margin: -4px 0 12px; padding: 6px 12px 6px 6px; border-radius: 999px; font-size: 14px; font-weight: 700; color: #eafff7; background: rgba(79,224,192,.14); box-shadow: inset 0 0 0 1px rgba(79,224,192,.35); }
+.spot-new .new-tag { margin: 0 8px 0 0; vertical-align: 0; }
