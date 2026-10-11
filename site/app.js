@@ -24,6 +24,9 @@
 
   // ---------- helpers ----------
   const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  // Links that come from outside data (plugin marketplace, GitHub, theme directory): only http(s) is allowed,
+  // so a javascript:/data: URL can never end up in an href. A bare "example.com/x" gets https:// in front.
+  const safeUrl = (u) => { u = String(u ?? "").trim(); return esc(/^https?:\/\//i.test(u) ? u : /^[\w-]+(\.[\w-]+)+(\/|$)/.test(u) ? "https://" + u : "#"); };
   const k = (n) => n == null ? "—" : n >= 1e6 ? (n / 1e6).toFixed(1).replace(/\.0$/, "") + "M" : n >= 1e3 ? (n / 1e3).toFixed(n >= 1e4 ? 0 : 1).replace(/\.0$/, "") + "K" : String(n);
   const mb = (b) => b == null ? "—" : b >= 1e9 ? (b / 1e9).toFixed(1) + " GB" : Math.max(1, Math.round(b / 1e6)) + " MB";
   const ago = (iso) => {
@@ -374,7 +377,7 @@
 
   function themeBtn(t, big = false) {
     const cls = "get" + (big ? " big" : "");
-    if (!canInstallTheme(t)) return `<a class="${cls} ghosty" href="${esc(t.source_url)}" target="_blank" rel="noopener">VIEW</a>`;
+    if (!canInstallTheme(t)) return `<a class="${cls} ghosty" href="${safeUrl(t.source_url)}" target="_blank" rel="noopener">VIEW</a>`;
     if (S.busy.has("theme:" + t.id)) return `<button class="${cls} busy"><span class="ring"></span></button>`;
     if (S.desktop && themeIsCurrent(t)) return `<button class="${cls} installed" disabled>IN USE</button>`;
     if (S.desktop && themeHave(t)) return `<button class="${cls}" data-theme-use="${t.id}">USE</button>`;
@@ -426,7 +429,7 @@
     return `<div class="page">
       <h1 class="page-title">Themes</h1>
       ${themesBanner(true)}
-      <p class="page-sub">${all.length} community themes that recolor your whole Omarchy desktop: terminal, bar, launcher, lock screen and wallpaper. Directory from <a style="color:var(--accent)" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a>.</p>
+      <p class="page-sub">${all.length} community themes that recolor your whole Omarchy desktop: terminal, bar, launcher, lock screen and wallpaper. Directory from <a style="color:var(--accent)" href="${safeUrl(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a>.</p>
       ${false && pick.length ? `<div class="scroller theme-hero">${pick.map((t) => `<a class="th-card" href="/theme/${t.id}/"><img src="${esc(themeImg(t))}" alt="" loading="eager">
         <div class="th-over"><div class="eyebrow">Most loved</div><h3>${esc(t.name)}</h3><div class="swatch">${swatches(t)}</div></div></a>`).join("")}</div>` : ""}
       <div class="theme-tools">
@@ -435,7 +438,7 @@
       </div>
       <div class="theme-grid" id="tgrid">${themeGridHtml()}</div>
       <div class="trust">${ico("ok")}<div>Themes only change colors, fonts and wallpapers; they don't install programs or need your password. Installing copies the theme from its GitHub page into <code>~/.config/omarchy/themes</code> and switches to it. Switch back any time from the Omarchy menu: <b>Super + Ctrl + Shift + Space</b>.
-        <div style="margin-top:6px">Themes are made by independent creators. Listing data courtesy of <a style="color:var(--accent)" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a> by <a style="color:var(--accent)" href="${esc(src.by_url)}" target="_blank" rel="noopener">${esc(src.by)}</a>.</div></div></div>
+        <div style="margin-top:6px">Themes are made by independent creators. Listing data courtesy of <a style="color:var(--accent)" href="${safeUrl(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a> by <a style="color:var(--accent)" href="${safeUrl(src.by_url)}" target="_blank" rel="noopener">${esc(src.by)}</a>.</div></div></div>
       ${footer()}
     </div>`;
   }
@@ -453,10 +456,10 @@
         <div style="min-width:0">
           <h1>${esc(t.name)}${t.archived ? `<span class="archived">Archived</span>` : ""}</h1>
           <div class="sub">${esc(t.description && t.description.length < 200 ? t.description : (t.mode === "light" ? "A light theme" : "A dark theme") + " for Omarchy")}</div>
-          <a class="dev" href="${esc(gh || t.source_url)}" target="_blank" rel="noopener">${esc(t.author || "Unknown creator")}</a>
+          <a class="dev" href="${safeUrl(gh || t.source_url)}" target="_blank" rel="noopener">${esc(t.author || "Unknown creator")}</a>
           <div class="actions">
             ${themeBtn(t, true)}${themeRm(t)}
-            ${gh ? `<a class="icon-btn" href="${gh}" target="_blank" rel="noopener" title="View on GitHub">${ico("github")}</a>` : ""}
+            ${gh ? `<a class="icon-btn" href="${esc(gh)}" target="_blank" rel="noopener" title="View on GitHub">${ico("github")}</a>` : ""}
             <button class="icon-btn" data-share-theme="${t.id}" title="Share">${ico("share")}</button>
           </div>
         </div>
@@ -476,12 +479,12 @@
       <section class="shelf"><div class="shelf-head"><h2>Information</h2></div>
         <div class="info-grid">
           <div><div class="k">Creator</div><div class="v">${esc(t.author || "—")}</div></div>
-          ${gh ? `<div><div class="k">Source code</div><a class="v" href="${gh}" target="_blank" rel="noopener">github.com/${esc(t.repo)}</a></div>` : ""}
-          <div><div class="k">Listed on</div><a class="v" href="${esc(t.source_url)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Themes")}</a></div>
+          ${gh ? `<div><div class="k">Source code</div><a class="v" href="${esc(gh)}" target="_blank" rel="noopener">github.com/${esc(t.repo)}</a></div>` : ""}
+          <div><div class="k">Listed on</div><a class="v" href="${safeUrl(t.source_url)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Themes")}</a></div>
           ${canInstallTheme(t) ? `<div><div class="k">Install command</div><div class="v"><code class="small">${esc(themeCmd(t))}</code></div></div>` : ""}
         </div>
         <div class="trust">${ico("ok")}<div>${t.builtin ? "This theme ships with Omarchy, so nothing is downloaded: the store just switches to it." : "Installing copies this theme from its GitHub page into ~/.config/omarchy/themes and switches to it. Themes change colors and wallpapers only."}
-          <div style="margin-top:6px">Theme by ${esc(t.author || "its creator")} · listed via <a style="color:var(--accent)" href="${esc(t.source_url)}" target="_blank" rel="noopener">${esc(src.name || "omarchythemes.com")}</a>. Third-party content, provided as-is: <a style="color:var(--accent)" href="/legal/">disclaimer</a>.</div></div></div>
+          <div style="margin-top:6px">Theme by ${esc(t.author || "its creator")} · listed via <a style="color:var(--accent)" href="${safeUrl(t.source_url)}" target="_blank" rel="noopener">${esc(src.name || "omarchythemes.com")}</a>. Third-party content, provided as-is: <a style="color:var(--accent)" href="/legal/">disclaimer</a>.</div></div></div>
       </section>
       ${themeShelf(t.mode === "light" ? "More light themes" : "More dark themes", more, "/themes/")}
       ${footer()}
@@ -520,7 +523,7 @@
   function plugBtn(x, big = false, inCard = false) {
     const cls = "get" + (big ? " big" : "");
     // Inside a card (which is itself a link) a nested <a> breaks the layout: use a span, the card opens the plugin page.
-    if (!x.i) return inCard ? `<span class="${cls} ghosty">VIEW</span>` : `<a class="${cls} ghosty" href="${esc(x.r || S.plugins.source.url)}" target="_blank" rel="noopener">VIEW</a>`;
+    if (!x.i) return inCard ? `<span class="${cls} ghosty">VIEW</span>` : `<a class="${cls} ghosty" href="${safeUrl(x.r || S.plugins.source.url)}" target="_blank" rel="noopener">VIEW</a>`;
     if (S.busy.has("plugin:" + x.id)) return `<button class="${cls} busy"><span class="ring"></span></button>`;
     if (S.desktop && S.plugsHave.has(x.id)) return `<button class="${cls} installed" disabled>ADDED</button>`;
     return `<button class="${cls}" data-plug-get="${esc(x.id)}">GET</button>`;
@@ -556,7 +559,7 @@
     const cats = [{ id: "all", name: "All categories" }, ...(d.categories || [])];
     return `<div class="page">
       <h1 class="page-title">Plugins</h1>
-      <p class="page-sub">${all.length.toLocaleString()} community plugins for Omarchy's bar and desktop: widgets, tools, system controls and more. ${ok.toLocaleString()} are Verified. Live from the official <a style="color:var(--accent)" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a>, updated every 30 minutes.</p>
+      <p class="page-sub">${all.length.toLocaleString()} community plugins for Omarchy's bar and desktop: widgets, tools, system controls and more. ${ok.toLocaleString()} are Verified. Live from the official <a style="color:var(--accent)" href="${safeUrl(src.url)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a>, updated every 30 minutes.</p>
       <div class="theme-tools">
         <div class="tabs">${PLUG_FILTERS.map(([id, n]) => `<button data-pfilter="${id}" class="${S.plugFilter === id ? "on" : ""}">${esc(n)}</button>`).join("")}</div>
         <div class="plug-search">
@@ -566,7 +569,7 @@
       </div>
       <div class="plug-grid" id="pgrid">${plugGridHtml()}</div>
       <div class="trust">${ico("ok")}<div><b>Verified</b> means the plugin passed the marketplace's automated security check for the version listed. It isn't a guarantee: plugins are made by independent developers and run on your computer, so only add ones you trust. Remove any plugin with <code>omarchy plugin remove &lt;id&gt;</code>.
-        <div style="margin-top:6px">Plugin listings courtesy of the <a style="color:var(--accent)" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a> by <a style="color:var(--accent)" href="${esc(src.by_url)}" target="_blank" rel="noopener">${esc(src.by || "HANCORE")}</a>.</div></div></div>
+        <div style="margin-top:6px">Plugin listings courtesy of the <a style="color:var(--accent)" href="${safeUrl(src.url)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a> by <a style="color:var(--accent)" href="${safeUrl(src.by_url)}" target="_blank" rel="noopener">${esc(src.by || "HANCORE")}</a>.</div></div></div>
       ${footer()}
     </div>`;
   }
@@ -584,9 +587,9 @@
         <div style="min-width:0">
           <h1>${esc(x.n)}</h1>
           <div class="sub">${esc(x.d || "A plugin for Omarchy")}</div>
-          ${x.r ? `<a class="dev" href="${esc(x.r)}" target="_blank" rel="noopener">${esc(x.a || "Community")}</a>` : `<span class="dev">${esc(x.a || "Community")}</span>`}
+          ${x.r ? `<a class="dev" href="${safeUrl(x.r)}" target="_blank" rel="noopener">${esc(x.a || "Community")}</a>` : `<span class="dev">${esc(x.a || "Community")}</span>`}
           <div class="actions">${plugBtn(x, true)}${plugRm(x)}
-            ${x.r ? `<a class="icon-btn" href="${esc(x.r)}" target="_blank" rel="noopener" title="Source code on GitHub">${ico("github")}</a>` : ""}
+            ${x.r ? `<a class="icon-btn" href="${safeUrl(x.r)}" target="_blank" rel="noopener" title="Source code on GitHub">${ico("github")}</a>` : ""}
             <button class="icon-btn" data-copy="${esc(SITE + "plugin/" + encodeURIComponent(x.id) + "/")}" title="Copy link">${ico("share")}</button></div>
         </div>
       </div>
@@ -603,10 +606,10 @@
         ${x.i ? `<p class="muted small">${S.desktop ? "Click GET, or paste" : "Paste"} this into a terminal (<b>Super + Return</b>):</p>
           <div class="code"><code>${esc(plugCmd(x))}</code><button class="btn" data-copy="${esc(plugCmd(x))}">Copy</button></div>
           <p class="muted small">Remove it any time: <code>omarchy plugin remove ${esc(x.id)}</code></p>`
-        : `<p>${esc(x.note || "This one needs manual setup.")} Follow the instructions on <a style="color:var(--accent)" href="${esc(x.r || market)}" target="_blank" rel="noopener">its GitHub page</a>.</p>`}
+        : `<p>${esc(x.note || "This one needs manual setup.")} Follow the instructions on <a style="color:var(--accent)" href="${safeUrl(x.r || market)}" target="_blank" rel="noopener">its GitHub page</a>.</p>`}
         ${x.t?.length ? `<div class="chips" style="margin-top:12px">${x.t.map((t) => `<span>${esc(t)}</span>`).join("")}</div>` : ""}
         <div class="trust">${ico("ok")}<div>${x.ok ? "Verified: this plugin passed the Omarchy Plugin Marketplace's automated security check for the version listed." : "Unverified: the marketplace hasn't checked this plugin's code yet. That doesn't mean it's unsafe, but review it before adding."} Plugins run on your computer with your permissions, so only add ones you trust.
-          <div style="margin-top:6px">Plugin by ${esc(x.a || "its creator")} · listed on the <a style="color:var(--accent)" href="${esc(market)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a>. Third-party code, provided as-is: <a style="color:var(--accent)" href="/legal/">disclaimer</a>.</div></div></div>
+          <div style="margin-top:6px">Plugin by ${esc(x.a || "its creator")} · listed on the <a style="color:var(--accent)" href="${safeUrl(market)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a>. Third-party code, provided as-is: <a style="color:var(--accent)" href="/legal/">disclaimer</a>.</div></div></div>
       </section>
       ${more.length ? `<section class="shelf"><div class="shelf-head"><h2>More like this</h2><a href="/plugins/">See All</a></div><div class="scroller plug-row">${more.map(plugCard).join("")}</div></section>` : ""}
       ${footer()}
@@ -849,7 +852,7 @@
       </details>`;
     const [first, ...rest] = a.changelog;
     return `<section class="shelf" id="whats-new">
-        <div class="shelf-head"><h2>What’s New</h2>${ghUrl ? `<a href="${ghUrl}/releases" target="_blank" rel="noopener">Version History</a>` : ""}</div>
+        <div class="shelf-head"><h2>What’s New</h2>${ghUrl ? `<a href="${esc(ghUrl)}/releases" target="_blank" rel="noopener">Version History</a>` : ""}</div>
         <div class="changelog">${entry(first, true)}${rest.length ? `<div class="cl-older">${rest.map((c) => entry(c, false)).join("")}</div>` : ""}</div>
       </section>`;
   }
@@ -1433,10 +1436,10 @@
         <div style="min-width:0">
           <h1>${esc(a.name)}${a.archived ? `<span class="archived">Archived</span>` : ""}</h1>
           <div class="sub">${esc(a.summary)}</div>
-          <a class="dev" href="${esc(ghUrl || a.homepage || "#")}" target="_blank" rel="noopener">${esc(a.developer)}</a>
+          <a class="dev" href="${ghUrl || a.homepage ? safeUrl(ghUrl || a.homepage) : "#"}" target="_blank" rel="noopener">${esc(a.developer)}</a>
           <div class="actions">
             ${getBtn(a, true)}${appRm(a)}
-            ${ghUrl ? `<a class="icon-btn" href="${ghUrl}" target="_blank" rel="noopener" title="View on GitHub">${ico("github")}</a>` : ""}
+            ${ghUrl ? `<a class="icon-btn" href="${esc(ghUrl)}" target="_blank" rel="noopener" title="View on GitHub">${ico("github")}</a>` : ""}
             <button class="icon-btn" data-share="${a.id}" title="Share">${ico("share")}</button>
           </div>
         </div>
@@ -1455,7 +1458,7 @@
       ${reviewsSection(a)}
 
       ${a.changelog?.length ? changelogSection(a, ghUrl) : a.release || p.version ? `<section class="shelf">
-        <div class="shelf-head"><h2>What’s New</h2>${ghUrl ? `<a href="${ghUrl}/releases" target="_blank" rel="noopener">Version History</a>` : ""}</div>
+        <div class="shelf-head"><h2>What’s New</h2>${ghUrl ? `<a href="${esc(ghUrl)}/releases" target="_blank" rel="noopener">Version History</a>` : ""}</div>
         <div class="whatsnew"><span>Version ${esc(a.release || p.version)}</span><span>${ago(a.released_at || p.updated)}</span></div>
       </section>` : ""}
 
@@ -1468,8 +1471,8 @@
           ${a.license || !a.featured ? `<div><div class="k">License</div><div class="v">${esc(a.license || "Proprietary")}</div></div>` : ""}
           ${a.last_commit ? `<div><div class="k">Last code change</div><div class="v">${ago(a.last_commit)}</div></div>` : ""}
           <div><div class="k">Runs in</div><div class="v">${a.kind === "terminal" ? "Terminal" : "Desktop window"}</div></div>
-          ${a.homepage ? `<div><div class="k">Website</div><a class="v" href="${esc(a.homepage)}" target="_blank" rel="noopener">${esc(a.homepage.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, ""))}</a></div>` : ""}
-          ${ghUrl ? `<div><div class="k">Source code</div><a class="v" href="${ghUrl}" target="_blank" rel="noopener">github.com/${esc(a.github)}</a></div>` : ""}
+          ${a.homepage ? `<div><div class="k">Website</div><a class="v" href="${safeUrl(a.homepage)}" target="_blank" rel="noopener">${esc(a.homepage.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, ""))}</a></div>` : ""}
+          ${ghUrl ? `<div><div class="k">Source code</div><a class="v" href="${esc(ghUrl)}" target="_blank" rel="noopener">github.com/${esc(a.github)}</a></div>` : ""}
           <div><div class="k">Install command</div><div class="v"><code class="small">${esc(cmdFor(a))}</code></div></div>
         </div>
         <div class="trust ${stale ? "warn" : ""}">${ico(stale ? "warn" : "ok")}<div>${stale

@@ -749,6 +749,11 @@ class Handler(SimpleHTTPRequestHandler):
     def end_headers(self):
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Cache-Control", "no-cache")
+        # No other website may show the store inside a frame (stops "clickjacking": tricking you into
+        # clicking GET on a hidden copy of the store).
+        self.send_header("X-Frame-Options", "DENY")
+        self.send_header("Content-Security-Policy", "frame-ancestors 'none'")
+        self.send_header("Referrer-Policy", "no-referrer")
         super().end_headers()
 
     def _json(self, code, obj):
@@ -768,6 +773,10 @@ class Handler(SimpleHTTPRequestHandler):
         if not self._host_ok():
             return self._json(403, {"error": "forbidden"})
         path = urllib.parse.unquote(self.path.split("?")[0])
+        # Other websites can't read our answers, but they could still make the browser send GET requests
+        # (e.g. via <img>) that start slow work like update checks. Browsers label those cross-site.
+        if path.startswith("/api/") and self.headers.get("Sec-Fetch-Site", "same-origin") not in ("same-origin", "none"):
+            return self._json(403, {"error": "forbidden"})
         # Any page path (/, /app/krita/, /category/games/, /search/x/) → the store shell.
         # Real files (have an extension) and /api/ are served normally.
         is_page = not path.startswith("/api/") and not re.search(r"\.[A-Za-z0-9]+$", path)
