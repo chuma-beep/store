@@ -15,7 +15,7 @@
 
   const S = { catalog: null, byId: {}, themeById: {}, desktop: false, installed: new Set(), busy: new Set(), chartCat: "all",
     themeFilter: "all", themeQ: "", themesHave: new Set(), themeNow: "",
-    plugins: null, plugById: {}, plugFilter: "popular", plugCat: "all", plugQ: "", plugShown: 60, plugsHave: new Set() };
+    plugins: null, plugById: {}, plugFilter: "popular", plugCat: "all", plugQ: "", plugShown: 60, plugsHave: new Set(), savers: null, saverF: "all", saverQ: "", saverShown: 60 };
   const $ = (s, el = document) => el.querySelector(s);
   const view = $("#view");
   // Desktop helper injects a per-session token; every install/open request must carry it.
@@ -70,6 +70,7 @@
     installed: '<path d="M12 3v12m0 0-4-4m4 4 4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/>',
     globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18"/>',
     code: '<path d="m8 8-4 4 4 4m8-8 4 4-4 4m-6 3 4-14"/>',
+    moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/><path d="M16 3v3M14.5 4.5h3M19.5 8v2M18.5 9h2"/>',
     sparkles: '<path d="M12 3l1.8 4.7L18.5 9.5 13.8 11.3 12 16l-1.8-4.7L5.5 9.5l4.7-1.8zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/>',
     brush: '<path d="M14 4l6 6-9 9H5v-6z"/><path d="M12 6l6 6"/>',
     film: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v16M17 4v16M3 9h4M3 15h4M17 9h4M17 15h4"/>',
@@ -178,11 +179,13 @@
       <a href="/categories/" data-r="categories">${ico("grid")}Categories</a>
       ${S.catalog.themes.length ? `<a class="d-hide" href="/themes/" data-r="themes">${ico("palette")}Themes</a>` : ""}
       <a class="d-hide" href="/plugins/" data-r="plugins">${ico("puzzle")}Plugins</a>
+      <a class="d-hide" href="/screensavers/" data-r="screensavers">${ico("moon")}Screensavers</a>
       ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>
       <a href="/updates/" data-r="updates">${ico("refresh")}Updates<span class="nav-count" id="upd-count" hidden></span></a>` : ""}
       <div class="sec">Categories</div>
       ${S.catalog.themes.length ? `<a class="m-hide" href="/themes/" data-r="themes-cat">${ico("palette")}Themes</a>` : ""}
-      <a class="m-hide" href="/plugins/" data-r="plugins-cat">${ico("puzzle")}Plugins<span class="nav-new">NEW</span></a>
+      <a class="m-hide" href="/plugins/" data-r="plugins-cat">${ico("puzzle")}Plugins</a>
+      <a class="m-hide" href="/screensavers/" data-r="screensavers-cat">${ico("moon")}Screensavers<span class="nav-new">NEW</span></a>
       ${cats.map((c) => `<a href="/category/${c.id}/" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}
       <div class="sec m-hide">More</div>
       <a class="m-hide" href="/get-omarchy/" data-r="get-omarchy">${ico("rocket")}Get Omarchy</a>
@@ -581,6 +584,70 @@
       ${footer()}
     </div>`;
   }
+  // ---------- Screensavers (one-click marketplace plugins + other GitHub projects) ----------
+  // screensavers.json is rebuilt with plugins.json every 30 minutes (data branch). Plugin entries
+  // are ids into the plugin list (same GET flow); GitHub projects are listed and linked, never hosted.
+  const SAVER_LIVE = "https://raw.githubusercontent.com/omarchy-community/store/data/screensavers.json";
+  const SAVER_FILTERS = [["all", "All"], ["saver", "Screensavers"], ["tool", "Controls & timing"], ["one", "One-click"]];
+  let saverLoading = null;
+  function loadSavers() {
+    if (S.savers || saverLoading) return saverLoading;
+    const fj = (u) => fetch(u, { cache: "no-cache" }).then((r) => { if (!r.ok) throw 0; return r.json(); });
+    saverLoading = fj(SAVER_LIVE).catch(() => fj(S.desktop ? "https://omarchystore.com/screensavers.json" : "/screensavers.json"))
+      .then((d) => { S.savers = d; rerender(); })
+      .catch(() => { S.savers = { count: 0, plugins: [], repos: [], failed: true }; rerender(); });
+    return saverLoading;
+  }
+  function saverCard(x) {
+    const img = x.img || "";
+    return `<a class="plug-card" href="https://github.com/${esc(x.id)}" target="_blank" rel="noopener">
+      <div class="pc-img">${img ? `<img src="${esc(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ""}<span class="pl-ini" style="--pc:#565f89">${x.av ? `<img src="${esc(x.av)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ""}${ico("moon")}</span></div>
+      <div class="pc-meta"><div style="min-width:0;flex:1"><div class="name">${esc(x.n)}</div>
+        <div class="sub">${esc(x.a)}${x.s ? ` · ★ ${k(x.s)}` : ""}</div>
+        <div class="pc-tags"><span class="pv" title="Listed from GitHub: install by following the project's instructions">GitHub</span></div></div><span class="get ghosty">VIEW</span></div>
+    </a>`;
+  }
+  function saverList() {
+    const d = S.savers || {}, f = S.saverF, q = S.saverQ.trim().toLowerCase();
+    let l = (d.plugins || []).map((p) => ({ p: S.plugById[p.id], k: p.k })).filter((x) => x.p)
+      .sort((a, b) => ((b.p.ok && b.p.img ? 1 : 0) - (a.p.ok && a.p.img ? 1 : 0)) || (b.p.s - a.p.s));
+    if (f !== "one") l = l.concat((d.repos || []).map((r) => ({ r, k: r.k })));
+    if (f === "saver" || f === "tool") l = l.filter((x) => x.k === f);
+    if (q) l = l.filter((x) => { const o = x.p || x.r; return (o.n + " " + o.a + " " + o.d + " " + o.id).toLowerCase().includes(q); });
+    return l;
+  }
+  function saverGridHtml() {
+    const l = saverList(), shown = l.slice(0, S.saverShown);
+    return (shown.length ? shown.map((x) => x.p ? plugCard(x.p) : saverCard(x.r)).join("") : `<div class="empty" style="grid-column:1/-1">No screensavers match.</div>`) +
+      (l.length > shown.length ? `<div style="grid-column:1/-1;text-align:center;margin-top:8px"><button class="btn ghost" data-saver-more>Show more (${(l.length - shown.length).toLocaleString()} left)</button></div>` : "");
+  }
+  function pageScreensavers() {
+    if (!S.plugins) loadPlugins();
+    if (!S.savers) loadSavers();
+    if (!S.savers || !S.plugins) return `<div class="page"><h1 class="page-title">Screensavers</h1><div class="empty">Loading screensavers…</div></div>`;
+    const d = S.savers, one = (d.plugins || []).filter((p) => S.plugById[p.id]).length, gh = (d.repos || []).length;
+    return `<div class="page">
+      <h1 class="page-title">Screensavers</h1>
+      <p class="page-sub">${(one + gh).toLocaleString()} screensavers for Omarchy, plus tools to control when they start. ${one} install in one click from the Omarchy Plugin Marketplace; ${gh} more are community projects on GitHub (VIEW opens the project with its install steps). Updated automatically.</p>
+      <div class="theme-tools">
+        <div class="tabs">${SAVER_FILTERS.map(([id, n]) => `<button data-sfilter="${id}" class="${S.saverF === id ? "on" : ""}">${esc(n)}</button>`).join("")}</div>
+        <div class="plug-search"><input id="sq" type="search" placeholder="Search screensavers" value="${esc(S.saverQ)}" autocomplete="off" aria-label="Search screensavers"></div>
+      </div>
+      <div class="plug-grid" id="sgrid">${saverGridHtml()}</div>
+      <div class="trust">${ico("ok")}<div><b>Try it:</b> Omarchy's screensaver starts on its own after you've been idle a while, or open it any time from <b>Omarchy menu › Style › Screensaver</b>.
+        <div style="margin-top:6px">Screensavers are made by independent developers and run on your computer, so only add ones you trust. One-click ones come from the <a style="color:var(--accent)" href="https://plugins.omarchy.org/" target="_blank" rel="noopener">Omarchy Plugin Marketplace</a> (Verified = passed its automated security check); GitHub projects are listed as found and aren't checked by us.</div></div></div>
+      ${footer()}
+    </div>`;
+  }
+  function saverShelf() {
+    if (!S.savers) { loadSavers(); return ""; }
+    if (!S.plugins) return "";
+    const l = (S.savers.plugins || []).filter((p) => p.k === "saver").map((p) => S.plugById[p.id]).filter((x) => x && x.img).slice(0, 8)
+      .concat((S.savers.repos || []).filter((r) => r.k === "saver" && r.img).slice(0, 8).map((r) => ({ r })));
+    if (!l.length) return "";
+    return `<section class="shelf"><div class="shelf-head"><h2>Screensavers</h2><a href="/screensavers/">See All ${S.savers.count}</a></div>
+      <div class="scroller plug-row">${l.map((x) => x.r ? saverCard(x.r) : plugCard(x)).join("")}</div></section>`;
+  }
   function plugShelf() {
     if (!S.plugins) { loadPlugins(); return ""; }
     const l = (S.plugins.plugins || []).filter((x) => x.ok && x.img).slice(0, 14);
@@ -669,6 +736,7 @@
       ${shelf(collections[0].title, collections[0].apps.map((id) => S.byId[id]))}
       ${bannerAd()}
       ${plugShelf()}
+      ${saverShelf()}
       ${themeShelf("Make it yours: Themes", S.catalog.themes.filter((t) => !t.builtin && t.palette?.length && t.image).slice(0, 14), "/themes/")}
       <section class="shelf">
         <div class="shelf-head"><h2>Top Charts</h2><a href="/charts/">See All</a></div>
@@ -838,6 +906,10 @@
         <a class="cat-tile" href="/plugins/">
           <span class="ci" style="background:linear-gradient(135deg,#9ece6a,#2ac3de)">${ico("puzzle")}</span>
           <span>Plugins<div class="muted small">${S.plugins ? S.plugins.plugins.length.toLocaleString() : "5,000+"} plugins</div></span>
+        </a>
+        <a class="cat-tile" href="/screensavers/">
+          <span class="ci" style="background:linear-gradient(135deg,#1a1b26,#7aa2f7 60%,#bb9af7)">${ico("moon")}</span>
+          <span>Screensavers<div class="muted small">${S.savers ? S.savers.count : "100+"} screensavers</div></span>
         </a>${S.catalog.categories.map((c, i) => `
         <a class="cat-tile" href="/category/${c.id}/">
           <span class="ci" style="background:${CAT_COLORS[i % CAT_COLORS.length]}">${ico(c.icon)}</span>
@@ -1571,6 +1643,7 @@
     else if (p === "themes") html = pageThemes();
     else if (p === "theme") html = pageTheme(arg), nav = "themes";
     else if (p === "plugins") html = pagePlugins();
+    else if (p === "screensavers") html = pageScreensavers();
     else if (p === "plugin") html = pagePlugin((arg || "").replace(/\/$/, "")), nav = "plugins";
     else if (p === "category") html = pageCategory(arg), nav = "category/" + arg;
     else if (p === "app") html = pageApp(arg), nav = "category/" + (S.byId[arg]?.category || "");
@@ -1606,6 +1679,7 @@
     if (th) return `${th.name} Theme for Omarchy – by ${th.author} | Omarchy Store`;
     const pl = p === "plugin" && S.plugById[decodeURIComponent((arg || "").replace(/\/$/, ""))];
     if (pl) return `${pl.n} – Omarchy Plugin | Omarchy Store`;
+    if (p === "screensavers") return "Omarchy Screensavers – Custom Screensavers & Idle Tools | Omarchy Store";
     if (p === "plugins") return "Omarchy Plugins – Bar Widgets & Desktop Add-ons | Omarchy Store";
     return TITLES[p] ? `${TITLES[p]} | Omarchy Store` : "Omarchy Store – The App Store for Omarchy Linux";
   }
@@ -1676,7 +1750,7 @@
   }
 
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-rm],[data-rm-yes],[data-share-theme],#more,.sheet");
+    const t = e.target.closest("[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-sfilter],[data-saver-more],[data-rm],[data-rm-yes],[data-share-theme],#more,.sheet");
     if (!t) return;
     if (t.matches("[data-usb-dl]")) {
       post("/api/usb/download", {}).then(async (r) => { if (!r.ok) toast((await r.json().catch(() => ({}))).error || "Download failed"); loadUsb(); });
@@ -1727,6 +1801,10 @@
       if (x) { if (S.desktop) desktopPlugin(x); else webPluginGet(x); }
     } else if (t.matches("[data-plug-search]")) {
       S.plugQ = t.dataset.plugSearch; S.plugShown = 60;
+    } else if (t.matches("[data-sfilter]")) {
+      S.saverF = t.dataset.sfilter; S.saverShown = 60; rerender();
+    } else if (t.matches("[data-saver-more]")) {
+      S.saverShown += 60; const g = $("#sgrid"); if (g) g.innerHTML = saverGridHtml();
     } else if (t.matches("[data-pfilter]")) {
       S.plugFilter = t.dataset.pfilter; S.plugShown = 60; rerender();
     } else if (t.matches("[data-plug-more]")) {
@@ -1777,6 +1855,7 @@
   });
   // Theme search box filters the grid in place (no re-render, so the cursor stays put).
   document.addEventListener("input", (e) => {
+    if (e.target.id === "sq") { S.saverQ = e.target.value; S.saverShown = 60; const g = $("#sgrid"); if (g) g.innerHTML = saverGridHtml(); return; }
     if (e.target.id === "pq") { S.plugQ = e.target.value; S.plugShown = 60; const g = $("#pgrid"); if (g) g.innerHTML = plugGridHtml(); return; }
     if (e.target.id !== "tq") return;
     S.themeQ = e.target.value;

@@ -26,6 +26,12 @@ jobs:
           python-version: "3.12"
       - name: Collect plugins
         run: python3 scripts/plugins.py /tmp/plugins.json
+      - name: Collect screensavers
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/${{ github.repository }}/data/screensavers.json -o /tmp/screensavers.json || true
+          python3 scripts/screensavers.py /tmp/plugins.json /tmp/screensavers.json
       - name: Publish to data branch if changed
         run: |
           set -e
@@ -40,8 +46,9 @@ jobs:
             cd /tmp/data && git checkout -q --orphan data && git rm -rfq . && git clean -fdq
           fi
           cp /tmp/plugins.json plugins.json
+          [ -s /tmp/screensavers.json ] && cp /tmp/screensavers.json screensavers.json
           printf '# Data branch\nMachine-written data for omarchystore.com. Do not edit.\n' > README.md
-          git add plugins.json README.md
+          git add plugins.json README.md $( [ -f screensavers.json ] && echo screensavers.json )
           if git diff --cached --quiet; then echo "No changes"; exit 0; fi
-          git commit -qm "plugins: $(python3 -c 'import json;d=json.load(open("plugins.json"));print(d["count"],"plugins")')"
+          git commit -qm "plugins+screensavers: $(python3 -c 'import json;d=json.load(open("plugins.json"));print(d["count"],"plugins")')"
           git push -q origin data

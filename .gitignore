@@ -21,3 +21,5 @@ site/themes/
 site/theme/
 site/plugins.json
 .wrangler/
+site/screensavers.json
+site/screensavers/

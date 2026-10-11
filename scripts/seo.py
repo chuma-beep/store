@@ -306,13 +306,36 @@ def main():
                                                  [ld, crumbs(("Omarchy Store", "/"), ("Plugins", "/plugins/"), (x["n"], purl(x)))]), body))
             urls.append((f"{SITE}{purl(x)}", (x.get("u") or now)[:10], "0.5"))
 
+    # ---- Screensavers (marketplace screensaver plugins + GitHub projects; the app shows them live)
+    try:
+        sdata = json.load(open(os.path.join(ROOT, "site", "screensavers.json")))
+    except Exception:
+        sdata = {}
+    if sdata.get("count"):
+        pby = {x["id"]: x for x in plugs}
+        sp = [pby[x["id"]] for x in sdata.get("plugins", []) if x["id"] in pby]
+        sr = sdata.get("repos") or []
+        from urllib.parse import quote as _sq
+        d = clip(f"{len(sp) + len(sr)} screensavers for Omarchy Linux: ASCII art, Matrix rain, aquariums, shaders, music visualizers "
+                 f"and more, plus tools to set screensaver and lock timing. {len(sp)} install in one click.")
+        body = ('<h1 class="page-title">Screensavers for Omarchy Linux</h1>'
+                f'<p>{e(d)}</p><h2>One-click screensavers</h2><ul class="ssr-list">'
+                + "".join(f'<li><a href="/plugin/{_sq(x["id"], safe="")}/"><strong>{e(x["n"])}</strong></a> by {e(x.get("a") or "community")} – {e(x.get("d") or "")}</li>' for x in sp)
+                + '</ul><h2>More screensavers on GitHub</h2><ul class="ssr-list">'
+                + "".join(f'<li><a href="https://github.com/{e(x["id"])}" rel="noopener"><strong>{e(x["n"])}</strong></a> by {e(x["a"])} – {e(x.get("d") or "")}</li>' for x in sr)
+                + '</ul><p>One-click listings courtesy of the <a href="https://plugins.omarchy.org/" rel="noopener">Omarchy Plugin Marketplace</a>.</p>')
+        write("/screensavers/", render(template, head("Omarchy Screensavers – Custom Screensavers & Idle Tools | Omarchy Store", d, "/screensavers/",
+                                                      f"{SITE}/assets/og-default.png", "Omarchy screensavers",
+                                                      [crumbs(("Omarchy Store", "/"), ("Screensavers", "/screensavers/"))]), body))
+        urls.append((f"{SITE}/screensavers/", now, "0.8"))
+
     # ---- Other pages
     simple = {
         "/charts/": ("Top Charts – Most Popular Omarchy Apps | Omarchy Store",
                      f"The {len(apps)} most popular apps for Omarchy Linux, ranked by GitHub stars and updated weekly.",
                      '<h1 class="page-title">Top Charts</h1><ol class="ssr-list">' + "".join(app_li(a) for a in apps[:100]) + "</ol>"),
         "/categories/": ("App Categories | Omarchy Store", "Browse Omarchy Linux apps by category.",
-                         '<h1 class="page-title">Categories</h1><ul>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>"),
+                         '<h1 class="page-title">Categories</h1><ul><li><a href="/themes/">Themes</a></li><li><a href="/plugins/">Plugins</a></li><li><a href="/screensavers/">Screensavers</a></li>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>"),
         "/legal/": ("Disclaimer | Omarchy Store", "Omarchy Store lists third-party software provided as-is, without warranty. Read the full disclaimer.",
                     '<h1 class="page-title">Disclaimer</h1>'),
         "/submit/": ("Submit an App to the Omarchy Store – Free Listing | Omarchy Store",
