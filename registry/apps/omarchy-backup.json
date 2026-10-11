@@ -3,13 +3,15 @@
   "name": "Omarchy Backup",
   "category": "utilities",
   "install": {
-    "method": "script",
-    "script": "curl -sL https://raw.githubusercontent.com/nemoclawai-tech/omarchy-backup/main/install.sh | bash"
+    "method": "release",
+    "version": "1.0.0",
+    "url": "https://github.com/nemoclawai-tech/omarchy-backup/releases/download/v1.0.0/omarchy-backup-1.0.0-1-any.pkg.tar.zst",
+    "sha256": "2e0e5a5fff20dcd5a512f3d394577ee438b7f5f9ee60ea6b65c91751e7aa18ea"
   },
   "detect": [
-    "~/.local/bin/omarchy-backup"
+    "omarchy-backup"
   ],
-  "kind": "desktop",
+  "kind": "gui",
   "summary": "Full backup and restore for Omarchy to Google Drive",
   "homepage": "https://github.com/nemoclawai-tech/omarchy-backup",
   "tags": [
