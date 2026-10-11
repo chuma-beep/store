@@ -1,0 +1,72 @@
+name: Release desktop app
+
+# Publishes the Omarchy Store desktop app as a GitHub release whenever the desktop
+# app's VERSION changes (desktop/omarchy-store). Asset: omarchy-store-<version>.tar.gz
+on:
+  push:
+    branches: [main]
+    paths: ["desktop/omarchy-store"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Read version
+        id: v
+        run: echo "version=$(grep -oP '^VERSION = "\K[^"]+' desktop/omarchy-store)" >> "$GITHUB_OUTPUT"
+      - name: Skip if this version is already released
+        id: exists
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "v${{ steps.v.outputs.version }}" >/dev/null 2>&1; then echo "yes=1" >> "$GITHUB_OUTPUT"; fi
+      - name: Build catalog
+        if: steps.exists.outputs.yes != '1'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 scripts/build.py
+      - name: Package
+        if: steps.exists.outputs.yes != '1'
+        run: |
+          V=${{ steps.v.outputs.version }}
+          D=omarchy-store-$V
+          mkdir -p "$D"
+          cp -r site "$D/site"
+          rm -rf "$D/site/icons" "$D/site/theme-previews" "$D/site/install.sh" "$D/site/get.sh"
+          cp desktop/omarchy-store desktop/uninstall.sh site/install.sh README.md LICENSE "$D/"
+          tar czf "$D.tar.gz" "$D"
+          sha256sum "$D.tar.gz" > "$D.tar.gz.sha256"
+      - name: Publish release
+        if: steps.exists.outputs.yes != '1'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          V=${{ steps.v.outputs.version }}
+          gh release create "v$V" "omarchy-store-$V.tar.gz" "omarchy-store-$V.tar.gz.sha256" \
+            --title "Omarchy Store $V" --notes "$(cat <<EOF
+          ## Install
+
+          **One line** (recommended), in a terminal (Super + Enter):
+
+          \`\`\`
+          curl -fsSL https://omarchystore.com/install.sh | bash
+          \`\`\`
+
+          **Or from this download:**
+
+          1. Download **omarchy-store-$V.tar.gz** below.
+          2. In a terminal: \`cd ~/Downloads && tar xzf omarchy-store-$V.tar.gz && bash omarchy-store-$V/install.sh\`
+          3. Open **Omarchy Store** from the app launcher (Super + Space).
+
+          No sudo. Installs only into your home folder. Remove with \`omarchy-store --uninstall\`.
+          The app updates itself after that.
+          EOF
+          )"

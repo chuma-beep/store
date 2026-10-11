@@ -3,6 +3,10 @@
 #
 #   curl -fsSL https://omarchystore.com/install.sh | bash
 #
+# Or from GitHub: download omarchy-store-<version>.tar.gz from
+#   https://github.com/omarchy-community/store/releases/latest
+# then:  tar xzf omarchy-store-*.tar.gz && bash omarchy-store-*/install.sh
+#
 # What this does (and nothing else):
 #   1. Downloads the store files into ~/.local/share/omarchy-store
 #   2. Puts the `omarchy-store` command in ~/.local/bin
@@ -26,6 +30,19 @@ command -v pacman >/dev/null || die "The Omarchy Store needs an Arch-based syste
 TMP=$(mktemp -d)
 trap 'rm -rf "$TMP"' EXIT
 
+# Installing from a downloaded GitHub release? Then the files are right next to this script.
+HERE=""
+if [ -n "${BASH_SOURCE[0]:-}" ] && [ -f "${BASH_SOURCE[0]}" ]; then HERE=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd); fi
+SRC="${OMARCHY_STORE_LOCAL:-}"
+if [ -z "$SRC" ] && [ -n "$HERE" ] && [ -f "$HERE/omarchy-store" ] && [ -f "$HERE/site/index.html" ]; then SRC="$HERE"; fi
+
+if [ -n "$SRC" ]; then
+  say "Installing Omarchy Store from $SRC"
+  mkdir -p "$TMP/site"
+  cp -r "$SRC/site/." "$TMP/site/"
+  cp "$SRC/omarchy-store" "$SRC/uninstall.sh" "$TMP/"
+  mkdir -p "$TMP/site/icons"
+else
 say "Downloading Omarchy Store…"
 fetch() { curl -fsSL --retry 3 -o "$TMP/$1" "$BASE$1" || die "couldn't download $1"; }
 mkdir -p "$TMP/site/assets" "$TMP/site/icons"
@@ -35,12 +52,13 @@ for f in site/index.html site/app.js site/styles.css site/catalog.json site/site
   mkdir -p "$TMP/$(dirname "$f")"
   curl -fsSL --retry 3 -o "$TMP/$f" "${BASE}desktop-files/$f" || die "couldn't download $f"
 done
+fi
 
 # Sanity-check what we downloaded before installing it.
 python3 -c "import json,sys; c=json.load(open(sys.argv[1])); assert c['apps']" "$TMP/site/catalog.json" || die "catalog looks broken"
 head -1 "$TMP/omarchy-store" | grep -q python3 || die "helper looks broken"
 
-say "Fetching app icons…"
+say "Fetching app icons… (skipped if you're offline; the store fetches them later)"
 python3 - "$TMP/site/catalog.json" "$TMP/site" "$BASE" <<'PY'
 import json, re, sys, urllib.request, concurrent.futures as cf
 cat, site, base = sys.argv[1], sys.argv[2], sys.argv[3]

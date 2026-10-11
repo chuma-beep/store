@@ -1030,6 +1030,7 @@
       <p class="muted" style="font-size:16px">The desktop app installs apps for you with one click, shows which ones you already have, and matches your Omarchy theme.</p>
       <p>Open a terminal (<b>Super + Return</b>) and paste:</p>
       <div class="code"><code>${esc(INSTALLER)}</code><button class="btn ghost" data-copy="${esc(INSTALLER)}">Copy</button></div>
+      <p class="muted small">Prefer GitHub? Download the latest release from <a style="color:var(--accent)" href="${REPO}/releases/latest" target="_blank" rel="noopener">github.com/omarchy-community/store/releases</a>, unzip it and run <code>bash omarchy-store-*/install.sh</code>.</p>
       <p class="muted small">Then launch <b>Omarchy Store</b> from your app launcher (<b>Super + Space</b>). It installs to your home folder only and can be removed with <code>omarchy-store --uninstall</code>.
       Read the script first: <a style="color:var(--accent)" href="${SITE}install.sh" target="_blank" rel="noopener">install.sh</a>.</p>
       ${footer()}

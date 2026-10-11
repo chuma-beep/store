@@ -11,6 +11,17 @@ curl -fsSL https://omarchystore.com/install.sh | bash
 
 Then open **Omarchy Store** from your launcher (Super + Space).
 
+📦 **Or download it from GitHub:** grab `omarchy-store-<version>.tar.gz` from the
+[latest release](https://github.com/omarchy-community/store/releases/latest), then:
+
+```bash
+cd ~/Downloads && tar xzf omarchy-store-*.tar.gz && bash omarchy-store-*/install.sh
+```
+
+No sudo, installs only into your home folder, updates itself. Remove with `omarchy-store --uninstall`.
+
+🚀 **New to Omarchy?** [omarchystore.com/get](https://omarchystore.com/get-omarchy/) walks you through installing it.
+
 > Unofficial and community-run. Not affiliated with Omarchy, Basecamp, or 37signals.
 
 ---
