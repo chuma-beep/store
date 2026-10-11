@@ -30,6 +30,12 @@ OUT = os.path.abspath(sys.argv[1]) if len(sys.argv) > 1 else os.path.join(ROOT, 
 e = lambda s: html.escape(str(s or ""), quote=True)
 
 
+def su(u):
+    """Escaped link from outside data: only http(s) URLs, never javascript:/data:."""
+    u = str(u or "").strip()
+    return e(u) if u.lower().startswith(("https://", "http://")) else "#"
+
+
 def clip(s, n=158):
     s = " ".join(str(s or "").split())
     return s if len(s) <= n else s[: n - 1].rsplit(" ", 1)[0].rstrip(",.;:") + "…"
@@ -94,6 +100,18 @@ def crumbs(*items):
         {"@type": "ListItem", "position": i + 1, "name": n, "item": f"{SITE}{p}"} for i, (n, p) in enumerate(items)]}
 
 
+def fit_title(*options, limit=65):
+    """First title option that fits Google's ~65-character display; else the shortest."""
+    for t in options:
+        if len(t) <= limit:
+            return t
+    return min(options, key=len)
+
+
+DISCLAIMER = ("Omarchy Store is an unofficial, community-run project. It is not affiliated with Omarchy, Basecamp or 37signals. "
+              "Everything listed is third-party software, provided as-is: install at your own risk.")
+
+
 def install_cmd(a):
     i = a["install"]
     if i["method"] == "omarchy":
@@ -129,7 +147,8 @@ def main():
 
     # ---- Home
     top = apps[:30]
-    desc = f"The app store for Omarchy Linux: browse {len(apps)} hand-picked apps with real GitHub stars, screenshots and versions, and install them in one click."
+    desc = ("The largest app store for Omarchy: apps, themes, plugins and screensavers with real GitHub stars and screenshots. "
+            "Install any of them in one click.")
     jsonld = [org,
               {"@context": "https://schema.org", "@type": "WebSite", "name": "Omarchy Store", "url": SITE,
                "potentialAction": {"@type": "SearchAction", "target": f"{SITE}/search/{{q}}/", "query-input": "required name=q"}},
@@ -138,7 +157,12 @@ def main():
     body = (f'<h1 class="page-title">Omarchy Store – apps for Omarchy Linux</h1>'
             f'<p>{e(desc)} Every app installs through Arch Linux packages, the AUR, or Omarchy\'s own installers.</p>'
             '<h2>Top apps</h2><ul class="ssr-list">' + "".join(app_li(a) for a in top) + "</ul>"
-            '<h2>Categories</h2><ul>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>")
+            '<h2>Categories</h2><ul>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>"
+            '<h2>More for Omarchy</h2><ul><li><a href="/themes/">Omarchy themes</a></li><li><a href="/plugins/">Omarchy plugins</a></li>'
+            '<li><a href="/screensavers/">Omarchy screensavers</a></li><li><a href="/charts/">Top Charts</a></li>'
+            '<li><a href="/get-omarchy/">How to install Omarchy</a></li><li><a href="/ignite/">Make an Omarchy USB with Ignite</a></li>'
+            '<li><a href="/get-desktop/">Get the Omarchy Store desktop app</a></li></ul>'
+            f'<p>{e(DISCLAIMER)}</p>')
     write("/", render(template, head("Omarchy Store – The App Store for Omarchy Linux", desc, "/", OG_DEFAULT, "Omarchy Store", jsonld), body))
     urls.append((f"{SITE}/", now, "1.0"))
 
@@ -146,10 +170,14 @@ def main():
     for a in apps:
         c = cname.get(a["category"], a["category"])
         pk = a.get("package") or {}
-        title = f"{a['name']} for Omarchy Linux – Install {a['name']} | Omarchy Store"
+        title = fit_title(f"{a['name']} for Omarchy Linux – Install {a['name']} | Omarchy Store",
+                          f"Install {a['name']} on Omarchy Linux | Omarchy Store",
+                          f"{a['name']} for Omarchy | Omarchy Store", f"{a['name']} for Omarchy")
         d = f"Install {a['name']} on Omarchy Linux in one click. {a['summary']}".strip()
         if a.get("stars"):
             d += f" ★ {k(a['stars'])} GitHub stars."
+        if len(d) < 110:
+            d += " Free, with the exact install command and screenshots."
         d = clip(d)
         F = a.get("featured")
         image = abs_url(F["og"]) if F and F.get("og") else abs_url(a["screenshots"][0]) if a.get("screenshots") else abs_url(a.get("icon"))
@@ -199,7 +227,13 @@ def main():
                 f'<h2>How to install {e(a["name"])} on Omarchy</h2>'
                 f'<p>Click <strong>GET</strong> in the Omarchy Store desktop app, or run this in a terminal:</p>'
                 f'<pre><code>{e(install_cmd(a))}</code></pre>'
-                f'<h2>About {e(a["name"])}</h2>'
+                + ({"aur": f'<p>This installs {e(a["name"])} from the AUR (Arch User Repository) with Omarchy\'s package tool. '
+                           f'Updates arrive with your normal system updates (Omarchy menu, Update).</p>',
+                    "pacman": f'<p>This installs {e(a["name"])} from the official Arch Linux repositories with Omarchy\'s package tool. '
+                              f'It updates with the rest of your system (Omarchy menu, Update).</p>',
+                    "omarchy": f'<p>This uses Omarchy\'s own installer for {e(a["name"])}, the same one behind the Omarchy menu (Install).</p>'}
+                   .get(a["install"]["method"], ""))
+                + f'<h2>About {e(a["name"])}</h2>'
                 f'<p>{e(a.get("description") or a["summary"]).replace(chr(10) + chr(10), "</p><p>")}</p>'
                 + ("".join(f'<img src="{e(abs_url(s))}" alt="{e(a["name"])} screenshot {i+1}" loading="lazy" width="624" height="351">' for i, s in enumerate(a["screenshots"][:3])) if a.get("screenshots") else "")
                 + (('<h2>How to use ' + e(a["name"]) + '</h2><ol>' + "".join(f'<li><strong>{e(s["title"])}</strong> – {e(s["body"])}</li>' for s in F["steps"]) + '</ol>'
@@ -216,12 +250,17 @@ def main():
         lst = [a for a in apps if a["category"] == c["id"]]
         title = f"Best {c['name']} Apps for Omarchy Linux | Omarchy Store"
         names = ", ".join(a["name"] for a in lst[:5])
-        d = clip(f"The {len(lst)} best {c['name'].lower()} apps for Omarchy Linux, ranked by GitHub stars: {names} and more. Install in one click.")
+        d = clip(f"The best {c['name'].lower()} apps for Omarchy Linux, ranked by GitHub stars: {names} and more. Install in one click.")
         jsonld = [{"@context": "https://schema.org", "@type": "ItemList", "name": f"{c['name']} apps for Omarchy",
                    "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}/app/{a['id']}/", "name": a["name"]} for i, a in enumerate(lst)]},
                   crumbs(("Omarchy Store", "/"), (c["name"], f"/category/{c['id']}/"))]
         body = (f'<h1 class="page-title">Best {e(c["name"])} apps for Omarchy Linux</h1><p>{e(d)}</p>'
-                '<ol class="ssr-list">' + "".join(app_li(a) for a in lst) + "</ol>")
+                f'<p>Every {e(c["name"].lower())} app below installs on Omarchy with one click in the Omarchy Store desktop app, '
+                'or with a single terminal command shown on its page. Apps come from the official Arch Linux repositories, '
+                'the AUR, or Omarchy\'s own installers, so they update with the rest of your system.</p>'
+                '<ol class="ssr-list">' + "".join(app_li(a) for a in lst) + "</ol>"
+                '<h2>Other categories</h2><ul>' + "".join(f'<li><a href="/category/{o["id"]}/">{e(o["name"])} apps</a></li>' for o in cats if o["id"] != c["id"])
+                + '<li><a href="/themes/">Themes</a></li><li><a href="/plugins/">Plugins</a></li><li><a href="/screensavers/">Screensavers</a></li></ul>')
         write(f"/category/{c['id']}/", render(template, head(title, d, f"/category/{c['id']}/", OG_DEFAULT, c["name"], jsonld), body))
         urls.append((f"{SITE}/category/{c['id']}/", now, "0.7"))
 
@@ -234,18 +273,23 @@ def main():
         return (f'<li><a href="/theme/{e(t["id"])}/">' + (f'<img src="/{e(t["image"])}" alt="{e(t["name"])} theme preview" width="160" height="100" loading="lazy"> ' if t.get("image") else "")
                 + f'<strong>{e(t["name"])}</strong></a> by {e(t["author"] or "unknown")}</li>')
     if themes:
-        d = clip(f"Browse {len(themes)} themes for Omarchy Linux: dark and light color schemes that restyle your terminal, Waybar, launcher, lock screen and wallpaper. Install in one click.")
+        d = clip(f"The biggest collection of themes for Omarchy Linux: dark and light color schemes that restyle your terminal, Waybar, launcher, lock screen and wallpaper. Install in one click.")
         jsonld = [{"@context": "https://schema.org", "@type": "ItemList", "name": "Omarchy themes",
                    "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}/theme/{t['id']}/", "name": t["name"]} for i, t in enumerate(themes[:100])]},
                   crumbs(("Omarchy Store", "/"), ("Themes", "/themes/"))]
         first = next((t for t in themes if t.get("image")), None)
         write("/themes/", render(template, head("Omarchy Themes – Browse & Install Desktop Themes | Omarchy Store", d, "/themes/",
                                                abs_url(first["image"]) if first else OG_DEFAULT, "Omarchy themes", jsonld),
-                                 f'<h1 class="page-title">Themes for Omarchy Linux</h1><p>{e(d)}</p>{credit}<ul class="ssr-list">' + "".join(theme_li(t) for t in themes) + "</ul>"))
+                                 f'<h1 class="page-title">Themes for Omarchy Linux</h1><p>{e(d)}</p>{credit}'
+                                 '<h2>How to change your Omarchy theme</h2><ol><li>Pick a theme below and click <strong>GET</strong> in the Omarchy Store desktop app, '
+                                 'or copy its install command into a terminal.</li><li>Switch between installed themes any time with '
+                                 '<strong>Super + Shift + Ctrl + Space</strong> (the theme menu), or run <code>omarchy-theme-set &lt;name&gt;</code>.</li>'
+                                 '<li>Your terminal, bar, launcher, lock screen and wallpaper all change together.</li></ol><ul class="ssr-list">' + "".join(theme_li(t) for t in themes) + "</ul>"))
         urls.append((f"{SITE}/themes/", now, "0.8"))
         for t in themes:
             mode = {"dark": "dark", "light": "light"}.get(t.get("mode"), "")
-            title = f"{t['name']} Theme for Omarchy – by {t['author'] or 'community'} | Omarchy Store"
+            title = fit_title(f"{t['name']} Theme for Omarchy – by {t['author'] or 'community'} | Omarchy Store",
+                              f"{t['name']} Theme for Omarchy | Omarchy Store", f"{t['name']} Theme for Omarchy")
             d = clip(f"{t['name']} is a {mode + ' ' if mode else ''}theme for Omarchy Linux by {t['author'] or 'the community'}. "
                      + (f"{t['description']} " if t.get("description") and len(t["description"]) < 160 else "")
                      + "See the preview and color palette, and install it in one click.")
@@ -264,7 +308,13 @@ def main():
                     + (f'<h2>Color palette</h2><p>{" ".join(e(c) for c in t["palette"])}</p>' if t.get("palette") else "")
                     + (f'<h2>What it recolors</h2><p>{e(", ".join(t["apps"]))}</p>' if t.get("apps") else "")
                     + (f'<p>Source: <a href="https://github.com/{e(t["repo"])}" rel="noopener">github.com/{e(t["repo"])}</a></p>' if t.get("repo") else "")
-                    + f'<p>Listed via <a href="{e(t["source_url"])}" rel="noopener">{e(src["name"])}</a>.</p>')
+                    + f'<h2>Switch or remove it later</h2><p>Open the theme menu with <strong>Super + Shift + Ctrl + Space</strong> to switch between '
+                      f'installed themes. To go back to a built-in look, run <code>omarchy-theme-set tokyo-night</code> (or any theme you have).'
+                      + (f' To remove this one, run <code>omarchy-theme-remove {e(t["install_name"])}</code>.' if t.get("install_name") and not t.get("builtin") else "")
+                      + '</p>'
+                    + (('<h2>More ' + (mode + ' ' if mode else '') + 'themes for Omarchy</h2><ul class="ssr-list">'
+                        + "".join(theme_li(o) for o in [o for o in themes if o["id"] != t["id"] and (not mode or o.get("mode") == t.get("mode"))][:6]) + '</ul>'))
+                    + f'<p>Listed via <a href="{su(t["source_url"])}" rel="noopener">{e(src["name"])}</a>. {e(DISCLAIMER)}</p>')
             write(f"/theme/{t['id']}/", render(template, head(title, d, f"/theme/{t['id']}/", abs_url(t["image"]) if t.get("image") else OG_DEFAULT,
                                                               f"{t['name']} theme", [ld, crumbs(("Omarchy Store", "/"), ("Themes", "/themes/"), (t["name"], f"/theme/{t['id']}/"))]), body))
             urls.append((f"{SITE}/theme/{t['id']}/", (t.get("updated") or now)[:10], "0.6"))
@@ -281,29 +331,46 @@ def main():
         pcredit = f'<p>Plugin listings courtesy of the <a href="{e(psrc["url"])}" rel="noopener">{e(psrc["name"])}</a>.</p>'
         from urllib.parse import quote as _q
         purl = lambda x: f"/plugin/{_q(x['id'], safe='')}/"
-        d = clip(f"Browse {len(plugs):,} community plugins for Omarchy Linux: bar widgets, system tools, productivity add-ons and more, "
+        d = clip(f"The biggest list of community plugins for Omarchy Linux: bar widgets, system tools, productivity add-ons and more, "
                  f"each marked Verified or Unverified. Updated every 30 minutes.")
         top = sorted(plugs, key=lambda x: (-(x.get("s") or 0), not x.get("ok")))[:1500]
         write("/plugins/", render(template, head("Omarchy Plugins – Bar Widgets & Desktop Add-ons | Omarchy Store", d, "/plugins/",
                                                  OG_DEFAULT, "Omarchy plugins",
                                                  [crumbs(("Omarchy Store", "/"), ("Plugins", "/plugins/"))]),
-                                  f'<h1 class="page-title">Plugins for Omarchy Linux</h1><p>{e(d)}</p>{pcredit}<ul class="ssr-list">'
+                                  f'<h1 class="page-title">Plugins for Omarchy Linux</h1><p>{e(d)}</p>{pcredit}'
+                                  '<h2>How to add an Omarchy plugin</h2><ol><li>Click <strong>GET</strong> in the Omarchy Store desktop app, or run '
+                                  '<code>omarchy plugin add &lt;git-url&gt; --enable</code> in a terminal.</li><li>See what you have with '
+                                  '<code>omarchy plugin list</code>.</li><li>Remove one any time with <code>omarchy plugin remove &lt;id&gt;</code>.</li></ol>'
+                                  '<ul class="ssr-list">'
                                   + "".join(f'<li><a href="{purl(x)}"><strong>{e(x["n"])}</strong></a> by {e(x.get("a") or "community")}'
                                             f' – {"Verified" if x.get("ok") else "Unverified"}</li>' for x in top[:300]) + "</ul>"))
         urls.append((f"{SITE}/plugins/", now, "0.8"))
+        from collections import Counter as _C
+        name_n = _C(x["n"].strip().lower() for x in top)
+        by_cat = {}
+        for x in top:
+            by_cat.setdefault(x.get("c") or "other", []).append(x)
         for x in top:
             status = "Verified" if x.get("ok") else "Unverified"
-            title = f"{x['n']} – Omarchy Plugin by {x.get('a') or 'community'} | Omarchy Store"
-            d = clip(f"{x['n']} is a plugin for Omarchy Linux by {x.get('a') or 'the community'}. {x.get('d') or ''} "
-                     f"Status: {status}.")
+            nm = x["n"] if name_n[x["n"].strip().lower()] == 1 else f"{x['n']} ({x['id']})"
+            title = fit_title(f"{nm} – Omarchy Plugin by {x.get('a') or 'community'} | Omarchy Store",
+                              f"{nm} – Omarchy Plugin | Omarchy Store", f"{nm} – Omarchy Plugin", nm)
+            d = clip(f"{x['n']}" + ("" if name_n[x["n"].strip().lower()] == 1 else f" ({x['id']})")
+                     + f" is a plugin for Omarchy Linux by {x.get('a') or 'the community'}. {x.get('d') or ''} Status: {status}.")
             cmd = f"omarchy plugin add {x['r']}.git --enable" if x.get("i") and x.get("r") else ""
             body = (f'<nav class="ssr-crumbs"><a href="/">Omarchy Store</a> › <a href="/plugins/">Plugins</a> › {e(x["n"])}</nav>'
                     f'<h1 class="page-title">{e(x["n"])} plugin for Omarchy</h1><p>by {e(x.get("a") or "community")} · {status}</p>'
                     f'<p>{e(x.get("d") or "")}</p>'
                     + (f'<h2>How to add {e(x["n"])}</h2><p>Click <strong>GET</strong> in the Omarchy Store desktop app, or run:</p><pre><code>{e(cmd)}</code></pre>' if cmd else
                        f'<h2>Setup</h2><p>{e(x.get("note") or "Manual setup: see the plugin page.")}</p>')
-                    + (f'<p>Source: <a href="{e(x["r"])}" rel="noopener">{e(x["r"].replace("https://", ""))}</a></p>' if x.get("r") else "")
-                    + f'<p>Listed on the <a href="{e(psrc["url"])}plugin.html?id={_q(x["id"], safe="")}" rel="noopener">{e(psrc["name"])}</a>.</p>')
+                    + (f'<p>To remove it later, run <code>omarchy plugin remove {e(x["id"])}</code>. '
+                       '<strong>Verified</strong> means it passed the marketplace\'s automated security check for the listed version; '
+                       'plugins are made by independent developers, so only add ones you trust.</p>' if cmd else "")
+                    + (f'<p>Source: <a href="{su(x["r"])}" rel="noopener">{e(x["r"].replace("https://", ""))}</a></p>' if x.get("r") else "")
+                    + (('<h2>Similar Omarchy plugins</h2><ul class="ssr-list">' + "".join(
+                        f'<li><a href="{purl(o)}"><strong>{e(o["n"])}</strong></a> by {e(o.get("a") or "community")}</li>'
+                        for o in [o for o in by_cat.get(x.get("c") or "other", []) if o["id"] != x["id"]][:6]) + '</ul>'))
+                    + f'<p>Listed on the <a href="{e(psrc["url"])}plugin.html?id={_q(x["id"], safe="")}" rel="noopener">{e(psrc["name"])}</a>. {e(DISCLAIMER)}</p>')
             ld = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": x["n"], "applicationCategory": "UtilitiesApplication",
                   "operatingSystem": "Omarchy Linux", "url": f"{SITE}{purl(x)}", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
                   "author": {"@type": "Person", "name": x.get("a") or "Unknown"}, "description": d}
@@ -329,7 +396,7 @@ def main():
                 + '</ul><h2>More screensavers on GitHub</h2><ul class="ssr-list">'
                 + "".join(f'<li><a href="https://github.com/{e(x["id"])}" rel="noopener"><strong>{e(x["n"])}</strong></a> by {e(x["a"])} – {e(x.get("d") or "")}</li>' for x in sr)
                 + '</ul><p>One-click listings courtesy of the <a href="https://plugins.omarchy.org/" rel="noopener">Omarchy Plugin Marketplace</a>.</p>')
-        write("/screensavers/", render(template, head("Omarchy Screensavers – Custom Screensavers & Idle Tools | Omarchy Store", d, "/screensavers/",
+        write("/screensavers/", render(template, head("Omarchy Screensavers – Custom Screensavers | Omarchy Store", d, "/screensavers/",
                                                       OG_DEFAULT, "Omarchy screensavers",
                                                       [crumbs(("Omarchy Store", "/"), ("Screensavers", "/screensavers/"))]), body))
         urls.append((f"{SITE}/screensavers/", now, "0.8"))
@@ -337,12 +404,12 @@ def main():
     # ---- Other pages
     simple = {
         "/charts/": ("Top Charts – Most Popular Omarchy Apps | Omarchy Store",
-                     f"The {len(apps)} most popular apps for Omarchy Linux, ranked by GitHub stars and updated weekly.",
+                     "The most popular apps for Omarchy Linux, ranked by GitHub stars and updated every week. Install any of them in one click.",
                      '<h1 class="page-title">Top Charts</h1><ol class="ssr-list">' + "".join(app_li(a) for a in apps[:100]) + "</ol>"),
-        "/categories/": ("App Categories | Omarchy Store", "Browse Omarchy Linux apps by category.",
+        "/categories/": ("App Categories | Omarchy Store", "Browse Omarchy Linux apps by category: browsers, developer tools, AI, games, media, themes, plugins, screensavers and more.",
                          '<h1 class="page-title">Categories</h1><ul><li><a href="/themes/">Themes</a></li><li><a href="/plugins/">Plugins</a></li><li><a href="/screensavers/">Screensavers</a></li>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>"),
         "/legal/": ("Disclaimer | Omarchy Store", "Omarchy Store lists third-party software provided as-is, without warranty. Read the full disclaimer.",
-                    '<h1 class="page-title">Disclaimer</h1>'),
+                    '<h1 class="page-title">Disclaimer</h1>' f'<p>{e(DISCLAIMER)}</p>'),
         "/submit/": ("Submit an App to the Omarchy Store – Free Listing | Omarchy Store",
                      "List your Linux app in the Omarchy Store for free. Every app is reviewed; installs through Arch, the AUR or Omarchy installers.",
                      '<h1 class="page-title">Submit an app</h1><p>Listing is free. Fill in a short form and a maintainer reviews your app.</p>'
@@ -354,15 +421,15 @@ def main():
                         "Reach Omarchy and Arch Linux users with a Discover banner, sponsored app or search banner. Clearly labelled, no tracking.",
                         '<h1 class="page-title">Advertise on the Omarchy Store</h1><p>Discover banners, sponsored apps and search banners.</p>'
                         '<p><a href="https://github.com/omarchy-community/store/issues/new?template=advertising.yml">Ask about advertising</a></p>'),
-        "/get-omarchy/": ("Get Omarchy – How to Install Omarchy Linux, Free & Step by Step | Omarchy Store",
-                  "How to install Omarchy Linux in about 15 minutes: make the installer USB, keep Windows or replace it, install, then add the Omarchy Store for one-click apps and themes.",
+        "/get-omarchy/": ("How to Install Omarchy Linux – Free, Step by Step | Omarchy Store",
+                  "How to install Omarchy Linux in about 15 minutes: make the USB, keep Windows or replace it, install, then add apps and themes in one click.",
                   '<h1 class="page-title">Get Omarchy</h1><p>Omarchy is a free, fast and beautiful Linux desktop made by DHH. Install it in about 15 minutes.</p>'
                   '<h2>1. Make the installer USB</h2><p>Download the latest Omarchy ISO, then write it to an 8 GB+ USB stick with Rufus (Windows), balenaEtcher (Windows and Mac) or Ignite in the Omarchy Store.</p>'
                   '<h2>2. Replace Windows or keep it</h2><p>Use the whole drive, or shrink Windows in Disk Management and choose Free space install to dual boot.</p>'
                   '<h2>3. Install</h2><p>Boot from the USB (F12, F11, F8 or Esc), turn off Secure Boot if needed, and answer a few questions.</p>'
                   '<h2>4. Get the Omarchy Store</h2><pre><code>curl -fsSL https://omarchystore.com/install.sh | bash</code></pre>'),
-        "/ignite/": ("Ignite for Omarchy – Make an Omarchy Installer USB & Dual Boot with Windows | Omarchy Store",
-                  "Ignite makes a bootable Omarchy USB installer in one click: always the latest official Omarchy ISO, SHA-256 verified. Plus how to install Omarchy next to Windows (dual boot) without erasing it.",
+        "/ignite/": ("Ignite for Omarchy – Make a USB & Dual Boot Windows | Omarchy Store",
+                  "Make a bootable Omarchy USB in one click with the latest official ISO, SHA-256 verified. Plus how to dual boot Omarchy next to Windows.",
                   '<h1 class="page-title">Ignite for Omarchy</h1>'
                   '<p>Make an Omarchy installer USB stick in one click with Ignite in the Omarchy Store desktop app: it downloads the newest official '
                   'Omarchy ISO from iso.omarchy.org, checks its SHA-256, and writes it to your USB drive.</p>'
@@ -373,8 +440,11 @@ def main():
                   + '<h2>On Windows or Mac</h2><ol><li>Download the latest Omarchy ISO.</li><li>Install Rufus (Windows) or balenaEtcher (Windows and Mac).</li>'
                   '<li>Choose the ISO, choose your USB stick, and press Start or Flash.</li></ol>'),
         "/get-desktop/": ("Get the Omarchy Store Desktop App | Omarchy Store",
-                          "Install the Omarchy Store desktop app for one-click installs on Omarchy Linux.",
-                          '<h1 class="page-title">Get the desktop app</h1><pre><code>curl -fsSL https://omarchystore.com/install.sh | bash</code></pre>'),
+                          "Install the Omarchy Store desktop app for one-click installs of apps, themes, plugins and screensavers on Omarchy Linux. Free, open source.",
+                          '<h1 class="page-title">Get the desktop app</h1><p>The desktop app adds one-click <strong>GET</strong>, Update and Remove buttons '
+                          'to the store. Open a terminal on Omarchy and run:</p><pre><code>curl -fsSL https://omarchystore.com/install.sh | bash</code></pre>'
+                          '<p>Then open <strong>Omarchy Store</strong> from your app launcher (Super + Space). The source code is public on '
+                          '<a href="https://github.com/omarchy-community/store">GitHub</a>.</p>'),
     }
     for path, (t, d, b) in simple.items():
         write(path, render(template, head(t, d, path, OG_DEFAULT, "Omarchy Store", [org]), b))
