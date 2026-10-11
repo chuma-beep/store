@@ -36,7 +36,7 @@ def parse_m3u(text):
         attrs = dict(re.findall(r'([\w-]+)="([^"]*)"', line))
         name = line.rsplit(",", 1)[-1].strip()
         geo = "Ⓖ" in name
-        name = re.sub(r"\s*[ⒼⓎ]\s*", "", name).strip()
+        name = re.sub(r"\s*[ⒼⓎⓈ]\s*", "", name).strip()
         group = attrs.get("group-title", "")
         if group.startswith("VOD") and group != "VOD Movies (EN)":
             continue
