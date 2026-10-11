@@ -614,6 +614,8 @@
     if (f === "verified") l = l.filter((x) => x.ok);
     if (f === "new") l = l.filter((x) => x.add).sort((a, b) => (b.add > a.add ? 1 : b.add < a.add ? -1 : b.s - a.s));
     if (q) l = l.filter((x) => (x.n + " " + x.a + " " + x.d + " " + (x.t || []).join(" ") + " " + x.id).toLowerCase().includes(q));
+    // One-click (GET) plugins always come first; VIEW-only ones (no install id) go to the bottom. Stable sort keeps the order within each group.
+    l = l.map((x, i) => [x, i]).sort((a, b) => ((b[0].i ? 1 : 0) - (a[0].i ? 1 : 0)) || (a[1] - b[1])).map(([x]) => x);
     return l;
   }
   function plugGridHtml() {
@@ -1465,7 +1467,7 @@
       <h1 class="page-title">Results for “${esc(q)}”</h1>
       ${sponsoredApp((a) => res.includes(a))}
       ${themeShelf("Themes", tres.slice(0, 20), tres.length ? "/themes/" : "")}
-      ${(() => { if (!S.plugins) { loadPlugins(); return ""; } const ql = q.toLowerCase(); const pr = (S.plugins.plugins || []).filter((x) => (x.n + " " + x.d + " " + (x.t || []).join(" ")).toLowerCase().includes(ql)).slice(0, 20);
+      ${(() => { if (!S.plugins) { loadPlugins(); return ""; } const ql = q.toLowerCase(); const pr = (S.plugins.plugins || []).filter((x) => (x.n + " " + x.d + " " + (x.t || []).join(" ")).toLowerCase().includes(ql)).sort((a, b) => ((b.i ? 1 : 0) - (a.i ? 1 : 0)) || (b.s - a.s)).slice(0, 20);
         return pr.length ? `<section class="shelf"><div class="shelf-head"><h2>Plugins</h2><a href="/plugins/" data-plug-search="${esc(q)}">See All</a></div><div class="scroller plug-row">${pr.map(plugCard).join("")}</div></section>` : ""; })()}
       ${res.length ? `<div class="grid">${res.map((a) => lockup(a)).join("")}</div>`
         : tres.length ? "" : `<div class="empty">No apps match “${esc(q)}”.<br><br><a class="btn ghost" href="${REPO}/issues/new?template=app-request.yml&title=${encodeURIComponent("App request: " + q)}" target="_blank" rel="noopener">Request this app</a></div>`}
