@@ -881,6 +881,7 @@
         <p>The beautiful Linux desktop everyone's talking about. Make the installer USB with Ignite, keep Windows if you like, and have the Omarchy Store ready in minutes.</p>
         <div class="spot-lock"><img class="icon" src="/featured/ignite/icon-128.png" width="64" height="64" alt=""><div><div class="name">Ignite for Omarchy</div><div class="sub">Free${iso ? ` · installs Omarchy ${esc(iso.version)}` : ""} · about 15 minutes</div></div><span class="get big">START</span></div>
       </div>
+      <img class="ig-phone-art" src="/featured/ignite/phone-art.webp" alt="" loading="lazy">
     </a>`;
   }
   function spotlight(a) {
