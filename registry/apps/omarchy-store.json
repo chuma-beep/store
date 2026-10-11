@@ -26,5 +26,75 @@
     "featured/omarchy-store/ignite.webp"
   ],
   "summary": "The app store for Omarchy: one-click install, update and remove for apps, themes, plugins and screensavers",
-  "description": "Omarchy Store is the desktop app for omarchystore.com. It turns the store into a real app store on your Omarchy computer: press GET and the app installs, no terminal needed.\n\nONE-CLICK APPS\n• GET installs any of the 850+ apps in the store with your computer's own package manager (Arch Linux, the AUR or Omarchy's installer). You confirm with your own password.\n• OPEN starts an app you already have, UPDATE appears when a newer version is out, and Remove uninstalls it.\n• The store sees which apps are already on your computer and shows them in Installed.\n\nUPDATES IN ONE PLACE\n• The Updates tab lists every app with a newer version, from Arch, the AUR and the store's own apps, with Update All for everything.\n• When a newer Omarchy Store is out, an Update button appears in the bottom right corner. One click and the store updates itself in a few seconds.\n\nTHEMES, PLUGINS AND SCREENSAVERS\n• Hundreds of Omarchy themes with previews: install and switch with one click, remove the ones you don't use.\n• Thousands of plugins and screensavers, installed with one click where they support it, with a link to the source for the rest.\n\nIGNITE: MAKE AN OMARCHY USB\n• Plug in a USB stick and press Make Installer. The store downloads the newest official Omarchy, checks it's genuine (SHA-256) and writes the stick for you.\n\nLOOKS THE WAY YOU LIKE\n• Matches your Omarchy theme, with Dark, Glass (frosted, see-through) and White looks at the bottom of the sidebar.\n• Ratings and reviews on every app.\n\nSAFE BY DESIGN\n• Installs to your home folder only. Remove it any time with omarchy-store --uninstall.\n• It never runs code from a web page. It only asks your package manager to install things, and checks the fingerprint of every direct download.\n• Apps in the store are third-party software, provided as-is: install at your own risk (see the Disclaimer page).\n\nHOW TO GET IT\nOpen a terminal (Super + Return) and paste the install command below, then open Omarchy Store from your app launcher (Super + Space)."
+  "description": "Omarchy Store is the desktop app for omarchystore.com. It turns the store into a real app store on your Omarchy computer: press GET and the app installs, no terminal needed.\n\nONE-CLICK APPS\n• GET installs any of the 850+ apps in the store with your computer's own package manager (Arch Linux, the AUR or Omarchy's installer). You confirm with your own password.\n• OPEN starts an app you already have, UPDATE appears when a newer version is out, and Remove uninstalls it.\n• The store sees which apps are already on your computer and shows them in Installed.\n\nUPDATES IN ONE PLACE\n• The Updates tab lists every app with a newer version, from Arch, the AUR and the store's own apps, with Update All for everything.\n• When a newer Omarchy Store is out, an Update button appears in the bottom right corner. One click and the store updates itself in a few seconds.\n\nTHEMES, PLUGINS AND SCREENSAVERS\n• Hundreds of Omarchy themes with previews: install and switch with one click, remove the ones you don't use.\n• Thousands of plugins and screensavers, installed with one click where they support it, with a link to the source for the rest.\n\nIGNITE: MAKE AN OMARCHY USB\n• Plug in a USB stick and press Make Installer. The store downloads the newest official Omarchy, checks it's genuine (SHA-256) and writes the stick for you.\n\nLOOKS THE WAY YOU LIKE\n• Matches your Omarchy theme, with Dark, Glass (frosted, see-through) and White looks at the bottom of the sidebar.\n• Ratings and reviews on every app.\n\nSAFE BY DESIGN\n• Installs to your home folder only. Remove it any time with omarchy-store --uninstall.\n• It never runs code from a web page. It only asks your package manager to install things, and checks the fingerprint of every direct download.\n• Apps in the store are third-party software, provided as-is: install at your own risk (see the Disclaimer page).\n\nHOW TO GET IT\nOpen a terminal (Super + Return) and paste the install command below, then open Omarchy Store from your app launcher (Super + Space).",
+  "featured": {
+    "badge": "Official app",
+    "eyebrow": "THE STORE, AS AN APP",
+    "headline": "Every app, theme and plugin. One click.",
+    "tagline": "Turn omarchystore.com into a real app store on your computer: press GET and it installs, UPDATE when something's new, Remove when you're done. Themes, plugins and screensavers too, plus Ignite for making an Omarchy USB. Free and open source.",
+    "price": "Free",
+    "price_note": "Open source",
+    "gradient": [
+      "#16161e",
+      "#7aa2f7",
+      "#9ece6a"
+    ],
+    "art": "featured/omarchy-store/billboard.webp",
+    "billboard": "featured/omarchy-store/billboard.webp",
+    "chips": [
+      "One-click installs",
+      "Updates in one place",
+      "Themes, plugins, screensavers",
+      "Ignite USB maker",
+      "No terminal needed"
+    ],
+    "order": 2,
+    "features": [
+      {
+        "icon": "grid",
+        "hero": true,
+        "title": "One-click apps",
+        "body": "Press GET and the app installs with your computer's own package manager: Arch, the AUR or Omarchy's installer. You confirm with your own password. OPEN starts it, Remove takes it away."
+      },
+      {
+        "icon": "update",
+        "title": "Updates in one place",
+        "body": "The Updates tab lists every app with a newer version, from Arch, the AUR and the store's own apps, with Update All for everything. When a newer store is out, one click updates it."
+      },
+      {
+        "icon": "palette",
+        "title": "Themes with previews",
+        "body": "Hundreds of Omarchy themes. Preview, install and switch with one click, remove the ones you don't use."
+      },
+      {
+        "icon": "window",
+        "title": "Plugins and screensavers",
+        "body": "Thousands of plugins and screensavers from the Omarchy marketplace, installed with one click where they support it."
+      },
+      {
+        "icon": "dock",
+        "title": "Ignite: make an Omarchy USB",
+        "body": "Plug in a USB stick and press Make Installer. The store downloads the newest official Omarchy, checks it's genuine and writes the stick for you."
+      },
+      {
+        "icon": "doctor",
+        "title": "Safe by design",
+        "body": "Installs to your home folder only and never runs code from a web page. It only asks your package manager to install things, and checks the fingerprint of every direct download. Remove it any time."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Open a terminal",
+        "body": "Press Super + Return."
+      },
+      {
+        "title": "Paste the install command",
+        "body": "curl -fsSL https://omarchystore.com/install.sh | bash, then press Enter. It installs to your home folder, no password needed."
+      },
+      {
+        "title": "Open Omarchy Store",
+        "body": "Press Super + Space and type Omarchy Store. That's it: from now on everything is one click."
+      }
+    ]
+  }
 }
