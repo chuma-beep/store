@@ -1732,7 +1732,7 @@
   }
 
   const notFound = () => `<div class="page"><div class="empty">That page doesn’t exist. <a style="color:var(--accent)" href="/">Back to Discover</a></div></div>`;
-  const footer = () => `${footerInner()}${communityBlock()}`;
+  const footer = () => `${footerInner()}${communityBlock("Follow the Omarchy Store")}`;
   const footerInner = () => `<div class="footer-cta">
     <a class="fc" href="/submit/"><span class="fc-i">${ico("plus")}</span><span><b>Made an app?</b>List it in the store for free</span></a>
     <a class="fc" href="/advertise/"><span class="fc-i">${ico("megaphone")}</span><span><b>Advertise with us</b>Reach Omarchy users</span></a>
