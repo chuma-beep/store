@@ -114,7 +114,7 @@ DISCLAIMER = ("Omarchy Store is an unofficial, community-run project. It is not 
 
 def install_cmd(a):
     i = a["install"]
-    if i["method"] == "omarchy":
+    if i["method"] in ("omarchy", "store"):
         return i["command"]
     if i["method"] == "release":
         return f"curl -fsSL {SITE}/get.sh | bash -s {a['id']}"
@@ -231,6 +231,7 @@ def main():
                            f'Updates arrive with your normal system updates (Omarchy menu, Update).</p>',
                     "pacman": f'<p>This installs {e(a["name"])} from the official Arch Linux repositories with Omarchy\'s package tool. '
                               f'It updates with the rest of your system (Omarchy menu, Update).</p>',
+                    "store": '<p>This installs the Omarchy Store app to your home folder (no password needed). Then open Omarchy Store from your app launcher (Super + Space).</p>',
                     "omarchy": f'<p>This uses Omarchy\'s own installer for {e(a["name"])}, the same one behind the Omarchy menu (Install).</p>'}
                    .get(a["install"]["method"], ""))
                 + f'<h2>About {e(a["name"])}</h2>'

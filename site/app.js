@@ -36,7 +36,7 @@
   };
   const cmdFor = (a) => {
     const i = a.install;
-    if (i.method === "omarchy") return i.command;
+    if (i.method === "omarchy" || i.method === "store") return i.command;
     if (i.method === "release") return `curl -fsSL ${SITE}get.sh | bash -s ${a.id}`;
     if (i.method === "aur") return `omarchy pkg aur add ${i.packages.join(" ")}`;
     return `omarchy pkg add ${i.packages.join(" ")}`;
@@ -44,6 +44,7 @@
   const sourceLabel = (a) => {
     const r = a.package?.repo;
     if (a.install.method === "omarchy") return "Omarchy installer";
+    if (a.install.method === "store") return "omarchystore.com (official installer)";
     if (a.install.method === "release") return "the developer (verified download)";
     if (a.install.method === "aur" || r === "aur") return "Arch User Repository (AUR)";
     return r ? `Arch Linux (${r})` : "Arch Linux";
@@ -190,7 +191,8 @@
       S.themesHave = new Set(st.themes_installed || []); S.themeNow = st.theme_current || "";
     } catch {}
   }
-  const isInstalled = (a) => S.installed.has(a.id);
+  // You're using the desktop app right now, so the Omarchy Store listing always counts as installed.
+  const isInstalled = (a) => S.installed.has(a.id) || (S.desktop && a?.install?.method === "store");
 
   // ---------- nav ----------
   function renderNav() {
@@ -279,6 +281,12 @@
     const cls = "get" + (big ? " big" : "");
     if (a.available === false) return `<button class="${cls} soon" data-soon="${a.id}" title="Launching soon">SOON</button>`;
     if (S.busy.has(a.id)) return `<button class="${cls} busy" data-get="${a.id}"><span class="ring"></span></button>`;
+    if (S.desktop && a.install.method === "store") {   // the store's own listing: update it in place, or show it's current
+      const st = S.status || {}, want = st.store_update;
+      return st.restart_needed || (want && want !== st.version)
+        ? `<button class="${cls}" data-self-update title="Omarchy Store ${esc(want || "")} is ready">UPDATE</button>`
+        : `<button class="${cls} installed" disabled title="You're using it now">INSTALLED</button>`;
+    }
     if (S.desktop && isInstalled(a) && S.updatable?.has(a.id)) return `<button class="${cls}" data-upd="${a.id}" title="A newer version is ready">UPDATE</button>`;
     if (S.desktop && isInstalled(a)) return a.cli
       ? `<button class="${cls} installed" data-open="${a.id}" title="Opens a terminal — run: ${esc(a.open || a.detect[0])}">INSTALLED</button>`
@@ -1471,7 +1479,14 @@
     const related = S.catalog.apps.filter((x) => x.category === a.category && x.id !== a.id).slice(0, 6);
     const ghUrl = a.github ? `https://github.com/${a.github}` : null;
     const stale = a.archived || p.out_of_date;
-    const strip = a.featured ? [
+    const strip = a.install.method === "store" ? [
+      ["Price", "Free", "Open source (MIT)"],
+      ["Top Charts", "#1", "in the store"],
+      ["Category", `<span style="color:var(--accent)">${ico(cat?.icon)}</span>`, esc(cat?.name)],
+      ["Developer", `<span style="font-size:16px">${esc(a.developer || "—")}</span>`, "Official"],
+      ["Apps", `${Math.floor(S.catalog.apps.length / 50) * 50}+`, "one click"],
+      ["Age", "4+", "Rating"],
+    ] : a.featured ? [
       ["Price", esc(a.featured.price), esc(a.featured.price_note || a.featured.launch_offer || "")],
       ["Award", '<span style="color:#ffd60a">★</span>', esc(a.featured.badge)],
       ["Category", `<span style="color:var(--accent)">${ico(cat?.icon)}</span>`, esc(cat?.name)],
@@ -1535,6 +1550,8 @@
         </div>
         <div class="trust ${stale ? "warn" : ""}">${ico(stale ? "warn" : "ok")}<div>${stale
           ? (a.archived ? "This project's GitHub repository is archived and no longer maintained." : "This AUR package is flagged out of date by the community.")
+          : a.install.method === "store"
+            ? "The official Omarchy Store app, open source on GitHub. It installs to your home folder only and updates itself from omarchystore.com."
           : a.install.method === "aur"
             ? "Installs from the AUR, Arch's community repository. Builds are community-maintained; the store only lists packages with an active maintainer and good standing."
             : "Installs from a signed, official package source. The store never runs code from a web page — it only calls your system package manager."}
@@ -1833,9 +1850,10 @@
       <div class="row">${iconImg(a, 56)}<div><h3>Get ${esc(a.name)}</h3><div class="muted small">Installs from ${esc(sourceLabel(a))}</div></div></div>
       <div class="small muted">Paste this into a terminal (<b>Super + Return</b>):</div>
       <div class="code"><code>${esc(cmd)}</code><button class="btn" data-copy="${esc(cmd)}" data-track-get="${esc(a.id)}">Copy</button></div>
+      ${a.install.method === "store" ? `<div class="small muted">Installs to your home folder only, no password needed. Then open <b>Omarchy Store</b> from your app launcher (<b>Super + Space</b>). <a style="color:var(--accent)" href="${SITE}install.sh" target="_blank" rel="noopener">Read the script</a>.</div>` : ""}
       ${a.install.method === "release" ? `<div class="small muted">${esc(a.name)} isn't in the Arch repos or the AUR, so <code>omarchy pkg add ${esc(a.id)}</code> won't find it. This command downloads it from the developer, checks its fingerprint (SHA-256) against the store, then installs it. It asks for your password. <a style="color:var(--accent)" href="${SITE}get.sh" target="_blank" rel="noopener">Read the script</a>.</div>` : ""}
       ${a.featured?.heads_up ? `<div class="trust warn" style="margin-top:10px">${ico("warn")}<div>${esc(a.featured.heads_up.body)}</div></div>` : ""}
-      <div class="small muted">Want one-click installs? <a style="color:var(--accent)" href="/get-desktop/" data-close>Get the desktop app</a>.</div>
+      ${a.install.method === "store" ? "" : `<div class="small muted">Want one-click installs? <a style="color:var(--accent)" href="/get-desktop/" data-close>Get the desktop app</a>.</div>`}
       <p class="small muted sheet-legal">${esc(DISCLAIMER_SHORT)} <a style="color:var(--accent)" href="/legal/" data-close>Disclaimer</a></p>
       <div style="text-align:right;margin-top:16px"><button class="btn ghost" data-close>Done</button></div>
     </div>`);
@@ -1936,6 +1954,7 @@
     } else if (t.matches("[data-plug-search]")) {
       S.plugQ = t.dataset.plugSearch; S.plugShown = 60;
     } else if (t.matches("[data-self-update]")) {
+      e.preventDefault(); e.stopPropagation();   // the button can sit inside an app row link
       selfUpdate(t);
     } else if (t.matches("[data-self-later]")) {
       $("#self-upd")?.remove();

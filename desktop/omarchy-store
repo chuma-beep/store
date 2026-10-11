@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.7.0"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.7.1"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
@@ -208,6 +208,8 @@ def recipe(app):
         if not pk or not all(PKG_RE.match(p) for p in pk):
             raise ValueError("bad package list")
         return ["pacman", "-U"]   # real file path is filled in by run_install after the checksum passes
+    if m == "store":
+        raise ValueError("you already have Omarchy Store: it's this app. Updates appear in the bottom right corner")
     raise ValueError("unknown install method")
 
 
@@ -256,7 +258,8 @@ def installed_ids(catalog):
     except Exception:
         return []
     return [i for i, a in catalog.items()
-            if (a.get("detect") and all(p in have for p in a["detect"])) or file_install_version(i)]
+            if (a.get("install") or {}).get("method") == "store"   # the Omarchy Store listing: that's us, running now
+            or (a.get("detect") and all(p in have for p in a["detect"])) or file_install_version(i)]
 
 
 def read_theme():
@@ -330,6 +333,8 @@ def protected_packages():
 
 
 def can_uninstall(app):
+    if (app.get("install") or {}).get("method") == "store":
+        return False   # the store doesn't remove itself from a button; omarchy-store --uninstall does
     pkgs = (app.get("install") or {}).get("packages") or app.get("detect") or []
     return bool(pkgs) and not (set(pkgs) & protected_packages())
 
@@ -337,6 +342,8 @@ def can_uninstall(app):
 def run_uninstall(app):
     """Remove a store app in Omarchy's floating terminal; the user confirms and types their own password."""
     m = (app.get("install") or {}).get("method")
+    if m == "store":
+        raise ValueError("to remove Omarchy Store, run: omarchy-store --uninstall")
     if m not in ("pacman", "aur", "release"):
         raise ValueError("this app can't be removed from the store")
     pkgs = (app["install"].get("packages") or []) or (app.get("detect") or [])

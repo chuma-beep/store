@@ -39,7 +39,7 @@ jobs:
                       except Exception:
                           time.sleep(2 ** attempt)
                   # Omarchy's own repo isn't searchable from CI; omarchy-installed apps are exempt.
-                  if not ok and a["install"]["method"] != "omarchy" and not p.endswith("-bin"):
+                  if not ok and a["install"]["method"] not in ("omarchy", "store") and not p.endswith("-bin"):
                       bad.append(f"{f}: package {p!r} not found in Arch repos or AUR")
                   time.sleep(0.3)
           print("\n".join(bad) or "✓ all packages found")

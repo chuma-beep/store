@@ -20,7 +20,7 @@ PKG_RE = re.compile(r"^[a-z0-9@._+-]+$")
 # omarchy commands we allow in the registry: "omarchy install ..." only, plain words/quotes.
 OMARCHY_RE = re.compile(r"^omarchy install [a-z0-9 '._-]+$", re.I)
 KINDS = {"gui", "terminal"}
-METHODS = {"pacman", "aur", "omarchy", "release"}
+METHODS = {"pacman", "aur", "omarchy", "release", "store"}   # store = the Omarchy Store desktop app itself
 # Verified developer downloads: only these GitHub owners, only pacman packages, always pinned by SHA-256.
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 
@@ -57,6 +57,8 @@ def validate():
             if not pk or not all(PKG_RE.match(x) for x in pk): e("install.packages must be valid package names")
         if m == "omarchy" and not OMARCHY_RE.match(inst.get("command", "")):
             e("install.command must be an 'omarchy install ...' command")
+        if m == "store" and (a.get("id") != "omarchy-store" or inst.get("command") != "curl -fsSL https://omarchystore.com/install.sh | bash"):
+            e("install.method 'store' is only for the Omarchy Store app itself")
         if m == "release":
             pk = inst.get("packages") or []
             if not pk or not all(PKG_RE.match(x) for x in pk): e("install.packages must be valid package names")
@@ -395,7 +397,7 @@ def build(apps, cats, feat, ads):
         if a["install"]["method"] == "release":
             a["package"] = {**a["package"], "repo": "release", "version": a["install"]["version"],
                             **({"size": a["install"]["size"]} if a["install"].get("size") else {})}
-        a["available"] = bool(a["package"].get("repo")) or a["install"]["method"] == "omarchy"
+        a["available"] = bool(a["package"].get("repo")) or a["install"]["method"] in ("omarchy", "store")
     try:
         from themes import collect as collect_themes
         themes = collect_themes()
@@ -417,7 +419,8 @@ def build(apps, cats, feat, ads):
         # The desktop app compares this with its own VERSION and updates itself when it's newer.
         "desktop_version": re.search(r'^VERSION = "([^"]+)"', open(os.path.join(ROOT, "desktop", "omarchy-store")).read(), re.M).group(1),
         "themes_source": {"name": "Omarchy Themes", "url": "https://omarchythemes.com", "by": "Mubs", "by_url": "https://mubs.me"},
-        "apps": sorted(out, key=lambda x: (not x.get("featured"), -(x["stars"] or 0))),
+        # chart_rank pins an app's place at the top (the Omarchy Store app is #1); featured apps next, then GitHub stars.
+        "apps": sorted(out, key=lambda x: (x.get("chart_rank") or (900 if x.get("featured") else 999), -(x["stars"] or 0))),
     }
 
 
