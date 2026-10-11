@@ -1507,7 +1507,8 @@
     ];
     const F = a.featured;
     return `<div class="page">
-      ${F ? `<div class="feat-hero" style="--g1:${F.gradient[0]};--g2:${F.gradient[1]};--g3:${F.gradient[2] || F.gradient[1]}"><img src="${esc(asset(F.art))}" alt=""><span class="spot-badge">${esc(F.badge)}</span></div>` : ""}
+      ${F ? `<div class="feat-hero${F.billboard ? " with-copy" : ""}" style="--g1:${F.gradient[0]};--g2:${F.gradient[1]};--g3:${F.gradient[2] || F.gradient[1]}"><img src="${esc(asset(F.billboard || F.art))}" alt="">
+        ${F.billboard ? `<div class="fh-copy"><span class="spot-badge">${esc(F.badge)}</span><h2>${esc(F.headline)}</h2>${F.chips ? `<div class="spot-chips">${F.chips.slice(0, 4).map((c) => `<span>${esc(c)}</span>`).join("")}</div>` : ""}</div>` : `<span class="spot-badge">${esc(F.badge)}</span>`}</div>` : ""}
       <div class="detail-head">
         ${iconImg(a, 128)}
         <div style="min-width:0">

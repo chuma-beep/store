@@ -207,6 +207,19 @@ main { overflow-y: auto; overflow-x: hidden; outline: none; scroll-behavior: smo
   background: linear-gradient(135deg, var(--g1), var(--g2) 60%, var(--g3)); box-shadow: 0 30px 70px rgba(0,0,0,.3); }
 .feat-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 35%; }
 .feat-hero .spot-badge { position: absolute; left: 18px; top: 18px; }
+/* app page hero with text-free billboard art: the page writes the headline (same words as Discover), scaled to the screen */
+.feat-hero.with-copy::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,6,26,.92) 0%, rgba(7,6,26,.7) 38%, rgba(7,6,26,.15) 70%, transparent 100%); }
+.feat-hero .fh-copy { position: absolute; z-index: 2; left: 0; top: 0; bottom: 0; width: min(52%, 560px); display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 14px; padding: 28px 20px 28px 36px; }
+.feat-hero .fh-copy .spot-badge { position: static; }
+.feat-hero .fh-copy h2 { margin: 0; font-size: clamp(22px, 2.6vw, 42px); line-height: 1.05; font-weight: 800; letter-spacing: -.03em; text-wrap: balance; color: #fff; }
+.feat-hero .fh-copy .spot-chips { margin: 0; }
+@media (max-width: 720px) {
+  .feat-hero.with-copy { aspect-ratio: 4 / 3; }
+  .feat-hero.with-copy::after { background: linear-gradient(180deg, rgba(7,6,26,.15) 0%, rgba(7,6,26,.75) 55%, rgba(7,6,26,.95) 100%); }
+  .feat-hero .fh-copy { width: 100%; justify-content: flex-end; padding: 18px; gap: 10px; }
+  .feat-hero .fh-copy h2 { font-size: 26px; }
+  .feat-hero .fh-copy .spot-chips span { font-size: 11px; }
+}
 .feat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .feat { padding: 20px; border-radius: 18px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
 .feat-ic { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 12px; color: #fff; background: linear-gradient(135deg, #4fe0c0, #2f6fd8); box-shadow: 0 8px 20px rgba(47,111,216,.3); }
