@@ -679,6 +679,61 @@
   }
 
 
+
+  // ---------- Submit an app / Advertise (own pages, not GitHub file links) ----------
+  function pageSubmit() {
+    const form = `${REPO}/issues/new?template=submit-app.yml`;
+    return `<div class="page info-page" style="max-width:860px">
+      <h1 class="page-title">Submit an app</h1>
+      <p class="page-sub">Listing is free. Every app is reviewed by a person before it goes live, and paying for ads never changes rankings.</p>
+      <div class="info-cards">
+        <div class="info-card"><span class="go-n">1</span><div><h3>Tell us about it</h3><p>Fill in a short form: name, link, package name, category and a one-line summary.</p></div></div>
+        <div class="info-card"><span class="go-n">2</span><div><h3>We review it</h3><p>We check it installs from Arch, the AUR or an Omarchy installer, and that it's safe.</p></div></div>
+        <div class="info-card"><span class="go-n">3</span><div><h3>It goes live</h3><p>Your app gets its own page with stars, screenshots, a GET button and updates.</p></div></div>
+      </div>
+      <div class="info-cta"><a class="btn big" href="${form}" target="_blank" rel="noopener">Submit your app</a>
+        <span class="muted small">Opens a short form on GitHub (free account needed).</span></div>
+      <section class="shelf"><div class="shelf-head"><h2>Listing rules</h2></div>
+        <ul class="info-list">
+          <li><b>Installs through a package manager:</b> Arch repos, the AUR, or an Omarchy installer. No <code>curl | bash</code>, AppImages or custom scripts.</li>
+          <li><b>AUR packages</b> need an active maintainer, must not be flagged out of date, and need some votes.</li>
+          <li><b>No malware</b>, cracked software, or apps mainly for piracy.</li>
+          <li>Apps that stop being maintained (archived repo, orphaned package) are removed.</li>
+          <li>Top Charts are ranked by GitHub stars only.</li>
+        </ul></section>
+      <section class="shelf"><div class="shelf-head"><h2>Developers: sell your app</h2></div>
+        <p>Paid apps are coming to the Omarchy Store, with payouts in crypto and a 10% store fee. <a style="color:var(--accent)" href="${REPO}/issues/new?template=submit-app.yml" target="_blank" rel="noopener">Submit your app</a> and say you're interested.</p></section>
+      <p class="small muted">Technical people can also open a pull request directly: <a style="color:var(--accent)" href="https://raw.githubusercontent.com/omarchy-community/store/main/CONTRIBUTING.md" target="_blank" rel="noopener">contributor guide</a>.</p>
+      ${footer()}
+    </div>`;
+  }
+  function pageAdvertise() {
+    const form = `${REPO}/issues/new?template=advertising.yml`;
+    return `<div class="page info-page" style="max-width:860px">
+      <h1 class="page-title">Advertise on the Omarchy Store</h1>
+      <p class="page-sub">Reach Omarchy and Arch Linux users: developers, creators and power users who chose their own OS.</p>
+      <div class="info-cards">
+        <div class="info-card"><span class="go-n">▣</span><div><h3>Discover banner</h3><p>A big banner between shelves on the store's front page.</p></div></div>
+        <div class="info-card"><span class="go-n">★</span><div><h3>Sponsored app</h3><p>Your listing at the top of a category or search results, with an Ad badge.</p></div></div>
+        <div class="info-card"><span class="go-n">⌕</span><div><h3>Search banner</h3><p>A compact banner under search results.</p></div></div>
+      </div>
+      <div class="info-cta"><a class="btn big" href="${form}" target="_blank" rel="noopener">Ask about advertising</a>
+        <span class="muted small">Flat monthly pricing per slot. We reply with rates and availability.</span></div>
+      <section class="shelf"><div class="shelf-head"><h2>What we accept</h2></div>
+        <ul class="info-list">
+          <li>Developer tools, hardware, hosting, VPNs and privacy tools, Linux-friendly software and services, courses, conferences and music.</li>
+          <li>We don't accept gambling, malware or "PC cleaner" software, or misleading claims.</li>
+        </ul></section>
+      <section class="shelf"><div class="shelf-head"><h2>Respectful by design</h2></div>
+        <ul class="info-list">
+          <li>Every ad is clearly labelled <b>Sponsored</b> or <b>Ad</b>.</li>
+          <li>Ads never change Top Charts or search ranking.</li>
+          <li>No tracking pixels and no third-party cookies.</li>
+        </ul></section>
+      ${footer()}
+    </div>`;
+  }
+
   // ---------- Get Omarchy: the landing page for people who don't have Omarchy yet ----------
   function pageGetOmarchy() {
     const iso = S.catalog.omarchy_iso;
@@ -1011,8 +1066,8 @@
     <span class="disclaim">${DISCLAIMER_SHORT} <a href="/legal/">Full disclaimer</a></span>
     <span>Omarchy Store — unofficial, community-run. Not affiliated with Omarchy or Basecamp.</span>
     <a href="${REPO}" target="_blank" rel="noopener">GitHub</a>
-    <a href="${REPO}/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener">Submit an app</a>
-    <a href="${REPO}/blob/main/ADVERTISE.md" target="_blank" rel="noopener">Advertise</a>
+    <a href="/submit/">Submit an app</a>
+    <a href="/advertise/">Advertise</a>
     <span>Data updated ${ago(S.catalog.generated_at).toLowerCase()}</span>
   </div>`;
 
@@ -1047,6 +1102,8 @@
     else if (p === "installed") html = pageInstalled();
     else if (p === "updates") html = pageUpdates();
     else if (p === "usb" || p === "ignite") { if (p === "usb") history.replaceState(null, "", "/ignite/"); html = pageUsb(); nav = "get-omarchy"; }
+    else if (p === "submit") html = pageSubmit();
+    else if (p === "advertise") html = pageAdvertise();
     else if (p === "get-omarchy" || p === "get") { if (p === "get") history.replaceState(null, "", "/get-omarchy/"); html = pageGetOmarchy(); nav = "get-omarchy"; }
     else if (p === "get-desktop") html = pageGetDesktop();
     else if (p === "legal") html = pageLegal();
@@ -1060,7 +1117,7 @@
     if (d && m && d.scrollHeight > d.clientHeight + 4) m.hidden = false;
     document.title = pageTitle(p, arg);
   }
-  const TITLES = { themes: "Omarchy Themes – Browse & Install Desktop Themes", charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed", updates: "Updates", usb: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", ignite: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", "get-omarchy": "Get Omarchy – How to Install Omarchy Linux (Free, Step by Step)", get: "Get Omarchy – How to Install Omarchy Linux (Free, Step by Step)" };
+  const TITLES = { submit: "Submit an App – List Your App Free", advertise: "Advertise on the Omarchy Store", themes: "Omarchy Themes – Browse & Install Desktop Themes", charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed", updates: "Updates", usb: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", ignite: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", "get-omarchy": "Get Omarchy – How to Install Omarchy Linux (Free, Step by Step)", get: "Get Omarchy – How to Install Omarchy Linux (Free, Step by Step)" };
   function pageTitle(p, arg) {
     const a = p === "app" && S.byId[arg];
     if (a) return `${a.name} for Omarchy Linux – Install ${a.name} | Omarchy Store`;

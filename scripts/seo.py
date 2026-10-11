@@ -265,6 +265,14 @@ def main():
                          '<h1 class="page-title">Categories</h1><ul>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>"),
         "/legal/": ("Disclaimer | Omarchy Store", "Omarchy Store lists third-party software provided as-is, without warranty. Read the full disclaimer.",
                     '<h1 class="page-title">Disclaimer</h1>'),
+        "/submit/": ("Submit an App to the Omarchy Store – Free Listing | Omarchy Store",
+                     "List your Linux app in the Omarchy Store for free. Every app is reviewed; installs through Arch, the AUR or Omarchy installers.",
+                     '<h1 class="page-title">Submit an app</h1><p>Listing is free. Fill in a short form and a maintainer reviews your app.</p>'
+                     '<p><a href="https://github.com/omarchy-community/store/issues/new?template=submit-app.yml">Submit your app</a></p>'),
+        "/advertise/": ("Advertise on the Omarchy Store | Omarchy Store",
+                        "Reach Omarchy and Arch Linux users with a Discover banner, sponsored app or search banner. Clearly labelled, no tracking.",
+                        '<h1 class="page-title">Advertise on the Omarchy Store</h1><p>Discover banners, sponsored apps and search banners.</p>'
+                        '<p><a href="https://github.com/omarchy-community/store/issues/new?template=advertising.yml">Ask about advertising</a></p>'),
         "/get-omarchy/": ("Get Omarchy – How to Install Omarchy Linux, Free & Step by Step | Omarchy Store",
                   "How to install Omarchy Linux in about 15 minutes: make the installer USB, keep Windows or replace it, install, then add the Omarchy Store for one-click apps and themes.",
                   '<h1 class="page-title">Get Omarchy</h1><p>Omarchy is a free, fast and beautiful Linux desktop made by DHH. Install it in about 15 minutes.</p>'

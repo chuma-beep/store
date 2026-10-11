@@ -1,0 +1,46 @@
+name: Advertising inquiry
+description: Advertise on the Omarchy Store
+title: "Advertising inquiry: "
+labels: ["advertising"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for your interest! Tell us a little about your campaign and we'll reply with rates and availability.
+        Every ad is labelled Sponsored, and ads never change rankings.
+  - type: input
+    id: company
+    attributes:
+      label: Company or product
+    validations:
+      required: true
+  - type: input
+    id: website
+    attributes:
+      label: Website
+    validations:
+      required: true
+  - type: input
+    id: contact
+    attributes:
+      label: "How should we reach you?"
+      description: "Email or other contact. This form is public on GitHub, so share only what you're happy to make public."
+    validations:
+      required: true
+  - type: checkboxes
+    id: slots
+    attributes:
+      label: Placements you're interested in
+      options:
+        - label: Discover banner
+        - label: Sponsored app (top of categories and search)
+        - label: Search banner
+  - type: input
+    id: dates
+    attributes:
+      label: Dates or duration
+      placeholder: "e.g. November 2026, 4 weeks"
+  - type: textarea
+    id: details
+    attributes:
+      label: "Anything else?"

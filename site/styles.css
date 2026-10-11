@@ -563,3 +563,11 @@ kbd { display: inline-grid; place-items: center; min-width: 30px; height: 28px; 
 .go-tag img { width: 20px; height: 20px; border-radius: 5px; }
 .go .faq a { color: var(--accent); }
 @media (max-width: 1000px) { .go-hero { grid-template-columns: 1fr; } .go-mosaic { transform: none; } .go-need { grid-template-columns: 1fr 1fr; } .go-two { grid-template-columns: 1fr; } }
+
+/* ---------- Submit / Advertise ---------- */
+.info-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 8px 0 20px; }
+.info-card { display: flex; gap: 14px; padding: 18px; border-radius: 18px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+.info-card h3 { margin: 4px 0 4px; font-size: 16px; } .info-card p { margin: 0; color: var(--text-2); font-size: 13.5px; line-height: 1.45; }
+.info-cta { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin: 6px 0 10px; }
+.info-list { margin: 0; padding-left: 20px; color: var(--text-2); line-height: 1.6; } .info-list li { margin: 6px 0; } .info-list b { color: var(--text); }
+@media (max-width: 900px) { .info-cards { grid-template-columns: 1fr; } }

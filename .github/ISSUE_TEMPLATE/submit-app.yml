@@ -1,0 +1,47 @@
+name: Submit your app
+description: List your app in the Omarchy Store (free)
+title: "Submit app: "
+labels: ["app-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for submitting! Listing is free. A maintainer reviews every app before it goes live.
+        Apps must install through a package manager (Arch repos, AUR, or an Omarchy installer).
+  - type: input
+    id: name
+    attributes: { label: App name }
+    validations: { required: true }
+  - type: input
+    id: link
+    attributes: { label: GitHub repo or website, placeholder: "https://github.com/owner/repo" }
+    validations: { required: true }
+  - type: input
+    id: package
+    attributes: { label: Arch / AUR package name, placeholder: "e.g. krita or myapp-bin" }
+    validations: { required: true }
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options: [Browsers, Developer Tools, Terminal & CLI, AI, Graphics & Design, Video & Audio, Entertainment, Games, Social, Productivity, Education & Science, Security, Utilities]
+    validations: { required: true }
+  - type: textarea
+    id: summary
+    attributes: { label: One-line summary, placeholder: "What does it do, in one sentence?" }
+    validations: { required: true }
+  - type: dropdown
+    id: role
+    attributes:
+      label: Are you the developer?
+      options: ["Yes, I made it", "No, I'm a fan"]
+    validations: { required: true }
+  - type: checkboxes
+    id: rules
+    attributes:
+      label: Listing rules
+      options:
+        - label: It installs through a package manager (no curl | bash, AppImages or custom scripts)
+          required: true
+        - label: It isn't malware, cracked software, or mainly for piracy
+          required: true
