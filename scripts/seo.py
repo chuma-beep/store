@@ -401,6 +401,14 @@ def main():
                                                       [crumbs(("Omarchy Store", "/"), ("Screensavers", "/screensavers/"))]), body))
         urls.append((f"{SITE}/screensavers/", now, "0.8"))
 
+    # ---- Renamed apps: old links redirect to the new page
+    for old_id, new_id in {"omarchy-backup": "lifeboat"}.items():
+        if any(a["id"] == new_id for a in apps):
+            write(f"/app/{old_id}/", f'<!doctype html><meta charset="utf-8"><title>Moved | Omarchy Store</title>'
+                  f'<link rel="canonical" href="{SITE}/app/{new_id}/"><meta name="robots" content="noindex">'
+                  f'<meta http-equiv="refresh" content="0; url=/app/{new_id}/"><script>location.replace("/app/{new_id}/")</script>'
+                  f'<a href="/app/{new_id}/">This app has moved</a>')
+
     # ---- Other pages
     simple = {
         "/charts/": ("Top Charts – Most Popular Omarchy Apps | Omarchy Store",

@@ -1765,6 +1765,8 @@
     closeSheet(); route();
   }
 
+  // Renamed apps: old links keep working.
+  const APP_MOVED = { "omarchy-backup": "lifeboat" };
   function route() {
     const h = currentPath();
     const [p, arg] = h.split(/\/(.*)/s);
@@ -1778,6 +1780,7 @@
     else if (p === "screensavers") html = pageScreensavers();
     else if (p === "plugin") html = pagePlugin((arg || "").replace(/\/$/, "")), nav = "plugins";
     else if (p === "category") html = pageCategory(arg), nav = "category/" + arg;
+    else if (p === "app" && APP_MOVED[(arg || "").replace(/\/$/, "")]) { history.replaceState(null, "", `/app/${APP_MOVED[arg.replace(/\/$/, "")]}/`); return route(); }
     else if (p === "app") html = pageApp(arg), nav = "category/" + (S.byId[arg]?.category || "");
     else if (p === "search") html = pageSearch(arg || "");
     else if (p === "installed") html = pageInstalled();
