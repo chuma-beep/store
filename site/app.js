@@ -873,7 +873,7 @@
   }
   function igniteBanner() {
     const iso = S.catalog.omarchy_iso;
-    return `<a class="spot full ignite-spot" href="/get-omarchy/">
+    return `<a class="spot full ignite-spot" href="${S.desktop ? "/ignite/" : "/get-omarchy/"}">
       <img class="spot-bg" src="/featured/ignite/billboard.webp" alt="Get Omarchy: make an installer USB with Ignite" loading="lazy">
       <div class="spot-copy">
         <div class="spot-badge fire"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>New to Omarchy?</div>
@@ -1204,7 +1204,7 @@
           <h1>Get Omarchy.</h1>
           <p>Omarchy is a free, fast and beautiful desktop for your PC, made by DHH (creator of Ruby on Rails). It replaces Windows, or lives right next to it. Here's the whole thing, step by step, in about 15 minutes.</p>
           <div class="go-cta">
-            <a class="btn big" href="#step1">Start: make the USB</a>
+            ${S.desktop ? `<a class="btn big" href="/ignite/">Start: make the USB</a>` : `<a class="btn big" href="#step1">Start: make the USB</a>`}
             ${iso ? `<span class="muted small">Latest: Omarchy ${esc(iso.version)} · free · ${gb(iso.size)}</span>` : ""}
           </div>
         </div>
@@ -1968,6 +1968,14 @@
     e.preventDefault();
     if (a.hasAttribute("data-close")) closeSheet();
     go(url.pathname);
+    // "#step1"-style links: same page → just scroll there; other page → scroll once it has rendered
+    if (url.hash && url.hash.length > 1 && !url.hash.startsWith("#/")) {
+      const id = decodeURIComponent(url.hash.slice(1));
+      requestAnimationFrame(() => setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) (el.closest(".go-step") || el).scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 60));
+    }
   });
   window.addEventListener("popstate", () => { closeSheet(); route(); });
   window.addEventListener("hashchange", () => { if (location.hash.startsWith("#/")) { closeSheet(); route(); } });

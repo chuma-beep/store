@@ -753,3 +753,4 @@ select.sel { background: var(--pill); color: var(--text); border: 0; border-radi
 .self-upd .su-x { background: none; border: 0; color: var(--text-3, var(--text-2)); font-size: 20px; cursor: pointer; padding: 0 4px; }
 @keyframes su-in { from { transform: translateY(16px); opacity: 0; } }
 @media (max-width: 720px) { .self-upd { left: 12px; right: 12px; bottom: 12px; max-width: none; } }
+.go-step, #windows { scroll-margin-top: 150px; }
