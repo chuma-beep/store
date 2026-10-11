@@ -818,3 +818,6 @@ svg .fill { fill: currentColor; stroke: none; }
 #nav .nav-socials a:hover { transform: translateY(-1px); filter: brightness(1.12); }
 #nav .nav-socials svg { width: 16px; height: 16px; margin: 0; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 #nav .nav-socials svg .fill { fill: currentColor; stroke: none; }
+
+/* Long unbroken strings (checksums, hashes, long URLs) must wrap on phones */
+code.small, .hash, .sha, .checksum { overflow-wrap: anywhere; word-break: break-all; white-space: normal !important; }
