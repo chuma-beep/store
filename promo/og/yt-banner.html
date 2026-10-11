@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:2560px;height:1440px;overflow:hidden;font-family:"Adwaita Sans","Inter","Noto Sans",sans-serif;color:#fff;-webkit-font-smoothing:antialiased;
+ background:radial-gradient(1100px 700px at 75% 45%, rgba(157,124,242,.45), transparent 60%),radial-gradient(900px 600px at 20% 70%, rgba(158,206,106,.16), transparent 60%),linear-gradient(135deg,#16161f,#0e0e15)}
+.wall{position:absolute;left:1180px;top:200px;width:1500px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;transform:rotate(-8deg);opacity:.85}
+.wall img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:14px;box-shadow:0 24px 50px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08)}
+.fade{position:absolute;inset:0;background:linear-gradient(90deg,#111118 0%,rgba(17,17,24,.97) 44%,rgba(17,17,24,.55) 66%,rgba(17,17,24,.15) 100%)}
+/* YouTube safe area (visible on every device): 1546x423 centred = x 507..2053, y 508..931 */
+.safe{position:absolute;left:507px;top:508px;width:1546px;height:423px;display:flex;align-items:center;gap:48px}
+.logo{width:260px;height:260px;flex:none;filter:drop-shadow(0 20px 40px rgba(0,0,0,.5))}
+.wm{display:flex;gap:18px;align-items:center;margin-bottom:18px}
+.wm img{height:46px;image-rendering:pixelated}
+h1{font-size:84px;line-height:1;font-weight:800;letter-spacing:-3px}
+h1 span{color:#9ece6a}
+.sub{font-size:38px;color:rgba(255,255,255,.8);margin-top:22px;font-weight:600}
+.sub b{color:#fff}
+.url{display:inline-block;margin-top:20px;font-size:34px;font-weight:800;color:#111118;background:#9ece6a;padding:10px 28px;border-radius:40px}
+</style></head><body>
+<div class="wall">
+ <img src="t/omarchy-lumon-theme.jpg"><img src="t/aetheria.jpg"><img src="t/miasma.jpg"><img src="t/osaka-jade.jpg">
+ <img src="t/copper-night.jpg"><img src="t/retropc.jpg"><img src="t/aamis.jpg"><img src="t/void.jpg">
+ <img src="t/felix.jpg"><img src="t/blackturq.jpg"><img src="t/mecha-no-onna.jpg"><img src="t/rose-pine-dark.jpg">
+ <img src="t/miasma.jpg"><img src="t/aetheria.jpg"><img src="t/void.jpg"><img src="t/retropc.jpg">
+</div>
+<div class="fade"></div>
+<div class="safe">
+ <img class="logo" src="logo.svg">
+ <div>
+  <div class="wm"><img src="wordmark-omarchy.svg"><img src="wordmark-store.svg"></div>
+  <h1>The largest <span>Omarchy</span> app store on Earth.</h1>
+  <div class="sub">Apps, themes and plugins. One click each. Free.</div>
+  <div class="url">omarchystore.com</div>
+ </div>
+</div>
+</body></html>

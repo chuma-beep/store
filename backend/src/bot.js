@@ -107,7 +107,7 @@ const send = (env, chat, text, kb) => tg(env, "sendMessage", {
 
 const WELCOME = (c) => `🛍️ <b>Welcome to the Omarchy Store!</b>
 
-The largest app store for Omarchy Linux: <b>${c.totalLabel} apps, themes and plugins</b>, one click each.
+<b>The largest Omarchy app store on Earth.</b> Apps, themes and plugins, one click each.
 
 <b>Just type what you're looking for</b>, e.g. <i>obsidian</i>, <i>steam</i>, <i>tokyo night</i>.
 
