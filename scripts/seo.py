@@ -269,6 +269,9 @@ def main():
                      "List your Linux app in the Omarchy Store for free. Every app is reviewed; installs through Arch, the AUR or Omarchy installers.",
                      '<h1 class="page-title">Submit an app</h1><p>Listing is free. Fill in a short form and a maintainer reviews your app.</p>'
                      '<p><a href="https://github.com/omarchy-community/store/issues/new?template=submit-app.yml">Submit your app</a></p>'),
+        "/contact/": ("Contact the Omarchy Store",
+                      "Get in touch with the Omarchy Store: info@omarchystore.com. Developers, advertisers, press and support.",
+                      '<h1 class="page-title">Contact us</h1><p>Email <a href="mailto:info@omarchystore.com">info@omarchystore.com</a>.</p>'),
         "/advertise/": ("Advertise on the Omarchy Store | Omarchy Store",
                         "Reach Omarchy and Arch Linux users with a Discover banner, sponsored app or search banner. Clearly labelled, no tracking.",
                         '<h1 class="page-title">Advertise on the Omarchy Store</h1><p>Discover banners, sponsored apps and search banners.</p>'

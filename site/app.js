@@ -56,6 +56,9 @@
   };
 
   const ICONS = {
+    plus: '<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/>',
+    megaphone: '<path d="M3 10v4a1 1 0 0 0 1 1h3l6 4V5L7 9H4a1 1 0 0 0-1 1z"/><path d="M17 8.5a5 5 0 0 1 0 7"/><path d="M19.5 6a8.5 8.5 0 0 1 0 12"/>',
+    mail: '<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/>',
     discover: '<path d="M12 2l2.4 6.9H22l-6 4.6 2.3 7.1L12 16.2 5.7 20.6 8 13.5 2 8.9h7.6z"/>',
     charts: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
     grid: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>',
@@ -83,6 +86,26 @@
     rocket: '<path d="M12 2c3 2 5 6 5 10l-2 4H9l-2-4c0-4 2-8 5-10z"/><circle cx="12" cy="10" r="1.8"/><path d="M9 16l-3 3 1-5M15 16l3 3-1-5M10 20h4"/>',
     usb: '<path d="M8 2h8v6H8z"/><path d="M6 8h12v10a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4z"/><path d="M10 4.5h.01M14 4.5h.01"/>',
   };
+  // Official accounts. Fill in a link and it appears in the footer and on the Contact page.
+  const CONTACT_EMAIL = "info@omarchystore.com";
+  const SOCIALS = [
+    { id: "x", name: "X", url: "" },
+    { id: "instagram", name: "Instagram", url: "" },
+    { id: "tiktok", name: "TikTok", url: "" },
+    { id: "youtube", name: "YouTube", url: "" },
+    { id: "telegram", name: "Telegram", url: "" },
+    { id: "whatsapp", name: "WhatsApp", url: "" },
+  ];
+  const SOC_ICO = {
+    x: '<path d="M4 4l16 16M20 4L4 20" />',
+    instagram: '<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6"/>',
+    tiktok: '<path d="M14 3v11.5a3.5 3.5 0 1 1-3.5-3.5"/><path d="M14 3c.5 3 2.5 5 5.5 5"/>',
+    youtube: '<rect x="2.5" y="5.5" width="19" height="13" rx="4"/><path d="M10 9.5v5l4.5-2.5z"/>',
+    telegram: '<path d="M21 4L3 11l6 2 2 6 3-4 5 4z"/><path d="M9 13l8-6"/>',
+    whatsapp: '<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 1c-1-.5-2-1.5-2.5-2.5l1-1-1-2z"/>',
+  };
+  const liveSocials = () => SOCIALS.filter((s) => s.url);
+  const socialRow = () => liveSocials().length ? `<div class="socials">${liveSocials().map((s) => `<a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.name}" title="${s.name}"><svg viewBox="0 0 24 24">${SOC_ICO[s.id]}</svg></a>`).join("")}</div>` : "";
   const ico = (n) => `<svg viewBox="0 0 24 24">${ICONS[n] || ""}</svg>`;
   const CAT_COLORS = ["#0a84ff", "#5e5ce6", "#bf5af2", "#ff375f", "#ff9f0a", "#ff453a", "#30d158", "#64d2ff", "#32ade6", "#ac8e68", "#8e8e93"];
 
@@ -149,6 +172,10 @@
       ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes">${ico("palette")}Themes<span class="nav-new">NEW</span></a>` : ""}
       ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>
       <a href="/updates/" data-r="updates">${ico("refresh")}Updates<span class="nav-count" id="upd-count" hidden></span></a>` : ""}
+      <div class="sec">Developers &amp; business</div>
+      <a href="/submit/" data-r="submit">${ico("plus")}Submit an app</a>
+      <a href="/advertise/" data-r="advertise">${ico("megaphone")}Advertise with us</a>
+      <a href="/contact/" data-r="contact">${ico("mail")}Contact us</a>
       <div class="sec">Categories</div>
       ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes-cat">${ico("palette")}Themes</a>` : ""}
       ${cats.map((c) => `<a href="/category/${c.id}/" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}`;
@@ -730,6 +757,23 @@
       ${footer()}
     </div>`;
   }
+  function pageContact() {
+    const soc = liveSocials();
+    return `<div class="page info-page" style="max-width:860px">
+      <h1 class="page-title">Contact us</h1>
+      <p class="page-sub">Questions, partnerships, press or problems with a listing: we'd love to hear from you.</p>
+      <div class="info-cards">
+        <a class="info-card" href="mailto:${CONTACT_EMAIL}"><span class="go-n">${ico("mail")}</span><div><h3>Email</h3><p>${CONTACT_EMAIL}<br><span class="muted small">We usually reply within 1–2 days.</span></p></div></a>
+        <a class="info-card" href="/submit/"><span class="go-n">${ico("plus")}</span><div><h3>Developers</h3><p>List your app for free, or ask about selling it.</p></div></a>
+        <a class="info-card" href="/advertise/"><span class="go-n">${ico("megaphone")}</span><div><h3>Advertisers</h3><p>Banners and sponsored listings, clearly labelled.</p></div></a>
+      </div>
+      ${soc.length ? `<section class="shelf"><div class="shelf-head"><h2>Follow us</h2></div>
+        <div class="soc-big">${soc.map((s) => `<a href="${s.url}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24">${SOC_ICO[s.id]}</svg>${s.name}</a>`).join("")}</div></section>` : ""}
+      <section class="shelf"><div class="shelf-head"><h2>Report a problem with an app</h2></div>
+        <p>Something wrong with a listing (broken install, wrong info, unsafe)? Email us with the app's name, or <a style="color:var(--accent)" href="${REPO}/issues" target="_blank" rel="noopener">open an issue on GitHub</a>.</p></section>
+      ${footer()}
+    </div>`;
+  }
   function pageAdvertise() {
     const form = `${REPO}/issues/new?template=advertising.yml`;
     return `<div class="page info-page" style="max-width:860px">
@@ -1086,12 +1130,19 @@
   }
 
   const notFound = () => `<div class="page"><div class="empty">That page doesn’t exist. <a style="color:var(--accent)" href="/">Back to Discover</a></div></div>`;
-  const footer = () => `<div class="footer">
+  const footer = () => `<div class="footer-cta">
+    <a class="fc" href="/submit/"><span class="fc-i">${ico("plus")}</span><span><b>Made an app?</b>List it in the store for free</span></a>
+    <a class="fc" href="/advertise/"><span class="fc-i">${ico("megaphone")}</span><span><b>Advertise with us</b>Reach Omarchy users</span></a>
+    <a class="fc" href="/contact/"><span class="fc-i">${ico("mail")}</span><span><b>Contact us</b>${CONTACT_EMAIL}</span></a>
+  </div>
+  ${socialRow()}
+  <div class="footer">
     <span class="disclaim">${DISCLAIMER_SHORT} <a href="/legal/">Full disclaimer</a></span>
     <span>Omarchy Store — unofficial, community-run. Not affiliated with Omarchy or Basecamp.</span>
     <a href="${REPO}" target="_blank" rel="noopener">GitHub</a>
     <a href="/submit/">Submit an app</a>
     <a href="/advertise/">Advertise</a>
+    <a href="/contact/">Contact</a>
     <span>Data updated ${ago(S.catalog.generated_at).toLowerCase()}</span>
   </div>`;
 
@@ -1128,6 +1179,7 @@
     else if (p === "usb" || p === "ignite") { if (p === "usb") history.replaceState(null, "", "/ignite/"); html = pageUsb(); nav = "get-omarchy"; }
     else if (p === "submit") html = pageSubmit();
     else if (p === "advertise") html = pageAdvertise();
+    else if (p === "contact") html = pageContact();
     else if (p === "get-omarchy" || p === "get") { if (p === "get") history.replaceState(null, "", "/get-omarchy/"); html = pageGetOmarchy(); nav = "get-omarchy"; }
     else if (p === "get-desktop") html = pageGetDesktop();
     else if (p === "legal") html = pageLegal();
