@@ -620,7 +620,11 @@ a.info-card:hover { box-shadow: inset 0 0 0 1px var(--accent); }
 .pc-meta .name { font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pc-meta .sub { color: var(--text-2); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pc-tags { margin-top: 6px; }
-.pl-ini { width: 64px; height: 64px; border-radius: 16px; display: grid; place-items: center; font: 800 22px ui-monospace, "JetBrains Mono", monospace; letter-spacing: .02em; color: #0b0b14; background: var(--pc, #7aa2f7); box-shadow: 0 10px 24px rgba(0,0,0,.25); }
+.pl-ini { position: relative; overflow: hidden; width: 64px; height: 64px; border-radius: 16px; display: grid; place-items: center; color: #fff;
+  background: linear-gradient(135deg, var(--pc, #7aa2f7), color-mix(in oklab, var(--pc, #7aa2f7) 45%, #1a1b26)); box-shadow: 0 10px 24px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.12); }
+.pl-ini svg { width: 46%; height: 46%; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linejoin: round; opacity: .95; }
+.pl-ini img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 1; }
+.pc-img .pl-ini { box-shadow: none; }
 .sheet-card .row .pl-ini { width: 56px; height: 56px; font-size: 18px; flex: none; }
 .pl-big .pl-ini { width: 128px; height: 128px; border-radius: 28px; font-size: 40px; }
 .pv { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: var(--pill); color: var(--text-2); white-space: nowrap; }
@@ -634,3 +638,32 @@ select.sel { background: var(--pill); color: var(--text); border: 0; border-radi
 
 .plug-search { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; margin-bottom: 22px; }
 .plug-search select.sel, .plug-search #pq { height: 38px; }
+
+.theme-spot.on-page { margin: 4px 0 18px; }
+
+/* Discover: SnapDock + Get Omarchy side by side, swipe/scroll between them */
+.spot-row { display: grid; grid-auto-flow: column; grid-auto-columns: calc(100% - 64px); gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 0 10px; padding-bottom: 4px; }
+.spot-row::-webkit-scrollbar { display: none; }
+.spot-row > .spot { scroll-snap-align: start; margin-bottom: 0; min-width: 0; }
+.spot-dots { display: flex; justify-content: center; gap: 8px; margin: 6px 0 26px; }
+.spot-dots i { width: 7px; height: 7px; border-radius: 999px; background: var(--text-3); opacity: .5; transition: width .25s, opacity .25s; }
+.spot-dots i.on { width: 22px; opacity: 1; background: var(--text); }
+@media (max-width: 720px) { .spot-row { grid-auto-columns: calc(100% - 28px); gap: 12px; } }
+
+@media (min-width: 721px) { nav .d-hide { display: none !important; } .spot-row { grid-auto-columns: calc(100% - 110px); } }
+.spot-dots i { cursor: pointer; }
+
+/* Remove buttons + Installed list */
+.rm-btn { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-radius: 999px; border: 0; cursor: pointer;
+  background: var(--pill); color: var(--text-2); font: 600 13px/1 inherit; }
+.rm-btn:hover { background: rgba(255,69,58,.18); color: #ff6961; }
+.rm-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.btn.danger { background: #ff453a; color: #fff; }
+.inst-list { display: flex; flex-direction: column; gap: 4px; }
+.inst-row { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 14px; background: var(--card); }
+.inst-main { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; color: inherit; }
+.inst-main .meta { min-width: 0; }
+.inst-main .name { font-weight: 700; }
+.inst-main .sub { color: var(--text-2); font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.inst-main .pl-ini { width: 48px; height: 48px; border-radius: 12px; flex: none; }
+.inst-act { display: flex; gap: 8px; align-items: center; flex: none; }

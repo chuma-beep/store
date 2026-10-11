@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.4.0"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.5.0"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
@@ -294,6 +294,78 @@ def run_install(app):
         with JOBS_LOCK:
             JOBS[app["id"]]["state"] = "failed"
     threading.Thread(target=watch, daemon=True).start()
+
+
+# ------------------------------------------------------------- uninstall ----
+# Packages Omarchy itself depends on are never offered for removal (that could break the desktop).
+OMARCHY_PKG_LISTS = ("/usr/share/omarchy/install/omarchy-base.packages",)
+
+
+def protected_packages():
+    out = {"omarchy", "hyprland", "pacman", "linux", "systemd", "base", "sudo", "bash"}
+    for f in OMARCHY_PKG_LISTS:
+        try:
+            out.update(l.strip() for l in open(f) if l.strip() and not l.startswith("#"))
+        except OSError:
+            pass
+    return out
+
+
+def can_uninstall(app):
+    pkgs = (app.get("install") or {}).get("packages") or app.get("detect") or []
+    return bool(pkgs) and not (set(pkgs) & protected_packages())
+
+
+def run_uninstall(app):
+    """Remove a store app in Omarchy's floating terminal; the user confirms and types their own password."""
+    m = (app.get("install") or {}).get("method")
+    if m not in ("pacman", "aur", "release"):
+        raise ValueError("this app can't be removed from the store")
+    pkgs = (app["install"].get("packages") or []) or (app.get("detect") or [])
+    if not pkgs or not all(PKG_RE.match(p) for p in pkgs):
+        raise ValueError("bad package list")
+    if set(pkgs) & protected_packages():
+        raise ValueError("this app is part of Omarchy itself, so the store won't remove it")
+    name = app["name"]
+    shown = " ".join(shlex.quote(p) for p in pkgs)
+    script = (f"echo {shlex.quote('Removing ' + name + ' (requested from the Omarchy Store)…')}; echo; "
+              f"echo 'Your settings and files in your home folder are kept.'; echo; "
+              f"sudo pacman -Rns {shown}")
+    with JOBS_LOCK:
+        JOBS[app["id"]] = {"state": "removing", "started": time.time()}
+    proc = in_terminal(script, "Remove " + name)
+
+    def watch():
+        proc.wait()
+        deadline = time.time() + 15 * 60
+        while time.time() < deadline:
+            time.sleep(3)
+            if app["id"] not in installed_ids({app["id"]: app}):
+                with JOBS_LOCK:
+                    JOBS[app["id"]]["state"] = "removed"
+                return
+        with JOBS_LOCK:
+            JOBS[app["id"]]["state"] = "failed"
+    threading.Thread(target=watch, daemon=True).start()
+
+
+def run_theme_remove(t):
+    name = theme_folder(t)
+    if t.get("builtin") or not os.path.isdir(os.path.join(USER_THEMES, name)):
+        raise ValueError("built-in themes come with Omarchy and can't be removed")
+    if name == current_theme():
+        raise ValueError("switch to another theme first: this one is in use")
+    subprocess.Popen(["omarchy-theme-remove", name], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                     stderr=subprocess.DEVNULL, start_new_session=True)
+
+
+def run_plugin_remove(pid):
+    if not PLUGIN_ID_RE.match(pid) or pid.startswith("omarchy."):
+        raise ValueError("bad plugin id")
+    if pid not in installed_plugins():
+        raise ValueError("plugin isn't installed")
+    subprocess.Popen(["omarchy", "plugin", "remove", pid, "--yes"], stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                     stderr=subprocess.DEVNULL, start_new_session=True)
 
 
 def run_open(app):
@@ -656,7 +728,9 @@ class Handler(SimpleHTTPRequestHandler):
             return self.wfile.write(body)
         if path == "/api/status":
             cat = load_catalog()
-            return self._json(200, {"desktop": True, "installed": installed_ids(cat), "theme": read_theme(),
+            inst = installed_ids(cat)
+            return self._json(200, {"desktop": True, "installed": inst, "theme": read_theme(),
+                                    "removable": [i for i in inst if can_uninstall(cat[i])],
                                     "themes_installed": installed_themes(), "theme_current": current_theme(),
                                     "version": VERSION, "store_update": SELF["available"],
                                     "restart_needed": SELF["installed_new"]})
@@ -754,6 +828,21 @@ class Handler(SimpleHTTPRequestHandler):
                 os.execv(sys.executable, [sys.executable, os.path.join(APP_DIR, "omarchy-store"), "--serve"])
             threading.Thread(target=again, daemon=True).start()
             return self._json(200, {"ok": True})
+        if self.path == "/api/plugin/remove":
+            try:
+                run_plugin_remove(aid)
+                return self._json(202, {"ok": True})
+            except ValueError as e:
+                return self._json(400, {"error": str(e)})
+        if self.path == "/api/theme/remove":
+            th = load_themes().get(aid)
+            if not th:
+                return self._json(404, {"error": "unknown theme"})
+            try:
+                run_theme_remove(th)
+                return self._json(202, {"ok": True})
+            except ValueError as e:
+                return self._json(400, {"error": str(e)})
         if self.path == "/api/plugin/add":
             try:
                 run_plugin_add(aid)
@@ -783,6 +872,12 @@ class Handler(SimpleHTTPRequestHandler):
                     if JOBS.get(aid, {}).get("state") == "running":
                         return self._json(409, {"error": "already installing"})
                 run_install(app)
+                return self._json(202, {"ok": True})
+            if self.path == "/api/uninstall":
+                with JOBS_LOCK:
+                    if JOBS.get(aid, {}).get("state") in ("running", "removing"):
+                        return self._json(409, {"error": "busy"})
+                run_uninstall(app)
                 return self._json(202, {"ok": True})
             if self.path == "/api/open":
                 run_open(app)

@@ -57,6 +57,7 @@
   };
 
   const ICONS = {
+    trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/>',
     puzzle: '<path d="M10 3h4v3a2 2 0 1 0 4 0V3h3v7h-3a2 2 0 1 0 0 4h3v7h-7v-3a2 2 0 1 0-4 0v3H3v-7h3a2 2 0 1 0 0-4H3V3h7z"/>',
     verified: '<path d="M12 2l2.4 1.8 3-.2.9 2.9 2.5 1.7-1 2.8 1 2.8-2.5 1.7-.9 2.9-3-.2L12 22l-2.4-1.8-3 .2-.9-2.9-2.5-1.7 1-2.8-1-2.8 2.5-1.7.9-2.9 3 .2z"/><path d="m8.5 12 2.5 2.5 4.5-5"/>',
     plus: '<rect x="3" y="3" width="18" height="18" rx="5"/><path d="M12 8v8M8 12h8"/>',
@@ -120,7 +121,7 @@
       if (r.ok) {
         const st = await r.json();
         S.desktop = true; S.status = st;
-        S.installed = new Set(st.installed || []);
+        S.installed = new Set(st.installed || []); S.removable = new Set(st.removable || []);
         S.themesHave = new Set(st.themes_installed || []); S.themeNow = st.theme_current || "";
         if (st.theme) applyTheme(st.theme);
       }
@@ -158,7 +159,7 @@
     try {
       const st = await (await fetch("/api/status", { cache: "no-store" })).json();
       S.status = st;
-      S.installed = new Set(st.installed || []);
+      S.installed = new Set(st.installed || []); S.removable = new Set(st.removable || []);
       S.themesHave = new Set(st.themes_installed || []); S.themeNow = st.theme_current || "";
     } catch {}
   }
@@ -174,13 +175,13 @@
       <a href="/" data-r="">${ico("discover")}Discover</a>
       <a href="/charts/" data-r="charts">${ico("charts")}Top Charts</a>
       <a href="/categories/" data-r="categories">${ico("grid")}Categories</a>
-      ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes">${ico("palette")}Themes</a>` : ""}
-      <a href="/plugins/" data-r="plugins">${ico("puzzle")}Plugins<span class="nav-new">NEW</span></a>
+      ${S.catalog.themes.length ? `<a class="d-hide" href="/themes/" data-r="themes">${ico("palette")}Themes</a>` : ""}
+      <a class="d-hide" href="/plugins/" data-r="plugins">${ico("puzzle")}Plugins</a>
       ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>
       <a href="/updates/" data-r="updates">${ico("refresh")}Updates<span class="nav-count" id="upd-count" hidden></span></a>` : ""}
       <div class="sec">Categories</div>
       ${S.catalog.themes.length ? `<a class="m-hide" href="/themes/" data-r="themes-cat">${ico("palette")}Themes</a>` : ""}
-      <a class="m-hide" href="/plugins/" data-r="plugins-cat">${ico("puzzle")}Plugins</a>
+      <a class="m-hide" href="/plugins/" data-r="plugins-cat">${ico("puzzle")}Plugins<span class="nav-new">NEW</span></a>
       ${cats.map((c) => `<a href="/category/${c.id}/" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}
       <div class="sec m-hide">More</div>
       <a class="m-hide" href="/get-omarchy/" data-r="get-omarchy">${ico("rocket")}Get Omarchy</a>
@@ -189,7 +190,7 @@
       <a class="m-hide" href="/contact/" data-r="contact">${ico("mail")}Contact us</a>`;
   }
   function markNav(r) {
-    document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("on", a.dataset.r === r));
+    document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("on", a.dataset.r === r || a.dataset.r === r + "-cat"));
   }
   function renderModeBadge() {
     const b = $("#mode-badge");
@@ -226,6 +227,12 @@
       : `<button class="${cls} installed" data-open="${a.id}">OPEN</button>`;
     return `<button class="${cls}" data-get="${a.id}">GET</button>`;
   }
+
+  // Small "Remove" button shown next to OPEN on detail pages and in Installed (desktop app only).
+  const rmBtn = (kind, id, label = "Remove") => `<button class="rm-btn" data-rm="${kind}:${esc(id)}" title="${label}">${ico("trash")}<span>${label}</span></button>`;
+  const appRm = (a) => S.desktop && isInstalled(a) && S.removable?.has(a.id) && !S.busy.has(a.id) ? rmBtn("app", a.id) : "";
+  const themeRm = (t) => S.desktop && !t.builtin && themeHave(t) && !themeIsCurrent(t) ? rmBtn("theme", t.id) : "";
+  const plugRm = (x) => S.desktop && S.plugsHave.has(x.id) && !S.busy.has("plugin:" + x.id) ? rmBtn("plugin", x.id) : "";
 
   function lockup(a, { rank, sub } = {}) {
     return `<a class="lockup" href="/app/${a.id}/">
@@ -385,8 +392,9 @@
     const pick = all.filter((t) => !t.builtin && t.palette?.length && t.image && t.stars).slice(0, 3);
     return `<div class="page">
       <h1 class="page-title">Themes</h1>
+      ${themesBanner(true)}
       <p class="page-sub">${all.length} community themes that recolor your whole Omarchy desktop: terminal, bar, launcher, lock screen and wallpaper. Directory from <a style="color:var(--accent)" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name)}</a>.</p>
-      ${pick.length ? `<div class="scroller theme-hero">${pick.map((t) => `<a class="th-card" href="/theme/${t.id}/"><img src="${esc(themeImg(t))}" alt="" loading="eager">
+      ${false && pick.length ? `<div class="scroller theme-hero">${pick.map((t) => `<a class="th-card" href="/theme/${t.id}/"><img src="${esc(themeImg(t))}" alt="" loading="eager">
         <div class="th-over"><div class="eyebrow">Most loved</div><h3>${esc(t.name)}</h3><div class="swatch">${swatches(t)}</div></div></a>`).join("")}</div>` : ""}
       <div class="theme-tools">
         <div class="tabs">${filters.map(([id, n]) => `<button data-tfilter="${id}" class="${S.themeFilter === id ? "on" : ""}">${esc(n)}</button>`).join("")}</div>
@@ -414,7 +422,7 @@
           <div class="sub">${esc(t.description && t.description.length < 200 ? t.description : (t.mode === "light" ? "A light theme" : "A dark theme") + " for Omarchy")}</div>
           <a class="dev" href="${esc(gh || t.source_url)}" target="_blank" rel="noopener">${esc(t.author || "Unknown creator")}</a>
           <div class="actions">
-            ${themeBtn(t, true)}
+            ${themeBtn(t, true)}${themeRm(t)}
             ${gh ? `<a class="icon-btn" href="${gh}" target="_blank" rel="noopener" title="View on GitHub">${ico("github")}</a>` : ""}
             <button class="icon-btn" data-share-theme="${t.id}" title="Share">${ico("share")}</button>
           </div>
@@ -473,7 +481,8 @@
   const plugBadge = (x) => x.ok ? `<span class="pv ok" title="Passed the marketplace's automated security check">${ico("verified")}Verified</span>` : `<span class="pv" title="Not yet checked by the marketplace">Unverified</span>`;
   function plugTile(x) {
     const col = ACCENTS[x.ac] || "#7aa2f7";
-    return `<span class="pl-ini" style="--pc:${col}">${esc(x.ini || "")}</span>`;
+    const img = x.img ? plugImg(x) : "";
+    return `<span class="pl-ini" style="--pc:${col}">${img ? `<img src="${esc(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ""}${ico("puzzle")}</span>`;
   }
   function plugBtn(x, big = false, inCard = false) {
     const cls = "get" + (big ? " big" : "");
@@ -543,7 +552,7 @@
           <h1>${esc(x.n)}</h1>
           <div class="sub">${esc(x.d || "A plugin for Omarchy")}</div>
           ${x.r ? `<a class="dev" href="${esc(x.r)}" target="_blank" rel="noopener">${esc(x.a || "Community")}</a>` : `<span class="dev">${esc(x.a || "Community")}</span>`}
-          <div class="actions">${plugBtn(x, true)}
+          <div class="actions">${plugBtn(x, true)}${plugRm(x)}
             ${x.r ? `<a class="icon-btn" href="${esc(x.r)}" target="_blank" rel="noopener" title="Source code on GitHub">${ico("github")}</a>` : ""}
             <button class="icon-btn" data-copy="${esc(SITE + "plugin/" + encodeURIComponent(x.id) + "/")}" title="Copy link">${ico("share")}</button></div>
         </div>
@@ -643,8 +652,8 @@
     const spot = apps.find((a) => a.featured);
     return `<div class="page">
       <h1 class="page-title">Discover</h1>
-      ${spot ? spotlight(spot) : ""}
-      ${igniteBanner()}
+      <div class="spot-row">${spot ? spotlight(spot) : ""}${igniteBanner()}</div>
+      <div class="spot-dots"><i class="on" data-spot="0" role="button" aria-label="SnapDock"></i><i data-spot="1" role="button" aria-label="Get Omarchy"></i></div>
       <div class="scroller hero">${hero.map((h) => {
         const a = S.byId[h.app];
         const [g1, g2] = h.gradient;
@@ -655,11 +664,10 @@
           <div class="lockup">${iconImg(a, 48)}<div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${esc(a.summary)}</div></div>${getBtn(a)}</div>
         </a>`;
       }).join("")}</div>
-      ${themesBanner()}
-      ${themeShelf("Make it yours: Themes", S.catalog.themes.filter((t) => !t.builtin && t.palette?.length && t.image).slice(0, 14), "/themes/")}
-      ${plugShelf()}
       ${shelf(collections[0].title, collections[0].apps.map((id) => S.byId[id]))}
       ${bannerAd()}
+      ${plugShelf()}
+      ${themeShelf("Make it yours: Themes", S.catalog.themes.filter((t) => !t.builtin && t.palette?.length && t.image).slice(0, 14), "/themes/")}
       <section class="shelf">
         <div class="shelf-head"><h2>Top Charts</h2><a href="/charts/">See All</a></div>
         <div class="scroller rows3">${apps.slice(0, 12).map((a, i) => lockup(a, { rank: i + 1 })).join("")}</div>
@@ -690,22 +698,23 @@
     infinity: '<path d="M18.2 8.4c-2.4 0-4 3.6-6.2 3.6S8.2 8.4 5.8 8.4a3.6 3.6 0 0 0 0 7.2c2.4 0 4-3.6 6.2-3.6s3.8 3.6 6.2 3.6a3.6 3.6 0 0 0 0-7.2z"/>',
   };
   const fico = (n) => `<svg viewBox="0 0 24 24">${FICON[n] || ""}</svg>`;
-  function themesBanner() {
+  function themesBanner(onPage = false) {
     const th = S.catalog.themes.filter((t) => t.image && t.palette?.length && t.mode !== "light");
     if (th.length < 12) return "";
     const pick = [];
     const step = Math.floor(th.length / 12);
     for (let i = 0; i < 12; i++) pick.push(th[i * step]);
     const creators = new Set(S.catalog.themes.map((t) => t.author).filter(Boolean)).size;
-    return `<a class="spot full theme-spot" href="/themes/">
+    const tag = onPage ? "div" : "a";
+    return `<${tag} class="spot full theme-spot${onPage ? " on-page" : ""}" ${onPage ? `role="button" tabindex="0" onclick="document.getElementById('tgrid')?.scrollIntoView({behavior:'smooth'})"` : `href="/themes/"`}>
       <div class="ts-wall" aria-hidden="true">${pick.map((t) => `<img src="${esc(themeImg(t))}" alt="" loading="lazy">`).join("")}</div>
       <div class="spot-copy">
         <div class="spot-badge rainbow">${ico("palette")}Themes</div>
         <h2>${S.catalog.themes.length} themes.<br>One click.</h2>
         <p>Change your whole desktop in a click: terminal, bar, launcher, lock screen and wallpaper.${creators > 20 ? ` Free, from ${creators} creators.` : " Free."}</p>
-        <div class="spot-lock"><span class="ts-ico">${ico("palette")}</span><div><div class="name">Omarchy Themes</div><div class="sub">Free · preview every one</div></div><span class="get big">BROWSE</span></div>
+        <div class="spot-lock"><span class="ts-ico">${ico("palette")}</span><div><div class="name">Omarchy Themes</div><div class="sub">Free · preview every one</div></div><span class="get big">${onPage ? "SEE ALL" : "BROWSE"}</span></div>
       </div>
-    </a>`;
+    </${tag}>`;
   }
   function igniteBanner() {
     const iso = S.catalog.omarchy_iso;
@@ -832,11 +841,57 @@
 
   function pageInstalled() {
     const list = S.catalog.apps.filter(isInstalled);
+    const themes = S.catalog.themes.filter((t) => !t.builtin && themeHave(t));
+    if (!S.plugins) loadPlugins();
+    const plugs = S.plugins ? [...S.plugsHave].map((id) => S.plugById[id]).filter(Boolean) : [];
+    const row = (icon, name, sub, href, actions) => `<div class="inst-row"><a class="inst-main" href="${href}">${icon}<div class="meta"><div class="name">${esc(name)}</div><div class="sub">${esc(sub)}</div></div></a><div class="inst-act">${actions}</div></div>`;
     return `<div class="page">
       <h1 class="page-title">Installed</h1>
-      <p class="page-sub">Store apps found on this computer.</p>
-      ${list.length ? `<div class="grid">${list.map((a) => lockup(a)).join("")}</div>` : `<div class="empty">Nothing from the store is installed yet.</div>`}
+      <p class="page-sub">Everything from the store on this computer. Remove anything with one click: you'll be asked to confirm first.</p>
+      <section class="shelf"><div class="shelf-head"><h2>Apps <span class="muted">${list.length}</span></h2></div>
+        ${list.length ? `<div class="inst-list">${list.map((a) => row(iconImg(a, 48), a.name, a.summary, `/app/${a.id}/`, getBtn(a) + appRm(a))).join("")}</div>` : `<div class="empty">No store apps yet.</div>`}</section>
+      <section class="shelf"><div class="shelf-head"><h2>Themes <span class="muted">${themes.length}</span></h2></div>
+        ${themes.length ? `<div class="inst-list">${themes.map((t) => row(`<span class="swatch big">${swatches(t, 4)}</span>`, t.name, themeIsCurrent(t) ? "In use now" : "by " + (t.author || "community"), `/theme/${t.id}/`, themeBtn(t) + themeRm(t))).join("")}</div>` : `<div class="empty">No extra themes yet.</div>`}</section>
+      <section class="shelf"><div class="shelf-head"><h2>Plugins <span class="muted">${plugs.length}</span></h2></div>
+        ${plugs.length ? `<div class="inst-list">${plugs.map((x) => row(plugTile(x), x.n, x.a || "Community", `/plugin/${encodeURIComponent(x.id)}/`, plugRm(x))).join("")}</div>` : `<div class="empty">${S.plugins ? "No plugins yet." : "Loading…"}</div>`}</section>
     </div>`;
+  }
+
+  // ---------- Remove (one click + "Are you sure?") ----------
+  function confirmRemove(kind, id) {
+    const it = kind === "app" ? S.byId[id] : kind === "theme" ? S.themeById[id] : S.plugById[id];
+    if (!it) return;
+    const name = it.name || it.n;
+    const what = kind === "app" ? `This removes ${esc(name)} from your computer. A terminal opens so you can type your password. Your own files and settings are kept.`
+      : kind === "theme" ? `This deletes the ${esc(name)} theme from your computer. You can install it again any time.`
+      : `This removes the ${esc(name)} plugin from your bar and desktop. You can add it again any time.`;
+    showSheet(`<div class="sheet-card" role="dialog" aria-label="Remove ${esc(name)}">
+      <h3>Are you sure you want to remove ${esc(name)}?</h3>
+      <p class="small muted" style="margin-top:8px">${what}</p>
+      <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px">
+        <button class="btn ghost" data-close>Cancel</button>
+        <button class="btn danger" data-rm-yes="${kind}:${esc(id)}">Remove</button>
+      </div></div>`);
+  }
+  async function doRemove(kind, id) {
+    closeSheet();
+    const it = kind === "app" ? S.byId[id] : kind === "theme" ? S.themeById[id] : S.plugById[id];
+    const name = it.name || it.n, key = kind === "plugin" ? "plugin:" + id : kind === "theme" ? "theme:" + id : id;
+    S.busy.add(key); rerender();
+    try {
+      const r = await post(`/api/${kind === "app" ? "uninstall" : kind + "/remove"}`, { id });
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.statusText);
+      toast(kind === "app" ? `Removing ${name}… follow the terminal window` : `Removing ${name}…`);
+      const t0 = Date.now();
+      while (Date.now() - t0 < (kind === "app" ? 15 : 1) * 60e3) {
+        await new Promise((res) => setTimeout(res, 2000));
+        await refreshInstalled();
+        if (kind === "plugin") { const st = await (await fetch("/api/plugins/installed", { cache: "no-store" })).json().catch(() => ({})); S.plugsHave = new Set(st.installed || []); }
+        const gone = kind === "app" ? !S.installed.has(id) : kind === "theme" ? !themeHave(it) : !S.plugsHave.has(id);
+        if (gone) { toast(`${name} removed`); break; }
+      }
+    } catch (e) { toast("Couldn't remove: " + e.message); }
+    S.busy.delete(key); rerender();
   }
 
   // ---------- updates (desktop app) ----------
@@ -1216,7 +1271,7 @@
           <div class="sub">${esc(a.summary)}</div>
           <a class="dev" href="${esc(ghUrl || a.homepage || "#")}" target="_blank" rel="noopener">${esc(a.developer)}</a>
           <div class="actions">
-            ${getBtn(a, true)}
+            ${getBtn(a, true)}${appRm(a)}
             ${ghUrl ? `<a class="icon-btn" href="${ghUrl}" target="_blank" rel="noopener" title="View on GitHub">${ico("github")}</a>` : ""}
             <button class="icon-btn" data-share="${a.id}" title="Share">${ico("share")}</button>
           </div>
@@ -1448,7 +1503,7 @@
   }
 
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-share-theme],#more,.sheet");
+    const t = e.target.closest("[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-rm],[data-rm-yes],[data-share-theme],#more,.sheet");
     if (!t) return;
     if (t.matches("[data-usb-dl]")) {
       post("/api/usb/download", {}).then(async (r) => { if (!r.ok) toast((await r.json().catch(() => ({}))).error || "Download failed"); loadUsb(); });
@@ -1487,6 +1542,12 @@
       const th = S.themeById[t.dataset.themeGet || t.dataset.themeUse];
       if (!S.desktop) webThemeGet(th);
       else desktopTheme(th, t.dataset.themeUse ? "/api/theme/use" : "/api/theme/install");
+    } else if (t.matches("[data-rm]")) {
+      e.preventDefault(); e.stopPropagation();
+      const [kind, ...rest] = t.dataset.rm.split(":"); confirmRemove(kind, rest.join(":"));
+    } else if (t.matches("[data-rm-yes]")) {
+      e.preventDefault(); e.stopPropagation();
+      const [kind, ...rest] = t.dataset.rmYes.split(":"); doRemove(kind, rest.join(":"));
     } else if (t.matches("[data-plug-get]")) {
       e.preventDefault(); e.stopPropagation();
       const x = S.plugById[t.dataset.plugGet];
@@ -1543,6 +1604,17 @@
   document.addEventListener("change", (e) => {
     if (e.target.id === "pcat") { S.plugCat = e.target.value; S.plugShown = 60; const g = $("#pgrid"); if (g) g.innerHTML = plugGridHtml(); }
   });
+  document.addEventListener("click", (e) => {
+    const d = e.target.closest("[data-spot]"); if (!d) return;
+    const row = d.parentElement.previousElementSibling, card = row?.children[+d.dataset.spot];
+    if (card) row.scrollTo({ left: card.offsetLeft - row.offsetLeft, behavior: "smooth" });
+  });
+  document.addEventListener("scroll", (e) => {
+    const row = e.target;
+    if (!(row instanceof Element) || !row.classList.contains("spot-row")) return;
+    const i = Math.round(row.scrollLeft / Math.max(1, row.firstElementChild.getBoundingClientRect().width));
+    row.nextElementSibling?.querySelectorAll("i").forEach((d, n) => d.classList.toggle("on", n === i));
+  }, true);
   let qt;
   $("#q").addEventListener("input", (e) => {
     clearTimeout(qt);
