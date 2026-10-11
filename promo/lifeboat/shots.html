@@ -1,0 +1,54 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  html, body { margin: 0; width: 1600px; height: 1000px; overflow: hidden; font-family: Inter, -apple-system, system-ui, sans-serif; }
+  .bg { position: absolute; inset: 0;
+        background: radial-gradient(900px 600px at 72% 40%, rgba(74,163,255,.28), transparent 70%),
+                    radial-gradient(500px 400px at 12% 20%, rgba(255,140,80,.12), transparent 70%),
+                    linear-gradient(180deg, #0d2a57 0%, #0a1d3d 55%, #06122a 100%); }
+  .shade { display: none; }
+  .waves { position: absolute; left: 0; right: 0; bottom: 0; height: 260px; }
+  .stars i { position: absolute; width: 3px; height: 3px; border-radius: 50%; background: #fff; }
+  .cap { position: absolute; left: 90px; top: 50%; transform: translateY(-50%); width: 520px; color: #fff; }
+  .cap .k { display: inline-block; font-size: 20px; font-weight: 700; letter-spacing: .08em; color: #ffb27a; text-transform: uppercase; margin-bottom: 16px; }
+  .cap h1 { font-size: 64px; line-height: 1.05; font-weight: 800; letter-spacing: -1.5px; margin: 0 0 22px; }
+  .cap p { font-size: 26px; line-height: 1.4; color: #d3e2ff; margin: 0; font-weight: 500; }
+  .shot { position: absolute; right: 90px; top: 50%; transform: translateY(-50%); border-radius: 22px; overflow: hidden;
+          box-shadow: 0 40px 90px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.14); background: #222226; }
+  .shot img { display: block; }
+</style></head>
+<body>
+  <div class="bg"></div>
+  <div class="stars" id="stars"></div>
+  <svg class="waves" viewBox="0 0 1600 260" preserveAspectRatio="none">
+    <defs><linearGradient id="a" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b78b8"/><stop offset="1" stop-color="#0a4a86"/></linearGradient>
+          <linearGradient id="b" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0b5e9c"/><stop offset="1" stop-color="#063a6b"/></linearGradient></defs>
+    <path d="M0 110 C 180 70 340 150 540 110 S 900 70 1080 110 S 1420 150 1600 105 V260 H0Z" fill="url(#a)" opacity=".55"/>
+    <path d="M0 160 C 200 125 380 195 600 158 S 980 125 1180 160 S 1460 190 1600 160 V260 H0Z" fill="url(#b)"/>
+    <path d="M0 160 C 200 125 380 195 600 158 S 980 125 1180 160 S 1460 190 1600 160" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="4"/>
+  </svg>
+  <div class="cap"><span class="k" id="k"></span><h1 id="h"></h1><p id="p"></p></div>
+  <div class="shot"><img id="img"></div>
+<script>
+const S = {
+  backup:   ["Back up", "Your whole Omarchy, one click", "Hermes, your desktop and theme, dotfiles, SSH keys and the list of every app you installed. Tick what to include.", 820],
+  restore:  ["Restore & clone", "Back in minutes, even on a new PC", "Pick a backup from your Google Drive or a file, and Lifeboat puts everything back.", 300],
+  settings: ["Automatic & private", "Backups on a timer, locked with your passphrase", "AES-256 encryption on your computer before anything is uploaded. Google only ever sees a locked file.", 560],
+  terms:    ["Clear and honest", "You know exactly what it does", "Free and open source (MIT), with a plain-language disclaimer before first use.", 760],
+};
+const n = location.hash.slice(1), s = S[n];
+let seed = 11; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+document.getElementById("stars").innerHTML = Array.from({ length: 60 }, () =>
+  `<i style="left:${(rnd() * 1600).toFixed(0)}px;top:${(rnd() * 560).toFixed(0)}px;opacity:${(0.25 + rnd() * 0.6).toFixed(2)};transform:scale(${(0.6 + rnd()).toFixed(2)})"></i>`).join("");
+document.getElementById("k").textContent = s[0];
+document.getElementById("h").textContent = s[1];
+document.getElementById("p").textContent = s[2];
+const img = document.getElementById("img");
+img.src = `/tmp/lbs/${n}.png`;
+img.onload = () => {   // fit inside a 780 x 820 box on the right, never upscaled more than 1.6x
+  const sc = Math.min(780 / img.naturalWidth, 820 / img.naturalHeight, 1.6);
+  img.style.width = img.naturalWidth * sc + "px"; img.style.height = img.naturalHeight * sc + "px";
+  document.title = "ready";
+};
+</script>
+</body></html>
