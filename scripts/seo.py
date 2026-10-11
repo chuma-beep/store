@@ -137,7 +137,7 @@ def main():
         except OSError: return "0"
     template = (template.replace('href="/styles.css"', f'href="/styles.css?v={_ver("styles.css")}"')
                         .replace('src="/app.js"', f'src="/app.js?v={_ver("app.js")}"'))
-    apps, cats = cat["apps"], cat["categories"]
+    apps, cats = ([cat["store_app"]] if cat.get("store_app") else []) + cat["apps"], cat["categories"]
     cname = {c["id"]: c["name"] for c in cats}
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     urls = []  # (loc, lastmod, priority)

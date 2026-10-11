@@ -147,6 +147,8 @@
 
     const r = await fetch("/catalog.json", { cache: "no-cache" });
     S.catalog = await r.json();
+    // The store's own listing ships separately (older desktop apps would reject it in "apps"); it's #1.
+    if (S.catalog.store_app && !S.catalog.apps.some((a) => a.id === S.catalog.store_app.id)) S.catalog.apps.unshift(S.catalog.store_app);
     S.catalog.apps.forEach((a, i) => { S.byId[a.id] = a; a.rank = i + 1; });
     S.catalog.themes = S.catalog.themes || [];
     S.catalog.themes.forEach((t) => { S.themeById[t.id] = t; });

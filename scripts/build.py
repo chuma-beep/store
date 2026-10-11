@@ -420,7 +420,12 @@ def build(apps, cats, feat, ads):
         "desktop_version": re.search(r'^VERSION = "([^"]+)"', open(os.path.join(ROOT, "desktop", "omarchy-store")).read(), re.M).group(1),
         "themes_source": {"name": "Omarchy Themes", "url": "https://omarchythemes.com", "by": "Mubs", "by_url": "https://mubs.me"},
         # chart_rank pins an app's place at the top (the Omarchy Store app is #1); featured apps next, then GitHub stars.
-        "apps": sorted(out, key=lambda x: (x.get("chart_rank") or (900 if x.get("featured") else 999), -(x["stars"] or 0))),
+        # The Omarchy Store's own listing ("store" install method) goes in its own key: desktop apps up to
+        # 1.7.0 check every entry in "apps" and refuse the whole catalog if they meet a method they don't know.
+        # The web page puts it back at #1 of the list (app.js boot).
+        "store_app": next((x for x in out if x["install"]["method"] == "store"), None),
+        "apps": sorted((x for x in out if x["install"]["method"] != "store"),
+                       key=lambda x: (x.get("chart_rank") or (900 if x.get("featured") else 999), -(x["stars"] or 0))),
     }
 
 

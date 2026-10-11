@@ -988,7 +988,8 @@ def update_catalog(quiet=False):
         assert isinstance(cat.get("apps"), list) and cat["apps"]
         # Validate every recipe *before* accepting the new catalog.
         for a in cat["apps"]:
-            recipe(a)
+            if (a.get("install") or {}).get("method") != "store":   # the store's own listing has no recipe
+                recipe(a)
             if not re.match(r"^[a-z0-9-]+$", a["id"]):
                 raise ValueError("bad id " + a["id"])
         icons = os.path.join(SITE_DIR, "icons")
