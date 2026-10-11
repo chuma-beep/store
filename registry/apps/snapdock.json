@@ -274,7 +274,8 @@
       "note": "Already using a dock or title bar setup of your own? SnapDock saves it to a backup file in Downloads before it changes anything, and Uninstall can put it back exactly."
     },
     "price_note": "Limited time",
-    "new_line": "New in 0.7.0: Minimize · Move windows between desktops"
+    "new_line": "New in 0.7.0: Minimize · Move windows between desktops",
+    "order": 1
   },
   "tags": [
     "dock",

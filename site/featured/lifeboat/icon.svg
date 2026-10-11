@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f2a44"/>
+      <stop offset="1" stop-color="#071526"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff7a45"/>
+      <stop offset="1" stop-color="#ff4d2e"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1aa0c8"/>
+      <stop offset="1" stop-color="#0d5a8a"/>
+    </linearGradient>
+    <clipPath id="rounded"><rect width="512" height="512" rx="112"/></clipPath>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <g clip-path="url(#rounded)">
+    <!-- water -->
+    <path d="M-20 392 Q 40 362 100 392 T 220 392 T 340 392 T 460 392 T 580 392 V 520 H -20 Z" fill="url(#sea)" opacity=".9"/>
+    <path d="M-20 420 Q 40 396 100 420 T 220 420 T 340 420 T 460 420 T 580 420 V 520 H -20 Z" fill="#0b4a73" opacity=".8"/>
+  </g>
+  <!-- life ring -->
+  <g transform="translate(256 236)">
+    <circle r="150" fill="url(#ring)"/>
+    <circle r="150" fill="none" stroke="#ffffff" stroke-width="10" opacity=".25"/>
+    <!-- white quadrants -->
+    <g fill="#f5f7fa">
+      <path d="M-150 0 A150 150 0 0 1 -106 -106 L -62 -62 A88 88 0 0 0 -88 0 Z" transform="rotate(22.5)"/>
+      <path d="M-150 0 A150 150 0 0 1 -106 -106 L -62 -62 A88 88 0 0 0 -88 0 Z" transform="rotate(112.5)"/>
+      <path d="M-150 0 A150 150 0 0 1 -106 -106 L -62 -62 A88 88 0 0 0 -88 0 Z" transform="rotate(202.5)"/>
+      <path d="M-150 0 A150 150 0 0 1 -106 -106 L -62 -62 A88 88 0 0 0 -88 0 Z" transform="rotate(292.5)"/>
+    </g>
+    <!-- hole -->
+    <circle r="88" fill="url(#bg)"/>
+    <circle r="88" fill="none" stroke="#000" stroke-opacity=".35" stroke-width="6"/>
+    <!-- rope -->
+    <circle r="150" fill="none" stroke="#f1d49b" stroke-width="5" stroke-dasharray="4 60" stroke-linecap="round" opacity=".9"/>
+    <!-- Omarchy green dot = "saved" -->
+    <circle r="22" fill="#9ece6a"/>
+    <path d="M-10 1 L-3 8 L12 -8" fill="none" stroke="#0b1a0a" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

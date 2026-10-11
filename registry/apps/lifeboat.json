@@ -1,0 +1,152 @@
+{
+  "id": "lifeboat",
+  "name": "Lifeboat",
+  "category": "utilities",
+  "install": {
+    "method": "release",
+    "packages": [
+      "lifeboat"
+    ],
+    "version": "1.0.0",
+    "url": "https://github.com/nemoclawai-tech/lifeboat/releases/download/v1.0.0/lifeboat-1.0.0-1-any.pkg.tar.zst",
+    "sha256": "223ef231bc5d52c94e7888e9ea7da0a71712db216e8d69dd956dde77ef1e6cf5"
+  },
+  "detect": [
+    "lifeboat"
+  ],
+  "kind": "gui",
+  "summary": "Back up, restore and clone your whole Omarchy to your Google Drive",
+  "homepage": "https://github.com/nemoclawai-tech/lifeboat",
+  "tags": [
+    "backup",
+    "cloud",
+    "google-drive",
+    "omarchy"
+  ],
+  "source": "nemoclawai-tech",
+  "cli": false,
+  "icon": "featured/lifeboat/icon.png",
+  "featured": {
+    "badge": "New Release",
+    "eyebrow": "NEW · FREE",
+    "headline": "Your whole Omarchy, saved.",
+    "tagline": "Back up Hermes, your themes, keybindings, dotfiles, SSH keys and every installed app to your own Google Drive, locked with a passphrase only you know. Restore after a disaster, or clone your setup onto a new computer.",
+    "price": "Free",
+    "launch_offer": "Free · Open source",
+    "gradient": [
+      "#ff6a3d",
+      "#1a6fa8",
+      "#0b2440"
+    ],
+    "art": "featured/lifeboat/hero.webp",
+    "features": [
+      {
+        "icon": "backup",
+        "hero": true,
+        "title": "Your whole setup in one backup",
+        "body": "Hermes (memory, skills, keys), your Omarchy desktop and theme, keybindings, dotfiles, SSH keys and the list of every app you installed. Add any extra folders you like."
+      },
+      {
+        "icon": "power",
+        "title": "Locked with your passphrase",
+        "body": "Encrypted on your computer with AES-256 before anything is uploaded. Only your passphrase opens it. Not Google, not us."
+      },
+      {
+        "icon": "window",
+        "title": "Your Google Drive, privately",
+        "body": "Saved to a hidden Lifeboat folder on your own Drive (15 GB free). Lifeboat can't see your other files. Or save to a USB or second drive."
+      },
+      {
+        "icon": "desktops",
+        "title": "Clone to a new computer",
+        "body": "Restore a backup from your PC onto your laptop and get the same themes, keys, Hermes and apps. Your screen layout is left alone."
+      },
+      {
+        "icon": "update",
+        "title": "Reinstalls your apps",
+        "body": "After a restore, Lifeboat offers to reinstall every app that is missing, from the Arch repos and the AUR."
+      },
+      {
+        "icon": "infinity",
+        "title": "Automatic backups",
+        "body": "Daily or weekly in the background. Keeps your last few backups and tidies away older ones."
+      }
+    ],
+    "order": 2,
+    "price_note": "Free · Open source (MIT)",
+    "billboard": "featured/lifeboat/billboard.webp",
+    "og": "featured/lifeboat/og.png",
+    "chips": [
+      "Google Drive",
+      "Encrypted",
+      "Restore",
+      "Clone to a new PC",
+      "Reinstalls your apps",
+      "Daily or weekly",
+      "Hermes included"
+    ],
+    "steps": [
+      {
+        "title": "Install it",
+        "body": "Press GET in the Omarchy Store app, or run the one-line command above. Type your password when asked."
+      },
+      {
+        "title": "Connect Google Drive",
+        "body": "Open Lifeboat (Super + Space, type Lifeboat), click Connect Google Drive and sign in. Or choose a local drive instead."
+      },
+      {
+        "title": "Pick a passphrase and back up",
+        "body": "Choose a passphrase you will remember (write it down somewhere safe), then press Back up now. Turn on daily or weekly backups if you like."
+      }
+    ],
+    "faq": [
+      {
+        "q": "Is Lifeboat free?",
+        "a": "Yes, completely free and open source (MIT). Google Drive gives every account 15 GB free."
+      },
+      {
+        "q": "Can Google or the Omarchy Store read my backup?",
+        "a": "No. Your backup is encrypted on your computer with your passphrase before it is uploaded. Without the passphrase it is unreadable, to anyone."
+      },
+      {
+        "q": "What if I forget my passphrase?",
+        "a": "Then the backup can't be opened, by design. Keep it in a password manager or written down somewhere safe."
+      },
+      {
+        "q": "Can Lifeboat see my other Google Drive files?",
+        "a": "No. It only asks Google for its own hidden app folder (the drive.appdata permission)."
+      },
+      {
+        "q": "What if a restore goes wrong?",
+        "a": "Lifeboat saves your current setup before restoring, so you can always go back."
+      },
+      {
+        "q": "Does it back up my browser and big files?",
+        "a": "Browser profiles, caches and the large Hermes Python environment are skipped to keep backups small. Hermes rebuilds its environment by itself."
+      }
+    ]
+  },
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-11",
+      "title": "First release",
+      "items": [
+        "Back up Hermes, your Omarchy desktop, dotfiles, SSH keys and your installed-apps list",
+        "Save to your own Google Drive (private app folder) and/or a local or external drive",
+        "Encrypted on your computer with your passphrase (AES-256, PBKDF2 600,000 rounds)",
+        "Restore with an automatic safety copy of your current setup, or clone onto a new computer",
+        "Reinstalls missing apps after a restore; daily or weekly automatic backups"
+      ]
+    }
+  ],
+  "github": "nemoclawai-tech/lifeboat",
+  "developer": "Omarchy Store",
+  "description": "Lifeboat saves your whole Omarchy setup, so a broken update, a dead drive or a new computer never costs you your desktop again.\n\nWHAT GETS SAVED\n• Your Hermes agent: settings, API keys, memory, skills, sessions and scheduled jobs\n• Your Omarchy desktop: Hyprland, Waybar, Walker, terminal, theme, keybindings and app settings\n• Your shell and dotfiles (.bashrc, .zshrc, .gitconfig, ~/.local/bin) and your SSH keys\n• A list of every app you installed, so they can all come back\n• Any extra folders you add, like projects or documents\n\nWHERE IT GOES\nTo a private, hidden folder on your own Google Drive (15 GB free with any Google account) and/or to a local or external drive. Lifeboat can only see its own folder, never your other Drive files. There's no Lifeboat account and no server of ours.\n\nLOCKED WITH YOUR PASSPHRASE\nEverything is packed, compressed and encrypted on your computer before it leaves (AES-256, 600,000-round key stretching). Only your passphrase opens it. Not Google, not us.\n\nRESTORE OR CLONE\nPick a backup and restore it. Your current setup is saved first, so you can always go back. Or clone your PC onto a laptop: same themes, keybindings, Hermes and apps. Lifeboat then offers to reinstall any missing apps for you.\n\nSET IT AND FORGET IT\nTurn on daily or weekly automatic backups. Lifeboat keeps your last few and tidies away older ones.\n\nFree and open source (MIT). Works from the app or the command line (lifeboat backup, lifeboat restore).",
+  "screenshots": [
+    "featured/lifeboat/hero.webp",
+    "featured/lifeboat/backup.webp",
+    "featured/lifeboat/restore.webp",
+    "featured/lifeboat/settings.webp"
+  ]
+}

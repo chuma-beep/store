@@ -840,11 +840,13 @@
     const apps = S.catalog.apps;
     const fresh = [...apps].filter((a) => a.released_at).sort((x, y) => new Date(y.released_at) - new Date(x.released_at)).slice(0, 12);
     const games = apps.filter((a) => a.category === "games");
-    const spot = apps.find((a) => a.featured);
+    // Featured billboards in the order set in each app's "featured.order" (1 = first: SnapDock), then Get Omarchy.
+    const spots = apps.filter((a) => a.featured).sort((x, y) => (x.featured.order || 99) - (y.featured.order || 99));
+    const dots = [...spots.map((a) => a.name), "Get Omarchy"];
     return `<div class="page">
       <h1 class="page-title">Discover</h1>
-      <div class="spot-row">${spot ? spotlight(spot) : ""}${igniteBanner()}</div>
-      <div class="spot-dots"><i class="on" data-spot="0" role="button" aria-label="SnapDock"></i><i data-spot="1" role="button" aria-label="Get Omarchy"></i></div>
+      <div class="spot-row">${spots.map(spotlight).join("")}${igniteBanner()}</div>
+      <div class="spot-dots">${dots.map((n, i) => `<i class="${i ? "" : "on"}" data-spot="${i}" role="button" aria-label="${esc(n)}"></i>`).join("")}</div>
       <div class="scroller hero">${autoHero(hero).map((h) => {
         const a = S.byId[h.app];
         const [g1, g2] = h.gradient;
@@ -993,15 +995,15 @@
     return `
       ${f.heads_up ? `<section class="trust warn" style="margin:22px 0 6px">${ico("warn")}<div><b>${esc(f.heads_up.title)}</b><div style="margin-top:4px">${esc(f.heads_up.body)}</div></div></section>` : ""}
       ${f.promise ? `<section class="promise"><span class="feat-ic">${fico("infinity")}</span><div><h3>${esc(f.promise.title)}</h3><p>${esc(f.promise.body)}</p></div></section>` : ""}
-      ${f.features.length > 4 ? `<section class="shelf"><div class="shelf-head"><h2>Everything SnapDock does</h2></div></section>` : ""}
+      ${f.features.length > 4 ? `<section class="shelf"><div class="shelf-head"><h2>Everything ${esc(a.name)} does</h2></div></section>` : ""}
       <section class="shelf feat-grid ${f.features.length > 4 ? "many" : ""}">${f.features.map((x, i) => `<div class="feat ${x.hero ? "hero-feat" : ""}"><span class="feat-ic">${fico(x.icon)}</span><div><h3>${esc(x.title)}${x.new ? `<span class="new-tag">NEW</span>` : ""}</h3><p>${esc(x.body)}</p></div></div>`).join("")}</section>
       ${f.install ? installWays(a, f.install) : ""}
-      <section class="shelf"><div class="shelf-head"><h2>Get started in 3 steps</h2></div>
-        <ol class="steps">${f.steps.map((s, i) => `<li><span class="n">${i + 1}</span><div><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p></div></li>`).join("")}</ol></section>
-      <section class="shelf"><div class="shelf-head"><h2>Keyboard shortcuts</h2></div>
-        <div class="kbd-table">${f.shortcuts.map((s) => `<div class="row"><div class="keys">${s.keys.map((k) => `<kbd>${esc(k)}</kbd>`).join('<span class="plus">+</span>')}</div><div class="does">${esc(s.does)}</div></div>`).join("")}</div></section>
-      <section class="shelf"><div class="shelf-head"><h2>Questions</h2></div>
-        <div class="faq">${f.faq.map((x) => `<details><summary>${esc(x.q)}</summary><p>${esc(x.a)}</p></details>`).join("")}</div></section>`;
+      ${f.steps?.length ? `<section class="shelf"><div class="shelf-head"><h2>Get started in ${f.steps.length} steps</h2></div>
+        <ol class="steps">${f.steps.map((s, i) => `<li><span class="n">${i + 1}</span><div><h3>${esc(s.title)}</h3><p>${esc(s.body)}</p></div></li>`).join("")}</ol></section>` : ""}
+      ${f.shortcuts?.length ? `<section class="shelf"><div class="shelf-head"><h2>Keyboard shortcuts</h2></div>
+        <div class="kbd-table">${f.shortcuts.map((s) => `<div class="row"><div class="keys">${s.keys.map((k) => `<kbd>${esc(k)}</kbd>`).join('<span class="plus">+</span>')}</div><div class="does">${esc(s.does)}</div></div>`).join("")}</div></section>` : ""}
+      ${f.faq?.length ? `<section class="shelf"><div class="shelf-head"><h2>Questions</h2></div>
+        <div class="faq">${f.faq.map((x) => `<details><summary>${esc(x.q)}</summary><p>${esc(x.a)}</p></details>`).join("")}</div></section>` : ""}`;
   }
 
   function pageCharts() {
