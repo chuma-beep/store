@@ -150,6 +150,7 @@
       ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>
       <a href="/updates/" data-r="updates">${ico("refresh")}Updates<span class="nav-count" id="upd-count" hidden></span></a>` : ""}
       <div class="sec">Categories</div>
+      ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes-cat">${ico("palette")}Themes</a>` : ""}
       ${cats.map((c) => `<a href="/category/${c.id}/" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}`;
   }
   function markNav(r) {
@@ -460,9 +461,10 @@
           <div class="lockup">${iconImg(a, 48)}<div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${esc(a.summary)}</div></div>${getBtn(a)}</div>
         </a>`;
       }).join("")}</div>
+      ${themesBanner()}
+      ${themeShelf("Make it yours: Themes", S.catalog.themes.filter((t) => t.palette?.length && t.image).slice(0, 14), "/themes/")}
       ${shelf(collections[0].title, collections[0].apps.map((id) => S.byId[id]))}
       ${bannerAd()}
-      ${themeShelf("Make it yours: Themes", S.catalog.themes.filter((t) => t.palette?.length && t.image).slice(0, 14), "/themes/")}
       <section class="shelf">
         <div class="shelf-head"><h2>Top Charts</h2><a href="/charts/">See All</a></div>
         <div class="scroller rows3">${apps.slice(0, 12).map((a, i) => lockup(a, { rank: i + 1 })).join("")}</div>
@@ -493,6 +495,23 @@
     infinity: '<path d="M18.2 8.4c-2.4 0-4 3.6-6.2 3.6S8.2 8.4 5.8 8.4a3.6 3.6 0 0 0 0 7.2c2.4 0 4-3.6 6.2-3.6s3.8 3.6 6.2 3.6a3.6 3.6 0 0 0 0-7.2z"/>',
   };
   const fico = (n) => `<svg viewBox="0 0 24 24">${FICON[n] || ""}</svg>`;
+  function themesBanner() {
+    const th = S.catalog.themes.filter((t) => t.image && t.palette?.length && t.mode !== "light");
+    if (th.length < 12) return "";
+    const pick = [];
+    const step = Math.floor(th.length / 12);
+    for (let i = 0; i < 12; i++) pick.push(th[i * step]);
+    const creators = new Set(S.catalog.themes.map((t) => t.author).filter(Boolean)).size;
+    return `<a class="spot full theme-spot" href="/themes/">
+      <div class="ts-wall" aria-hidden="true">${pick.map((t) => `<img src="${esc(themeImg(t))}" alt="" loading="lazy">`).join("")}</div>
+      <div class="spot-copy">
+        <div class="spot-badge rainbow">${ico("palette")}Themes</div>
+        <h2>${S.catalog.themes.length} themes.<br>One click.</h2>
+        <p>Change your whole desktop in a click: terminal, bar, launcher, lock screen and wallpaper.${creators > 20 ? ` Free, from ${creators} creators.` : " Free."}</p>
+        <div class="spot-lock"><span class="ts-ico">${ico("palette")}</span><div><div class="name">Omarchy Themes</div><div class="sub">Free · preview every one</div></div><span class="get big">BROWSE</span></div>
+      </div>
+    </a>`;
+  }
   function igniteBanner() {
     const iso = S.catalog.omarchy_iso;
     return `<a class="spot full ignite-spot" href="/get-omarchy/">
@@ -586,7 +605,11 @@
   function pageCategories() {
     return `<div class="page">
       <h1 class="page-title">Categories</h1>
-      <div class="cat-tiles">${S.catalog.categories.map((c, i) => `
+      <div class="cat-tiles">${S.catalog.themes.length ? `
+        <a class="cat-tile cat-themes" href="/themes/">
+          <span class="ci" style="background:linear-gradient(135deg,#ff5f6d,#ffc371 35%,#47cf73 65%,#3a7bd5)">${ico("palette")}</span>
+          <span>Themes<div class="muted small">${S.catalog.themes.length} themes</div></span>
+        </a>` : ""}${S.catalog.categories.map((c, i) => `
         <a class="cat-tile" href="/category/${c.id}/">
           <span class="ci" style="background:${CAT_COLORS[i % CAT_COLORS.length]}">${ico(c.icon)}</span>
           <span>${esc(c.name)}<div class="muted small">${S.catalog.apps.filter((a) => a.category === c.id).length} apps</div></span>
