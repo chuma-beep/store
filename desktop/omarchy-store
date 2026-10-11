@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.6.2"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.7.0"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
@@ -873,6 +873,20 @@ class Handler(SimpleHTTPRequestHandler):
         if self.path == "/api/update-all":
             run_update(None)
             return self._json(202, {"ok": True})
+        if self.path == "/api/self-update":
+            # The Update button: download + check the new version, swap it in, then restart on it.
+            want = SELF["available"]
+            if not SELF["installed_new"]:
+                if not want:
+                    update_catalog(quiet=True)          # maybe it was published in the last hour
+                    want = SELF["available"]
+                if not want:
+                    return self._json(409, {"error": "You already have the newest version."})
+                try:
+                    self_update(want)
+                except Exception as e:
+                    return self._json(502, {"error": f"Couldn't download the update ({e}). Check your internet and try again."})
+            self.path = "/api/restart"
         if self.path == "/api/restart":
             # Restart the helper on the freshly installed version; the page reloads itself.
             def again():
@@ -975,16 +989,16 @@ def update_catalog(quiet=False):
         tmp = os.path.join(SITE_DIR, ".catalog.json.tmp")
         open(tmp, "wb").write(data)
         os.replace(tmp, os.path.join(SITE_DIR, "catalog.json"))
-        # Newer desktop app published? Fetch it in the background and offer a restart.
+        # Newer desktop app published? Note it: the page shows an Update button (bottom right), and
+        # nothing is swapped until the user clicks it. `omarchy-store --update` (terminal) installs it straight away.
         want = str(cat.get("desktop_version") or "")
         if want and _vercmp(want, VERSION) > 0 and not SELF["installed_new"]:
             SELF["available"] = want
-            try:
-                self_update(want)
-                if not quiet:
+            if not quiet:
+                try:
+                    self_update(want)
                     print(f"✓ desktop app updated to {want} (restart the store to use it)")
-            except Exception as e:
-                if not quiet:
+                except Exception as e:
                     print(f"✗ desktop app update failed: {e}")
         if not quiet:
             print(f"✓ catalog updated: {len(cat['apps'])} apps")

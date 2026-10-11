@@ -140,7 +140,8 @@
     if (S.desktop) {
       // Check app updates in the background now and every hour; show a count next to "Updates".
       setTimeout(() => loadUpdates(false), 1500);
-      setInterval(async () => { await refreshInstalled(); loadUpdates(false); }, 3600e3);
+      setInterval(async () => { await refreshInstalled(); loadUpdates(false); renderSelfUpdate(); }, 3600e3);
+      renderSelfUpdate();
     }
   }
 
@@ -196,6 +197,32 @@
   function markNav(r) {
     document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("on", a.dataset.r === r || a.dataset.r === r + "-cat"));
   }
+  // Bottom-right "Update" button when a newer Omarchy Store desktop app is out (like Windows Store's banner).
+  function renderSelfUpdate() {
+    let el = $("#self-upd");
+    const st = S.status || {}, ready = st.restart_needed, want = st.store_update;
+    if (!S.desktop || !(ready || (want && want !== st.version))) { if (el) el.remove(); return; }
+    if (!el) { el = document.createElement("div"); el.id = "self-upd"; el.className = "self-upd"; document.body.appendChild(el); }
+    el.innerHTML = `<span class="su-ic">${ico("refresh")}</span><div><b>Omarchy Store ${esc(want || "")} is available</b><span>You have ${esc(st.version || "")}. Takes a few seconds.</span></div>
+      <button class="btn" data-self-update>${ready ? "Restart" : "Update"}</button><button class="su-x" data-self-later aria-label="Later">×</button>`;
+  }
+  async function selfUpdate(btn) {
+    btn.disabled = true; btn.innerHTML = `<span class="ring"></span>`;
+    const was = S.status?.version;
+    try {
+      let r = await post("/api/self-update", {});
+      if (r.status === 404) r = await post("/api/restart", {});          // older store app: it already downloaded the update
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || "Update failed");
+      toast("Updating Omarchy Store…");
+      // Wait for the store to come back on the new version, then reload the page.
+      for (let i = 0; i < 40; i++) {
+        await new Promise((res) => setTimeout(res, 500));
+        try { const st = await (await fetch("/api/status", { cache: "no-store" })).json(); if (st.version && st.version !== was) break; } catch {}
+      }
+      location.reload();
+    } catch (e) { toast(e.message); btn.disabled = false; btn.textContent = "Update"; }
+  }
+
   function renderModeBadge() {
     const b = $("#mode-badge");
     if (S.desktop) {
@@ -712,6 +739,46 @@
     S.busy.delete(key); rerender();
   }
 
+
+  // ---------- Featured App + App of the Week: picked automatically from downloads ----------
+  // Downloads = different people who installed with the desktop app or copied the install command on the
+  // website (counted by the store's backend, no personal data). Featured App = most downloaded in the last
+  // 2 days; App of the Week = most downloaded last week (changes every Monday). With no downloads yet, both
+  // rotate through well-loved apps (daily / weekly) so Discover never looks frozen.
+  S.trending = null;
+  let trendLoading = false;
+  function loadTrending() {
+    if (S.trending || trendLoading) return;
+    trendLoading = true;
+    fetch(`${API}/trending`).then((r) => r.json()).then((d) => { S.trending = d; if (!currentPath()) rerender(); })
+      .catch(() => { S.trending = { failed: true }; });
+  }
+  const HERO_GRADS = [["#2aabee", "#0b3d63"], ["#f5792a", "#6b2d0f"], ["#1f2335", "#7aa2f7"], ["#2b1a4a", "#bb9af7"], ["#0e0e14", "#449dab"], ["#14532d", "#9ece6a"], ["#4a1d2f", "#f7768e"], ["#3b2f0b", "#e0af68"]];
+  const strHash = (x) => [...String(x)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) >>> 0, 7);
+  function autoHero(hero) {
+    loadTrending();
+    const T = S.trending || {}, used = new Set(S.catalog.apps.filter((a) => a.featured).map((a) => a.id));
+    const ok = (id) => { const a = S.byId[id]; return a && !used.has(id) && a.available !== false; };
+    const top = (list) => (list || []).find((x) => ok(x.id));
+    // Fallback pool: the editors' picks + Essentials + the 40 most-starred apps.
+    const pool = [...new Set([...hero.map((h) => h.app), ...(S.catalog.featured.collections[0]?.apps || []), ...S.catalog.apps.slice(0, 40).map((a) => a.id)])];
+    const week = Math.floor((Date.now() / 864e5 + 3) / 7), dayN = Math.floor(Date.now() / 864e5);
+    const rot = (n, salt) => { const l = pool.filter(ok); return l[(n + salt) % l.length]; };
+    const card = (id, eyebrow, why) => {
+      used.add(id);
+      const a = S.byId[id], ed = hero.find((h) => h.app === id);
+      return { app: id, eyebrow, why, headline: ed?.headline || a.summary, gradient: ed?.gradient || HERO_GRADS[strHash(id) % HERO_GRADS.length] };
+    };
+    const n = (x) => `${x.n} download${x.n === 1 ? "" : "s"}`;
+    // Week first: it's the steadier pick, the Featured App must then be a different app.
+    const w = top(T.last_week) || top(T.this_week);
+    const weekCard = w ? card(w.id, "APP OF THE WEEK", `#1 last week · ${n(w)}`) : card(rot(week, 0), "APP OF THE WEEK", "");
+    const f = top(T.last_2_days);
+    const featCard = f ? card(f.id, "FEATURED APP", `Trending · ${n(f)} in 2 days`) : card(rot(dayN, 17), "FEATURED APP", "");
+    const rest = hero.filter((h) => !/FEATURED APP|APP OF THE WEEK/.test(h.eyebrow) && !used.has(h.app));
+    return [featCard, weekCard, ...rest];
+  }
+
   // ---------- pages ----------
   function pageDiscover() {
     const { hero, collections } = S.catalog.featured;
@@ -723,13 +790,13 @@
       <h1 class="page-title">Discover</h1>
       <div class="spot-row">${spot ? spotlight(spot) : ""}${igniteBanner()}</div>
       <div class="spot-dots"><i class="on" data-spot="0" role="button" aria-label="SnapDock"></i><i data-spot="1" role="button" aria-label="Get Omarchy"></i></div>
-      <div class="scroller hero">${hero.map((h) => {
+      <div class="scroller hero">${autoHero(hero).map((h) => {
         const a = S.byId[h.app];
         const [g1, g2] = h.gradient;
         const shot = a.screenshots[0];
         return `<a class="hero-card" href="/app/${a.id}/" style="background:linear-gradient(135deg,${g1},${g2})">
           <div class="shot">${shot ? `<img src="${esc(shot)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<img class="glyph" src="${esc(asset(a.icon))}" alt="">`}</div>
-          <div><div class="eyebrow">${esc(h.eyebrow)}</div><h3>${esc(h.headline)}</h3></div>
+          <div><div class="eyebrow">${esc(h.eyebrow)}${h.why ? ` <span class="why">· ${esc(h.why)}</span>` : ""}</div><h3>${esc(h.headline)}</h3></div>
           <div class="lockup">${iconImg(a, 48)}<div class="meta"><div class="name">${esc(a.name)}</div><div class="sub">${esc(a.summary)}</div></div>${getBtn(a)}</div>
         </a>`;
       }).join("")}</div>
@@ -1008,7 +1075,7 @@
     const others = Math.max(0, (u?.system || 0) + (u?.aur || 0) - apps.length);
     const when = u?.checked ? new Date(u.checked * 1000).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "";
     const storeBanner = S.status?.restart_needed
-      ? `<div class="upd-store"><div><b>A new version of Omarchy Store is ready</b><span>Version ${esc(S.status.store_update || "")} has been downloaded.</span></div><button class="btn" data-restart>Restart store</button></div>` : "";
+      ? `<div class="upd-store"><div><b>A new version of Omarchy Store is ready</b><span>Version ${esc(S.status.store_update || "")} has been downloaded.</span></div><button class="btn" data-self-update>Restart store</button></div>` : "";
     return `<div class="page">
       <div class="upd-head">
         <div><h1 class="page-title">Updates</h1>
@@ -1426,8 +1493,8 @@
   }
   const trackEvent = (kind, item) => apiPost("/event", { kind, item }).catch(() => {});
   S.reviews = {};
-  async function loadReviews(id) {
-    try { S.reviews[id] = await (await fetch(`${API}/reviews?app=${encodeURIComponent(id)}`)).json(); }
+  async function loadReviews(id, fresh = false) {
+    try { S.reviews[id] = await (await fetch(`${API}/reviews?app=${encodeURIComponent(id)}${fresh ? "&t=" + Date.now() : ""}`, fresh ? { cache: "no-store" } : {})).json(); }
     catch { S.reviews[id] = { error: true, reviews: [], count: 0 }; }
     if (currentPath() === "app/" + id) { const el = $("#reviews"); if (el) el.outerHTML = reviewsSection(S.byId[id]); }
   }
@@ -1506,8 +1573,8 @@
       e.preventDefault();
       const id = f.dataset.reviewForm, rating = Number(f.dataset.rating || 0);
       if (!rating) { const er = f.querySelector(".form-err"); er.textContent = "Tap the stars to rate it."; er.hidden = false; return; }
-      submitForm(f, "/reviews", { app: id, rating, title: f.title.value, body: f.body.value, name: f.name.value }, () => {
-        closeSheet(); toast("Thanks — your review is live"); loadReviews(id);
+      submitForm(f, "/reviews", { app: id, rating, title: f.title.value, body: f.body.value, name: f.name.value }, (j) => {
+        closeSheet(); toast(j.updated ? "Thanks — your review was updated" : "Thanks — your review is live"); loadReviews(id, true);
       });
     } else if (f.matches("#dev-form")) {
       e.preventDefault();
@@ -1698,7 +1765,7 @@
     showSheet(`<div class="sheet-card" role="dialog" aria-label="Install ${esc(a.name)}">
       <div class="row">${iconImg(a, 56)}<div><h3>Get ${esc(a.name)}</h3><div class="muted small">Installs from ${esc(sourceLabel(a))}</div></div></div>
       <div class="small muted">Paste this into a terminal (<b>Super + Return</b>):</div>
-      <div class="code"><code>${esc(cmd)}</code><button class="btn" data-copy="${esc(cmd)}">Copy</button></div>
+      <div class="code"><code>${esc(cmd)}</code><button class="btn" data-copy="${esc(cmd)}" data-track-get="${esc(a.id)}">Copy</button></div>
       ${a.install.method === "release" ? `<div class="small muted">${esc(a.name)} isn't in the Arch repos or the AUR, so <code>omarchy pkg add ${esc(a.id)}</code> won't find it. This command downloads it from the developer, checks its fingerprint (SHA-256) against the store, then installs it. It asks for your password. <a style="color:var(--accent)" href="${SITE}get.sh" target="_blank" rel="noopener">Read the script</a>.</div>` : ""}
       ${a.featured?.heads_up ? `<div class="trust warn" style="margin-top:10px">${ico("warn")}<div>${esc(a.featured.heads_up.body)}</div></div>` : ""}
       <div class="small muted">Want one-click installs? <a style="color:var(--accent)" href="/get-desktop/" data-close>Get the desktop app</a>.</div>
@@ -1750,7 +1817,7 @@
   }
 
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-sfilter],[data-saver-more],[data-rm],[data-rm-yes],[data-share-theme],#more,.sheet");
+    const t = e.target.closest("[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-sfilter],[data-saver-more],[data-self-update],[data-self-later],[data-rm],[data-rm-yes],[data-share-theme],#more,.sheet");
     if (!t) return;
     if (t.matches("[data-usb-dl]")) {
       post("/api/usb/download", {}).then(async (r) => { if (!r.ok) toast((await r.json().catch(() => ({}))).error || "Download failed"); loadUsb(); });
@@ -1801,6 +1868,10 @@
       if (x) { if (S.desktop) desktopPlugin(x); else webPluginGet(x); }
     } else if (t.matches("[data-plug-search]")) {
       S.plugQ = t.dataset.plugSearch; S.plugShown = 60;
+    } else if (t.matches("[data-self-update]")) {
+      selfUpdate(t);
+    } else if (t.matches("[data-self-later]")) {
+      $("#self-upd")?.remove();
     } else if (t.matches("[data-sfilter]")) {
       S.saverF = t.dataset.sfilter; S.saverShown = 60; rerender();
     } else if (t.matches("[data-saver-more]")) {
@@ -1827,6 +1898,7 @@
       e.preventDefault(); e.stopPropagation(); desktopOpen(S.byId[t.dataset.open]);
     } else if (t.matches("[data-copy]")) {
       e.preventDefault(); copy(t.dataset.copy);
+      if (t.dataset.trackGet && !copy.sent?.[t.dataset.trackGet]) { (copy.sent ||= {})[t.dataset.trackGet] = 1; trackEvent("get", t.dataset.trackGet); }
     } else if (t.matches("[data-close]")) {
       closeSheet();
     } else if (t.matches("[data-share]")) {

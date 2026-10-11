@@ -115,6 +115,7 @@ async function route(req, env, ctx, url, okOrigin) {
   if (p === "/reviews" && M === "GET") return getReviews(url, env);
   if (p === "/reviews" && M === "POST") return postReview(req, env, ctx);
   if (p === "/ratings" && M === "GET") return ratings(env);
+  if (p === "/trending" && M === "GET") return trending(env);
   if (p === "/developers" && M === "POST") return postDeveloper(req, env, ctx);
   if (p === "/orders" && M === "POST") return createOrder(req, env);
   if (p.startsWith("/orders/") && M === "GET") return getOrder(p.split("/")[2], env);
@@ -164,7 +165,7 @@ async function hit(req, env, ctx) {
 async function event(req, env, ctx) {
   const b = await body(req, 1024);
   const kind = clip(b.kind, 20), item = clip(b.item, 80);
-  if (!/^(install|open|theme|plugin|usb|update|remove)$/.test(kind) || !/^[a-z0-9._-]{1,80}$/i.test(item)) fail("bad event");
+  if (!/^(install|get|open|theme|plugin|usb|update|remove)$/.test(kind) || !/^[a-z0-9._-]{1,80}$/i.test(item)) fail("bad event");
   const v = await visitor(req, env);
   ctx.waitUntil(env.DB.prepare("INSERT INTO events (day, ts, kind, item, visitor) VALUES (?, ?, ?, ?, ?)").bind(day(), Date.now(), kind, item, v).run());
   return json({ ok: true });
@@ -206,7 +207,7 @@ async function getReviews(url, env) {
     env.DB.prepare("SELECT rating, COUNT(*) n FROM reviews WHERE app=? AND hidden=0 GROUP BY rating").bind(app).all(),
   ]);
   return json({ app, count: agg.n, average: agg.avg, stars: Object.fromEntries(dist.results.map((r) => [r.rating, r.n])), reviews: list.results },
-    200, { "Cache-Control": "public, max-age=30" });
+    200, { "Cache-Control": "public, max-age=15" });
 }
 
 async function ratings(env) {
@@ -224,12 +225,28 @@ async function postReview(req, env, ctx) {
   await turnstile(b.turnstile, req, env);
   const v = await visitor(req, env);
   await rateLimit(env, "rev:" + v, 5, 3600);
+  // One review per person per app per day: sending again replaces your earlier review instead of failing.
   const dup = await env.DB.prepare("SELECT id FROM reviews WHERE app=? AND visitor=?").bind(app, v).first();
-  if (dup) fail("You've already reviewed this app today");
-  await env.DB.prepare("INSERT INTO reviews (app, rating, title, body, name, ts, visitor) VALUES (?, ?, ?, ?, ?, ?, ?)")
+  if (dup) await env.DB.prepare("UPDATE reviews SET rating=?, title=?, body=?, name=?, ts=?, hidden=0 WHERE id=?")
+    .bind(rating, title, text, name, Date.now(), dup.id).run();
+  else await env.DB.prepare("INSERT INTO reviews (app, rating, title, body, name, ts, visitor) VALUES (?, ?, ?, ?, ?, ?, ?)")
     .bind(app, rating, title, text, name, Date.now(), v).run();
-  ctx.waitUntil(telegram(env, `⭐ New review: ${app} — ${"★".repeat(rating)}${"☆".repeat(5 - rating)}\n${title ? title + "\n" : ""}${text.slice(0, 300)}\n— ${name}\n\nManage: ${env.SITE}/admin/`));
-  return json({ ok: true });
+  ctx.waitUntil(telegram(env, `⭐ ${dup ? "Updated" : "New"} review: ${app} — ${"★".repeat(rating)}${"☆".repeat(5 - rating)}\n${title ? title + "\n" : ""}${text.slice(0, 300)}\n— ${name}\n\nManage: ${env.SITE}/admin/`));
+  return json({ ok: true, updated: !!dup });
+}
+
+// ------------------------------------------------------------------ trending (drives Featured App + App of the Week)
+// Counts DIFFERENT people who installed (desktop app) or copied the install command (website) — one person
+// clicking 50 times still counts once, so the picks can't be gamed by a single visitor.
+async function trending(env) {
+  const now = new Date();
+  const monday = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) - ((now.getUTCDay() + 6) % 7) * 864e5;
+  const thisWeek = day(monday), lastWeek = day(monday - 7 * 864e5), recent = day(Date.now() - 2 * 864e5);
+  const q = (since, until) => env.DB.prepare(
+    "SELECT item id, COUNT(DISTINCT visitor) n FROM events WHERE kind IN ('install','get') AND day >= ? AND day < ? GROUP BY item ORDER BY n DESC, MAX(ts) DESC LIMIT 25")
+    .bind(since, until).all().then((r) => r.results);
+  const [last_week, this_week, last_2_days] = await Promise.all([q(lastWeek, thisWeek), q(thisWeek, "9999"), q(recent, "9999")]);
+  return json({ week_of: thisWeek, today: day(), last_week, this_week, last_2_days }, 200, { "Cache-Control": "public, max-age=600" });
 }
 
 // ------------------------------------------------------------------ developers
