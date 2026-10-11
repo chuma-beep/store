@@ -19,6 +19,6 @@
   <text x="80" y="250" font-family="Inter, Helvetica, Arial, sans-serif" font-size="92" font-weight="800" fill="#fff" letter-spacing="-3">Omarchy</text>
   <text x="80" y="345" font-family="Inter, Helvetica, Arial, sans-serif" font-size="92" font-weight="800" fill="url(#t)" letter-spacing="-3">Store</text>
   <text x="84" y="420" font-family="Inter, Helvetica, Arial, sans-serif" font-size="34" fill="#a9b1d6">The app store for Omarchy Linux.</text>
-  <text x="84" y="468" font-family="Inter, Helvetica, Arial, sans-serif" font-size="34" fill="#a9b1d6">COUNT apps · one-click installs.</text>
+  <text x="84" y="468" font-family="Inter, Helvetica, Arial, sans-serif" font-size="34" fill="#a9b1d6">Apps, themes and plugins. One-click installs.</text>
   <text x="84" y="560" font-family="Inter, Helvetica, Arial, sans-serif" font-size="28" font-weight="700" fill="#7aa2f7">omarchystore.com</text>
 </svg>

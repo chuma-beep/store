@@ -179,6 +179,8 @@
       ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>
       <a href="/updates/" data-r="updates">${ico("refresh")}Updates<span class="nav-count" id="upd-count" hidden></span></a>` : ""}
       <div class="sec">Categories</div>
+      ${S.catalog.themes.length ? `<a class="m-hide" href="/themes/" data-r="themes-cat">${ico("palette")}Themes</a>` : ""}
+      <a class="m-hide" href="/plugins/" data-r="plugins-cat">${ico("puzzle")}Plugins</a>
       ${cats.map((c) => `<a href="/category/${c.id}/" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}
       <div class="sec m-hide">More</div>
       <a class="m-hide" href="/get-omarchy/" data-r="get-omarchy">${ico("rocket")}Get Omarchy</a>
@@ -494,6 +496,7 @@
     let l = (S.plugins?.plugins || []).slice();
     const f = S.plugFilter, c = S.plugCat, q = S.plugQ.trim().toLowerCase();
     if (c !== "all") l = l.filter((x) => x.c === c);
+    if (f === "popular") l.sort((a, b) => ((b.ok && b.img ? 1 : 0) - (a.ok && a.img ? 1 : 0)) || (b.s - a.s));
     if (f === "verified") l = l.filter((x) => x.ok);
     if (f === "new") l = l.filter((x) => x.add).sort((a, b) => (b.add > a.add ? 1 : b.add < a.add ? -1 : b.s - a.s));
     if (q) l = l.filter((x) => (x.n + " " + x.a + " " + x.d + " " + (x.t || []).join(" ") + " " + x.id).toLowerCase().includes(q));
@@ -514,7 +517,7 @@
       <p class="page-sub">${all.length.toLocaleString()} community plugins for Omarchy's bar and desktop: widgets, tools, system controls and more. ${ok.toLocaleString()} are Verified. Live from the official <a style="color:var(--accent)" href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a>, updated every 30 minutes.</p>
       <div class="theme-tools">
         <div class="tabs">${PLUG_FILTERS.map(([id, n]) => `<button data-pfilter="${id}" class="${S.plugFilter === id ? "on" : ""}">${esc(n)}</button>`).join("")}</div>
-        <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <div class="plug-search">
           <select id="pcat" class="sel" aria-label="Plugin category">${cats.map((c) => `<option value="${c.id}" ${S.plugCat === c.id ? "selected" : ""}>${esc(c.name)}</option>`).join("")}</select>
           <input id="pq" type="search" placeholder="Search plugins" value="${esc(S.plugQ)}" autocomplete="off" aria-label="Search plugins">
         </div>
@@ -801,7 +804,11 @@
         <a class="cat-tile cat-themes" href="/themes/">
           <span class="ci" style="background:linear-gradient(135deg,#ff5f6d,#ffc371 35%,#47cf73 65%,#3a7bd5)">${ico("palette")}</span>
           <span>Themes<div class="muted small">${S.catalog.themes.length} themes</div></span>
-        </a>` : ""}${S.catalog.categories.map((c, i) => `
+        </a>` : ""}
+        <a class="cat-tile" href="/plugins/">
+          <span class="ci" style="background:linear-gradient(135deg,#9ece6a,#2ac3de)">${ico("puzzle")}</span>
+          <span>Plugins<div class="muted small">${S.plugins ? S.plugins.plugins.length.toLocaleString() : "5,000+"} plugins</div></span>
+        </a>${S.catalog.categories.map((c, i) => `
         <a class="cat-tile" href="/category/${c.id}/">
           <span class="ci" style="background:${CAT_COLORS[i % CAT_COLORS.length]}">${ico(c.icon)}</span>
           <span>${esc(c.name)}<div class="muted small">${S.catalog.apps.filter((a) => a.category === c.id).length} apps</div></span>

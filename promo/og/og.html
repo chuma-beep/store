@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:1200px;height:630px;overflow:hidden;font-family:"Adwaita Sans","Inter","Noto Sans",sans-serif;-webkit-font-smoothing:antialiased;color:#fff;
+ background:radial-gradient(700px 520px at 85% 30%, rgba(157,124,242,.42), transparent 60%),radial-gradient(600px 500px at 10% 110%, rgba(158,206,106,.18), transparent 60%),linear-gradient(135deg,#16161f,#101018)}
+.wall{position:absolute;right:-90px;top:-60px;width:700px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;transform:rotate(-8deg);opacity:.9}
+.wall img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;box-shadow:0 18px 40px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.08)}
+.fade{position:absolute;inset:0;background:linear-gradient(90deg,#12121a 0%,rgba(18,18,26,.96) 38%,rgba(18,18,26,.4) 64%,rgba(18,18,26,0) 100%)}
+.copy{position:absolute;left:80px;top:96px;width:620px}
+.brand{display:flex;align-items:center;gap:22px}
+.brand .logo{width:104px;height:104px;filter:drop-shadow(0 16px 30px rgba(0,0,0,.45))}
+.wm{display:flex;align-items:center;gap:16px}
+.wm img{height:38px;image-rendering:pixelated}
+h1{font-size:58px;line-height:1.04;font-weight:800;letter-spacing:-2px;margin-top:46px}
+h1 span{color:#9ece6a}
+.sub{font-size:28px;color:rgba(255,255,255,.72);margin-top:20px;font-weight:500}
+.url{position:absolute;left:84px;bottom:56px;font-size:26px;font-weight:700;color:#9ece6a;letter-spacing:.5px}
+</style></head><body>
+<div class="wall">
+ <img src="t/omarchy-lumon-theme.jpg"><img src="t/aetheria.jpg"><img src="t/miasma.jpg">
+ <img src="t/osaka-jade.jpg"><img src="t/copper-night.jpg"><img src="t/retropc.jpg">
+ <img src="t/aamis.jpg"><img src="t/void.jpg"><img src="t/felix.jpg">
+ <img src="t/blackturq.jpg"><img src="t/mecha-no-onna.jpg"><img src="t/rose-pine-dark.jpg">
+</div>
+<div class="fade"></div>
+<div class="copy">
+ <div class="brand"><img class="logo" src="logo.svg"><div class="wm"><img src="wordmark-omarchy.svg"><img src="wordmark-store.svg"></div></div>
+ <h1>The app store<br>for <span>Omarchy</span>.</h1>
+ <div class="sub">Apps, themes and plugins. One-click installs.</div>
+</div>
+<div class="url">omarchystore.com</div>
+</body></html>
