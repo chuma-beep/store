@@ -164,21 +164,23 @@
   // ---------- nav ----------
   function renderNav() {
     const cats = S.catalog.categories;
+    // Browse links + categories come first. "More" (Get Omarchy, developers, ads, contact) sits
+    // at the bottom of the sidebar and is hidden from the phone's category pill row
+    // (on phones those live in the footer cards and the Discover banner).
     $("#nav").innerHTML = `
       <a href="/" data-r="">${ico("discover")}Discover</a>
       <a href="/charts/" data-r="charts">${ico("charts")}Top Charts</a>
       <a href="/categories/" data-r="categories">${ico("grid")}Categories</a>
-      <a href="/get-omarchy/" data-r="get-omarchy">${ico("rocket")}Get Omarchy<span class="nav-new">NEW</span></a>
       ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes">${ico("palette")}Themes<span class="nav-new">NEW</span></a>` : ""}
       ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>
       <a href="/updates/" data-r="updates">${ico("refresh")}Updates<span class="nav-count" id="upd-count" hidden></span></a>` : ""}
-      <div class="sec">Developers &amp; business</div>
-      <a href="/submit/" data-r="submit">${ico("plus")}Submit an app</a>
-      <a href="/advertise/" data-r="advertise">${ico("megaphone")}Advertise with us</a>
-      <a href="/contact/" data-r="contact">${ico("mail")}Contact us</a>
       <div class="sec">Categories</div>
-      ${S.catalog.themes.length ? `<a href="/themes/" data-r="themes-cat">${ico("palette")}Themes</a>` : ""}
-      ${cats.map((c) => `<a href="/category/${c.id}/" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}`;
+      ${cats.map((c) => `<a href="/category/${c.id}/" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}
+      <div class="sec m-hide">More</div>
+      <a class="m-hide" href="/get-omarchy/" data-r="get-omarchy">${ico("rocket")}Get Omarchy</a>
+      <a class="m-hide" href="/submit/" data-r="submit">${ico("plus")}Submit an app</a>
+      <a class="m-hide" href="/advertise/" data-r="advertise">${ico("megaphone")}Advertise with us</a>
+      <a class="m-hide" href="/contact/" data-r="contact">${ico("mail")}Contact us</a>`;
   }
   function markNav(r) {
     document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("on", a.dataset.r === r));
