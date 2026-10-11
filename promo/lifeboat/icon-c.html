@@ -1,0 +1,147 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  body { margin: 0; background: #141519; font-family: -apple-system, Inter, system-ui, sans-serif; color: #e8ecf5; padding: 28px 34px; }
+  h1 { font-size: 20px; font-weight: 600; margin: 0 0 22px; }
+  .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 34px; }
+  .opt { display: flex; flex-direction: column; gap: 14px; }
+  .opt b { font-size: 18px; }
+  .sizes { display: flex; align-items: flex-end; gap: 16px; }
+  .light { display: flex; align-items: flex-end; gap: 14px; background: #eef0f4; border-radius: 14px; padding: 14px; width: max-content; }
+  svg { display: block; }
+  .s256 { width: 256px; height: 256px; } .s72 { width: 72px; height: 72px; } .s40 { width: 40px; height: 40px; } .s24 { width: 24px; height: 24px; }
+  .hero { width: 512px; height: 512px; }
+</style></head>
+<body>
+<h1 id="title">Lifeboat icon · option C refined, with the Omarchy mark</h1>
+<div class="grid" id="grid"></div>
+<script>
+// Real Omarchy mark (omarchy.org/brand/omarchy-logo.svg, 1200x1200 box)
+const MARK = "m1200 1200h-480v-80h400v-1040h-479.996v160h-400v720h720v-720h-80v-80h159.996v880h-400v160h-640v-1200h1200zm-1120-80h480v-80h-400l.004-400h-80.004zm0-560h80.004v-400h400v-80h-480.004z";
+// Apple-style continuous-corner squircle (superellipse approximation) on a 1024 canvas
+const SQ = "M512 0C860 0 1024 0 1024 512C1024 1024 860 1024 512 1024C164 1024 0 1024 0 512C0 0 164 0 512 0Z";
+const SQUIRCLE = "M 228 0 H 796 C 920 0 1024 104 1024 228 V 796 C 1024 920 920 1024 796 1024 H 228 C 104 1024 0 920 0 796 V 228 C 0 104 104 0 228 0 Z";
+
+function icon(v, uid) {
+  const P = {
+    night: { sky: ["#0d2a57", "#0a1d3d", "#06122a"], glow: "#4aa3ff", sea1: "#22b7e0", sea2: "#0b5e9c", sea3: "#063a6b", moon: true },
+    dusk:  { sky: ["#ff9f6b", "#c25a8c", "#3a2a7a"], glow: "#ffd29a", sea1: "#3fb9e6", sea2: "#1b6cb3", sea3: "#0f3f7a", sun: true },
+    day:   { sky: ["#7fd3ff", "#3aa5f0", "#1c6fd1"], glow: "#ffffff", sea1: "#38d1e8", sea2: "#1286c9", sea3: "#0a5aa0", sun: true },
+  }[v.palette];
+  const id = (n) => `${n}-${uid}`;
+  const markOnHull = v.mark === "hull";
+  return `<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="${id("clip")}"><path d="${SQUIRCLE}"/></clipPath>
+    <linearGradient id="${id("sky")}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.sky[0]}"/><stop offset=".55" stop-color="${P.sky[1]}"/><stop offset="1" stop-color="${P.sky[2]}"/></linearGradient>
+    <radialGradient id="${id("glow")}" cx=".5" cy=".42" r=".55"><stop offset="0" stop-color="${P.glow}" stop-opacity=".45"/><stop offset="1" stop-color="${P.glow}" stop-opacity="0"/></radialGradient>
+    <linearGradient id="${id("hull")}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff9a52"/><stop offset=".55" stop-color="#ff6a2b"/><stop offset="1" stop-color="#d9401c"/></linearGradient>
+    <linearGradient id="${id("hullShine")}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <linearGradient id="${id("cab")}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#d9e2ee"/></linearGradient>
+    <linearGradient id="${id("win")}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d5b94"/><stop offset="1" stop-color="#132a4f"/></linearGradient>
+    <linearGradient id="${id("seaA")}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.sea1}"/><stop offset="1" stop-color="${P.sea2}"/></linearGradient>
+    <linearGradient id="${id("seaB")}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${P.sea2}"/><stop offset="1" stop-color="${P.sea3}"/></linearGradient>
+    <linearGradient id="${id("top")}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <filter id="${id("soft")}" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#021024" flood-opacity=".45"/></filter>
+    <filter id="${id("blur")}"><feGaussianBlur stdDeviation="14"/></filter>
+  </defs>
+  <g clip-path="url(#${id("clip")})">
+    <rect width="1024" height="1024" fill="url(#${id("sky")})"/>
+    <rect width="1024" height="1024" fill="url(#${id("glow")})"/>
+    ${P.moon ? `<circle cx="800" cy="210" r="70" fill="#fff3cf" opacity=".95"/><circle cx="800" cy="210" r="120" fill="#fff3cf" opacity=".12"/>
+      <g fill="#fff"><circle cx="190" cy="170" r="5" opacity=".8"/><circle cx="300" cy="250" r="3.5" opacity=".6"/><circle cx="420" cy="140" r="4" opacity=".7"/><circle cx="560" cy="210" r="3" opacity=".5"/><circle cx="140" cy="320" r="3" opacity=".5"/></g>` : ""}
+    ${P.sun ? `<circle cx="800" cy="210" r="74" fill="#fff6d6"/><circle cx="800" cy="210" r="140" fill="#fff6d6" opacity=".18"/>` : ""}
+    <!-- back wave -->
+    <path d="M0 640 C 120 600 230 670 360 640 S 620 600 760 640 S 940 670 1024 640 V1024 H0Z" fill="url(#${id("seaB")})" opacity=".9"/>
+    <!-- boat -->
+    <g filter="url(#${id("soft")})" transform="translate(512 600) rotate(-3) scale(1.2) translate(-512 -600) translate(0 -18)">
+      ${v.mark === "flag" ? `<rect x="507" y="268" width="12" height="190" rx="6" fill="#e9eef6"/>
+        <path d="M519 278 H 660 L 632 330 L 660 382 H 519 Z" fill="#fff"/>
+        <g transform="translate(548 292) scale(.075)"><path d="${MARK}" fill="#ff6a2b" fill-rule="evenodd"/></g>` : ""}
+      <!-- cabin -->
+      <rect x="318" y="430" width="388" height="170" rx="70" fill="url(#${id("cab")})"/>
+      <rect x="318" y="430" width="388" height="170" rx="70" fill="url(#${id("top")})"/>
+      <rect x="362" y="478" width="82" height="62" rx="24" fill="url(#${id("win")})"/>
+      ${v.mark === "badge" ? "" : `<rect x="471" y="478" width="82" height="62" rx="24" fill="url(#${id("win")})"/>`}
+      <rect x="580" y="478" width="82" height="62" rx="24" fill="url(#${id("win")})"/>
+      <path d="M372 488 h40" stroke="#9fd0ff" stroke-width="8" stroke-linecap="round" opacity=".6"/>
+      ${v.mark === "badge" ? "" : `<path d="M481 488 h40" stroke="#9fd0ff" stroke-width="8" stroke-linecap="round" opacity=".6"/>`}
+      <path d="M590 488 h40" stroke="#9fd0ff" stroke-width="8" stroke-linecap="round" opacity=".6"/>
+      <!-- hull -->
+      <path d="M178 578 H 846 C 836 664 784 742 690 760 H 334 C 240 742 188 664 178 578 Z" fill="url(#${id("hull")})"/>
+      <path d="M178 578 H 846 C 845 592 843 604 840 616 H 184 C 181 604 179 592 178 578 Z" fill="#fff" opacity=".92"/>
+      <path d="M210 628 H 814 C 800 664 776 690 740 704 H 284 C 248 690 224 664 210 628 Z" fill="url(#${id("hullShine")})" opacity=".55"/>
+      ${markOnHull ? `<g transform="translate(458 628) scale(.09)"><path d="${MARK}" fill="#ffffff" fill-rule="evenodd"/></g>` : ""}
+      ${v.mark === "badge" ? `<g transform="translate(512 515)"><circle r="78" fill="#fff"/><circle r="78" fill="none" stroke="#ff6a2b" stroke-width="10"/>
+         <g transform="translate(-44 -44) scale(.0733)"><path d="${MARK}" fill="#1b2f57" fill-rule="evenodd"/></g></g>` : ""}
+      ${v.mark === "ring" ? `<g transform="translate(700 520)"><circle r="54" fill="#fff"/><circle r="54" fill="none" stroke="#ff6a2b" stroke-width="26" stroke-dasharray="42.4 42.4" transform="rotate(22)"/><circle r="27" fill="#0d2a57"/>
+         <g transform="translate(-18 -18) scale(.03)"><path d="${MARK}" fill="#fff" fill-rule="evenodd"/></g></g>` : ""}
+    </g>
+    <!-- front waves -->
+    <path d="M0 800 C 110 760 220 830 360 796 S 620 760 760 796 S 930 830 1024 794 V1024 H0Z" fill="url(#${id("seaA")})"/>
+    <path d="M0 800 C 110 760 220 830 360 796 S 620 760 760 796 S 930 830 1024 794" fill="none" stroke="#ffffff" stroke-opacity=".6" stroke-width="12" stroke-linecap="round"/>
+    <path d="M0 892 C 140 856 260 920 420 886 S 700 856 860 890 S 980 912 1024 894 V1024 H0Z" fill="url(#${id("seaB")})"/>
+    <path d="M0 892 C 140 856 260 920 420 886 S 700 856 860 890 S 980 912 1024 894" fill="none" stroke="#ffffff" stroke-opacity=".25" stroke-width="8"/>
+    <!-- glass sheen over the whole tile, like iOS icons -->
+    <path d="M0 0 H1024 V420 C 760 500 300 330 0 440 Z" fill="#ffffff" opacity=".06"/>
+  </g>
+  <path d="${SQUIRCLE}" fill="none" stroke="#ffffff" stroke-opacity=".10" stroke-width="3"/>
+</svg>`;
+}
+
+
+// Wide store artwork (billboard / hero / share image) in the same C1 style: night sea, moon, boat with the Omarchy mark.
+function scene(W, H, bx, bs, uid) {
+  const icon1 = icon({ palette: "night", mark: "hull" }, uid);
+  // pull the gradients + the boat group out of the icon SVG so both always match
+  const defs = icon1.match(/<defs>[\s\S]*<\/defs>/)[0];
+  const boat = icon1.match(/<g filter="url\(#soft-[^"]+\)"[\s\S]*?<\/g>\s*<!-- front waves -->/)[0].replace("<!-- front waves -->", "");
+  const id = (n) => `${n}-${uid}`;
+  const sea = (y, a, fill, stroke, so) => {
+    let d = `M0 ${y}`; const n = Math.ceil(W / 330);
+    for (let i = 0; i < n; i++) { const x = i * 330; d += ` C ${x + 110} ${y - a} ${x + 220} ${y + a} ${x + 330} ${y}`; }
+    return `<path d="${d} V${H} H0Z" fill="url(#${id(fill)})"/>` + (stroke ? `<path d="${d}" fill="none" stroke="#fff" stroke-opacity="${so}" stroke-width="${stroke}" stroke-linecap="round"/>` : "");
+  };
+  let stars = ""; let seed = 7;
+  const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  for (let i = 0; i < 70; i++) stars += `<circle cx="${(rnd() * W).toFixed(0)}" cy="${(rnd() * H * 0.5).toFixed(0)}" r="${(1.5 + rnd() * 3).toFixed(1)}" fill="#fff" opacity="${(0.3 + rnd() * 0.6).toFixed(2)}"/>`;
+  const by = H * 0.78 - 40 - 150 * bs;  // mark bottom sits just above the wave crests; keel still dips into the water
+  return `<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" style="width:${W}px;height:${H}px">${defs}
+    <rect width="${W}" height="${H}" fill="url(#${id("sky")})"/>
+    <radialGradient id="${id("sglow")}" cx="${bx / W}" cy=".45" r=".6" gradientTransform="translate(${bx / W} .45) scale(${H / W} 1) translate(${-bx / W} -.45)"><stop offset="0" stop-color="#4aa3ff" stop-opacity=".32"/><stop offset=".6" stop-color="#4aa3ff" stop-opacity=".08"/><stop offset="1" stop-color="#4aa3ff" stop-opacity="0"/></radialGradient>
+    <rect width="${W}" height="${H}" fill="url(#${id("sglow")})"/>
+    ${stars}
+    <circle cx="${bx + bs * 380}" cy="${H * 0.2}" r="${bs * 70}" fill="#fff3cf" opacity=".95"/><circle cx="${bx + bs * 380}" cy="${H * 0.2}" r="${bs * 125}" fill="#fff3cf" opacity=".12"/>
+    ${sea(H * 0.62, 40, "seaB", 0, 0)}
+    <g transform="translate(${bx} ${by}) scale(${bs}) translate(-512 -600)">${boat}</g>
+    ${sea(H * 0.78, 42, "seaA", 12, 0.6)}
+    ${sea(H * 0.9, 34, "seaB", 8, 0.25)}
+  </svg>`;
+}
+
+const OPTS = [
+  ["C1 · Night sea, mark on the hull", { palette: "night", mark: "hull" }],
+  ["C2 · Night sea, Omarchy badge on the cabin", { palette: "night", mark: "badge" }],
+  ["C3 · Sunset, mark on the hull", { palette: "dusk", mark: "hull" }],
+];
+const only = location.hash.slice(1);
+const SC = only.match(/^scene-(\d+)x(\d+)-(\d+)-([\d.]+)$/);  // #scene-W x H - boatX - boatScale
+if (SC) {
+  document.body.style.cssText = "margin:0;padding:0;background:transparent";
+  document.getElementById("title").remove();
+  document.getElementById("grid").outerHTML = scene(+SC[1], +SC[2], +SC[3], +SC[4], "s");
+} else if (only) {  // export mode: #C1 renders one big icon for PNG export
+  document.body.style.cssText = "margin:0;padding:0;background:transparent";
+  document.getElementById("title").remove();
+  const o = OPTS.find(([n]) => n.startsWith(only));
+  document.getElementById("grid").outerHTML = icon(o[1], "x").replace("<svg", '<svg style="width:1024px;height:1024px"');
+} else {
+  const g = document.getElementById("grid");
+  OPTS.forEach(([name, v], i) => {
+    const s = (cls) => icon(v, `${i}${cls}`).replace("<svg", `<svg class="${cls}"`);
+    g.insertAdjacentHTML("beforeend", `<div class="opt"><b>${name}</b><div class="sizes">${s("s256")}</div>
+      <div class="sizes">${s("s72")}${s("s40")}${s("s24")}</div><div class="light">${s("s72")}${s("s40")}${s("s24")}</div></div>`);
+  });
+}
+</script>
+</body></html>
