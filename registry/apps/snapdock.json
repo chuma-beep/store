@@ -34,7 +34,7 @@
     "eyebrow": "FEATURED APP",
     "headline": "A frosted glass dock for Omarchy.",
     "tagline": "Plus Windows-style snapping, Snap Assist, smart title bars, one-click screenshots and automatic backups. Free for a limited time, and early adopters get free updates for life.",
-    "price": "Free for a limited time",
+    "price": "Free",
     "launch_offer": "Free for a limited time · early adopters get free updates for life",
     "gradient": [
       "#1b1640",
@@ -227,7 +227,8 @@
       "file": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v0.5.0/snapdock-install.sh",
       "file_name": "snapdock-install.sh",
       "note": "Already using a dock or title bar setup of your own? SnapDock saves it to a backup file in Downloads before it changes anything, and Uninstall can put it back exactly."
-    }
+    },
+    "price_note": "Limited time"
   },
   "tags": [
     "dock",

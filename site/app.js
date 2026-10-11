@@ -951,7 +951,7 @@
     const ghUrl = a.github ? `https://github.com/${a.github}` : null;
     const stale = a.archived || p.out_of_date;
     const strip = a.featured ? [
-      ["Price", esc(a.featured.price), esc(a.featured.launch_offer || "")],
+      ["Price", esc(a.featured.price), esc(a.featured.price_note || a.featured.launch_offer || "")],
       ["Award", '<span style="color:#ffd60a">★</span>', esc(a.featured.badge)],
       ["Category", `<span style="color:var(--accent)">${ico(cat?.icon)}</span>`, esc(cat?.name)],
       ["Developer", `<span style="font-size:16px">${esc(a.developer || "—")}</span>`, "Verified"],
