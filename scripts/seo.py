@@ -124,7 +124,8 @@ def main():
     now = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     urls = []  # (loc, lastmod, priority)
     org = {"@context": "https://schema.org", "@type": "Organization", "name": "Omarchy Store", "url": SITE,
-           "logo": f"{SITE}/assets/icon-512.png", "sameAs": ["https://github.com/omarchy-community/store"]}
+           "logo": f"{SITE}/assets/icon-512.png", "sameAs": ["https://github.com/omarchy-community/store", "https://www.youtube.com/@OmarchyStore",
+                      "https://www.tiktok.com/@omarchy.store", "https://www.instagram.com/omarchystore/", "https://t.me/omarchystore"]}
 
     # ---- Home
     top = apps[:30]

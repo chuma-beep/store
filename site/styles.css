@@ -754,3 +754,5 @@ select.sel { background: var(--pill); color: var(--text); border: 0; border-radi
 @keyframes su-in { from { transform: translateY(16px); opacity: 0; } }
 @media (max-width: 720px) { .self-upd { left: 12px; right: 12px; bottom: 12px; max-width: none; } }
 .go-step, #windows { scroll-margin-top: 150px; }
+.socials { align-items: center; flex-wrap: wrap; }
+.soc-label { font-size: 13px; font-weight: 700; color: var(--text-2); margin-right: 4px; }

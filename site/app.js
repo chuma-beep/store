@@ -96,10 +96,10 @@
   const CONTACT_EMAIL = "info@omarchystore.com";
   const SOCIALS = [
     { id: "x", name: "X", url: "" },
-    { id: "instagram", name: "Instagram", url: "" },
-    { id: "tiktok", name: "TikTok", url: "" },
-    { id: "youtube", name: "YouTube", url: "" },
-    { id: "telegram", name: "Telegram", url: "" },
+    { id: "instagram", name: "Instagram", url: "https://www.instagram.com/omarchystore/" },
+    { id: "tiktok", name: "TikTok", url: "https://www.tiktok.com/@omarchy.store" },
+    { id: "youtube", name: "YouTube", url: "https://www.youtube.com/@OmarchyStore" },
+    { id: "telegram", name: "Telegram", url: "https://t.me/omarchystore" },
     { id: "whatsapp", name: "WhatsApp", url: "" },
   ];
   const SOC_ICO = {
@@ -111,7 +111,7 @@
     whatsapp: '<path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-1 1c-1-.5-2-1.5-2.5-2.5l1-1-1-2z"/>',
   };
   const liveSocials = () => SOCIALS.filter((s) => s.url);
-  const socialRow = () => liveSocials().length ? `<div class="socials">${liveSocials().map((s) => `<a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.name}" title="${s.name}"><svg viewBox="0 0 24 24">${SOC_ICO[s.id]}</svg></a>`).join("")}</div>` : "";
+  const socialRow = () => liveSocials().length ? `<div class="socials"><span class="soc-label">Follow us</span>${liveSocials().map((s) => `<a href="${s.url}" target="_blank" rel="noopener" aria-label="${s.name}" title="${s.name}"><svg viewBox="0 0 24 24">${SOC_ICO[s.id]}</svg></a>`).join("")}</div>` : "";
   const ico = (n) => `<svg viewBox="0 0 24 24">${ICONS[n] || ""}</svg>`;
   const CAT_COLORS = ["#0a84ff", "#5e5ce6", "#bf5af2", "#ff375f", "#ff9f0a", "#ff453a", "#30d158", "#64d2ff", "#32ade6", "#ac8e68", "#8e8e93"];
 
@@ -192,7 +192,8 @@
       <a class="m-hide" href="/get-omarchy/" data-r="get-omarchy">${ico("rocket")}Get Omarchy</a>
       <a class="m-hide" href="/submit/" data-r="submit">${ico("plus")}Submit an app</a>
       <a class="m-hide" href="/advertise/" data-r="advertise">${ico("megaphone")}Advertise with us</a>
-      <a class="m-hide" href="/contact/" data-r="contact">${ico("mail")}Contact us</a>`;
+      <a class="m-hide" href="/contact/" data-r="contact">${ico("mail")}Contact us</a>
+      <a class="m-hide" href="https://t.me/omarchystore" target="_blank" rel="noopener"><svg viewBox="0 0 24 24">${SOC_ICO.telegram}</svg>Telegram channel</a>`;
   }
   function markNav(r) {
     document.querySelectorAll("#nav a").forEach((a) => a.classList.toggle("on", a.dataset.r === r || a.dataset.r === r + "-cat"));
