@@ -1,0 +1,22 @@
+{
+  "id": "asusctl",
+  "name": "Asusctl",
+  "category": "utilities",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "asusctl"
+    ]
+  },
+  "detect": [
+    "asusctl"
+  ],
+  "kind": "terminal",
+  "summary": "An utility for Linux to control many aspects of various ASUS laptops",
+  "homepage": "https://asus-linux.org",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

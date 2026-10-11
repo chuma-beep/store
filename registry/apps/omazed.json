@@ -1,0 +1,23 @@
+{
+  "id": "omazed",
+  "name": "Omazed",
+  "category": "developer-tools",
+  "github": "aps6/omazed",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "omazed"
+    ]
+  },
+  "detect": [
+    "omazed"
+  ],
+  "kind": "terminal",
+  "summary": "Live theme switching for Zed in Omarchy - automatically synchronize your Zed editor theme with your Omarchy system theme",
+  "homepage": "https://github.com/aps6/omazed",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

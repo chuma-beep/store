@@ -1,0 +1,22 @@
+{
+  "id": "omareel",
+  "name": "Omareel",
+  "category": "video-audio",
+  "github": "omacom/omareel",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "omareel"
+    ]
+  },
+  "detect": [
+    "omareel"
+  ],
+  "kind": "gui",
+  "summary": "Screen recorder and editor for Omarchy with a synthetic cursor, auto zooms, and a camera bubble",
+  "homepage": "https://github.com/omacom/omareel",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

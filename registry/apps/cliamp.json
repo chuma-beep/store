@@ -1,0 +1,23 @@
+{
+  "id": "cliamp",
+  "name": "Cliamp",
+  "category": "video-audio",
+  "github": "bjarneo/cliamp",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "cliamp"
+    ]
+  },
+  "detect": [
+    "cliamp"
+  ],
+  "kind": "terminal",
+  "summary": "A retro terminal music player inspired by Winamp 2.x",
+  "homepage": "https://github.com/bjarneo/cliamp",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

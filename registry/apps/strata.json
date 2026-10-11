@@ -1,0 +1,23 @@
+{
+  "id": "strata",
+  "name": "Strata",
+  "category": "terminal",
+  "github": "lgse/strata",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "strata"
+    ]
+  },
+  "detect": [
+    "strata"
+  ],
+  "kind": "terminal",
+  "summary": "Fast, keyboard-first file manager for modern Linux desktops",
+  "homepage": "https://github.com/lgse/strata",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

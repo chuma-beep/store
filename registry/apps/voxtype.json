@@ -1,0 +1,21 @@
+{
+  "id": "voxtype",
+  "name": "Voxtype",
+  "category": "ai",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "voxtype-bin"
+    ]
+  },
+  "detect": [
+    "voxtype-bin"
+  ],
+  "kind": "gui",
+  "summary": "Push-to-talk voice-to-text for Linux (pre-built binaries)",
+  "homepage": "https://voxtype.io",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

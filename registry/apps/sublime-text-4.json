@@ -1,0 +1,21 @@
+{
+  "id": "sublime-text-4",
+  "name": "Sublime Text 4",
+  "category": "developer-tools",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "sublime-text-4"
+    ]
+  },
+  "detect": [
+    "sublime-text-4"
+  ],
+  "kind": "gui",
+  "summary": "Sophisticated text editor for code, html and prose - stable build",
+  "homepage": "https://www.sublimetext.com/download",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

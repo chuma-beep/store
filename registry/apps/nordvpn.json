@@ -1,0 +1,22 @@
+{
+  "id": "nordvpn",
+  "name": "NordVPN",
+  "category": "security",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "nordvpn-bin"
+    ]
+  },
+  "detect": [
+    "nordvpn-bin"
+  ],
+  "kind": "terminal",
+  "summary": "NordVPN CLI tool for Linux",
+  "homepage": "https://nordvpn.com/download/linux/",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

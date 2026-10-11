@@ -1,0 +1,22 @@
+{
+  "id": "crush",
+  "name": "Crush",
+  "category": "ai",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "crush-bin"
+    ]
+  },
+  "detect": [
+    "crush-bin"
+  ],
+  "kind": "terminal",
+  "summary": "A powerful terminal-based AI assistant for developers, providing intelligent coding assistance directly in your terminal",
+  "homepage": "https://charm.sh/crush",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

@@ -1,0 +1,22 @@
+{
+  "id": "tmog",
+  "name": "tmog",
+  "category": "terminal",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "tmog-bin"
+    ]
+  },
+  "detect": [
+    "tmog-bin"
+  ],
+  "kind": "terminal",
+  "summary": "Native system monitor and task manager",
+  "homepage": "https://tmog.org/",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

@@ -1,0 +1,22 @@
+{
+  "id": "buzz",
+  "name": "Buzz",
+  "category": "ai",
+  "github": "block/buzz",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "buzz"
+    ]
+  },
+  "detect": [
+    "buzz"
+  ],
+  "kind": "gui",
+  "summary": "Workspace where humans and AI agents build together, on a Nostr relay you own",
+  "homepage": "https://github.com/block/buzz",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

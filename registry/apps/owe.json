@@ -1,0 +1,22 @@
+{
+  "id": "owe",
+  "name": "Owe",
+  "category": "graphics",
+  "github": "omacom/owe",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "owe"
+    ]
+  },
+  "detect": [
+    "owe"
+  ],
+  "kind": "gui",
+  "summary": "High-performance wallpaper engine for Omarchy (mp4, gif, stills)",
+  "homepage": "https://github.com/omacom/owe",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

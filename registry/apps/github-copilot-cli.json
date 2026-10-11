@@ -1,0 +1,23 @@
+{
+  "id": "github-copilot-cli",
+  "name": "GitHub Copilot CLI",
+  "category": "ai",
+  "github": "github/copilot-cli",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "github-copilot-cli"
+    ]
+  },
+  "detect": [
+    "github-copilot-cli"
+  ],
+  "kind": "terminal",
+  "summary": "GitHub Copilot CLI brings the power of Copilot coding agent directly to your terminal",
+  "homepage": "https://github.com/github/copilot-cli",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

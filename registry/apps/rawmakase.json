@@ -1,0 +1,22 @@
+{
+  "id": "rawmakase",
+  "name": "Rawmakase",
+  "category": "graphics",
+  "github": "pch/rawmakase",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "rawmakase-bin"
+    ]
+  },
+  "detect": [
+    "rawmakase-bin"
+  ],
+  "kind": "gui",
+  "summary": "Fast, Lightroom-compatible RAW photo editor (binary release)",
+  "homepage": "https://github.com/pch/rawmakase",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

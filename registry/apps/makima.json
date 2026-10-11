@@ -1,0 +1,23 @@
+{
+  "id": "makima",
+  "name": "makima",
+  "category": "utilities",
+  "github": "cyber-sushi/makima",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "makima-bin"
+    ]
+  },
+  "detect": [
+    "makima-bin"
+  ],
+  "kind": "terminal",
+  "summary": "Linux daemon to remap and create macros for keyboards, mice and controllers",
+  "homepage": "https://github.com/cyber-sushi/makima",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

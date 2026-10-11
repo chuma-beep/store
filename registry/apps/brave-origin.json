@@ -1,0 +1,21 @@
+{
+  "id": "brave-origin",
+  "name": "Brave Origin",
+  "category": "browsers",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "brave-origin-bin"
+    ]
+  },
+  "detect": [
+    "brave-origin-bin"
+  ],
+  "kind": "gui",
+  "summary": "The minimalist browser from the makers of Brave (binary release)",
+  "homepage": "https://brave.com/origin/download",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

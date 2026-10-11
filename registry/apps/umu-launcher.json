@@ -1,0 +1,23 @@
+{
+  "id": "umu-launcher",
+  "name": "umu-launcher",
+  "category": "games",
+  "github": "Open-Wine-Components/umu-launcher",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "umu-launcher"
+    ]
+  },
+  "detect": [
+    "umu-launcher"
+  ],
+  "kind": "terminal",
+  "summary": "This is the Unified Launcher for Windows Games on Linux, to run Proton with fixes outside of Steam",
+  "homepage": "https://github.com/Open-Wine-Components/umu-launcher",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

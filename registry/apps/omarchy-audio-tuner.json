@@ -1,0 +1,22 @@
+{
+  "id": "omarchy-audio-tuner",
+  "name": "Omarchy Audio Tuner",
+  "category": "developer-tools",
+  "github": "omacom-io/omarchy-audio-tuner",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "omarchy-audio-tuner"
+    ]
+  },
+  "detect": [
+    "omarchy-audio-tuner"
+  ],
+  "kind": "gui",
+  "summary": "Tools for authoring Omarchy laptop speaker tunings",
+  "homepage": "https://github.com/omacom-io/omarchy-audio-tuner",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

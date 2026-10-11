@@ -1,0 +1,21 @@
+{
+  "id": "minecraft-launcher",
+  "name": "Minecraft Launcher",
+  "category": "games",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "minecraft-launcher"
+    ]
+  },
+  "detect": [
+    "minecraft-launcher"
+  ],
+  "kind": "gui",
+  "summary": "Official Minecraft Launcher",
+  "homepage": "https://mojang.com/",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "omarchy-task-manager",
+  "name": "Omarchy Task Manager",
+  "category": "productivity",
+  "github": "tcballard/omarchy-task-manager",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "omarchy-task-manager"
+    ]
+  },
+  "detect": [
+    "omarchy-task-manager"
+  ],
+  "kind": "gui",
+  "summary": "Floating native task manager for Omarchy",
+  "homepage": "https://github.com/tcballard/omarchy-task-manager",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

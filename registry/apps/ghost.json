@@ -1,0 +1,22 @@
+{
+  "id": "ghost",
+  "name": "Ghost",
+  "category": "ai",
+  "github": "ferdousbhai/ghost",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "ghost"
+    ]
+  },
+  "detect": [
+    "ghost"
+  ],
+  "kind": "gui",
+  "summary": "Ghost HUD and desktop integration for Omarchy",
+  "homepage": "https://github.com/ferdousbhai/ghost",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

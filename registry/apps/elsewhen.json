@@ -1,0 +1,23 @@
+{
+  "id": "elsewhen",
+  "name": "Elsewhen",
+  "category": "utilities",
+  "github": "omacom/elsewhen",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "elsewhen"
+    ]
+  },
+  "detect": [
+    "elsewhen"
+  ],
+  "kind": "terminal",
+  "summary": "World clock plugin for the Omarchy shell",
+  "homepage": "https://github.com/omacom/elsewhen",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

@@ -1,0 +1,22 @@
+{
+  "id": "tensaku",
+  "name": "Tensaku",
+  "category": "graphics",
+  "github": "jondkinney/tensaku",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "tensaku"
+    ]
+  },
+  "detect": [
+    "tensaku"
+  ],
+  "kind": "gui",
+  "summary": "Modern screenshot annotation tool for Wayland",
+  "homepage": "https://github.com/jondkinney/tensaku",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

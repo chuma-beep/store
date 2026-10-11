@@ -1,0 +1,22 @@
+{
+  "id": "cursor-cli",
+  "name": "Cursor CLI",
+  "category": "ai",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "cursor-cli"
+    ]
+  },
+  "detect": [
+    "cursor-cli"
+  ],
+  "kind": "terminal",
+  "summary": "CLI tool for Cursor, the AI-first coding agent",
+  "homepage": "https://cursor.com/cli",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

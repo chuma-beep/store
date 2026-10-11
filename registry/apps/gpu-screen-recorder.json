@@ -1,0 +1,21 @@
+{
+  "id": "gpu-screen-recorder",
+  "name": "GPU Screen Recorder",
+  "category": "video-audio",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "gpu-screen-recorder"
+    ]
+  },
+  "detect": [
+    "gpu-screen-recorder"
+  ],
+  "kind": "gui",
+  "summary": "A shadowplay-like screen recorder for Linux. The fastest screen recorder for Linux",
+  "homepage": "https://git.dec05eba.com/gpu-screen-recorder",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

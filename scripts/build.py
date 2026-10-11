@@ -254,6 +254,28 @@ def arch_bulk(names):
                                   "updated": datetime.fromtimestamp(int(bd), timezone.utc).isoformat() if bd.isdigit() else None}
         except Exception as ex:
             print(f"  warn: couldn't read {repo}.db from {mirror}: {ex}", file=sys.stderr)
+    # Omarchy's own package repo (zstd-compressed database).
+    try:
+        req = urllib.request.Request("https://pkgs.omarchy.org/stable/x86_64/omarchy.db", headers={"User-Agent": "omarchy-store-build"})
+        raw = urllib.request.urlopen(req, timeout=60).read()
+        tar = subprocess.run(["zstd", "-dc"], input=raw, capture_output=True, check=True).stdout
+        with tarfile.open(fileobj=io.BytesIO(tar)) as tf:
+            for m in tf.getmembers():
+                if not m.name.endswith("/desc"):
+                    continue
+                fields, key = {}, None
+                for ln in tf.extractfile(m).read().decode("utf-8", "replace").splitlines():
+                    if len(ln) > 2 and ln.startswith("%") and ln.endswith("%"):
+                        key = ln.strip("%")
+                    elif ln and key:
+                        fields.setdefault(key, ln); key = None
+                n = fields.get("NAME")
+                if n in names and n not in out:
+                    isize, bd = fields.get("ISIZE", ""), fields.get("BUILDDATE", "")
+                    out[n] = {"repo": "omarchy", "version": fields.get("VERSION"), "size": int(isize) if isize.isdigit() else None,
+                              "updated": datetime.fromtimestamp(int(bd), timezone.utc).isoformat() if bd.isdigit() else None}
+    except Exception as ex:
+        print(f"  warn: couldn't read the Omarchy package repo: {ex}", file=sys.stderr)
     return out
 
 

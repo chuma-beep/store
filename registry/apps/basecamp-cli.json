@@ -1,0 +1,23 @@
+{
+  "id": "basecamp-cli",
+  "name": "Basecamp CLI",
+  "category": "productivity",
+  "github": "basecamp/basecamp-cli",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "basecamp-cli"
+    ]
+  },
+  "detect": [
+    "basecamp-cli"
+  ],
+  "kind": "terminal",
+  "summary": "CLI for Basecamp project management",
+  "homepage": "https://github.com/basecamp/basecamp-cli",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

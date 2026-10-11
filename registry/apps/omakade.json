@@ -1,0 +1,21 @@
+{
+  "id": "omakade",
+  "name": "Omakade",
+  "category": "games",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "omakade"
+    ]
+  },
+  "detect": [
+    "omakade"
+  ],
+  "kind": "gui",
+  "summary": "A beautiful, local-first game library for Omarchy",
+  "homepage": "https://btsouth.github.io/omakade/",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "omacut",
+  "name": "Omacut",
+  "category": "video-audio",
+  "github": "omacom-io/omacut",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "omacut"
+    ]
+  },
+  "detect": [
+    "omacut"
+  ],
+  "kind": "gui",
+  "summary": "Dead-simple video length trimmer built with Qt Quick and ffmpeg",
+  "homepage": "https://github.com/omacom-io/omacut",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

@@ -1,0 +1,22 @@
+{
+  "id": "omatrack",
+  "name": "Omatrack",
+  "category": "developer-tools",
+  "github": "tobi/omatrack",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "omatrack"
+    ]
+  },
+  "detect": [
+    "omatrack"
+  ],
+  "kind": "gui",
+  "summary": "Cross-format motorsport telemetry analysis workstation",
+  "homepage": "https://github.com/tobi/omatrack",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

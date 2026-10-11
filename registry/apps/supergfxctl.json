@@ -1,0 +1,22 @@
+{
+  "id": "supergfxctl",
+  "name": "Supergfxctl",
+  "category": "utilities",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "supergfxctl"
+    ]
+  },
+  "detect": [
+    "supergfxctl"
+  ],
+  "kind": "terminal",
+  "summary": "A utility for Linux graphics switching on Intel/AMD iGPU + nVidia dGPU laptops",
+  "homepage": "https://gitlab.com/asus-linux/supergfxctl",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

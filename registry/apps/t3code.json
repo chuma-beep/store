@@ -1,0 +1,21 @@
+{
+  "id": "t3code",
+  "name": "T3 Code",
+  "category": "ai",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "t3code-bin"
+    ]
+  },
+  "detect": [
+    "t3code-bin"
+  ],
+  "kind": "gui",
+  "summary": "Open-source control plane for coding agents",
+  "homepage": "https://t3.codes",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

@@ -1,0 +1,23 @@
+{
+  "id": "omarchy-herdr",
+  "name": "Herdr (Omarchy edition)",
+  "category": "ai",
+  "github": "dhh/herdr",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "omarchy-herdr"
+    ]
+  },
+  "detect": [
+    "omarchy-herdr"
+  ],
+  "kind": "terminal",
+  "summary": "Herdr terminal workspace manager with Omarchy pane border support",
+  "homepage": "https://github.com/dhh/herdr",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

@@ -1,0 +1,23 @@
+{
+  "id": "openai-codex",
+  "name": "OpenAI Codex CLI",
+  "category": "ai",
+  "github": "openai/codex",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "openai-codex-bin"
+    ]
+  },
+  "detect": [
+    "openai-codex-bin"
+  ],
+  "kind": "terminal",
+  "summary": "Arch Linux package for OpenAI's Codex CLI - Auto Updated",
+  "homepage": "https://github.com/openai/codex",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

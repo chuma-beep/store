@@ -1,0 +1,21 @@
+{
+  "id": "claude-desktop",
+  "name": "Claude",
+  "category": "ai",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "claude-desktop"
+    ]
+  },
+  "detect": [
+    "claude-desktop"
+  ],
+  "kind": "gui",
+  "summary": "Official Claude desktop app with Claude Code",
+  "homepage": "https://claude.ai",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo"
+}

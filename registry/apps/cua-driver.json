@@ -1,0 +1,23 @@
+{
+  "id": "cua-driver",
+  "name": "Cua Driver",
+  "category": "ai",
+  "github": "trycua/cua",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "cua-driver-bin"
+    ]
+  },
+  "detect": [
+    "cua-driver-bin"
+  ],
+  "kind": "terminal",
+  "summary": "Computer-use driver for native GUI apps: accessibility-tree snapshots and input injection",
+  "homepage": "https://github.com/trycua/cua",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}

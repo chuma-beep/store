@@ -1,0 +1,22 @@
+{
+  "id": "symfony-cli",
+  "name": "Symfony CLI",
+  "category": "developer-tools",
+  "install": {
+    "method": "pacman",
+    "packages": [
+      "symfony-cli"
+    ]
+  },
+  "detect": [
+    "symfony-cli"
+  ],
+  "kind": "terminal",
+  "summary": "The Symfony client helps developers create and manage Symfony applications",
+  "homepage": "https://symfony.com/",
+  "tags": [
+    "omarchy-repo"
+  ],
+  "source": "omarchy-repo",
+  "cli": true
+}
