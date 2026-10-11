@@ -23,3 +23,5 @@ site/plugins.json
 .wrangler/
 site/screensavers.json
 site/screensavers/
+site/tv.json
+site/tv-guide.json

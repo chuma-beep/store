@@ -1,0 +1,46 @@
+name: Refresh TV
+
+# SnapDock Live TV: every hour, re-read the Free-TV/IPTV list (free public channels only), check every stream
+# actually plays, pull the public programme guides, and publish tv.json + tv-guide.json to the `data` branch.
+# SnapDock downloads them from https://omarchystore.com/tv.json (deploy copies the data branch files in).
+# Nothing is hosted or re-streamed: the files only hold each broadcaster's own public address.
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: tv
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install ffprobe
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg >/dev/null
+      - name: Build channel list (probes every stream)
+        run: python3 scripts/tv.py --out /tmp/tv
+      - name: Build programme guide
+        run: python3 scripts/tv_guide.py --in /tmp/tv/tv.json --out /tmp/tv --hours 14
+      - name: Publish to data branch if changed
+        run: |
+          set -e
+          git config user.name "omarchy-store-bot"
+          git config user.email "bot@omarchystore.com"
+          git fetch -q --depth 1 origin data
+          git worktree add -q /tmp/data origin/data
+          cd /tmp/data && git checkout -q -B data
+          cp /tmp/tv/tv.json tv.json
+          cp /tmp/tv/tv-guide.json tv-guide.json
+          git add tv.json tv-guide.json
+          if git diff --cached --quiet; then echo "No changes"; exit 0; fi
+          git commit -qm "tv: $(python3 -c 'import json;print(len(json.load(open("tv.json"))["channels"]),"channels")')"
+          git push -q origin data
