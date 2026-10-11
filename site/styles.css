@@ -796,7 +796,9 @@ svg .fill { fill: currentColor; stroke: none; }
 .socials a[class^="soc-"] { color: #fff; background: var(--soc); }
 #nav a.nav-soc svg { color: var(--soc); }
 #nav a.nav-soc.soc-x svg, #nav a.nav-soc.soc-tiktok svg { color: var(--text); }
-@media (max-width: 720px) { .comm-grid { grid-template-columns: minmax(0,1fr); } .comm-card { padding: 12px 14px; } }
+@media (max-width: 720px) { .comm-grid { grid-template-columns: minmax(0,1fr); } .comm-card { padding: 12px 14px; }
+  /* Phones: the six-card community block is too tall; the social links stay in the footer CTA and Contact. */
+  .community { display: none; } }
 
 /* Discover hero cards on phones: let the app name/description wrap instead of "Visual St…" */
 @media (max-width: 720px) {
