@@ -119,7 +119,7 @@
   const liveSocials = () => SOCIALS.filter((s) => s.url);
   const socIcon = (s) => `<svg viewBox="0 0 24 24">${SOC_ICO[s.id]}</svg>`;
   // Prominent "Join the community" block: one coloured card per platform.
-  const communityBlock = (title = "Follow the Omarchy Store") => liveSocials().length ? `<section class="shelf community">
+  const communityBlock = (title = "Join the Omarchy Store community") => liveSocials().length ? `<section class="shelf community">
       <div class="shelf-head"><h2>${title}</h2><a href="/contact/">All links</a></div>
       <div class="comm-grid">${liveSocials().map((s) => `<a class="comm-card soc-${s.id}" href="${s.url}" target="_blank" rel="noopener">
         <span class="comm-ico">${socIcon(s)}</span>
