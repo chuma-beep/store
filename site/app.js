@@ -669,11 +669,12 @@
   function saverShelf() {
     if (!S.savers) { loadSavers(); return ""; }
     if (!S.plugins) return "";
-    const l = (S.savers.plugins || []).filter((p) => p.k === "saver").map((p) => S.plugById[p.id]).filter((x) => x && x.img).slice(0, 8)
-      .concat((S.savers.repos || []).filter((r) => r.k === "saver" && r.img).slice(0, 8).map((r) => ({ r })));
+    // Plugin objects carry their own "r" (repo) field, so tag each entry explicitly instead of guessing by shape.
+    const l = (S.savers.plugins || []).filter((p) => p.k === "saver").map((p) => S.plugById[p.id]).filter((x) => x && x.img).slice(0, 8).map((p) => ({ p }))
+      .concat((S.savers.repos || []).filter((r) => r.k === "saver" && r.img).slice(0, 8).map((r) => ({ repo: r })));
     if (!l.length) return "";
     return `<section class="shelf"><div class="shelf-head"><h2>Screensavers</h2><a href="/screensavers/">See All ${S.savers.count}</a></div>
-      <div class="scroller plug-row">${l.map((x) => x.r ? saverCard(x.r) : plugCard(x)).join("")}</div></section>`;
+      <div class="scroller plug-row">${l.map((x) => x.repo ? saverCard(x.repo) : plugCard(x.p)).join("")}</div></section>`;
   }
   function plugShelf() {
     if (!S.plugins) { loadPlugins(); return ""; }
