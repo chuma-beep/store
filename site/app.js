@@ -752,7 +752,7 @@
   }
   function plugShelf() {
     if (!S.plugins) { loadPlugins(); return ""; }
-    const l = (S.plugins.plugins || []).filter((x) => x.ok && x.img).slice(0, 14);
+    const l = (S.plugins.plugins || []).filter((x) => x.ok && x.img && x.i).slice(0, 14);   // Discover: one-click (GET) plugins only
     if (!l.length) return "";
     return `<section class="shelf"><div class="shelf-head"><h2>Plugins: supercharge your bar</h2><a href="/plugins/">See All ${(S.plugins.plugins.length).toLocaleString()}</a></div>
       <div class="scroller plug-row">${l.map(plugCard).join("")}</div></section>`;

@@ -11,11 +11,14 @@ await send("Emulation.setDeviceMetricsOverride", { width: 1280, height: 900, dev
 await send("Page.navigate", { url: base + "/?t=" + Date.now() });
 await sleep(8000);
 const r = await send("Runtime.evaluate", { returnByValue: true, expression: `(() => {
-  const h = [...document.querySelectorAll(".shelf h2")].find((h) => h.textContent.trim() === "Screensavers");
-  if (!h) return "no Screensavers shelf";
+  const out = {};
+  for (const h of [...document.querySelectorAll(".shelf h2")]) {
   const cards = [...h.closest(".shelf").querySelectorAll(".get")].map((b) => b.textContent.trim());
   const names = [...h.closest(".shelf").querySelectorAll(".name")].map((n) => n.textContent.trim());
-  return { cards: cards.length, GET: cards.filter((c) => c === "GET" || c === "ADDED").length, VIEW: cards.filter((c) => c === "VIEW").length, names };
+  const v = cards.filter((c) => c === "VIEW").length;
+  out[h.textContent.trim()] = { buttons: cards.length, VIEW: v, viewItems: names.filter((_, i) => cards[i] === "VIEW").slice(0, 5) };
+  }
+  return Object.fromEntries(Object.entries(out).filter(([, x]) => x.buttons));
 })()` });
 console.log(JSON.stringify(r.result.value));
 process.exit(0);
