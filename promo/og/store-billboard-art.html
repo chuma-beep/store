@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>
+/* 2400x900 billboard for the Omarchy Store's own listing: logo + wordmark on the left, a tilted wall of theme previews on the right */
+*{margin:0;padding:0;box-sizing:border-box}
+body{width:2400px;height:900px;overflow:hidden;font-family:"Adwaita Sans","Inter","Noto Sans",sans-serif;-webkit-font-smoothing:antialiased;color:#fff;
+ background:radial-gradient(1200px 800px at 80% 40%, rgba(122,162,247,.35), transparent 60%),radial-gradient(900px 700px at 20% 110%, rgba(158,206,106,.22), transparent 60%),radial-gradient(800px 600px at 60% -10%, rgba(187,154,247,.3), transparent 60%),linear-gradient(135deg,#12121c,#16161e 55%,#0f1017)}
+.wall{position:absolute;right:-140px;top:-120px;width:1700px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px;transform:rotate(-9deg);opacity:.95}
+.wall img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:16px;box-shadow:0 30px 60px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.08)}
+.fade{position:absolute;inset:0;background:linear-gradient(90deg,#12121c 0%,rgba(18,18,28,.97) 30%,rgba(18,18,28,.75) 40%,rgba(18,18,28,.25) 62%,rgba(18,18,28,0) 80%)}
+.copy{position:absolute;left:120px;top:110px;width:1150px}
+.brand{display:flex;align-items:center;gap:36px}
+.brand .logo{width:200px;height:200px;filter:drop-shadow(0 24px 50px rgba(0,0,0,.5))}
+.wm{display:flex;align-items:center;gap:28px}
+.wm img{height:64px;image-rendering:pixelated}
+h1{font-size:86px;line-height:1.02;font-weight:800;letter-spacing:-3px;margin-top:54px}
+h1 span{color:#9ece6a}
+.sub{font-size:36px;color:rgba(255,255,255,.75);margin-top:22px;font-weight:500}
+.chips{position:absolute;left:124px;bottom:70px;display:flex;gap:16px}
+.chips span{padding:14px 26px;border-radius:999px;font-size:26px;font-weight:600;color:#e6ecff;background:rgba(255,255,255,.10);box-shadow:inset 0 0 0 1px rgba(255,255,255,.16)}
+</style></head><body>
+<div class="wall">
+ <img src="t/omarchy-lumon-theme.jpg"><img src="t/aetheria.jpg"><img src="t/miasma.jpg"><img src="t/osaka-jade.jpg">
+ <img src="t/copper-night.jpg"><img src="t/retropc.jpg"><img src="t/aamis.jpg"><img src="t/void.jpg">
+ <img src="t/felix.jpg"><img src="t/blackturq.jpg"><img src="t/mecha-no-onna.jpg"><img src="t/rose-pine-dark.jpg">
+ <img src="t/aetheria.jpg"><img src="t/osaka-jade.jpg"><img src="t/omarchy-lumon-theme.jpg"><img src="t/copper-night.jpg">
+</div>
+<div class="fade"></div>
+
+</body></html>
