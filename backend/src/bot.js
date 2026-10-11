@@ -121,7 +121,7 @@ Tip: in ANY chat, type <code>@OmarchyStoreBot obsidian</code> to share an app.`;
 const MENU = [
   [{ text: "🛍️ Open the store", url: SITE }, { text: "🎨 Themes", url: `${SITE}/themes/` }],
   [{ text: "🎲 Random theme", callback_data: "theme" }, { text: "🔥 Top apps", callback_data: "top" }],
-  [{ text: "🐧 Get Omarchy", url: `${SITE}/get` }],
+  [{ text: "🐧 Get Omarchy", url: `${SITE}/get` }, { text: "💬 Discord", url: "https://discord.gg/zC5P7VtcZH" }],
 ];
 
 async function db(env) {
@@ -153,7 +153,7 @@ async function handleCommand(env, chat, from, text) {
       return send(env, chat, "🐧 <b>Install Omarchy in 4 steps (about 15 minutes)</b>\nYou can keep Windows. Our free tool Ignite makes the USB stick for you.",
         [[{ text: "Step-by-step guide", url: `${SITE}/get` }]]);
     case "/links":
-      return send(env, chat, `🔗 <b>Omarchy Store</b>\n🌐 ${SITE}\n🎨 ${SITE}/themes/\n🧩 ${SITE}/plugins/\n📦 Submit your app: ${SITE}/submit\n💻 Source: https://github.com/omarchy-community/store`);
+      return send(env, chat, `🔗 <b>Omarchy Store</b>\n🌐 ${SITE}\n🎨 ${SITE}/themes/\n🧩 ${SITE}/plugins/\n📦 Submit your app: ${SITE}/submit\n💻 Source: https://github.com/omarchy-community/store\n\n💬 Discord: https://discord.gg/zC5P7VtcZH\n▶️ YouTube: https://youtube.com/@OmarchyStore\n🎵 TikTok: https://tiktok.com/@omarchy.store\n📸 Instagram: https://instagram.com/omarchystore\n𝕏 X: https://x.com/omarchystore`);
     case "/daily": {
       const on = arg.toLowerCase() !== "off";
       await env.DB.prepare("UPDATE tg_users SET daily=? WHERE id=?").bind(on ? 1 : 0, chat).run();
