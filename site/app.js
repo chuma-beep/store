@@ -193,7 +193,6 @@
       <a href="/" data-r="">${ico("discover")}Discover</a>
       <a href="/charts/" data-r="charts">${ico("charts")}Top Charts</a>
       <a href="/categories/" data-r="categories">${ico("grid")}Categories</a>
-      <div class="nav-socials m-hide">${liveSocials().map((x) => `<a class="soc-${x.id}" href="${x.url}" target="_blank" rel="noopener" title="${x.name}" aria-label="${x.name}"><svg viewBox="0 0 24 24">${SOC_ICO[x.id]}</svg></a>`).join("")}</div>
       ${S.catalog.themes.length ? `<a class="d-hide" href="/themes/" data-r="themes">${ico("palette")}Themes</a>` : ""}
       <a class="d-hide" href="/plugins/" data-r="plugins">${ico("puzzle")}Plugins</a>
       <a class="d-hide" href="/screensavers/" data-r="screensavers">${ico("moon")}Screensavers</a>
