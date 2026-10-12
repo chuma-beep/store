@@ -166,11 +166,11 @@
   // ---------- Appearance switch (Dark · Glass · White), remembered on this device ----------
   function setLook(l, save = true) {
     document.documentElement.dataset.look = l;
-    if (save) try { localStorage.setItem("os-look", l); } catch {}
+    if (save) try { localStorage.setItem("os-look2", l); } catch {}   // "os-look2": Glass became the default for everyone (Oct 2026)
     document.querySelectorAll("[data-look]").forEach((b) => { const on = b.dataset.look === l; b.classList.toggle("on", on); b.setAttribute("aria-checked", on); });
   }
   document.addEventListener("click", (e) => { const b = e.target.closest("button[data-look]"); if (b) setLook(b.dataset.look); });
-  setLook(document.documentElement.dataset.look || "dark", false);
+  setLook(document.documentElement.dataset.look || "glass", false);
 
   function applyTheme(t) {
     const r = document.documentElement.style;
@@ -459,8 +459,14 @@
     t._v = pic * 1.6 + vivid * 0.8 + hues * 0.2 + bg[1] * 0.4 + (t.image ? 0.6 : -2) + Math.min(Math.log10((t.stars || 0) + 1), 2.5) * 0.3 - (t.archived ? 2 : 0);
     return t._v;
   }
+  // Themes made by the Omarchy Store itself always lead Featured and the Discover shelf.
+  const ourTheme = (t) => t.via === "omarchystore.com";
   function featuredThemes(n, pool) {
-    const ranked = (pool || S.catalog.themes).filter((t) => !t.builtin && t.image && t.palette?.length >= 3)
+    const ours = (pool || S.catalog.themes).filter(ourTheme);
+    return [...ours, ...featuredRanked(n - ours.length, pool)];
+  }
+  function featuredRanked(n, pool) {
+    const ranked = (pool || S.catalog.themes).filter((t) => !ourTheme(t) && !t.builtin && t.image && t.palette?.length >= 3)
       .sort((a, b) => themeVivid(b) - themeVivid(a)).slice(0, Math.max(n * 3, 30));
     const buckets = [[], [], [], [], [], [], [], []];
     for (const t of ranked) buckets[Math.floor(((t._hue % 360) + 360) % 360 / 45)].push(t);

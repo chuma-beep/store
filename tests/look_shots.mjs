@@ -13,7 +13,7 @@ const path = process.argv[2] || "/";
 for (const look of ["dark", "glass", "white"]) {
   await send("Page.navigate", { url: "http://127.0.0.1:8794/" });
   await sleep(1500);
-  await send("Runtime.evaluate", { expression: `localStorage.setItem("os-look","${look}")` });
+  await send("Runtime.evaluate", { expression: `localStorage.setItem("os-look2","${look}")` });
   await send("Page.navigate", { url: "http://127.0.0.1:8794" + path });
   await sleep(6000);
   const s = await send("Page.captureScreenshot", { format: "png" });
