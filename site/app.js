@@ -2013,8 +2013,11 @@
     else if (p === "get-desktop") html = pageGetDesktop();
     else if (p === "legal") html = pageLegal();
     else html = notFound();
+    // Stop any running auto-scrollers from the previous page before rendering new content
+    stopAutoScrollers();
+    clearInterval(shotTimer);
     view.innerHTML = html;
-    addRowArrows();
+    addRowArrows();  // Sets up new auto-scrollers for spot-row and hero
     markNav(nav);
     if (p !== "search") $("#q").value = "";
     if (route.last !== h) view.scrollTop = 0;
@@ -2023,9 +2026,6 @@
     if (d && m && d.scrollHeight > d.clientHeight + 4) m.hidden = false;
     document.title = pageTitle(p, arg);
     track();
-    // Stop any running auto-scrollers from the previous page and start new ones
-    stopAutoScrollers();
-    clearInterval(shotTimer);
     if (p === "app") initShotAutoScroll();
     if (p === "submit") { const b = $("#dev-form .ts-box"); if (b) turnstileMount(b); }
   }
