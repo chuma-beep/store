@@ -13,7 +13,7 @@
   "detect": [
     "lynx"
   ],
-  "kind": "cli",
+  "kind": "terminal",
   "developer": "The Lynx Project",
   "icon": "featured/lynx/icon.png",
   "screenshots": [],
