@@ -25,3 +25,4 @@ site/screensavers.json
 site/screensavers/
 site/tv.json
 site/tv-guide.json
+node_modules/

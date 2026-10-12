@@ -1,0 +1,124 @@
+{
+  "id": "marquee-socials",
+  "name": "Marquee Socials",
+  "category": "utilities",
+  "github": "https://github.com/omarchy-community/marquee-socials",
+  "homepage": "https://github.com/omarchy-community/marquee-socials",
+  "install": {
+    "method": "script",
+    "url": "https://omarchystore.com/get.sh?app=marquee-socials"
+  },
+  "detect": [
+    "marquee-socials"
+  ],
+  "kind": "gui",
+  "developer": "Omarchy Development Labs",
+  "icon": "featured/marquee-socials/icon.png",
+  "screenshots": [
+    "featured/marquee-socials/hero.webp"
+  ],
+  "summary": "Manage all your social media accounts in one place",
+  "description": "Free for a limited time · Early adopters get free updates for life\n\nMarquee Socials is the social media command center for creators. Manage YouTube, TikTok, Instagram, X, Discord, and Telegram — all from one beautiful app.\n\nUNIFIED DASHBOARD\nSee all your platforms at a glance. Each card shows your account status and gives you one-click access to upload, post, or manage content.\n\nTABBED BROWSING\nOpen multiple platforms in tabs and switch between them instantly. No more juggling browser windows.\n\nONE-CLICK ACCESS\nClick any platform icon in the sidebar to jump straight there. Or click \"Open All\" to launch every platform at once.\n\nSHARED LOGIN SESSIONS\nLog in once and stay logged in. Marquee Socials uses the same browser profile across all platforms, so your sessions persist.\n\nSUPPORTED PLATFORMS\n• YouTube Studio — upload videos, manage your channel\n• TikTok Studio — post content, view analytics\n• Instagram — share posts, stories, and reels\n• X (Twitter) — post updates, engage with followers\n• Discord — manage your server, announce to members\n• Telegram — post to channels, message subscribers\n\nPRIVACY FIRST\nAll logins and sessions are stored locally on your machine. We never collect or transmit your social media credentials.\n\nMADE FOR CREATORS\nWhether you're a content creator, brand manager, or social media professional, Marquee Socials saves you hours every week by putting everything in one place.",
+  "featured": {
+    "badge": "Trending",
+    "eyebrow": "NEW APP",
+    "headline": "All your socials. One app.",
+    "tagline": "Manage YouTube, TikTok, Instagram, X, Discord, and Telegram from one beautiful dashboard. One-click access, tabbed browsing, shared logins. Free for a limited time.",
+    "price": "Free",
+    "launch_offer": "Free for a limited time · early adopters get free updates for life",
+    "gradient": [
+      "#1e1b4b",
+      "#6d28d9",
+      "#8b5cf6"
+    ],
+    "art": "featured/marquee-socials/hero.webp",
+    "features": [
+      {
+        "icon": "grid",
+        "hero": true,
+        "title": "Unified Dashboard",
+        "body": "See all your social platforms at a glance. Each card shows your account status with one-click access to upload and manage."
+      },
+      {
+        "icon": "window",
+        "title": "Tabbed Browsing",
+        "body": "Open multiple platforms in tabs and switch instantly. No more browser window chaos."
+      },
+      {
+        "icon": "pin",
+        "title": "One-Click Access",
+        "body": "Sidebar icons for every platform. Click to open, or hit 'Open All' to launch everything at once."
+      },
+      {
+        "icon": "lock",
+        "title": "Shared Login Sessions",
+        "body": "Log in once, stay logged in. Your sessions persist across all platforms."
+      },
+      {
+        "icon": "palette",
+        "title": "Beautiful UI",
+        "body": "A clean, purple-themed interface that looks great on any Omarchy setup."
+      },
+      {
+        "icon": "shield",
+        "title": "Privacy First",
+        "body": "All credentials stored locally. We never collect or transmit your data."
+      }
+    ],
+    "steps": [
+      {
+        "title": "Install it",
+        "body": "Press GET in the Omarchy Store app, or use the install command above."
+      },
+      {
+        "title": "Open Marquee Socials",
+        "body": "Launch it from your app menu. The dashboard shows all six platforms."
+      },
+      {
+        "title": "Log in once",
+        "body": "Click a platform to open it. Log in, and your session is saved for next time."
+      }
+    ],
+    "chips": [
+      "YouTube",
+      "TikTok",
+      "Instagram",
+      "X/Twitter",
+      "Discord",
+      "Telegram",
+      "Free"
+    ],
+    "price_note": "Limited time",
+    "new_line": "New: All-in-one social media management for creators",
+    "order": 2
+  },
+  "tags": [
+    "social media",
+    "youtube",
+    "tiktok",
+    "instagram",
+    "twitter",
+    "discord",
+    "telegram",
+    "creator",
+    "dashboard",
+    "management"
+  ],
+  "changelog": [
+    {
+      "version": "1.0.0",
+      "date": "2026-10-12",
+      "title": "Initial Release",
+      "items": [
+        "Unified dashboard with cards for all six platforms",
+        "Tabbed browsing — open platforms in tabs, switch instantly",
+        "Sidebar with one-click platform access",
+        "Open All button to launch every platform at once",
+        "Shared browser profile — log in once, stay logged in",
+        "Purple-themed UI with platform-specific colors"
+      ]
+    }
+  ],
+  "stars": 5.0,
+  "reviews": 1
+}
