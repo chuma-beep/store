@@ -2,11 +2,14 @@
   "id": "marquee-socials",
   "name": "Marquee Socials",
   "category": "utilities",
-  "github": "https://github.com/omarchy-community/marquee-socials",
+  "github": "omarchy-community/marquee-socials",
   "homepage": "https://github.com/omarchy-community/marquee-socials",
   "install": {
-    "method": "script",
-    "url": "https://omarchystore.com/get.sh?app=marquee-socials"
+    "method": "release",
+    "packages": ["marquee-socials"],
+    "version": "1.0.0",
+    "url": "https://github.com/omarchy-community/marquee-socials/releases/download/v1.0.0/marquee-socials-1.0.0-1-any.pkg.tar.zst",
+    "sha256": "21e13c045b1ee307a0ba206f799e73d017ac077fb3eb955d2a7022ba030ee2ba"
   },
   "detect": [
     "marquee-socials"
