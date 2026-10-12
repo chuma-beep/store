@@ -9,9 +9,9 @@
     "packages": [
       "marquee-socials"
     ],
-    "version": "1.1.1",
-    "url": "https://github.com/omarchy-community/marquee-socials/releases/download/v1.1.1/marquee-socials-1.1.1-1-any.pkg.tar.zst",
-    "sha256": "e21ebeab16f7d38aceb91a1ed5348847cf6509b77b5cfdd777ab9aeb14ce136f"
+    "version": "1.2.0",
+    "url": "https://github.com/omarchy-community/marquee-socials/releases/download/v1.2.0/marquee-socials-1.2.0-1-any.pkg.tar.zst",
+    "sha256": "89b10efae755be4ed3ed7aab7c4dd460f52ab3c774f34f3925244d6c23430032"
   },
   "detect": [
     "marquee-socials"
@@ -125,5 +125,6 @@
     }
   ],
   "stars": 5.0,
-  "reviews": 1
+  "reviews": 1,
+  "whats_new": "Composer, scheduler & calendar, best times, workspaces, notifications, 13 platforms, media library"
 }
