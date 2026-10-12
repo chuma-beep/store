@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.7.2"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.7.3"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
@@ -979,6 +979,29 @@ class Handler(SimpleHTTPRequestHandler):
 
 
 # ---------------------------------------------------------------- updates ----
+def sync_artwork(want):
+    """Keep the saved store artwork identical to the website's: any copy whose fingerprint differs from the
+    catalog's (or that was never fetched) is downloaded again. Files the catalog doesn't list are left alone."""
+    import hashlib
+    for rel, h in want.items():
+        if not re.match(r"^featured/[a-z0-9-]+/[a-z0-9._-]+\.(png|webp|jpg|svg)$", rel) or not re.match(r"^[0-9a-f]{16}$", str(h)):
+            continue
+        dest = os.path.join(SITE_DIR, rel)
+        try:
+            if os.path.exists(dest) and hashlib.sha256(open(dest, "rb").read()).hexdigest()[:16] == h:
+                continue
+            if not os.path.exists(dest) and not os.path.exists(os.path.dirname(dest)):
+                continue   # never fetched before: it downloads the first time a page needs it
+            with urllib.request.urlopen(REMOTE + rel, timeout=20) as r:
+                blob = r.read(8_000_000)
+            if hashlib.sha256(blob).hexdigest()[:16] != h:
+                continue   # the website is mid-deploy; try again next refresh
+            open(dest + ".part", "wb").write(blob)
+            os.replace(dest + ".part", dest)
+        except Exception:
+            pass
+
+
 def update_catalog(quiet=False):
     """Pull the newest catalog + icons from GitHub Pages. Never touches code files."""
     try:
@@ -1013,6 +1036,7 @@ def update_catalog(quiet=False):
                         open(os.path.join(feat_dir, f"icon.{m2.group(2)}"), "wb").write(r.read(2_000_000))
                 except Exception:
                     pass
+        sync_artwork(cat.get("artwork") or {})
         tmp = os.path.join(SITE_DIR, ".catalog.json.tmp")
         open(tmp, "wb").write(data)
         os.replace(tmp, os.path.join(SITE_DIR, "catalog.json"))

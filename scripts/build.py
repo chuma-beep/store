@@ -354,6 +354,17 @@ def mirror_icon(app_id, url):
     return f"icons/{app_id}{ext}"
 
 
+def artwork_hashes():
+    import hashlib
+    base = os.path.join(ROOT, "site", "featured"); out = {}
+    for d, _, files in os.walk(base):
+        for f in files:
+            if re.match(r"^[a-z0-9._-]+\.(png|webp|jpg|svg)$", f):
+                full = os.path.join(d, f)
+                out[os.path.relpath(full, os.path.join(ROOT, "site")).replace(os.sep, "/")] = hashlib.sha256(open(full, "rb").read()).hexdigest()[:16]
+    return dict(sorted(out.items()))
+
+
 def build(apps, cats, feat, ads):
     print(f"Fetching live data for {len(apps)} apps…")
     repos = sorted({a["github"] for a in apps.values() if a.get("github")})
@@ -423,6 +434,9 @@ def build(apps, cats, feat, ads):
         # The Omarchy Store's own listing ("store" install method) goes in its own key: desktop apps up to
         # 1.7.0 check every entry in "apps" and refuse the whole catalog if they meet a method they don't know.
         # The web page puts it back at #1 of the list (app.js boot).
+        # Fingerprint of every piece of store artwork (icons, banners, screenshots). Desktop apps compare their saved
+        # copies with this on every refresh and re-download anything that changed, so they always match the website.
+        "artwork": artwork_hashes(),
         "store_app": next((x for x in out if x["install"]["method"] == "store"), None),
         "apps": sorted((x for x in out if x["install"]["method"] != "store"),
                        key=lambda x: (x.get("chart_rank") or (900 if x.get("featured") else 999), -(x["stars"] or 0))),

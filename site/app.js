@@ -274,7 +274,10 @@
     const t = a.name.replace(/[^A-Za-z0-9]/g, "").slice(0, a.kind === "terminal" ? 2 : 1) || "?";
     return `<span class="icon mono" style="width:${size}px;height:${size}px;background:linear-gradient(135deg,${bg},color-mix(in srgb,${bg} 55%,#000));font-size:${Math.round(size * (t.length > 1 ? .36 : .46))}px">${a.kind === "terminal" ? '<i>&gt;_</i>' : ""}${esc(t)}</span>`;
   };
-  const asset = (p) => !p ? "" : /^(https?:)?\/\//.test(p) || p.startsWith("/") ? p : "/" + p;
+  // Store artwork gets its fingerprint added (?v=…), so browsers and the desktop app never show an old saved copy.
+  const asset = (p) => { if (!p) return ""; if (/^(https?:)?\/\//.test(p)) return p;
+    const rel = p.replace(/^\//, ""), v = S.catalog?.artwork?.[rel];
+    return "/" + rel + (v ? "?v=" + v : ""); };
   const iconImg = (a, size) => a.icon
     ? `<img class="icon" src="${esc(asset(a.icon))}" alt="" width="${size}" height="${size}" loading="lazy" referrerpolicy="no-referrer" onerror="this.replaceWith(Object.assign(document.createElement('span'),{className:'icon mono',style:'width:${size}px;height:${size}px;background:#414868'}))">`
     : monogram(a, size);
@@ -949,14 +952,14 @@
   function igniteBanner() {
     const iso = S.catalog.omarchy_iso;
     return `<a class="spot full ignite-spot" href="${S.desktop ? "/ignite/" : "/get-omarchy/"}">
-      <img class="spot-bg" src="/featured/ignite/billboard.webp" alt="Get Omarchy: make an installer USB with Ignite" loading="lazy">
+      <img class="spot-bg" src="${asset("featured/ignite/billboard.webp")}" alt="Get Omarchy: make an installer USB with Ignite" loading="lazy">
       <div class="spot-copy">
         <div class="spot-badge fire"><svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3 6.9.6-5.2 4.6 1.6 6.8L12 16.8 6.1 20.3l1.6-6.8L2.5 8.9l6.9-.6z"/></svg>New to Omarchy?</div>
         <h2>Get Omarchy. Free.</h2>
         <p>The beautiful Linux desktop everyone's talking about. Make the installer USB with Ignite, keep Windows if you like, and have the Omarchy Store ready in minutes.</p>
-        <div class="spot-lock"><img class="icon" src="/featured/ignite/icon-128.png" width="64" height="64" alt=""><div><div class="name">Ignite for Omarchy</div><div class="sub">Free${iso ? ` · installs Omarchy ${esc(iso.version)}` : ""} · about 15 minutes</div></div><span class="get big">START</span></div>
+        <div class="spot-lock"><img class="icon" src="${asset("featured/ignite/icon-128.png")}" width="64" height="64" alt=""><div><div class="name">Ignite for Omarchy</div><div class="sub">Free${iso ? ` · installs Omarchy ${esc(iso.version)}` : ""} · about 15 minutes</div></div><span class="get big">START</span></div>
       </div>
-      <img class="ig-phone-art" src="/featured/ignite/phone-art.webp" alt="" loading="lazy">
+      <img class="ig-phone-art" src="${asset("featured/ignite/phone-art.webp")}" alt="" loading="lazy">
     </a>`;
   }
   function spotlight(a) {
@@ -1301,7 +1304,7 @@
                 <li>Choose the Omarchy file, choose your USB stick, press <b>Start</b> / <b>Flash</b>. In Rufus pick <b>GPT</b>.</li>
               </ol></div>
             <div class="go-opt ignite-opt">
-              <div class="go-tag"><img src="/featured/ignite/icon-64.png" alt="">Already on Omarchy or Linux?</div>
+              <div class="go-tag"><img src="${asset("featured/ignite/icon-64.png")}" alt="">Already on Omarchy or Linux?</div>
               <p class="small">Use <b>Ignite</b> in the Omarchy Store app: it downloads the newest Omarchy, checks it's genuine and writes the USB in one click. Great for setting up a friend's PC.</p>
               <a class="btn ghost" href="/ignite/">Open Ignite</a></div>
           </div>`)}
@@ -1351,7 +1354,7 @@
   function pageUsb() {
     const iso = S.desktop ? S.usb?.iso : S.catalog.omarchy_iso;
     const hero = `<section class="usb-hero ignite">
-        <img class="ignite-icon" src="/featured/ignite/icon-256.png" alt="Ignite for Omarchy">
+        <img class="ignite-icon" src="${asset("featured/ignite/icon-256.png")}" alt="Ignite for Omarchy">
         <div><div class="eyebrow">FEATURED · FREE TOOL</div>
           <h1>Ignite <span>for Omarchy</span></h1>
           <p>Turn any USB stick into an Omarchy installer in one click. Ignite always downloads the newest official Omarchy${iso ? `, right now <b>${esc(iso.version)}</b>,` : ""} and checks it's genuine before writing. Keeping Windows? Ignite makes room for Omarchy right next to it.</p>
