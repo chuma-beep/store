@@ -270,6 +270,14 @@ def collect(mirror_images=True):
     have = {t["repo"].lower() for t in themes if t["repo"]}
     ids = {t["slug"] for t in themes}
     extra = official_listing() + limehawk_listing()
+    # Manual themes (not on any gallery yet)
+    manual_themes = [
+        {"name": "Omarchy Store", "repo": "nemoclawai-tech/omarchy-store-theme", "author": "Omarchy Store",
+         "description": "The official theme of omarchystore.com — deep purple background with vibrant green accents",
+         "img": "https://raw.githubusercontent.com/nemoclawai-tech/omarchy-store-theme/master/preview.png",
+         "via": "omarchystore.com", "source_url": "https://omarchystore.com/", "apps": []},
+    ]
+    extra.extend(manual_themes)
     print(f"  + omarchy.org / omarchytheme.com list {len(extra)} entries")
     for x in extra:
         k = x["repo"].lower()
