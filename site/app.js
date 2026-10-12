@@ -365,6 +365,21 @@
       const c = list[Math.floor(Math.random() * list.length)];
       if (c.type === "artist") return artistAd(c);
       const [g1, g2] = c.gradient || ["#333", "#555"];
+      // House ads get enhanced design with decorative elements
+      if (c.type === "house") {
+        return `<a class="ad-banner house" href="${esc(adUrl(c.url))}" style="background:linear-gradient(135deg,${g1} 0%,${g2} 100%)">
+          <div class="ab-deco"></div>
+          <div class="ab-content">
+            <span class="ad-chip">${c.id === "house-advertise" ? "Grow your reach" : "Join the store"}</span>
+            <h3>${esc(c.title)}</h3>
+            <p>${esc(c.body)}</p>
+          </div>
+          <div class="ab-action">
+            <span class="cta">${esc(c.cta || "Learn more")}</span>
+            <span class="ab-hint">No tracking · Linux-focused</span>
+          </div>
+        </a>`;
+      }
       return `<a class="ad-banner" href="${esc(adUrl(c.url))}" target="_blank" rel="sponsored noopener" style="background:linear-gradient(120deg,${g1},${g2})">
         <div><span class="ad-chip">Sponsored</span><h3>${esc(c.title)}</h3><p>${esc(c.body)}</p></div>
         <span class="cta">${esc(c.cta || "Learn more")}</span></a>`;
@@ -2109,6 +2124,7 @@
       if (!isSpot && !isHero) return;  // Only auto-scroll featured banners
       const interval = isSpot ? 5000 : 6000;
       let paused = false, timer;
+      let lastAdvance = 0;
       const autoStep = () => {
         if (paused || sc.scrollWidth <= sc.clientWidth + 10) return;
         const max = sc.scrollWidth - sc.clientWidth;
@@ -2116,6 +2132,12 @@
         const currentIdx = Math.round(sc.scrollLeft / cardW);
         const cards = sc.children.length;
         const nextIdx = (currentIdx + 1) % cards;
+        // When wrapping from last to first, wait an extra interval (so Ignite banner gets full time)
+        if (nextIdx === 0 && lastAdvance !== 0) {
+          lastAdvance = 0;
+          return; // Skip this tick, advance on the next one
+        }
+        lastAdvance = Date.now();
         const targetLeft = nextIdx === 0 ? 0 : sc.children[nextIdx].offsetLeft - sc.offsetLeft;
         sc.scrollTo({ left: targetLeft, behavior: "smooth" });
         // Update dots for spot-row
