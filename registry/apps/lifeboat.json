@@ -25,7 +25,7 @@
  ],
  "source": "nemoclawai-tech",
  "cli": false,
- "icon": "featured/lifeboat/icon.png",
+ "icon": "icons/lifeboat.png",
  "featured": {
   "badge": "New Release",
   "eyebrow": "NEW · FREE",

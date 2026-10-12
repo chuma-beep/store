@@ -18,7 +18,7 @@
  ],
  "kind": "gui",
  "developer": "Omarchy Store",
- "icon": "featured/snapdock/icon.png",
+ "icon": "icons/snapdock.png",
  "screenshots": [
   "featured/snapdock/hero.webp",
   "featured/snapdock/dock.webp",

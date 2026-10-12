@@ -19,7 +19,7 @@
  "kind": "gui",
  "developer": "Omarchy Store",
  "license": "MIT",
- "icon": "featured/rabbit-ears/icon.png",
+ "icon": "icons/rabbit-ears.png",
  "screenshots": [
   "featured/rabbit-ears/shot1.webp",
   "featured/rabbit-ears/shot2.webp",

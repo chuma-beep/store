@@ -17,7 +17,7 @@
  "kind": "gui",
  "developer": "Omarchy Store",
  "chart_rank": 1,
- "icon": "featured/omarchy-store/icon.png",
+ "icon": "icons/omarchy-store.png",
  "screenshots": [
   "featured/omarchy-store/discover.webp",
   "featured/omarchy-store/themes.webp",
