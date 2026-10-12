@@ -953,6 +953,11 @@ html[data-look="white"] .brand .wordmark img[src*="wordmark-store"] { filter: sa
 /* version number under "Desktop app" */
 .mode-badge .ver { font-weight: 600; font-size: 11px; color: var(--text-3); margin-left: 4px; }
 
+/* Back button for detail pages */
+.back-btn { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px 6px 8px; margin: 0 0 16px; border-radius: 999px; background: var(--pill); color: var(--text-2); font-size: 14px; font-weight: 600; transition: background .15s, color .15s; }
+.back-btn:hover { background: var(--card-hover); color: var(--text); }
+.back-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
 /* Wide screens: use the space. Up to 1640px wide, and more apps per row on big monitors. */
 .page { max-width: 2200px; }
 @media (min-width: 1700px) {

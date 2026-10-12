@@ -523,6 +523,7 @@
     const more = S.catalog.themes.filter((x) => x.id !== t.id && x.mode === t.mode && x.image && x.palette?.length).slice(0, 12);
     const img = themeImg(t);
     return `<div class="page">
+      ${backBtn()}
       <div class="theme-big" style="background:${esc(t.palette?.[0] || "var(--card)")}">${img ? `<img src="${esc(img)}" alt="${esc(t.name)} theme on Omarchy" data-zoom>` : ""}</div>
       <div class="detail-head theme-head">
         <div style="min-width:0">
@@ -656,6 +657,7 @@
     const more = (S.plugins.plugins || []).filter((y) => y.c === x.c && y.id !== x.id).slice(0, 12);
     const market = `${src.url || "https://plugins.omarchy.org/"}plugin.html?id=${encodeURIComponent(x.id)}`;
     return `<div class="page">
+      ${backBtn()}
       <div class="detail-head">
         <div class="pl-big">${plugTile(x)}</div>
         <div style="min-width:0">
@@ -1508,6 +1510,7 @@
     ];
     const F = a.featured;
     return `<div class="page">
+      ${backBtn()}
       ${F ? `<div class="feat-hero${F.billboard ? " with-copy" : ""}" style="--g1:${F.gradient[0]};--g2:${F.gradient[1]};--g3:${F.gradient[2] || F.gradient[1]}"><img src="${esc(asset(F.billboard || F.art))}" alt="">
         ${F.billboard ? `<div class="fh-copy"><span class="spot-badge">${esc(F.badge)}</span><h2>${esc(F.headline)}</h2>${F.chips ? `<div class="spot-chips">${F.chips.slice(0, 4).map((c) => `<span>${esc(c)}</span>`).join("")}</div>` : ""}</div>` : `<span class="spot-badge">${esc(F.badge)}</span>`}</div>` : ""}
       <div class="detail-head">
@@ -1757,7 +1760,10 @@
     </div>`;
   }
 
-  const notFound = () => `<div class="page"><div class="empty">That page doesn’t exist. <a style="color:var(--accent)" href="/">Back to Discover</a></div></div>`;
+  // Back button for detail pages (app, theme, plugin)
+  const backBtn = () => `<a class="back-btn" href="javascript:history.back()" title="Go back"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg><span>Back</span></a>`;
+
+  const notFound = () => `<div class="page"><div class="empty">That page doesn't exist. <a style="color:var(--accent)" href="/">Back to Discover</a></div></div>`;
   const footer = () => `${footerInner()}${communityBlock()}`;
   const footerInner = () => `<div class="footer-cta">
     <a class="fc" href="/submit/"><span class="fc-i">${ico("plus")}</span><span><b>Made an app?</b>List it in the store for free</span></a>
@@ -1828,6 +1834,10 @@
     if (d && m && d.scrollHeight > d.clientHeight + 4) m.hidden = false;
     document.title = pageTitle(p, arg);
     track();
+    // Stop any running auto-scrollers from the previous page and start new ones
+    stopAutoScrollers();
+    clearInterval(shotTimer);
+    if (p === "app") initShotAutoScroll();
     if (p === "submit") { const b = $("#dev-form .ts-box"); if (b) turnstileMount(b); }
   }
   const TITLES = { submit: "Submit an App – List Your App Free", advertise: "Advertise on the Omarchy Store", themes: "Omarchy Themes – Browse & Install Desktop Themes", charts: "Top Charts – Most Popular Omarchy Apps", categories: "App Categories", legal: "Disclaimer", "get-desktop": "Get the Desktop App", search: "Search", installed: "Installed", updates: "Updates", usb: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", ignite: "Ignite for Omarchy – Make an Omarchy Installer USB in One Click", "get-omarchy": "Get Omarchy – How to Install Omarchy Linux (Free, Step by Step)", get: "Get Omarchy – How to Install Omarchy Linux (Free, Step by Step)" };
@@ -1847,6 +1857,8 @@
   const rerender = () => { const top = view.scrollTop; route(); view.scrollTop = top; };
 
   // ---------- ‹ › buttons on every sideways row (mouse users can't swipe; the scrollbar is hidden) ----------
+  // Also: auto-scroll carousels for engagement (pauses on hover/touch)
+  const autoScrollers = new Set();
   function addRowArrows() {
     view.querySelectorAll(".scroller:not(#shots), .spot-row").forEach((sc) => {
       if (sc.parentElement.classList.contains("rowwrap")) return;
@@ -1859,11 +1871,53 @@
       w.querySelector(".row-prev").onclick = (e) => { e.preventDefault(); sc.scrollBy({ left: -sc.clientWidth * 0.9, behavior: "smooth" }); };
       w.querySelector(".row-next").onclick = (e) => { e.preventDefault(); sc.scrollBy({ left: sc.clientWidth * 0.9, behavior: "smooth" }); };
       requestAnimationFrame(upd); setTimeout(upd, 600);   // re-check after images load
+
+      // Auto-scroll: hero = 6s, app rows = 5s. Pause on hover/focus.
+      const isHero = sc.classList.contains("hero") || sc.classList.contains("spot-row");
+      const interval = isHero ? 6000 : 5000;
+      let paused = false, timer;
+      const autoStep = () => {
+        if (paused || sc.scrollWidth <= sc.clientWidth + 10) return;
+        const max = sc.scrollWidth - sc.clientWidth;
+        if (sc.scrollLeft >= max - 10) sc.scrollTo({ left: 0, behavior: "smooth" });
+        else sc.scrollBy({ left: sc.firstElementChild?.getBoundingClientRect().width + 20 || sc.clientWidth * 0.8, behavior: "smooth" });
+      };
+      const start = () => { clearInterval(timer); timer = setInterval(autoStep, interval); };
+      const pause = () => { paused = true; };
+      const resume = () => { paused = false; };
+      w.addEventListener("mouseenter", pause); w.addEventListener("mouseleave", resume);
+      w.addEventListener("touchstart", pause, { passive: true }); w.addEventListener("touchend", () => setTimeout(resume, 2000), { passive: true });
+      start();
+      autoScrollers.add({ el: sc, stop: () => clearInterval(timer) });
     });
   }
+  function stopAutoScrollers() { autoScrollers.forEach((a) => a.stop()); autoScrollers.clear(); }
   addEventListener("resize", () => view.querySelectorAll(".rowwrap .scroller, .rowwrap .spot-row").forEach((sc) => sc.dispatchEvent(new Event("scroll"))));
 
   // ---------- screenshot gallery: arrows, dots, full-size viewer with left/right ----------
+  // Auto-scrolling screenshots: 4s per image, pauses on hover/touch
+  let shotTimer, shotPaused = false;
+  function initShotAutoScroll() {
+    clearInterval(shotTimer);
+    const sc = $("#shots"); if (!sc || sc.children.length <= 1) return;
+    const gal = sc.closest(".gallery");
+    const step = () => {
+      if (shotPaused) return;
+      const imgs = galImgs();
+      if (imgs.length <= 1) return;
+      const w = imgs[0]?.getBoundingClientRect().width || sc.clientWidth;
+      const now = Math.round(sc.scrollLeft / (w + 20));
+      const next = (now + 1) % imgs.length;
+      galGo(0, next);
+    };
+    shotTimer = setInterval(step, 4000);
+    if (gal) {
+      gal.onmouseenter = () => { shotPaused = true; };
+      gal.onmouseleave = () => { shotPaused = false; };
+      gal.ontouchstart = () => { shotPaused = true; };
+      gal.ontouchend = () => { setTimeout(() => { shotPaused = false; }, 2000); };
+    }
+  }
   const galImgs = () => [...document.querySelectorAll("#shots img")];
   function galGo(dir, to) {
     const sc = $("#shots"); if (!sc) return;
