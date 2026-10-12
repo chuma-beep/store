@@ -2030,6 +2030,15 @@
     const row = d.parentElement.previousElementSibling, card = row?.children[+d.dataset.spot];
     if (card) row.scrollTo({ left: card.offsetLeft - row.offsetLeft, behavior: "smooth" });
   });
+  // macOS-style bounce on icon click
+  document.addEventListener("click", (e) => {
+    const icon = e.target.closest(".icon");
+    if (icon) {
+      icon.classList.remove("bounce");
+      void icon.offsetWidth; // reflow to restart animation
+      icon.classList.add("bounce");
+    }
+  });
   document.addEventListener("scroll", (e) => {
     const row = e.target;
     if (!(row instanceof Element) || !row.classList.contains("spot-row")) return;

@@ -112,7 +112,17 @@ main { overflow-y: auto; overflow-x: hidden; outline: none; scroll-behavior: smo
 .hero-card .get { background: rgba(255,255,255,.95); color: #000; }
 
 /* ---------- App lockup (icon + name + GET) ---------- */
-.icon { border-radius: var(--icon-r); background: var(--card); object-fit: cover; flex: none; box-shadow: 0 0 0 .5px var(--line) inset; }
+.icon { border-radius: var(--icon-r); background: var(--card); object-fit: cover; flex: none; box-shadow: 0 0 0 .5px var(--line) inset; transition: transform 0.1s ease; }
+.icon:active { transform: scale(0.92); }
+.icon.bounce { animation: icon-bounce 0.5s ease; }
+@keyframes icon-bounce {
+  0%, 100% { transform: translateY(0); }
+  20% { transform: translateY(-12px); }
+  40% { transform: translateY(0); }
+  55% { transform: translateY(-6px); }
+  70% { transform: translateY(0); }
+  85% { transform: translateY(-2px); }
+}
 .icon.mono { display: inline-grid; place-items: center; color: #fff; font-weight: 800; letter-spacing: -.02em; position: relative; overflow: hidden; text-shadow: 0 1px 2px rgba(0,0,0,.25); }
 .icon.mono i { position: absolute; top: 9%; left: 11%; font: 700 11px ui-monospace, monospace; opacity: .55; font-style: normal; }
 .lockup { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--line); min-width: 0; }
