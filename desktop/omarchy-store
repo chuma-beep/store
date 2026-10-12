@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.7.9"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.7.10"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 # Write token to a file so install.sh can use it for pre-install
@@ -818,7 +818,14 @@ def self_update(target_version):
             staged[f] = r.read(5_000_000)
     helper = staged["omarchy-store"].decode()
     compile(helper, "omarchy-store", "exec")             # must be valid Python
-    assert helper.startswith("#!/usr/bin/env python3") and f'VERSION = "{target_version}"' in helper
+    # Accept the downloaded version if it's newer than what we have (even if it's newer than target_version,
+    # which can happen if a newer release was published between when the user saw the toast and clicked Update)
+    m = re.search(r'^VERSION = "([^"]+)"', helper, re.M)
+    if not m or not helper.startswith("#!/usr/bin/env python3"):
+        raise ValueError("invalid helper file")
+    dl_version = m.group(1)
+    if _vercmp(dl_version, VERSION) <= 0:
+        raise ValueError(f"downloaded version {dl_version} is not newer than current {VERSION}")
     assert b"<head>" in staged["site/index.html"] and b"boot()" in staged["site/app.js"]
     for f, data in staged.items():
         dest = os.path.join(APP_DIR, f)
