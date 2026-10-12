@@ -51,11 +51,89 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.7.4"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.7.5"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
 JOBS_LOCK = threading.Lock()
+
+
+# ---------------------------------------------------------- crypto wallets ----
+# Wallet browser extensions (Phantom, MetaMask…). The store never downloads or installs extension files itself:
+# GET opens the wallet's official Chrome Web Store page in the user's Chromium-family browser, where they press
+# "Add to Chrome". Only Chrome extension ids from the catalog are ever used (32 letters a-p, nothing else).
+CHROME_ID_RE = re.compile(r"^[a-p]{32}$")
+CWS_URL = "https://chromewebstore.google.com/detail/"
+# Profile folders of Chromium-family browsers; an installed extension has a folder named after its id.
+BROWSER_DIRS = ["~/.config/chromium", "~/.config/google-chrome", "~/.config/google-chrome-beta",
+                "~/.config/BraveSoftware/Brave-Browser", "~/.config/vivaldi", "~/.config/microsoft-edge",
+                "~/snap/chromium/common/chromium", "~/.var/app/org.chromium.Chromium/config/chromium",
+                "~/.var/app/com.google.Chrome/config/google-chrome", "~/.var/app/com.brave.Browser/config/BraveSoftware/Brave-Browser"]
+
+
+def load_crypto():
+    """Wallets from the catalog, keyed by store id; entries with a malformed Chrome id are dropped."""
+    try:
+        with open(os.path.join(SITE_DIR, "catalog.json")) as f:
+            ws = (json.load(f).get("crypto") or {}).get("wallets") or []
+    except Exception:
+        return {}
+    return {w["id"]: w for w in ws if isinstance(w, dict) and re.match(r"^[a-z0-9-]+$", str(w.get("id", "")))
+            and CHROME_ID_RE.match(str(w.get("chrome_store_id", "")))}
+
+
+def installed_extensions():
+    """Every Chrome extension id found in any profile of any Chromium-family browser."""
+    found = set()
+    for base in BROWSER_DIRS:
+        base = os.path.expanduser(base)
+        try:
+            profiles = os.listdir(base)
+        except OSError:
+            continue
+        for prof in profiles:
+            if prof != "Default" and not prof.startswith("Profile "):
+                continue
+            try:
+                found.update(x for x in os.listdir(os.path.join(base, prof, "Extensions")) if CHROME_ID_RE.match(x))
+            except OSError:
+                pass
+    return found
+
+
+def installed_crypto():
+    have = installed_extensions()
+    return sorted(i for i, w in load_crypto().items() if w["chrome_store_id"] in have)
+
+
+CHROMIUM_LIKE = re.compile(r"chrom|brave|vivaldi|edge|opera", re.I)
+
+
+def browser_cmd(url):
+    """Command that opens url in a Chromium-family browser (extensions from the Chrome Web Store only install there).
+    Omarchy's default browser is Chromium: use omarchy-launch-browser when the default is Chromium-like,
+    otherwise launch an installed Chromium/Chrome/Brave directly, and as a last resort xdg-open."""
+    try:
+        default = subprocess.run(["xdg-settings", "get", "default-web-browser"], capture_output=True, text=True, timeout=5).stdout.strip()
+    except Exception:
+        default = ""
+    if CHROMIUM_LIKE.search(default):
+        if shutil.which("omarchy-launch-browser"):
+            return ["omarchy-launch-browser", url]
+        return ["xdg-open", url]
+    for b in ("chromium", "google-chrome-stable", "google-chrome", "brave", "brave-browser", "vivaldi-stable", "microsoft-edge-stable"):
+        if shutil.which(b):
+            return [b, url]
+    return ["xdg-open", url]
+
+
+def run_crypto_install(w):
+    cid = str(w.get("chrome_store_id", ""))
+    if not CHROME_ID_RE.match(cid):
+        raise ValueError("bad extension id")
+    cmd = browser_cmd(CWS_URL + cid)
+    subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+    return cmd[0]
 
 
 # ---------------------------------------------------------------- catalog ----
@@ -830,6 +908,8 @@ class Handler(SimpleHTTPRequestHandler):
             return self.wfile.write(body)
         if path == "/api/plugins/installed":
             return self._json(200, {"installed": installed_plugins()})
+        if path == "/api/crypto/installed":
+            return self._json(200, {"installed": installed_crypto()})
         if path.startswith("/api/job/"):
             aid = path.rsplit("/", 1)[1]
             cat = load_catalog()
@@ -929,6 +1009,16 @@ class Handler(SimpleHTTPRequestHandler):
                 return self._json(202, {"ok": True})
             except ValueError as e:
                 return self._json(400, {"error": str(e)})
+        if self.path == "/api/crypto/install":
+            w = load_crypto().get(aid)
+            if not w:
+                return self._json(404, {"error": "unknown wallet"})
+            try:
+                return self._json(200, {"ok": True, "browser": run_crypto_install(w)})
+            except ValueError as e:
+                return self._json(400, {"error": str(e)})
+            except FileNotFoundError as e:
+                return self._json(500, {"error": f"missing program: {e.filename}"})
         if self.path == "/api/plugin/add":
             try:
                 run_plugin_add(aid)

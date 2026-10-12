@@ -402,6 +402,40 @@ def main():
                                                       [crumbs(("Omarchy Store", "/"), ("Screensavers", "/screensavers/"))]), body))
         urls.append((f"{SITE}/screensavers/", now, "0.8"))
 
+    # ---- Crypto wallets (browser extensions; GET opens the official Chrome Web Store listing)
+    cw = (cat.get("crypto") or {}).get("wallets") or []
+    if cw:
+        safety = (cat.get("crypto") or {}).get("safety") or ""
+        d = clip(f"Install Phantom, MetaMask, Solflare, Backpack and {len(cw) - 4}+ more crypto wallet extensions in Chromium on Omarchy Linux. "
+                 "Solana, Ethereum, Bitcoin, Base, XRP and Cosmos. Official Chrome Web Store links.")
+        body = ('<h1 class="page-title">Crypto Wallets</h1><p>Phantom, MetaMask and more — straight into your browser.</p>'
+                f'<p>{e(d)}</p><ul class="ssr-list">'
+                + "".join(f'<li><a href="/crypto/{e(w["id"])}/"><strong>{e(w["name"])}</strong></a> ({e(", ".join(w["chains"]))}) – {e(w["summary"])}</li>' for w in cw)
+                + f'</ul><p>{e(safety)}</p>')
+        ld = {"@context": "https://schema.org", "@type": "ItemList", "name": "Crypto wallet browser extensions",
+              "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}/crypto/{w['id']}/", "name": w["name"]} for i, w in enumerate(cw)]}
+        write("/crypto/", render(template, head("Crypto Wallets – Phantom, MetaMask & More for Omarchy | Omarchy Store", d, "/crypto/",
+                                                OG_DEFAULT, "Crypto wallets on the Omarchy Store",
+                                                [ld, crumbs(("Omarchy Store", "/"), ("Crypto Wallets", "/crypto/"))]), body))
+        urls.append((f"{SITE}/crypto/", now, "0.8"))
+        for w in cw:
+            path = f"/crypto/{w['id']}/"
+            wd = clip(f"Install {w['name']} in Chromium on Omarchy Linux: {w['summary']} Supports {', '.join(w['chains'])}.")
+            wbody = (f'<h1 class="page-title">{e(w["name"])}</h1><p>{e(w["summary"])}</p><p>{e(w["description"])}</p>'
+                     f'<h2>Networks</h2><p>{e(", ".join(w["chains"]))}</p>'
+                     '<h2>How to install</h2><ol><li>Open the official Chrome Web Store page.</li><li>Click Add to Chrome, then Add extension.</li>'
+                     '<li>Open it from the puzzle-piece icon and create or import a wallet.</li></ol>'
+                     f'<p><a href="https://chromewebstore.google.com/detail/{e(w["chrome_store_id"])}" rel="noopener">{e(w["name"])} on the Chrome Web Store</a> · '
+                     f'<a href="{su(w["website"])}" rel="noopener">Official website</a></p><p>{e(safety)}</p>')
+            wld = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": w["name"], "applicationCategory": "FinanceApplication",
+                   "operatingSystem": "Chromium, Google Chrome, Brave", "description": w["description"], "url": f"{SITE}{path}",
+                   "image": abs_url(w.get("icon")), "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}, "sameAs": [w["website"]]}
+            write(path, render(template, head(fit_title(f"{w['name']} Wallet Extension for Chromium on Omarchy | Omarchy Store",
+                                                        f"{w['name']} Wallet for Omarchy | Omarchy Store", f"{w['name']} | Omarchy Store"),
+                                              wd, path, abs_url(w.get("icon")), f"{w['name']} icon",
+                                              [wld, crumbs(("Omarchy Store", "/"), ("Crypto Wallets", "/crypto/"), (w["name"], path))]), wbody))
+            urls.append((f"{SITE}{path}", now, "0.6"))
+
     # ---- Renamed apps: old links redirect to the new page
     for old_id, new_id in {"omarchy-backup": "lifeboat"}.items():
         if any(a["id"] == new_id for a in apps):
@@ -416,7 +450,7 @@ def main():
                      "The most popular apps for Omarchy Linux, ranked by GitHub stars and updated every week. Install any of them in one click.",
                      '<h1 class="page-title">Top Charts</h1><ol class="ssr-list">' + "".join(app_li(a) for a in apps[:100]) + "</ol>"),
         "/categories/": ("App Categories | Omarchy Store", "Browse Omarchy Linux apps by category: browsers, developer tools, AI, games, media, themes, plugins, screensavers and more.",
-                         '<h1 class="page-title">Categories</h1><ul><li><a href="/themes/">Themes</a></li><li><a href="/plugins/">Plugins</a></li><li><a href="/screensavers/">Screensavers</a></li>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>"),
+                         '<h1 class="page-title">Categories</h1><ul><li><a href="/themes/">Themes</a></li><li><a href="/plugins/">Plugins</a></li><li><a href="/screensavers/">Screensavers</a></li><li><a href="/crypto/">Crypto Wallets</a></li>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + "</ul>"),
         "/legal/": ("Disclaimer | Omarchy Store", "Omarchy Store lists third-party software provided as-is, without warranty. Read the full disclaimer.",
                     '<h1 class="page-title">Disclaimer</h1>' f'<p>{e(DISCLAIMER)}</p>'),
         "/submit/": ("Submit an App to the Omarchy Store – Free Listing | Omarchy Store",

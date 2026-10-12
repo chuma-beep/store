@@ -981,3 +981,27 @@ html[data-look="glass"] .brand .wordmark img { filter: drop-shadow(0 1px 2px rgb
 @media (max-width: 720px) { .row-nav { display: none; } }   /* phones swipe */
 /* Very wide screens: billboards keep the artwork's proportions (2400x900), so nothing in the picture gets cropped */
 @media (min-width: 1700px) { .spot.full { aspect-ratio: 2400 / 900; min-height: 0; } .spot-row { grid-auto-columns: calc(100% - 110px); } }
+
+/* ---------- Crypto wallets ---------- */
+#cq { background: var(--pill); color: var(--text); border: 0; border-radius: 10px; padding: 8px 12px; font: inherit; font-size: 14px; min-width: 220px; height: 38px; }
+.crypto-hero { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 230px; padding: 34px 40px; margin: 0 0 26px; border-radius: 22px; color: #fff;
+  background: radial-gradient(120% 140% at 0% 0%, #2b1d5c 0%, transparent 55%), radial-gradient(90% 120% at 100% 100%, #4a2a12 0%, transparent 60%), linear-gradient(135deg, #12101f, #1d1838 50%, #2a1e3b); box-shadow: var(--shadow); }
+.crypto-hero .ch-copy { position: relative; z-index: 1; max-width: 520px; min-width: 0; }
+.crypto-hero .spot-badge { color: #fff; background: linear-gradient(135deg, #ab9ff2, #7c5cff 50%, #f6851b); box-shadow: 0 6px 18px rgba(124,92,255,.4); }
+.crypto-hero .spot-badge svg { fill: none; stroke: currentColor; stroke-width: 2; }
+.crypto-hero h2 { font-size: clamp(28px, 3.2vw, 46px); line-height: 1.05; font-weight: 800; letter-spacing: -.03em; margin: 16px 0 10px; }
+.crypto-hero p { font-size: 18px; line-height: 1.4; color: rgba(255,255,255,.86); margin: 0; }
+.crypto-hero .ch-sub { margin-top: 12px; font-size: 13px; color: rgba(255,255,255,.6); }
+.crypto-hero .ch-icons { display: grid; grid-template-columns: repeat(3, 76px); gap: 16px; transform: rotate(-8deg); flex: none; margin-right: 10px; }
+.crypto-hero .ch-icons img { width: 76px; height: 76px; border-radius: 20px; box-shadow: 0 10px 26px rgba(0,0,0,.45); background: #fff; }
+.wl-chains { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.wl-chains svg { flex: none;  width: 12px !important; height: 12px !important; fill: none !important; stroke: currentColor !important; stroke-width: 2; }
+.wl-steps { margin: 0; padding-left: 22px; color: var(--text-2); line-height: 1.7; max-width: 760px; }
+.wl-steps b { color: var(--text); }
+.crypto-safety { margin-top: 22px; }
+.crypto-safety svg { color: #ff9f0a; flex: none; }
+@media (max-width: 860px) {
+  .crypto-hero { padding: 26px 22px; min-height: 0; }
+  .crypto-hero .ch-icons { display: none; }
+  #cq { min-width: 0; width: 100%; }
+}

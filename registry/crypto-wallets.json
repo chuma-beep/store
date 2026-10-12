@@ -1,0 +1,251 @@
+{
+  "safety": "The Omarchy Store only links to each wallet's official Chrome Web Store listing. Never share your secret recovery phrase (seed phrase) with anyone — no real wallet, website or support person will ever ask for it, and the Omarchy Store never will. Write it down on paper and keep it somewhere safe.",
+  "wallets": [
+    {
+      "id": "phantom",
+      "name": "Phantom",
+      "chrome_store_id": "bfnaelmomeimhlpmgjnjophhpkkoljpa",
+      "chains": [
+        "Solana",
+        "Ethereum",
+        "Base",
+        "Polygon",
+        "Bitcoin",
+        "Sui"
+      ],
+      "summary": "The friendly wallet for Solana, Ethereum, Base and Bitcoin.",
+      "description": "Phantom is one of the most popular crypto wallets, best known for Solana. Keep your coins, tokens and NFTs in one place, swap between them, and connect to apps with a single click. It also works with Ethereum, Base, Polygon, Bitcoin and Sui.",
+      "website": "https://phantom.com",
+      "icon": "featured/crypto/phantom.png",
+      "firefox_url": "https://addons.mozilla.org/firefox/addon/phantom-app/"
+    },
+    {
+      "id": "metamask",
+      "name": "MetaMask",
+      "chrome_store_id": "nkbihfbeogaeaoehlefnkodbefgpgknn",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Polygon",
+        "Arbitrum",
+        "BNB Chain",
+        "Solana"
+      ],
+      "summary": "The original Ethereum wallet, used by millions.",
+      "description": "MetaMask is the best-known wallet for Ethereum and the networks built around it, like Base, Arbitrum, Polygon and BNB Chain. Buy, send and swap tokens, and sign in to thousands of web3 apps. Newer versions also support Solana.",
+      "website": "https://metamask.io",
+      "icon": "featured/crypto/metamask.png",
+      "firefox_url": "https://addons.mozilla.org/firefox/addon/ether-metamask/"
+    },
+    {
+      "id": "solflare",
+      "name": "Solflare",
+      "chrome_store_id": "bhhhlbepdkbapadjdnnojkbgioiodbic",
+      "chains": [
+        "Solana"
+      ],
+      "summary": "A Solana-first wallet with staking built in.",
+      "description": "Solflare is made just for Solana. Hold SOL and tokens, view your NFTs, swap, and stake your SOL to earn rewards right from the extension. It also works with Ledger hardware wallets.",
+      "website": "https://solflare.com",
+      "icon": "featured/crypto/solflare.png",
+      "firefox_url": "https://addons.mozilla.org/firefox/addon/solflare-wallet/"
+    },
+    {
+      "id": "backpack",
+      "name": "Backpack",
+      "chrome_store_id": "aflkmfhebedbjioipglgcbcmnbpgliof",
+      "chains": [
+        "Solana",
+        "Ethereum",
+        "Base",
+        "Arbitrum",
+        "Polygon"
+      ],
+      "summary": "A sleek multichain wallet from the Backpack exchange team.",
+      "description": "Backpack is a fast wallet for Solana and Ethereum-style networks. Manage several wallets in one place, see your NFTs and tokens, and connect to apps. It's made by the team behind the Backpack exchange.",
+      "website": "https://backpack.app",
+      "icon": "featured/crypto/backpack.png"
+    },
+    {
+      "id": "coinbase-wallet",
+      "name": "Coinbase Wallet",
+      "chrome_store_id": "hnfanknocfeofbddgcijnmhnfnkdnaad",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Solana",
+        "Polygon",
+        "Arbitrum"
+      ],
+      "summary": "Coinbase's self-custody wallet, with Base built in.",
+      "description": "Coinbase Wallet is a wallet where you hold your own keys, separate from a Coinbase exchange account. It works great with Base, Ethereum and Solana, and lets you send, swap and use web3 apps. You don't need a Coinbase account to use it.",
+      "website": "https://wallet.coinbase.com",
+      "icon": "featured/crypto/coinbase-wallet.png"
+    },
+    {
+      "id": "rabby",
+      "name": "Rabby Wallet",
+      "chrome_store_id": "acmacodkjbdgmoleebolmdjonilkdbch",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Arbitrum",
+        "Optimism",
+        "Polygon",
+        "BNB Chain"
+      ],
+      "summary": "A safety-focused wallet for Ethereum and 100+ networks.",
+      "description": "Rabby shows you exactly what a transaction will do before you sign it, which helps you avoid scams and costly mistakes. It switches networks for you automatically and supports Ethereum, Base, Arbitrum and many more. Made by the DeBank team.",
+      "website": "https://rabby.io",
+      "icon": "featured/crypto/rabby.png"
+    },
+    {
+      "id": "trust-wallet",
+      "name": "Trust Wallet",
+      "chrome_store_id": "egjidjbpglichdcondbcbdnbeeppgdph",
+      "chains": [
+        "Ethereum",
+        "Bitcoin",
+        "Solana",
+        "BNB Chain",
+        "Base",
+        "Polygon"
+      ],
+      "summary": "One wallet for Bitcoin, Ethereum, Solana and much more.",
+      "description": "Trust Wallet supports a huge number of coins and networks, including Bitcoin, Ethereum, Solana and BNB Chain. Buy, swap and store your crypto, and connect to apps from your browser. It's the desktop companion to the popular phone app.",
+      "website": "https://trustwallet.com",
+      "icon": "featured/crypto/trust-wallet.png"
+    },
+    {
+      "id": "okx-wallet",
+      "name": "OKX Wallet",
+      "chrome_store_id": "mcohilncbfahbmgdjkbpemcciiolgcge",
+      "chains": [
+        "Ethereum",
+        "Bitcoin",
+        "Solana",
+        "Base",
+        "Sui",
+        "Polygon"
+      ],
+      "summary": "A multichain wallet for Bitcoin, Ethereum, Solana and more.",
+      "description": "OKX Wallet connects to over a hundred networks from one extension, including Bitcoin, Ethereum, Solana and Base. Swap tokens across networks, view NFTs and use web3 apps. You hold your own keys; no OKX exchange account is needed.",
+      "website": "https://web3.okx.com",
+      "icon": "featured/crypto/okx-wallet.png"
+    },
+    {
+      "id": "keplr",
+      "name": "Keplr",
+      "chrome_store_id": "dmkamcknogkgcdfhhbddcghachkejeap",
+      "chains": [
+        "Cosmos",
+        "Ethereum",
+        "Bitcoin"
+      ],
+      "summary": "The go-to wallet for Cosmos and its many networks.",
+      "description": "Keplr is the most popular wallet for the Cosmos family of networks, like Cosmos Hub, Osmosis and Celestia. Send tokens between networks, stake to earn rewards and vote on proposals. It also supports Ethereum-style networks and Bitcoin.",
+      "website": "https://keplr.app",
+      "icon": "featured/crypto/keplr.png",
+      "firefox_url": "https://addons.mozilla.org/firefox/addon/keplr/"
+    },
+    {
+      "id": "xverse",
+      "name": "Xverse",
+      "chrome_store_id": "idnnbdplmphpflfnlkomgpfbpcgelopg",
+      "chains": [
+        "Bitcoin",
+        "Stacks"
+      ],
+      "summary": "A Bitcoin wallet for Ordinals, Runes and Stacks.",
+      "description": "Xverse is built for Bitcoin. Send and receive BTC, collect Ordinals and Runes, and use Bitcoin apps on Stacks. It's a great pick if Bitcoin is your main coin.",
+      "website": "https://xverse.app",
+      "icon": "featured/crypto/xverse.png"
+    },
+    {
+      "id": "leather",
+      "name": "Leather",
+      "chrome_store_id": "ldinpeekobnhjjdofggfgjlcehhmanlj",
+      "chains": [
+        "Bitcoin",
+        "Stacks"
+      ],
+      "summary": "A Bitcoin wallet for Stacks, Ordinals and more.",
+      "description": "Leather (formerly Hiro Wallet) is a wallet for Bitcoin and Stacks. Hold BTC, collect Ordinals and use apps built on Bitcoin. It works with Ledger hardware wallets too.",
+      "website": "https://leather.io",
+      "icon": "featured/crypto/leather.png"
+    },
+    {
+      "id": "crossmark",
+      "name": "Crossmark",
+      "chrome_store_id": "canipghmckojpianfgiklhbgpfmhjkjg",
+      "chains": [
+        "XRP"
+      ],
+      "summary": "A simple wallet for the XRP Ledger.",
+      "description": "Crossmark lets you hold XRP and other XRP Ledger tokens in your browser. Send and receive, manage trust lines and connect to XRP Ledger apps. It's lightweight and easy to set up.",
+      "website": "https://crossmark.io",
+      "icon": "featured/crypto/crossmark.png"
+    },
+    {
+      "id": "gemwallet",
+      "name": "GemWallet",
+      "chrome_store_id": "egebedonbdapoieedfcfkofloclfghab",
+      "chains": [
+        "XRP"
+      ],
+      "summary": "An open-source XRP Ledger wallet for your browser.",
+      "description": "GemWallet is an open-source wallet for the XRP Ledger. Send XRP and tokens, and sign in to XRP Ledger websites without leaving your browser. Its code is public, so anyone can check how it works.",
+      "website": "https://gemwallet.app",
+      "icon": "featured/crypto/gemwallet.png"
+    },
+    {
+      "id": "rainbow",
+      "name": "Rainbow",
+      "chrome_store_id": "opfgelmcmbiajamepnmloijbpoleiama",
+      "chains": [
+        "Ethereum",
+        "Base",
+        "Optimism",
+        "Arbitrum",
+        "Polygon"
+      ],
+      "summary": "A colorful, easy Ethereum wallet.",
+      "description": "Rainbow makes Ethereum feel simple and fun. Swap tokens, show off your NFTs and use apps on Ethereum, Base, Optimism and more. It's a good first wallet if you're new to crypto.",
+      "website": "https://rainbow.me",
+      "icon": "featured/crypto/rainbow.png",
+      "firefox_url": "https://addons.mozilla.org/firefox/addon/rainbow-extension/"
+    },
+    {
+      "id": "zerion",
+      "name": "Zerion",
+      "chrome_store_id": "klghhnkeealcohjjanjjdaeeggmfmlpl",
+      "chains": [
+        "Ethereum",
+        "Solana",
+        "Base",
+        "Arbitrum",
+        "Polygon"
+      ],
+      "summary": "A wallet that shows your whole portfolio at a glance.",
+      "description": "Zerion pairs a wallet with a clear view of everything you own across Ethereum, Solana, Base and other networks. Track your tokens, NFTs and DeFi positions, and swap without leaving the extension. Great if you use many networks at once.",
+      "website": "https://zerion.io",
+      "icon": "featured/crypto/zerion.png"
+    },
+    {
+      "id": "exodus-web3",
+      "name": "Exodus Web3 Wallet",
+      "chrome_store_id": "aholpfdialjgjfhomihkjbmgjidlcdno",
+      "chains": [
+        "Ethereum",
+        "Solana",
+        "Bitcoin",
+        "Base",
+        "Polygon"
+      ],
+      "summary": "The browser wallet from the makers of Exodus.",
+      "description": "Exodus Web3 Wallet brings the easy Exodus design to your browser. Hold Bitcoin, Ethereum, Solana and more, swap between them and connect to web3 apps. It can link to the Exodus app on your desktop or phone.",
+      "website": "https://exodus.com",
+      "icon": "featured/crypto/exodus-web3.png"
+    }
+  ]
+}

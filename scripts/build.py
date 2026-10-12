@@ -92,7 +92,45 @@ def validate():
         if img and not img.startswith("https://"):
             if not re.match(r"^ads/[a-z0-9-]+\.(webp|png|jpg|jpeg)$", img) or not os.path.exists(os.path.join(ROOT, "site", img)):
                 errors.append(f"ads.json: {c.get('id')}: image must be https:// or an existing file in site/ads/")
+    errors += validate_crypto()
     return apps, cats, feat, ads, errors
+
+
+CHROME_ID_RE = re.compile(r"^[a-p]{32}$")
+
+
+def load_crypto():
+    p = os.path.join(REG, "crypto-wallets.json")
+    return load(p) if os.path.exists(p) else {"safety": "", "wallets": []}
+
+
+def validate_crypto():
+    """Crypto wallets: browser extensions linked to their official Chrome Web Store listing (never hosted)."""
+    errors, seen, cids = [], set(), set()
+    try:
+        d = load_crypto()
+    except Exception as ex:
+        return [f"crypto-wallets.json: invalid JSON ({ex})"]
+    if not d.get("safety"): errors.append("crypto-wallets.json: safety note required")
+    for w in d.get("wallets") or []:
+        e = lambda m: errors.append(f"crypto-wallets.json: {w.get('id')!r}: {m}")
+        if not ID_RE.match(w.get("id") or ""): e("id must be lowercase letters/digits/dashes")
+        if w.get("id") in seen: e("duplicate id")
+        seen.add(w.get("id"))
+        if not CHROME_ID_RE.match(w.get("chrome_store_id") or ""): e("chrome_store_id must be 32 letters a-p")
+        if w.get("chrome_store_id") in cids: e("duplicate chrome_store_id")
+        cids.add(w.get("chrome_store_id"))
+        for f in ("name", "summary", "description"):
+            if not w.get(f): e(f"{f} required")
+        ch = w.get("chains")
+        if not ch or not isinstance(ch, list) or not all(isinstance(x, str) and re.match(r"^[A-Za-z0-9 .-]{1,24}$", x) for x in ch): e("chains must be a list of names")
+        for f in ("website", "firefox_url"):
+            if w.get(f) and not re.match(r"^https://[^\s\"'<>]+$", w[f]): e(f"{f} must be an https:// url")
+        if not w.get("website"): e("website required")
+        ic = w.get("icon") or ""
+        if not (ic.startswith("https://") or (re.match(r"^featured/crypto/[a-z0-9-]+\.(png|webp|svg)$", ic) and os.path.exists(os.path.join(ROOT, "site", ic)))):
+            e("icon must be https:// or an existing file under site/featured/crypto/")
+    return errors
 
 
 def get(url, headers=None, tries=4):
@@ -423,6 +461,8 @@ def build(apps, cats, feat, ads):
         "categories": load(os.path.join(REG, "categories.json")),
         "featured": feat, "ads": {"network": ads["network"], "campaigns": live},
         "themes": themes,
+        # Crypto wallets: browser extensions. GET opens the official Chrome Web Store page (desktop app: in Chromium).
+        "crypto": load_crypto(),
         # Ignite's Windows helper ("Make room for Omarchy") is only offered once it has passed
         # testing on real Windows. Flip registry/ignite.json -> helper_ready: true.
         "ignite": load(os.path.join(REG, "ignite.json")) if os.path.exists(os.path.join(REG, "ignite.json")) else {"helper_ready": False},
@@ -479,7 +519,7 @@ def main():
     apps, cats, feat, ads, errors = validate()
     if errors:
         print("Registry errors:"); [print("  ✗", e) for e in errors]; sys.exit(1)
-    print(f"✓ registry valid: {len(apps)} apps, {len(cats)} categories, {len(ads['campaigns'])} ad campaigns")
+    print(f"✓ registry valid: {len(apps)} apps, {len(cats)} categories, {len(ads['campaigns'])} ad campaigns, {len(load_crypto()['wallets'])} crypto wallets")
     if "--check" in sys.argv:
         return
     cat = build(apps, cats, feat, ads)

@@ -15,7 +15,7 @@
 
   const S = { catalog: null, byId: {}, themeById: {}, desktop: false, installed: new Set(), busy: new Set(), chartCat: "all",
     themeFilter: "featured", themeQ: "", themesHave: new Set(), themeNow: "",
-    plugins: null, plugById: {}, plugFilter: "popular", plugCat: "all", plugQ: "", plugShown: 60, plugsHave: new Set(), savers: null, saverF: "all", saverQ: "", saverShown: 60 };
+    plugins: null, plugById: {}, plugFilter: "popular", plugCat: "all", plugQ: "", plugShown: 60, plugsHave: new Set(), cryptoChain: "all", cryptoQ: "", cryptoHave: new Set(), cryptoBusy: new Set(), savers: null, saverF: "all", saverQ: "", saverShown: 60 };
   const $ = (s, el = document) => el.querySelector(s);
   const view = $("#view");
   // Desktop helper injects a per-session token; every install/open request must carry it.
@@ -94,6 +94,7 @@
     warn: '<path d="M12 3 2 20h20zM12 10v4M12 17h.01"/>',
     refresh: '<path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/>',
     rocket: '<path d="M12 2c3 2 5 6 5 10l-2 4H9l-2-4c0-4 2-8 5-10z"/><circle cx="12" cy="10" r="1.8"/><path d="M9 16l-3 3 1-5M15 16l3 3-1-5M10 20h4"/>',
+    wallet: '<path d="M4 7a2 2 0 0 1 2-2h11a1 1 0 0 1 1 1v2"/><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M16 13.5h.01M21 11h-4a2.5 2.5 0 0 0 0 5h4"/>',
     usb: '<path d="M8 2h8v6H8z"/><path d="M6 8h12v10a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4z"/><path d="M10 4.5h.01M14 4.5h.01"/>',
   };
   // Official accounts. Fill in a link and it appears in the footer and on the Contact page.
@@ -209,12 +210,14 @@
       ${S.catalog.themes.length ? `<a class="d-hide" href="/themes/" data-r="themes">${ico("palette")}Themes</a>` : ""}
       <a class="d-hide" href="/plugins/" data-r="plugins">${ico("puzzle")}Plugins</a>
       <a class="d-hide" href="/screensavers/" data-r="screensavers">${ico("moon")}Screensavers</a>
+      ${wallets().length ? `<a class="d-hide" href="/crypto/" data-r="crypto">${ico("wallet")}Crypto</a>` : ""}
       ${S.desktop ? `<a href="/installed/" data-r="installed">${ico("installed")}Installed</a>
       <a href="/updates/" data-r="updates">${ico("refresh")}Updates<span class="nav-count" id="upd-count" hidden></span></a>` : ""}
       <div class="sec">Categories</div>
       ${S.catalog.themes.length ? `<a class="m-hide" href="/themes/" data-r="themes-cat">${ico("palette")}Themes</a>` : ""}
       <a class="m-hide" href="/plugins/" data-r="plugins-cat">${ico("puzzle")}Plugins</a>
-      <a class="m-hide" href="/screensavers/" data-r="screensavers-cat">${ico("moon")}Screensavers<span class="nav-new">NEW</span></a>
+      <a class="m-hide" href="/screensavers/" data-r="screensavers-cat">${ico("moon")}Screensavers</a>
+      ${wallets().length ? `<a class="m-hide" href="/crypto/" data-r="crypto-cat">${ico("wallet")}Crypto Wallets<span class="nav-new">NEW</span></a>` : ""}
       ${cats.map((c) => `<a href="/category/${c.id}/" data-r="category/${c.id}">${ico(c.icon)}${esc(c.name)}</a>`).join("")}
       <div class="sec m-hide">More</div>
       <a class="m-hide" href="/get-omarchy/" data-r="get-omarchy">${ico("rocket")}Get Omarchy</a>
@@ -767,6 +770,168 @@
     return `<section class="shelf"><div class="shelf-head"><h2>Screensavers</h2><a href="/screensavers/">See All ${S.savers.count}</a></div>
       <div class="scroller plug-row">${l.map((x) => x.repo ? saverCard(x.repo) : plugCard(x.p)).join("")}</div></section>`;
   }
+  // ---------- Crypto wallets (browser extensions, linked to their official Chrome Web Store page) ----------
+  // Web: GET opens the official Chrome Web Store listing in a new tab. Desktop app: GET opens that listing in
+  // the user's Chromium, so all that's left is "Add to Chrome"; the helper then sees the extension and shows OPEN.
+  const CWS = "https://chromewebstore.google.com/detail/";
+  const wallets = () => S.catalog?.crypto?.wallets || [];
+  const walletById = (id) => wallets().find((w) => w.id === id);
+  const cwsUrl = (w) => CWS + (/^[a-p]{32}$/.test(w.chrome_store_id) ? w.chrome_store_id : "");
+  const walletImg = (w, size) => `<img class="icon" src="${esc(asset(w.icon))}" alt="" width="${size}" height="${size}" loading="lazy" referrerpolicy="no-referrer">`;
+  const CHAIN_ORDER = ["Solana", "Ethereum", "Bitcoin", "Base", "XRP", "Cosmos", "Polygon", "Arbitrum", "BNB Chain", "Optimism", "Stacks", "Sui"];
+  function walletChains() {
+    const n = {}; wallets().forEach((w) => w.chains.forEach((c) => { n[c] = (n[c] || 0) + 1; }));
+    return Object.keys(n).sort((a, b) => ((CHAIN_ORDER.indexOf(a) + 1 || 99) - (CHAIN_ORDER.indexOf(b) + 1 || 99)) || n[b] - n[a]);
+  }
+  function walletBtn(w, big = false) {
+    const cls = "get" + (big ? " big" : "");
+    if (S.cryptoBusy.has(w.id)) return `<button class="${cls} busy" data-crypto-get="${esc(w.id)}"><span class="ring"></span></button>`;
+    if (S.desktop && S.cryptoHave.has(w.id)) return `<button class="${cls} installed" data-crypto-get="${esc(w.id)}" title="Installed in your browser. Opens its Chrome Web Store page">OPEN</button>`;
+    return `<button class="${cls}" data-crypto-get="${esc(w.id)}" title="${S.desktop ? "Opens in Chromium: press Add to Chrome" : "Opens the official Chrome Web Store page"}">GET</button>`;
+  }
+  const chainLine = (w) => w.chains.slice(0, 3).join(" · ") + (w.chains.length > 3 ? ` +${w.chains.length - 3}` : "");
+  function walletLockup(w) {
+    return `<a class="lockup" href="/crypto/${esc(w.id)}/">
+      ${walletImg(w, 64)}
+      <div class="meta"><div class="name">${esc(w.name)}</div><div class="sub">${esc(w.summary)}</div>
+        <div class="stars wl-chains">${ico("wallet")}${esc(chainLine(w))}</div></div>
+      ${walletBtn(w)}
+    </a>`;
+  }
+  let cryptoLoaded = 0;
+  async function loadCryptoInstalled(force) {
+    if (!S.desktop || (!force && Date.now() - cryptoLoaded < 4000)) return;
+    cryptoLoaded = Date.now();
+    try {
+      const r = await fetch("/api/crypto/installed", { cache: "no-store" });
+      if (!r.ok) return;
+      const have = new Set((await r.json()).installed || []);
+      const changed = have.size !== S.cryptoHave.size || [...have].some((x) => !S.cryptoHave.has(x));
+      S.cryptoHave = have;
+      if (changed) rerender();
+    } catch {}
+  }
+  async function cryptoGet(w) {
+    trackEvent("get", "crypto:" + w.id);
+    if (!S.desktop) { window.open(cwsUrl(w), "_blank", "noopener"); return; }
+    S.cryptoBusy.add(w.id); rerender();
+    try {
+      const r = await post("/api/crypto/install", { id: w.id });
+      if (r.status === 404 && !(await r.clone().json().catch(() => ({}))).error?.includes("wallet")) { window.open(cwsUrl(w), "_blank", "noopener"); throw new Error("update the store app for one-click installs"); }
+      if (!r.ok) throw new Error((await r.json().catch(() => ({}))).error || r.statusText);
+      if (S.cryptoHave.has(w.id)) { toast(`Opening ${w.name} in your browser`); return; }
+      toast(`${w.name} opened in Chromium: press “Add to Chrome”`);
+      S.cryptoBusy.delete(w.id); rerender();
+      // Watch for the extension to appear in the browser profile (up to 5 minutes).
+      const t0 = Date.now();
+      while (Date.now() - t0 < 300e3 && !S.cryptoHave.has(w.id)) {
+        await new Promise((res) => setTimeout(res, 3000));
+        await loadCryptoInstalled(true);
+      }
+      if (S.cryptoHave.has(w.id)) toast(`${w.name} is installed. Find it under the puzzle icon in Chromium`);
+    } catch (e) { toast("Couldn't open the browser: " + e.message); }
+    finally { S.cryptoBusy.delete(w.id); rerender(); }
+  }
+  function cryptoList() {
+    const c = S.cryptoChain, q = S.cryptoQ.trim().toLowerCase();
+    let l = wallets();
+    if (c !== "all") l = l.filter((w) => w.chains.includes(c));
+    if (q) l = l.filter((w) => (w.name + " " + w.chains.join(" ") + " " + w.summary + " " + w.description).toLowerCase().includes(q));
+    return l;
+  }
+  function cryptoGridHtml() {
+    const l = cryptoList();
+    return l.length ? l.map(walletLockup).join("") : `<div class="empty" style="grid-column:1/-1">No wallets match.</div>`;
+  }
+  const cryptoSafety = () => `<div class="trust warn crypto-safety">${ico("shield")}<div><b>Keep your crypto safe.</b> ${esc(S.catalog.crypto?.safety || "")}
+    <div style="margin-top:6px">Wallets are made by independent companies; the Omarchy Store isn't affiliated with any of them and never holds your coins. <a style="color:var(--accent)" href="/legal/">Disclaimer</a>.</div></div></div>`;
+  function cryptoHero() {
+    const icons = wallets().slice(0, 9);
+    return `<div class="crypto-hero">
+      <div class="ch-copy">
+        <div class="spot-badge">${ico("wallet")}Crypto Wallets</div>
+        <h2>Crypto Wallets</h2>
+        <p>Phantom, MetaMask and more — straight into your browser.</p>
+        <div class="ch-sub">${wallets().length} trusted wallet extensions · ${S.desktop ? "one click into Chromium" : "official Chrome Web Store links"}</div>
+      </div>
+      <div class="ch-icons" aria-hidden="true">${icons.map((w, i) => `<img src="${esc(asset(w.icon))}" alt="" style="--i:${i}">`).join("")}</div>
+    </div>`;
+  }
+  function pageCrypto() {
+    loadCryptoInstalled();
+    const chains = walletChains();
+    return `<div class="page">
+      <h1 class="page-title">Crypto Wallets</h1>
+      ${cryptoHero()}
+      <p class="page-sub">Browser wallets let you hold coins, tokens and NFTs and use crypto websites. ${S.desktop
+        ? "Press GET and the wallet's official Chrome Web Store page opens in Chromium: just click <b>Add to Chrome</b>."
+        : "GET opens the wallet's official Chrome Web Store page. They work in Chromium (Omarchy's browser), Chrome and Brave."}</p>
+      <div class="theme-tools">
+        <div class="tabs">${[["all", "All"], ...chains.map((c) => [c, c])].map(([id, n]) => `<button data-cchain="${esc(id)}" class="${S.cryptoChain === id ? "on" : ""}">${esc(n)}</button>`).join("")}</div>
+        <div class="plug-search"><input id="cq" type="search" placeholder="Search wallets" value="${esc(S.cryptoQ)}" autocomplete="off" aria-label="Search wallets"></div>
+      </div>
+      <div class="grid" id="cgrid">${cryptoGridHtml()}</div>
+      ${cryptoSafety()}
+      ${footer()}
+    </div>`;
+  }
+  function pageWallet(id) {
+    const w = walletById(id);
+    if (!w) return notFound();
+    loadCryptoInstalled();
+    const host = (u) => { try { return new URL(u).host.replace(/^www\./, ""); } catch { return u; } };
+    const more = wallets().filter((x) => x.id !== w.id && x.chains.some((c) => w.chains.includes(c))).slice(0, 9);
+    return `<div class="page">
+      ${backBtn()}
+      <div class="detail-head">
+        ${walletImg(w, 128)}
+        <div style="min-width:0">
+          <h1>${esc(w.name)}</h1>
+          <div class="sub">${esc(w.summary)}</div>
+          <a class="dev" href="${safeUrl(w.website)}" target="_blank" rel="noopener">${esc(host(w.website))}</a>
+          <div class="actions">
+            ${walletBtn(w, true)}
+            <a class="icon-btn" href="${safeUrl(w.website)}" target="_blank" rel="noopener" title="Official website">${ico("globe")}</a>
+            <button class="icon-btn" data-copy="${esc(SITE + "crypto/" + w.id + "/")}" title="Copy link">${ico("share")}</button>
+          </div>
+        </div>
+      </div>
+      <div class="strip">
+        <div><div class="k">Price</div><div class="v">Free</div><div class="s">Extension</div></div>
+        <div><div class="k">Networks</div><div class="v">${w.chains.length}</div><div class="s">${esc(w.chains[0])}${w.chains.length > 1 ? " +" + (w.chains.length - 1) : ""}</div></div>
+        <div><div class="k">Works in</div><div class="v" style="font-size:16px">Chromium</div><div class="s">Chrome · Brave</div></div>
+        <div><div class="k">Install</div><div class="v" style="font-size:16px">${S.desktop ? "1 click" : "Web Store"}</div><div class="s">Official listing</div></div>
+        <div><div class="k">Your keys</div><div class="v" style="font-size:16px">Yours</div><div class="s">Self-custody</div></div>
+        <div><div class="k">Firefox</div><div class="v" style="font-size:16px">${w.firefox_url ? "Yes" : "—"}</div><div class="s">${w.firefox_url ? "Add-on too" : "Chromium only"}</div></div>
+      </div>
+      <section class="shelf"><div class="desc">${esc(w.description)}</div></section>
+      <section class="shelf"><div class="shelf-head"><h2>Networks</h2></div>
+        <div class="chips">${w.chains.map((c) => `<span>${esc(c)}</span>`).join("")}</div></section>
+      <section class="shelf"><div class="shelf-head"><h2>How to install</h2></div>
+        <ol class="wl-steps">
+          <li>Press <b>GET</b>. ${S.desktop ? "The official Chrome Web Store page opens in Chromium." : "The official Chrome Web Store page opens in a new tab (use Chromium, Chrome or Brave)."}</li>
+          <li>Click <b>Add to Chrome</b>, then <b>Add extension</b>.</li>
+          <li>Open it from the puzzle-piece icon next to the address bar, and pin it. Create a new wallet or import yours.</li>
+        </ol>
+        ${cryptoSafety()}</section>
+      <section class="shelf"><div class="shelf-head"><h2>Information</h2></div>
+        <div class="info-grid">
+          <div><div class="k">Official website</div><a class="v" href="${safeUrl(w.website)}" target="_blank" rel="noopener">${esc(host(w.website))}</a></div>
+          <div><div class="k">Chrome Web Store</div><a class="v" href="${esc(cwsUrl(w))}" target="_blank" rel="noopener">Official listing</a></div>
+          ${w.firefox_url ? `<div><div class="k">Firefox</div><a class="v" href="${safeUrl(w.firefox_url)}" target="_blank" rel="noopener">Firefox Add-ons</a></div>` : ""}
+          <div><div class="k">Extension ID</div><div class="v"><code class="small">${esc(w.chrome_store_id)}</code></div></div>
+        </div></section>
+      ${more.length ? `<section class="shelf"><div class="shelf-head"><h2>More wallets</h2><a href="/crypto/">See All</a></div>
+        <div class="scroller rows3">${more.map(walletLockup).join("")}</div></section>` : ""}
+      ${footer()}
+    </div>`;
+  }
+  function cryptoShelf() {
+    if (!wallets().length) return "";
+    loadCryptoInstalled();
+    return `<section class="shelf"><div class="shelf-head"><h2>Crypto wallets</h2><a href="/crypto/">See All</a></div>
+      <div class="scroller rows3">${wallets().slice(0, 12).map(walletLockup).join("")}</div></section>`;
+  }
   function plugShelf() {
     if (!S.plugins) { loadPlugins(); return ""; }
     const l = (S.plugins.plugins || []).filter((x) => x.ok && x.img && x.i && !x.own).slice(0, 14);   // our screensaver has its own shelf   // Discover: one-click (GET) plugins only
@@ -898,6 +1063,7 @@
       ${bannerAd()}
       ${plugShelf()}
       ${saverShelf()}
+      ${cryptoShelf()}
       ${themeShelf("Make it yours: Themes", featuredThemes(14), "/themes/")}
       <section class="shelf">
         <div class="shelf-head"><h2>Top Charts</h2><a href="/charts/">See All</a></div>
@@ -1067,7 +1233,11 @@
         <a class="cat-tile" href="/screensavers/">
           <span class="ci" style="background:linear-gradient(135deg,#1a1b26,#7aa2f7 60%,#bb9af7)">${ico("moon")}</span>
           <span>Screensavers<div class="muted small">${S.savers ? S.savers.count : "100+"} screensavers</div></span>
-        </a>${S.catalog.categories.map((c, i) => `
+        </a>${wallets().length ? `
+        <a class="cat-tile" href="/crypto/">
+          <span class="ci" style="background:linear-gradient(135deg,#ab9ff2,#7c5cff 45%,#f6851b)">${ico("wallet")}</span>
+          <span>Crypto Wallets<div class="muted small">${wallets().length} wallets</div></span>
+        </a>` : ""}${S.catalog.categories.map((c, i) => `
         <a class="cat-tile" href="/category/${c.id}/">
           <span class="ci" style="background:${CAT_COLORS[i % CAT_COLORS.length]}">${ico(c.icon)}</span>
           <span>${esc(c.name)}<div class="muted small">${S.catalog.apps.filter((a) => a.category === c.id).length} apps</div></span>
@@ -1480,6 +1650,8 @@
       <h1 class="page-title">Results for “${esc(q)}”</h1>
       ${sponsoredApp((a) => res.includes(a))}
       ${themeShelf("Themes", tres.slice(0, 20), tres.length ? "/themes/" : "")}
+      ${(() => { const wr = t.length < 2 ? [] : wallets().filter((w) => (w.name + " " + w.chains.join(" ") + " " + w.summary + (/(crypto|wallet)/.test(t) ? " crypto wallet" : "")).toLowerCase().includes(t));
+        return wr.length ? `<section class="shelf"><div class="shelf-head"><h2>Crypto Wallets</h2><a href="/crypto/">See All</a></div><div class="scroller rows3">${wr.map(walletLockup).join("")}</div></section>` : ""; })()}
       ${(() => { if (!S.plugins) { loadPlugins(); return ""; } const ql = q.toLowerCase(); const pr = (S.plugins.plugins || []).filter((x) => (x.n + " " + x.d + " " + (x.t || []).join(" ")).toLowerCase().includes(ql)).sort((a, b) => ((b.i ? 1 : 0) - (a.i ? 1 : 0)) || (b.s - a.s)).slice(0, 20);
         return pr.length ? `<section class="shelf"><div class="shelf-head"><h2>Plugins</h2><a href="/plugins/" data-plug-search="${esc(q)}">See All</a></div><div class="scroller plug-row">${pr.map(plugCard).join("")}</div></section>` : ""; })()}
       ${res.length ? `<div class="grid">${res.map((a) => lockup(a)).join("")}</div>`
@@ -1819,6 +1991,7 @@
     else if (p === "theme") html = pageTheme(arg), nav = "themes";
     else if (p === "plugins") html = pagePlugins();
     else if (p === "screensavers") html = pageScreensavers();
+    else if (p === "crypto") { const w = (arg || "").replace(/\/$/, ""); html = w ? pageWallet(w) : pageCrypto(); nav = "crypto"; }
     else if (p === "plugin") html = pagePlugin((arg || "").replace(/\/$/, "")), nav = "plugins";
     else if (p === "category") html = pageCategory(arg), nav = "category/" + arg;
     else if (p === "app" && APP_MOVED[(arg || "").replace(/\/$/, "")]) { history.replaceState(null, "", `/app/${APP_MOVED[arg.replace(/\/$/, "")]}/`); return route(); }
@@ -1860,6 +2033,9 @@
     if (th) return `${th.name} Theme for Omarchy – by ${th.author} | Omarchy Store`;
     const pl = p === "plugin" && S.plugById[decodeURIComponent((arg || "").replace(/\/$/, ""))];
     if (pl) return `${pl.n} – Omarchy Plugin | Omarchy Store`;
+    const cw = p === "crypto" && walletById((arg || "").replace(/\/$/, ""));
+    if (cw) return `${cw.name} Wallet Extension for Chromium on Omarchy | Omarchy Store`;
+    if (p === "crypto") return "Crypto Wallets – Phantom, MetaMask & More for Omarchy | Omarchy Store";
     if (p === "screensavers") return "Omarchy Screensavers – Custom Screensavers & Idle Tools | Omarchy Store";
     if (p === "plugins") return "Omarchy Plugins – Bar Widgets & Desktop Add-ons | Omarchy Store";
     return TITLES[p] ? `${TITLES[p]} | Omarchy Store` : "Omarchy Store – The App Store for Omarchy Linux";
@@ -2026,7 +2202,7 @@
   }
 
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-gal],[data-gal-to],[data-lb],[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-sfilter],[data-saver-more],[data-self-update],[data-self-later],[data-rm],[data-rm-yes],[data-share-theme],#more,.sheet");
+    const t = e.target.closest("[data-gal],[data-gal-to],[data-lb],[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-sfilter],[data-saver-more],[data-cchain],[data-crypto-get],[data-self-update],[data-self-later],[data-rm],[data-rm-yes],[data-share-theme],#more,.sheet");
     if (!t) return;
     if (t.matches("[data-usb-dl]")) {
       post("/api/usb/download", {}).then(async (r) => { if (!r.ok) toast((await r.json().catch(() => ({}))).error || "Download failed"); loadUsb(); });
@@ -2082,6 +2258,12 @@
       selfUpdate(t);
     } else if (t.matches("[data-self-later]")) {
       $("#self-upd")?.remove();
+    } else if (t.matches("[data-cchain]")) {
+      S.cryptoChain = t.dataset.cchain; rerender();
+    } else if (t.matches("[data-crypto-get]")) {
+      e.preventDefault(); e.stopPropagation();
+      const w = walletById(t.dataset.cryptoGet);
+      if (w) cryptoGet(w);
     } else if (t.matches("[data-sfilter]")) {
       S.saverF = t.dataset.sfilter; S.saverShown = 60; rerender();
     } else if (t.matches("[data-saver-more]")) {
@@ -2143,6 +2325,7 @@
   });
   // Theme search box filters the grid in place (no re-render, so the cursor stays put).
   document.addEventListener("input", (e) => {
+    if (e.target.id === "cq") { S.cryptoQ = e.target.value; const g = $("#cgrid"); if (g) g.innerHTML = cryptoGridHtml(); return; }
     if (e.target.id === "sq") { S.saverQ = e.target.value; S.saverShown = 60; const g = $("#sgrid"); if (g) g.innerHTML = saverGridHtml(); return; }
     if (e.target.id === "pq") { S.plugQ = e.target.value; S.plugShown = 60; const g = $("#pgrid"); if (g) g.innerHTML = plugGridHtml(); return; }
     if (e.target.id !== "tq") return;
