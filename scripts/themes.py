@@ -345,7 +345,9 @@ def collect(mirror_images=True):
                 if v is not None:
                     t["vivid"] = v
     # Installable themes first, then by stars, then name.
-    out.sort(key=lambda t: (not (t["repo"] or t["builtin"]), -(t["stars"] or 0), t["name"].lower()))
+    # Pinned themes go first (our own themes)
+    pinned = {"omarchy-store-theme"}
+    out.sort(key=lambda t: (t["id"] not in pinned, not (t["repo"] or t["builtin"]), -(t["stars"] or 0), t["name"].lower()))
     return out
 
 
