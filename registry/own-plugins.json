@@ -2,9 +2,9 @@
   {
     "id": "omarchy-store-screensaver",
     "n": "Omarchy Store Screensaver",
-    "d": "Glowing Mystify-style ribbons over a soft aurora. 10 colour palettes, wait time from 1 minute to 1 hour, optional password on wake, moving clock. Open 'Screensaver Settings' from the app launcher.",
+    "d": "Glowing Mystify shapes with fading echoes over a soft aurora, drawn smoothly on your graphics card. 10 colour palettes, wait time from 1 minute to 1 hour, optional password on wake, moving clock. Open 'Screensaver Settings' from the app launcher.",
     "a": "Omarchy Store",
-    "v": "1.0.0",
+    "v": "1.1.0",
     "c": "appearance",
     "t": [
       "screensaver",
