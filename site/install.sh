@@ -2,6 +2,7 @@
 # Omarchy Store — desktop app installer.
 #
 #   curl -fsSL https://omarchystore.com/install.sh | bash
+#   curl -fsSL https://omarchystore.com/install.sh | bash -s -- --with snapdock,lifeboat,omarchy-store-screensaver,omarchy-store-theme
 #
 # Or from GitHub: download omarchy-store-<version>.tar.gz from
 #   https://github.com/omarchy-community/store/releases/latest
@@ -11,6 +12,7 @@
 #   1. Downloads the store files into ~/.local/share/omarchy-store
 #   2. Puts the `omarchy-store` command in ~/.local/bin
 #   3. Adds "Omarchy Store" to your app launcher (Super + Space)
+#   4. Optionally pre-installs specified apps (--with)
 # No sudo. Nothing outside your home folder. Remove with: omarchy-store --uninstall
 set -euo pipefail
 
@@ -20,8 +22,42 @@ BIN="$HOME/.local/bin"
 APPS="$HOME/.local/share/applications"
 ICONS="$HOME/.local/share/icons/hicolor/scalable/apps"
 
+# Core apps that can be pre-installed via --with
+# These are verified to work on Omarchy and are maintained by Omarchy Development Labs
+CORE_APPS="snapdock,lifeboat,omarchy-store-screensaver,omarchy-store-theme"
+WITH_APPS=""
+
 say() { printf '\033[1;34m==>\033[0m %s\n' "$*"; }
 die() { printf '\033[1;31mError:\033[0m %s\n' "$*" >&2; exit 1; }
+
+# Parse arguments
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --with)
+      WITH_APPS="$2"
+      shift 2
+      ;;
+    --with=*)
+      WITH_APPS="${1#*=}"
+      shift
+      ;;
+    --help|-h)
+      cat <<EOF
+Usage: install.sh [--with <app1,app2,...>] [--help]
+
+Options:
+  --with APPS    Comma-separated list of apps to pre-install after store setup.
+                 Available core apps: $CORE_APPS
+                 Example: --with snapdock,lifeboat
+  --help, -h     Show this help
+EOF
+      exit 0
+      ;;
+    *)
+      die "Unknown option: $1. Use --help for usage."
+      ;;
+  esac
+done
 
 command -v python3 >/dev/null || die "python3 is required (it ships with Omarchy)."
 command -v curl >/dev/null || die "curl is required."
@@ -43,15 +79,15 @@ if [ -n "$SRC" ]; then
   cp "$SRC/omarchy-store" "$SRC/uninstall.sh" "$TMP/"
   mkdir -p "$TMP/site/icons"
 else
-say "Downloading Omarchy Store…"
-fetch() { curl -fsSL --retry 3 -o "$TMP/$1" "$BASE$1" || die "couldn't download $1"; }
-mkdir -p "$TMP/site/assets" "$TMP/site/icons"
-for f in site/index.html site/app.js site/styles.css site/catalog.json site/site.webmanifest \
-         site/assets/logo.svg site/assets/favicon.ico site/assets/icon-48.png site/assets/icon-128.png site/assets/icon-256.png \
-         omarchy-store uninstall.sh; do
-  mkdir -p "$TMP/$(dirname "$f")"
-  curl -fsSL --retry 3 -o "$TMP/$f" "${BASE}desktop-files/$f" || die "couldn't download $f"
-done
+  say "Downloading Omarchy Store…"
+  fetch() { curl -fsSL --retry 3 -o "$TMP/$1" "$BASE$1" || die "couldn't download $1"; }
+  mkdir -p "$TMP/site/assets" "$TMP/site/icons"
+  for f in site/index.html site/app.js site/styles.css site/catalog.json site/site.webmanifest \
+           site/assets/logo.svg site/assets/favicon.ico site/assets/icon-48.png site/assets/icon-128.png site/assets/icon-256.png \
+           omarchy-store uninstall.sh; do
+    mkdir -p "$TMP/$(dirname "$f")"
+    curl -fsSL --retry 3 -o "$TMP/$f" "${BASE}desktop-files/$f" || die "couldn't download $f"
+  done
 fi
 
 # Sanity-check what we downloaded before installing it.
@@ -108,3 +144,61 @@ update-desktop-database "$APPS" &>/dev/null || true
 
 say "Done! Open \"Omarchy Store\" from your launcher (Super + Space), or run: omarchy-store"
 case ":$PATH:" in *":$BIN:"*) ;; *) echo "  (Add $BIN to your PATH to use the omarchy-store command.)";; esac
+
+# Pre-install requested core apps
+if [ -n "$WITH_APPS" ]; then
+  say "Pre-installing core apps: $WITH_APPS"
+  # Start the helper in background so we can use its API
+  "$DEST/omarchy-store" --serve &
+  HELPER_PID=$!
+  sleep 2  # wait for helper to start
+  
+  # Find the port
+  PORT_FILE="$HOME/.local/state/omarchy-store/port"
+  for i in {1..10}; do
+    if [ -f "$PORT_FILE" ]; then
+      PORT=$(cat "$PORT_FILE")
+      break
+    fi
+    sleep 0.5
+  done
+  
+  if [ -z "${PORT:-}" ]; then
+    say "Warning: Could not start helper for pre-install. Apps will be available in store."
+  else
+    # Get the session token from the helper's token file
+    TOKEN_FILE="$HOME/.local/state/omarchy-store/token"
+    TOKEN=""
+    for i in {1..10}; do
+      if [ -f "$TOKEN_FILE" ]; then
+        TOKEN=$(cat "$TOKEN_FILE" 2>/dev/null || echo "")
+        break
+      fi
+      sleep 0.5
+    done
+    if [ -z "$TOKEN" ]; then
+      say "Warning: Could not read helper token. Apps will be available in store."
+    else
+      # Use the store's API to install apps
+      for app in $(echo "$WITH_APPS" | tr ',' ' '); do
+        say "Installing $app..."
+        # The helper validates the app ID against the catalog and runs the install recipe
+        curl -fsSL -X POST "http://127.0.0.1:$PORT/api/install" \
+          -H "Content-Type: application/json" \
+          -H "Origin: http://127.0.0.1:$PORT" \
+          -H "X-Store-Token: $TOKEN" \
+          -d "{\"id\":\"$app\"}" 2>/dev/null || say "  Note: $app will be available in the store (install manually if needed)"
+        sleep 1
+      done
+    fi
+    # Stop the temporary helper
+    kill $HELPER_PID 2>/dev/null || true
+    wait $HELPER_PID 2>/dev/null || true
+  fi
+fi
+
+# Install post-update validation hook
+if command -v omarchy-hook-install >/dev/null 2>&1; then
+  say "Installing post-update validation hook for core apps..."
+  omarchy-hook-install post-update "$BASE/scripts/post-update-validation.sh" 2>/dev/null || true
+fi

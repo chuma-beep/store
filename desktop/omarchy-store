@@ -54,6 +54,14 @@ CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
 VERSION = "1.7.8"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
+# Write token to a file so install.sh can use it for pre-install
+TOKEN_FILE = os.path.join(STATE_DIR, "token")
+try:
+    os.makedirs(STATE_DIR, exist_ok=True)
+    with open(TOKEN_FILE, "w") as f:
+        f.write(TOKEN)
+except Exception:
+    pass
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
 JOBS_LOCK = threading.Lock()
 
