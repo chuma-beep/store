@@ -1,0 +1,92 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Omarchy Store Screensaver — preview</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #07030f; overflow: hidden; font-family: Inter, system-ui, sans-serif; }
+  canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+  .ui { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); display: flex; gap: 8px; padding: 8px;
+        background: rgba(20,16,36,.55); backdrop-filter: blur(18px); border: 1px solid rgba(255,255,255,.14); border-radius: 16px; }
+  .ui button { border: 0; border-radius: 10px; padding: 8px 12px; color: #fff; font: 600 13px Inter, sans-serif; cursor: pointer;
+               background: rgba(255,255,255,.08); display: flex; align-items: center; gap: 8px; }
+  .ui button.on { background: rgba(255,255,255,.24); }
+  .ui i { width: 34px; height: 12px; border-radius: 6px; display: inline-block; }
+  .clock { position: fixed; left: 0; right: 0; top: 16vh; text-align: center; color: #fff; text-shadow: 0 4px 30px rgba(0,0,0,.5); pointer-events: none; }
+  .clock b { display: block; font-size: 120px; font-weight: 800; letter-spacing: -4px; line-height: 1; }
+  .clock span { font-size: 26px; font-weight: 500; opacity: .8; }
+  .brand { position: fixed; right: 30px; top: 26px; display: flex; align-items: center; gap: 10px; color: rgba(255,255,255,.75); font-weight: 700; font-size: 15px; }
+  .brand img { width: 30px; height: 30px; }
+</style></head>
+<body>
+<canvas id="c"></canvas>
+<div class="clock"><b id="t">9:41</b><span id="d">Saturday</span></div>
+<div class="brand"><img src="/home/nemoclawai/omarchy-store/site/assets/logo.svg" alt="">Omarchy Store</div>
+<div class="ui" id="ui"></div>
+<script>
+// Palettes: each is a list of ribbon colours over a deep background.
+const PALETTES = {
+  "Aurora":   { bg: "#07030f", c: ["#b44cff", "#7a5cff", "#22d3c5", "#5ef2e0"] },   // the SnapDock look
+  "Sunset":   { bg: "#120408", c: ["#ff5f6d", "#ff9a3c", "#ffd36b", "#ff6fb1"] },
+  "Ocean":    { bg: "#020b18", c: ["#1e6bff", "#22b8ff", "#3ef0ff", "#7ad7ff"] },
+  "Forest":   { bg: "#03100a", c: ["#2bd67b", "#9be15d", "#1fb6a0", "#d4ff6b"] },
+  "Ember":    { bg: "#100503", c: ["#ff3b1f", "#ff7a00", "#ffc04d", "#ff2e63"] },
+  "Mono":     { bg: "#050507", c: ["#ffffff", "#c7cbd6", "#8b93a7", "#e9ecf2"] },
+  "Theme":    { bg: "#1a1b26", c: ["#7aa2f7", "#bb9af7", "#7dcfff", "#9ece6a"] },   // follows the Omarchy theme (Tokyo Night shown)
+};
+let pal = "Aurora";
+const cv = document.getElementById("c"), g = cv.getContext("2d");
+let W, H, DPR = Math.min(devicePixelRatio || 1, 2);
+const resize = () => { W = cv.width = innerWidth * DPR; H = cv.height = innerHeight * DPR; };
+addEventListener("resize", resize); resize();
+
+// Ribbons: each is a band of many thin strands following a slowly drifting curve (Mystify-like motion, silky look).
+const RIBBONS = 3, STRANDS = 46;
+const rib = Array.from({ length: RIBBONS }, (_, i) => ({
+  seed: Math.random() * 1000, speed: 0.06 + Math.random() * 0.05, amp: 0.18 + Math.random() * 0.14,
+  y: 0.42 + i * 0.13, width: 0.16 + Math.random() * 0.08, col: i,
+}));
+const noise = (x, s) => Math.sin(x * 1.7 + s) * 0.55 + Math.sin(x * 0.63 + s * 1.9) * 0.3 + Math.sin(x * 3.1 - s * 0.7) * 0.15;
+
+function draw(ms) {
+  const t = ms / 1000, P = PALETTES[pal];
+  g.globalCompositeOperation = "source-over";
+  g.fillStyle = P.bg; g.globalAlpha = 0.22; g.fillRect(0, 0, W, H);   // soft trails
+  g.globalAlpha = 1; g.globalCompositeOperation = "lighter";
+  for (const r of rib) {
+    const col = P.c[r.col % P.c.length];
+    for (let s = 0; s < STRANDS; s++) {
+      const f = s / (STRANDS - 1) - 0.5;            // -0.5..0.5 across the band
+      g.beginPath();
+      for (let x = -0.05; x <= 1.05; x += 0.01) {
+        const ph = t * r.speed * 6 + r.seed;
+        const twist = Math.sin(x * 3 + ph * 0.8) ;    // band twists like a silk ribbon
+        const y = r.y + noise(x * 2.2 + ph * 0.35, r.seed) * r.amp + f * r.width * twist;
+        const X = x * W, Y = y * H;
+        x === -0.05 ? g.moveTo(X, Y) : g.lineTo(X, Y);
+      }
+      const edge = 1 - Math.abs(f) * 2;              // brighter in the middle of the band
+      g.strokeStyle = col; g.globalAlpha = 0.03 + edge * 0.07; g.lineWidth = (1.5 + edge * 4) * DPR;
+      g.shadowColor = col; g.shadowBlur = 26 * DPR;
+      g.stroke();
+    }
+  }
+  g.shadowBlur = 0;
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+
+const ui = document.getElementById("ui");
+for (const [n, p] of Object.entries(PALETTES)) {
+  const b = document.createElement("button");
+  b.innerHTML = `<i style="background:linear-gradient(90deg,${p.c.join(",")})"></i>${n}`;
+  b.onclick = () => { pal = n; [...ui.children].forEach((x) => x.classList.toggle("on", x === b)); g.fillStyle = p.bg; g.globalAlpha = 1; g.fillRect(0, 0, W, H); };
+  if (n === pal) b.classList.add("on");
+  ui.appendChild(b);
+}
+const tick = () => { const d = new Date(); document.getElementById("t").textContent = d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  document.getElementById("d").textContent = d.toLocaleDateString([], { weekday: "long", month: "long", day: "numeric" }); };
+tick(); setInterval(tick, 10000);
+const fromHash = () => { if (!location.hash) return; const n = decodeURIComponent(location.hash.slice(1));
+  if (PALETTES[n]) { pal = n; g.globalCompositeOperation = "source-over"; g.globalAlpha = 1; g.fillStyle = PALETTES[n].bg; g.fillRect(0, 0, W, H); }
+  document.getElementById("ui").style.display = "none"; };
+addEventListener("hashchange", fromHash); fromHash();
+</script>
+</body></html>

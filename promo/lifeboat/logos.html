@@ -1,0 +1,149 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+  body { margin: 0; background: #15161c; font-family: Inter, system-ui, sans-serif; color: #e8ecf5; padding: 30px; }
+  h1 { font-size: 22px; margin: 0 0 22px; }
+  .row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 34px 40px; }
+  .opt { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+  .opt b { font-size: 20px; }
+  .sizes { display: flex; align-items: flex-end; gap: 18px; }
+  svg.big { width: 256px; height: 256px; }
+  svg.mid { width: 64px; height: 64px; }
+  svg.sm { width: 32px; height: 32px; }
+  .light { background: #f2f3f7; padding: 8px; border-radius: 10px; display: flex; gap: 10px; align-items: flex-end; }
+</style></head>
+<body>
+<h1>Lifeboat logo options (256 · 64 · 32 px, and on a white background)</h1>
+<div class="row" id="row"></div>
+
+<template id="A">
+<!-- A: Glossy life ring, 3D: bold red/white ring with depth, highlight and a soft drop shadow on a deep ocean squircle -->
+<svg viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="A-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b4f8f"/><stop offset=".55" stop-color="#0c2a55"/><stop offset="1" stop-color="#061633"/></linearGradient>
+    <radialGradient id="A-glow" cx=".5" cy=".38" r=".55"><stop offset="0" stop-color="#4fa3ff" stop-opacity=".55"/><stop offset="1" stop-color="#4fa3ff" stop-opacity="0"/></radialGradient>
+    <linearGradient id="A-red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff6b4a"/><stop offset="1" stop-color="#e0301e"/></linearGradient>
+    <linearGradient id="A-white" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#dfe6f0"/></linearGradient>
+    <linearGradient id="A-shine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <filter id="A-sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#000" flood-opacity=".45"/></filter>
+    <mask id="A-hole"><rect width="512" height="512" fill="#fff"/><circle cx="256" cy="246" r="78" fill="#000"/></mask>
+    <clipPath id="A-clip"><rect width="512" height="512" rx="114"/></clipPath>
+  </defs>
+  <rect width="512" height="512" rx="114" fill="url(#A-bg)"/>
+  <g clip-path="url(#A-clip)">
+    <rect width="512" height="512" fill="url(#A-glow)"/>
+    <path d="M0 410 C 90 380 170 440 256 410 S 420 380 512 410 V512 H0Z" fill="#0a3b6e" opacity=".9"/>
+    <path d="M0 440 C 100 415 170 465 256 440 S 420 415 512 440 V512 H0Z" fill="#082a52"/>
+  </g>
+  <g filter="url(#A-sh)" mask="url(#A-hole)">
+    <circle cx="256" cy="246" r="168" fill="url(#A-red)"/>
+    <g fill="url(#A-white)">
+      <path d="M256 246 L 256 78 A168 168 0 0 1 375 127 Z" transform="rotate(-22.5 256 246)"/>
+      <path d="M256 246 L 256 78 A168 168 0 0 1 375 127 Z" transform="rotate(67.5 256 246)"/>
+      <path d="M256 246 L 256 78 A168 168 0 0 1 375 127 Z" transform="rotate(157.5 256 246)"/>
+      <path d="M256 246 L 256 78 A168 168 0 0 1 375 127 Z" transform="rotate(247.5 256 246)"/>
+    </g>
+    <circle cx="256" cy="246" r="166" fill="none" stroke="#000" stroke-opacity=".18" stroke-width="4"/>
+    <circle cx="256" cy="246" r="80" fill="none" stroke="#000" stroke-opacity=".22" stroke-width="6"/>
+    <path d="M140 170 A140 140 0 0 1 372 170 A150 120 0 0 0 140 170Z" fill="url(#A-shine)" opacity=".7"/>
+  </g>
+  <!-- rope -->
+  <circle cx="256" cy="246" r="124" fill="none" stroke="#f6d9a8" stroke-width="7" stroke-dasharray="22 16" opacity=".85" mask="url(#A-hole)"/>
+</svg>
+</template>
+
+<template id="B">
+<!-- B: Minimal modern: flat, bold, two-tone life ring with a cloud-upload arrow in the middle (backup = cloud) on a coral-to-sunset squircle -->
+<svg viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="B-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8a4c"/><stop offset="1" stop-color="#e6335a"/></linearGradient>
+    <filter id="B-sh"><feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#7a1030" flood-opacity=".45"/></filter>
+    <mask id="B-hole"><rect width="512" height="512" fill="#fff"/><circle cx="256" cy="256" r="86" fill="#000"/></mask>
+  </defs>
+  <rect width="512" height="512" rx="114" fill="url(#B-bg)"/>
+  <g filter="url(#B-sh)">
+    <g mask="url(#B-hole)">
+      <circle cx="256" cy="256" r="170" fill="#ffffff"/>
+      <g fill="#1d2a5c">
+        <path d="M256 256 L 256 86 A170 170 0 0 1 376 136 Z" transform="rotate(-22.5 256 256)"/>
+        <path d="M256 256 L 256 86 A170 170 0 0 1 376 136 Z" transform="rotate(67.5 256 256)"/>
+        <path d="M256 256 L 256 86 A170 170 0 0 1 376 136 Z" transform="rotate(157.5 256 256)"/>
+        <path d="M256 256 L 256 86 A170 170 0 0 1 376 136 Z" transform="rotate(247.5 256 256)"/>
+      </g>
+    </g>
+    <!-- up arrow in the hole -->
+    <path d="M256 214 L 290 252 H 270 V 296 H 242 V 252 H 222 Z" fill="#fff"/>
+  </g>
+</svg>
+</template>
+
+<template id="C">
+<!-- C: Lifeboat on a wave: a stylised boat with a life ring on its side, riding a big wave, night sky; tells the "lifeboat" story -->
+<svg viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="C-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a1f6b"/><stop offset=".6" stop-color="#16326e"/><stop offset="1" stop-color="#0b2346"/></linearGradient>
+    <linearGradient id="C-sea" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2bc4e6"/><stop offset="1" stop-color="#0d6fa8"/></linearGradient>
+    <linearGradient id="C-hull" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff7a45"/><stop offset="1" stop-color="#e2381f"/></linearGradient>
+    <filter id="C-sh"><feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#000" flood-opacity=".4"/></filter>
+    <clipPath id="C-clip"><rect width="512" height="512" rx="114"/></clipPath>
+  </defs>
+  <rect width="512" height="512" rx="114" fill="url(#C-bg)"/>
+  <g clip-path="url(#C-clip)">
+    <circle cx="380" cy="120" r="46" fill="#ffe7a3"/>
+    <circle cx="398" cy="106" r="46" fill="#22266a" opacity=".0"/>
+    <g fill="#fff" opacity=".7"><circle cx="90" cy="90" r="3"/><circle cx="160" cy="60" r="2"/><circle cx="250" cy="110" r="2.5"/><circle cx="60" cy="170" r="2"/><circle cx="300" cy="50" r="2"/></g>
+    <g filter="url(#C-sh)">
+      <!-- hull -->
+      <path d="M120 300 H 392 L 360 370 Q 256 392 152 370 Z" fill="url(#C-hull)"/>
+      <rect x="168" y="246" width="176" height="58" rx="18" fill="#f4f7fb"/>
+      <rect x="186" y="262" width="34" height="26" rx="6" fill="#2b5a9a"/><rect x="232" y="262" width="34" height="26" rx="6" fill="#2b5a9a"/>
+      <!-- ring on the side -->
+      <circle cx="318" cy="335" r="24" fill="#fff"/><circle cx="318" cy="335" r="10" fill="#e2381f"/>
+      <path d="M318 311 v10 M318 349 v10 M294 335 h10 M332 335 h10" stroke="#e2381f" stroke-width="8"/>
+    </g>
+    <path d="M-10 372 C 80 330 150 410 256 372 S 430 330 522 372 V522 H-10Z" fill="url(#C-sea)"/>
+    <path d="M-10 420 C 90 392 170 446 256 420 S 430 392 522 420 V522 H-10Z" fill="#0a4f86"/>
+    <path d="M40 380 q 30 -18 60 0" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" opacity=".8"/>
+    <path d="M380 388 q 30 -18 60 0" stroke="#fff" stroke-width="7" fill="none" stroke-linecap="round" opacity=".8"/>
+  </g>
+</svg>
+</template>
+
+<template id="D">
+<!-- D: Shield + ring: a sleek life ring wrapped around a lock/shield (safe + encrypted), dark glass with orange glow, very "security app" -->
+<svg viewBox="0 0 512 512">
+  <defs>
+    <linearGradient id="D-bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#20263a"/><stop offset="1" stop-color="#0b0e18"/></linearGradient>
+    <radialGradient id="D-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ff6a3d" stop-opacity=".5"/><stop offset="1" stop-color="#ff6a3d" stop-opacity="0"/></radialGradient>
+    <linearGradient id="D-ring" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff8a5c"/><stop offset="1" stop-color="#ef3b2a"/></linearGradient>
+    <linearGradient id="D-sh" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5ad2ff"/><stop offset="1" stop-color="#2a7de1"/></linearGradient>
+    <mask id="D-hole"><rect width="512" height="512" fill="#fff"/><circle cx="256" cy="256" r="104" fill="#000"/></mask>
+  </defs>
+  <rect width="512" height="512" rx="114" fill="url(#D-bg)"/>
+  <circle cx="256" cy="256" r="230" fill="url(#D-glow)"/>
+  <g mask="url(#D-hole)">
+    <circle cx="256" cy="256" r="176" fill="url(#D-ring)"/>
+    <g fill="#ffffff">
+      <path d="M256 256 L 256 80 A176 176 0 0 1 380 131 Z" transform="rotate(-22.5 256 256)"/>
+      <path d="M256 256 L 256 80 A176 176 0 0 1 380 131 Z" transform="rotate(67.5 256 256)"/>
+      <path d="M256 256 L 256 80 A176 176 0 0 1 380 131 Z" transform="rotate(157.5 256 256)"/>
+      <path d="M256 256 L 256 80 A176 176 0 0 1 380 131 Z" transform="rotate(247.5 256 256)"/>
+    </g>
+  </g>
+  <!-- shield with check in the middle -->
+  <path d="M256 178 L 316 200 V 252 C 316 292 290 318 256 332 C 222 318 196 292 196 252 V 200 Z" fill="url(#D-sh)"/>
+  <path d="M228 254 L 250 276 L 288 236" stroke="#fff" stroke-width="16" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+</template>
+
+<script>
+  const row = document.getElementById("row");
+  for (const [id, name] of [["A", "A · Glossy 3D ring"], ["B", "B · Bold & minimal + upload arrow"], ["C", "C · Lifeboat on a wave"], ["D", "D · Ring + security shield"]]) {
+    const t = document.getElementById(id).innerHTML;
+    const o = document.createElement("div"); o.className = "opt";
+    o.innerHTML = `<b>${name}</b><div class="sizes">${t.replace("<svg", '<svg class="big"')}${t.replace("<svg", '<svg class="mid"')}${t.replace("<svg", '<svg class="sm"')}</div>
+      <div class="light">${t.replace("<svg", '<svg class="mid"')}${t.replace("<svg", '<svg class="sm"')}</div>`;
+    row.appendChild(o);
+  }
+</script>
+</body></html>

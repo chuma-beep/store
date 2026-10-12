@@ -195,6 +195,40 @@ if (s === "hero") {
     + menu("Which backup?", ["Original setup (before SnapDock) · Oct 10, 6:21 PM", "Saved by you · Oct 12, 9:03 AM", "Automatic, made before a restore · Oct 12"], 1040, 400, 0)
     + file("SnapDock-Backup-Before-SnapDock.tar.gz", "In Downloads · your original setup", 640, 790)
     + dock(false).replace('class="dock"', 'class="dock" style="opacity:0"'));
+} else if (s.startsWith("v-")) {
+  // Video scenes (1920x1080, NO headline text: the video writes its own words). One per feature.
+  const v = s.slice(2);
+  const G = 14, T = 34 + G, B = 1080 - 120, W = 1920 - 2 * G, H = B - T;
+  const lw = Math.round(W * 0.5) - G / 2, rw = W - lw - G, rh = Math.round(H / 2) - G / 2;
+  const pickerAt = (x, y, sc, hl) => `<div class="pick" style="left:${x}px;top:${y}px;transform:scale(${sc});transform-origin:top left"><div class="cap">Snap layouts</div>
+        ${[[[4, 6, 44, 88, 1], [52, 6, 44, 88]], [[4, 6, 44, 41, 1], [52, 6, 44, 41], [4, 53, 44, 41], [52, 53, 44, 41]], [[4, 6, 28, 88], [36, 6, 28, 88, 1], [68, 6, 28, 88]],
+           [[4, 6, 60, 88, 1], [68, 6, 28, 88]], [[4, 6, 92, 88, 1]], [[20, 14, 60, 72, 1]]]
+          .map((r) => `<div class="l">${r.map(([x, y, w, h, hl]) => `<i class="${hl ? "h" : ""}" style="left:${x}%;top:${y}%;width:${w}%;height:${h}%"></i>`).join("")}</div>`).join("")}</div>`;
+  if (v === "dock") d.insertAdjacentHTML("beforeend", bar + dock(true));
+  else if (v === "minimize") {
+    // an app being tucked away: the dock with a tooltip + the window shrinking toward its icon
+    d.insertAdjacentHTML("beforeend", bar + browser(G + 300, T + 60, 1300, 640).replace('class="win"', 'class="win" style="transform:scale(.62) translate(-180px, 560px);opacity:.75;transform-origin:center"')
+      + dock(true) + `<div class="tip" style="left:50%;transform:translateX(-50%);bottom:270px">Click again to minimize</div>`);
+  } else if (v === "layouts") d.insertAdjacentHTML("beforeend", bar + editor(G, T, lw, H, true) + browser(G + lw + G, T, rw, rh) + music(G + lw + G, T + rh + G, rw, H - rh - G) + pickerAt(760, 300, 2.0, 1) + dock(false));
+  else if (v === "assist") {
+    // Snap Assist: one window snapped left, the right half offers the other open windows as cards
+    const card = (icon, name, x, y) => `<div class="win" style="left:${x}px;top:${y}px;width:420px;height:280px;opacity:.95">${tb(icon, name)}<div style="position:absolute;inset:44px 0 0;background:rgba(255,255,255,.05)"></div></div>`;
+    d.insertAdjacentHTML("beforeend", bar + editor(G, T, lw, H, true)
+      + `<div style="position:absolute;left:${G + lw + G}px;top:${T}px;width:${rw}px;height:${H}px;border-radius:18px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 2px rgba(125,211,252,.5)"></div>`
+      + `<div style="position:absolute;left:${G + lw + G + 40}px;top:${T + 36}px;color:#fff;font:700 30px 'Adwaita Sans';opacity:.9">Pick a window for this side</div>`
+      + card("firefox", "Omarchy Store — Firefox", G + lw + G + 40, T + 110) + card("spotify", "Spotify", G + lw + G + 490, T + 110)
+      + card("discord", "Discord", G + lw + G + 40, T + 420) + card("obsidian", "Notes — Obsidian", G + lw + G + 490, T + 420) + dock(false));
+  } else if (v === "desktop") {
+    // Show desktop: everything swept away, just wallpaper + dock, cursor on the last dock button
+    d.insertAdjacentHTML("beforeend", bar + dock(true) + `<div class="tip" style="left:50%;transform:translateX(-50%);bottom:270px">Show desktop · Super + D</div>`);
+  } else if (v === "titlebars") d.insertAdjacentHTML("beforeend", bar + browser(260, 140, 1400, 760).replace('class="tb"', 'class="tb" style="transform:scale(1.9);transform-origin:left top;width:52.6%"') + dock(false));
+  else if (v === "backup") {
+    const file = (name, sub, x, y) => `<div style="position:absolute;left:${x}px;top:${y}px;display:flex;gap:24px;align-items:center;padding:30px 34px;border-radius:26px;z-index:6;width:900px;
+      background:rgba(255,255,255,.10);backdrop-filter:blur(24px);color:#fff;box-shadow:0 30px 70px rgba(0,0,0,.45),0 0 0 1px rgba(255,255,255,.16)">
+      <span style="display:grid;place-items:center;flex:none;width:90px;height:90px;border-radius:22px;background:linear-gradient(135deg,#ffe17a,#ffb547);color:#3a2600;font:900 38px 'Adwaita Sans'">⤓</span>
+      <span style="min-width:0"><div style="font:700 30px 'Adwaita Sans'">${name}</div><div style="font:500 23px 'Adwaita Sans';opacity:.7;margin-top:6px">${sub}</div></span></div>`;
+    d.insertAdjacentHTML("beforeend", bar + file("Your setup is backed up", "Downloads · SnapDock-Backup-Before-SnapDock.tar.gz", 510, 420) + dock(false));
+  }
 } else if (s === "og") {
   document.body.style.width = "1200px"; document.body.style.height = "630px";
   d.style.width = "1200px"; d.style.height = "630px";
