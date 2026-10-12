@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Ignite for Omarchy – Make a USB &amp; Dual Boot Windows | Omarchy Store</title>
+<title>Ignite for Omarchy – Make a USB & Dual Boot Windows | Omarchy Store</title>
 <meta name="description" content="Make a bootable Omarchy USB in one click with the latest official ISO, SHA-256 verified. Plus how to dual boot Omarchy next to Windows.">
 <link rel="canonical" href="https://omarchystore.com/ignite/">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:site_name" content="Omarchy Store">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Ignite for Omarchy – Make a USB &amp; Dual Boot Windows | Omarchy Store">
+<meta property="og:title" content="Ignite for Omarchy – Make a USB & Dual Boot Windows | Omarchy Store">
 <meta property="og:description" content="Make a bootable Omarchy USB in one click with the latest official ISO, SHA-256 verified. Plus how to dual boot Omarchy next to Windows.">
 <meta property="og:url" content="https://omarchystore.com/ignite/">
 <meta property="og:image" content="https://omarchystore.com/assets/og-default.png?v=7ef6a278d3">
 <meta property="og:image:alt" content="Omarchy Store">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Ignite for Omarchy – Make a USB &amp; Dual Boot Windows | Omarchy Store">
+<meta name="twitter:title" content="Ignite for Omarchy – Make a USB & Dual Boot Windows | Omarchy Store">
 <meta name="twitter:description" content="Make a bootable Omarchy USB in one click with the latest official ISO, SHA-256 verified. Plus how to dual boot Omarchy next to Windows.">
 <meta name="twitter:image" content="https://omarchystore.com/assets/og-default.png?v=7ef6a278d3">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Omarchy Store","url":"https://omarchystore.com","logo":"https://omarchystore.com/assets/icon-512.png","sameAs":["https://github.com/omarchy-community/store","https://www.youtube.com/@OmarchyStore","https://www.tiktok.com/@omarchy.store","https://www.instagram.com/omarchystore/","https://t.me/omarchystore"]}</script>
@@ -42,7 +42,39 @@
       <a id="mode-badge" class="mode-badge" href="/get-desktop/"></a>
     </div>
   </aside>
-  <main id="view" tabindex="-1"><div class="page ssr"><h1 class="page-title">Ignite for Omarchy</h1><p>Make an Omarchy installer USB stick in one click with Ignite in the Omarchy Store desktop app: it downloads the newest official Omarchy ISO from iso.omarchy.org, checks its SHA-256, and writes it to your USB drive.</p><h2>Install Omarchy next to Windows (dual boot)</h2><ol><li>Turn off BitLocker (Settings, Privacy &amp; security, Device encryption).</li><li>Open Disk Management (diskmgmt.msc), right-click C:, Shrink Volume by 51200 MB (50 GB) or 102400 MB (100 GB).</li><li>Boot the Omarchy USB, pick your drive and choose Free space install.</li><li>In Omarchy, run limine-scan to add Windows to the boot menu.</li></ol><p><a href="https://iso.omarchy.org/omarchy-4.0.4.iso">Download Omarchy 4.0.4</a></p><h2>On Windows or Mac</h2><ol><li>Download the latest Omarchy ISO.</li><li>Install Rufus (Windows) or balenaEtcher (Windows and Mac).</li><li>Choose the ISO, choose your USB stick, and press Start or Flash.</li></ol></div></main>
+  <main id="view" tabindex="-1"><div class="page ssr">
+<h1 class="page-title">Ignite for Omarchy</h1>
+<p>Make an Omarchy installer USB stick in one click with Ignite in the Omarchy Store desktop app: it downloads the newest official Omarchy ISO from iso.omarchy.org, checks its SHA-256, and writes it to your USB drive.</p>
+
+<h2>Install Omarchy next to Windows (dual boot)</h2>
+<ol>
+<li>Turn off BitLocker (Settings, Privacy & security, Device encryption).</li>
+<li>Open Disk Management (diskmgmt.msc), right-click C:, Shrink Volume by 51200 MB (50 GB) or 102400 MB (100 GB).</li>
+<li>Boot the Omarchy USB, pick your drive and choose Free space install.</li>
+<li>In Omarchy, run <code>limine-scan</code> to add Windows to the boot menu.</li>
+</ol>
+
+<h2>On Windows</h2>
+<ol>
+<li>Download the latest Omarchy ISO: <a href="https://iso.omarchy.org/omarchy-4.0.4.iso" download>Omarchy 4.0.4</a></li>
+<li>Download Rufus (Windows): <a href="https://github.com/pbatard/rufus/releases/download/v4.15/rufus-4.15.exe" download>rufus-4.15.exe</a></li>
+<li>Open Rufus, choose the Omarchy ISO, choose your USB stick, press <b>Start</b>.</li>
+</ol>
+
+<h2>On Mac</h2>
+<ol>
+<li>Download the latest Omarchy ISO: <a href="https://iso.omarchy.org/omarchy-4.0.4.iso" download>Omarchy 4.0.4</a></li>
+<li>Download balenaEtcher (Mac):
+   <ul>
+     <li>Apple Silicon (M1/M2/M3): <a href="https://github.com/balena-io/etcher/releases/download/v2.1.7/balenaEtcher-2.1.7-arm64.dmg" download>balenaEtcher-2.1.7-arm64.dmg</a></li>
+     <li>Intel Mac: <a href="https://github.com/balena-io/etcher/releases/download/v2.1.7/balenaEtcher-2.1.7-x64.dmg" download>balenaEtcher-2.1.7-x64.dmg</a></li>
+   </ul>
+</li>
+<li>Open balenaEtcher, choose the Omarchy ISO, choose your USB stick, press <b>Flash</b>.</li>
+</ol>
+
+<p class="small muted">Note: On Mac, you may need to allow the app in System Settings → Privacy & Security after the first launch attempt.</p>
+</div></main>
 </div>
 <div id="sheet" class="sheet" hidden></div>
 <div id="toast" class="toast" hidden></div>

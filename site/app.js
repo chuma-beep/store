@@ -1574,12 +1574,25 @@
           <div class="usb-card"><h3>The one-click way (on Omarchy)</h3>
             <p>Get the Omarchy Store desktop app, open <b>Ignite</b>, plug in a USB stick and press <b>Make Installer</b>. The app downloads the latest Omarchy, verifies it and writes the stick for you.</p>
             <a class="btn" href="/get-desktop/">Get the desktop app</a></div>
-          <div class="usb-card"><h3>On Windows or Mac</h3>
+          <div class="usb-card"><h3>On Windows</h3>
             <ol class="usb-list">
-              <li>Download the latest Omarchy${iso ? ` (${esc(iso.version)}, ${gb(iso.size)})` : ""}:<br>${iso ? `<a class="btn" href="${esc(iso.url)}">Download Omarchy ${esc(iso.version)}</a>` : `<a class="btn" href="https://omarchy.org/#install" target="_blank" rel="noopener">Download from omarchy.org</a>`}</li>
-              <li>Get a free USB writer: <a href="https://rufus.ie" target="_blank" rel="noopener">Rufus</a> (Windows) or <a href="https://etcher.balena.io" target="_blank" rel="noopener">balenaEtcher</a> (Windows & Mac).</li>
-              <li>Open it, choose the Omarchy file, choose your USB stick, press <b>Start</b> / <b>Flash</b>.</li>
+              <li>Download the latest Omarchy${iso ? ` (${esc(iso.version)}, ${gb(iso.size)})` : ""}:<br>${iso ? `<a class="btn" href="${esc(iso.url)}" download>Download Omarchy ${esc(iso.version)}</a>` : `<a class="btn" href="https://iso.omarchy.org/omarchy-4.0.4.iso" download>Download Omarchy 4.0.4</a>`}</li>
+              <li>Download Rufus (Windows): <a href="https://github.com/pbatard/rufus/releases/download/v4.15/rufus-4.15.exe" download>rufus-4.15.exe</a></li>
+              <li>Open Rufus, choose the Omarchy ISO, choose your USB stick, press <b>Start</b>.</li>
             </ol>
+            ${iso ? `<p class="small muted">Check the download is genuine — SHA-256: <code class="small">${esc(iso.sha256)}</code></p>` : ""}</div>
+          <div class="usb-card"><h3>On Mac</h3>
+            <ol class="usb-list">
+              <li>Download the latest Omarchy${iso ? ` (${esc(iso.version)}, ${gb(iso.size)})` : ""}:<br>${iso ? `<a class="btn" href="${esc(iso.url)}" download>Download Omarchy ${esc(iso.version)}</a>` : `<a class="btn" href="https://iso.omarchy.org/omarchy-4.0.4.iso" download>Download Omarchy 4.0.4</a>`}</li>
+              <li>Download balenaEtcher (Mac):
+                <ul style="margin-top:8px;margin-bottom:8px;padding-left:20px">
+                  <li>Apple Silicon (M1/M2/M3): <a href="https://github.com/balena-io/etcher/releases/download/v2.1.7/balenaEtcher-2.1.7-arm64.dmg" download>balenaEtcher-2.1.7-arm64.dmg</a></li>
+                  <li>Intel Mac: <a href="https://github.com/balena-io/etcher/releases/download/v2.1.7/balenaEtcher-2.1.7-x64.dmg" download>balenaEtcher-2.1.7-x64.dmg</a></li>
+                </ul>
+              </li>
+              <li>Open balenaEtcher, choose the Omarchy ISO, choose your USB stick, press <b>Flash</b>.</li>
+            </ol>
+            <p class="small muted">On Mac, you may need to allow the app in System Settings → Privacy & Security after the first launch attempt.</p>
             ${iso ? `<p class="small muted">Check the download is genuine — SHA-256: <code class="small">${esc(iso.sha256)}</code></p>` : ""}</div>
         </div>
         ${usbAfter()}
