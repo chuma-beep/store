@@ -471,17 +471,31 @@ def main():
                   '<h2>2. Replace Windows or keep it</h2><p>Use the whole drive, or shrink Windows in Disk Management and choose Free space install to dual boot.</p>'
                   '<h2>3. Install</h2><p>Boot from the USB (F12, F11, F8 or Esc), turn off Secure Boot if needed, and answer a few questions.</p>'
                   '<h2>4. Get the Omarchy Store</h2><pre><code>curl -fsSL https://omarchystore.com/install.sh | bash</code></pre>'),
-        "/ignite/": ("Ignite for Omarchy – Make a USB & Dual Boot Windows | Omarchy Store",
-                  "Make a bootable Omarchy USB in one click with the latest official ISO, SHA-256 verified. Plus how to dual boot Omarchy next to Windows.",
-                  '<h1 class="page-title">Ignite for Omarchy</h1>'
-                  '<p>Make an Omarchy installer USB stick in one click with Ignite in the Omarchy Store desktop app: it downloads the newest official '
-                  'Omarchy ISO from iso.omarchy.org, checks its SHA-256, and writes it to your USB drive.</p>'
-                  '<h2>Install Omarchy next to Windows (dual boot)</h2><ol><li>Turn off BitLocker (Settings, Privacy &amp; security, Device encryption).</li>'
-                  '<li>Open Disk Management (diskmgmt.msc), right-click C:, Shrink Volume by 51200 MB (50 GB) or 102400 MB (100 GB).</li>'
-                  '<li>Boot the Omarchy USB, pick your drive and choose Free space install.</li><li>In Omarchy, run limine-scan to add Windows to the boot menu.</li></ol>'
-                  + (f'<p><a href="{e(cat.get("omarchy_iso", {}).get("url", ""))}">Download Omarchy {e(cat.get("omarchy_iso", {}).get("version", ""))}</a></p>' if cat.get("omarchy_iso") else "")
-                  + '<h2>On Windows or Mac</h2><ol><li>Download the latest Omarchy ISO.</li><li>Install Rufus (Windows) or balenaEtcher (Windows and Mac).</li>'
-                  '<li>Choose the ISO, choose your USB stick, and press Start or Flash.</li></ol>'),
+        '/ignite/': ("Ignite for Omarchy – Make a USB & Dual Boot Windows | Omarchy Store",
+                          "Make a bootable Omarchy USB in one click with the latest official ISO, SHA-256 verified. Plus how to dual boot Omarchy next to Windows.",
+                          '<h1 class="page-title">Ignite for Omarchy</h1>'
+                          '<p>Make an Omarchy installer USB stick in one click with Ignite in the Omarchy Store desktop app: it downloads the newest official '
+                          'Omarchy ISO from iso.omarchy.org, checks its SHA-256, and writes it to your USB drive.</p>'
+                          '<h2>Install Omarchy next to Windows (dual boot)</h2><ol><li>Turn off BitLocker (Settings, Privacy & security, Device encryption).</li>'
+                          '<li>Open Disk Management (diskmgmt.msc), right-click C:, Shrink Volume by 51200 MB (50 GB) or 102400 MB (100 GB).</li>'
+                          '<li>Boot the Omarchy USB, pick your drive and choose Free space install.</li><li>In Omarchy, run limine-scan to add Windows to the boot menu.</li></ol>'
+                          + (f'<p><a href="{e(cat.get("omarchy_iso", {}).get("url", ""))}">Download Omarchy {e(cat.get("omarchy_iso", {}).get("version", ""))}</a></p>' if cat.get("omarchy_iso") else "")
+                          + '<h2>On Windows</h2><ol>'
+                          '<li>Download the latest Omarchy ISO: <a href="https://iso.omarchy.org/omarchy-4.0.4.iso" download>Omarchy 4.0.4</a></li>'
+                          '<li>Download Rufus (Windows): <a href="https://github.com/pbatard/rufus/releases/download/v4.15/rufus-4.15.exe" download>rufus-4.15.exe</a></li>'
+                          '<li>Open Rufus, choose the Omarchy ISO, choose your USB stick, press <b>Start</b>.</li>'
+                          '</ol>'
+                          '<h2>On Mac</h2><ol>'
+                          '<li>Download the latest Omarchy ISO: <a href="https://iso.omarchy.org/omarchy-4.0.4.iso" download>Omarchy 4.0.4</a></li>'
+                          '<li>Download balenaEtcher (Mac):'
+                          '<ul style="margin-top:8px;margin-bottom:8px;padding-left:20px">'
+                          '<li>Apple Silicon (M1/M2/M3): <a href="https://github.com/balena-io/etcher/releases/download/v2.1.7/balenaEtcher-2.1.7-arm64.dmg" download>balenaEtcher-2.1.7-arm64.dmg</a></li>'
+                          '<li>Intel Mac: <a href="https://github.com/balena-io/etcher/releases/download/v2.1.7/balenaEtcher-2.1.7-x64.dmg" download>balenaEtcher-2.1.7-x64.dmg</a></li>'
+                          '</ul>'
+                          '</li>'
+                          '<li>Open balenaEtcher, choose the Omarchy ISO, choose your USB stick, press <b>Flash</b>.</li>'
+                          '</ol>'
+                          '<p class="small muted">Note: On Mac, you may need to allow the app in System Settings → Privacy & Security after the first launch attempt.</p>'),
         "/get-desktop/": ("Get the Omarchy Store Desktop App | Omarchy Store",
                           "Install the Omarchy Store desktop app for one-click installs of apps, themes, plugins and screensavers on Omarchy Linux. Free, open source.",
                           '<h1 class="page-title">Get the desktop app</h1><p>The desktop app adds one-click <strong>GET</strong>, Update and Remove buttons '
