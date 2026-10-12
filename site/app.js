@@ -258,7 +258,7 @@
     if (S.desktop) {
       b.innerHTML = S.status?.restart_needed
         ? `<b><span class="dot"></span>Update ready</b>Restart the store to finish.`
-        : `<b><span class="dot"></span>Desktop app</b>One-click installs are on.`;
+        : `<b><span class="dot"></span>Desktop app${S.status?.version ? ` <span class="ver">v${esc(S.status.version)}</span>` : ""}</b>One-click installs are on.`;
       if (S.status?.restart_needed) b.setAttribute("href", "/updates/");
       b.removeAttribute("href");
     } else {
@@ -1523,7 +1523,10 @@
 
       <div class="strip">${strip.map(([kk, v, s]) => `<div><div class="k">${kk}</div><div class="v">${v}</div><div class="s">${s}</div></div>`).join("")}</div>
 
-      ${a.screenshots.length ? `<div class="scroller shots">${a.screenshots.map((s) => `<img src="${esc(asset(s))}" alt="Screenshot of ${esc(a.name)}" loading="lazy" referrerpolicy="no-referrer" data-zoom>`).join("")}</div>` : ""}
+      ${a.screenshots.length ? `<div class="gallery">
+        <div class="scroller shots" id="shots">${a.screenshots.map((s, i) => `<img src="${esc(asset(s))}" alt="Screenshot ${i + 1} of ${esc(a.name)}" loading="lazy" referrerpolicy="no-referrer" data-zoom data-shot="${i}">`).join("")}</div>
+        ${a.screenshots.length > 1 ? `<button class="g-nav g-prev" data-gal="-1" aria-label="Previous picture">‹</button><button class="g-nav g-next" data-gal="1" aria-label="Next picture">›</button>
+        <div class="g-dots">${a.screenshots.map((_, i) => `<i data-gal-to="${i}"${i ? "" : ' class="on"'}></i>`).join("")}</div>` : ""}</div>` : ""}
       ${F ? featuredSections(a) : ""}
 
       <section class="shelf">
@@ -1839,6 +1842,39 @@
   }
   const rerender = () => { const top = view.scrollTop; route(); view.scrollTop = top; };
 
+  // ---------- screenshot gallery: arrows, dots, full-size viewer with left/right ----------
+  const galImgs = () => [...document.querySelectorAll("#shots img")];
+  function galGo(dir, to) {
+    const sc = $("#shots"); if (!sc) return;
+    const imgs = galImgs(), w = imgs[0]?.getBoundingClientRect().width || sc.clientWidth;
+    const now = Math.round(sc.scrollLeft / (w + 20));
+    const n = to != null ? to : Math.max(0, Math.min(imgs.length - 1, now + dir));
+    sc.scrollTo({ left: imgs[n].offsetLeft - sc.offsetLeft, behavior: "smooth" });
+  }
+  document.addEventListener("scroll", (e) => {
+    if (e.target?.id !== "shots") return;
+    const sc = e.target, imgs = galImgs(), w = imgs[0]?.getBoundingClientRect().width || 1;
+    const n = Math.round(sc.scrollLeft / (w + 20));
+    document.querySelectorAll(".g-dots i").forEach((d, i) => d.classList.toggle("on", i === n));
+  }, true);
+  let lbIndex = 0;
+  function openLightbox(img) {
+    lbIndex = +img.dataset.shot || 0;
+    const imgs = galImgs(), many = imgs.length > 1;
+    showSheet(`<img id="lb-img" src="${esc(imgs[lbIndex]?.src || img.src)}" alt="">
+      ${many ? `<button class="lb-nav lb-prev" data-lb="-1" aria-label="Previous">‹</button><button class="lb-nav lb-next" data-lb="1" aria-label="Next">›</button>
+      <div class="lb-count" id="lb-count">${lbIndex + 1} / ${imgs.length}</div>` : ""}`, "lightbox");
+  }
+  function lbStep(d) {
+    const imgs = galImgs(); if (!imgs.length || !$("#lb-img")) return;
+    lbIndex = (lbIndex + d + imgs.length) % imgs.length;
+    $("#lb-img").src = imgs[lbIndex].src; if ($("#lb-count")) $("#lb-count").textContent = `${lbIndex + 1} / ${imgs.length}`;
+  }
+  document.addEventListener("keydown", (e) => {
+    if (!$(".sheet.lightbox:not([hidden])")) return;
+    if (e.key === "ArrowRight") lbStep(1); else if (e.key === "ArrowLeft") lbStep(-1); else if (e.key === "Escape") closeSheet();
+  });
+
   // ---------- actions ----------
   function showSheet(html, cls = "") {
     const s = $("#sheet");
@@ -1905,7 +1941,7 @@
   }
 
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-sfilter],[data-saver-more],[data-self-update],[data-self-later],[data-rm],[data-rm-yes],[data-share-theme],#more,.sheet");
+    const t = e.target.closest("[data-gal],[data-gal-to],[data-lb],[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-sfilter],[data-saver-more],[data-self-update],[data-self-later],[data-rm],[data-rm-yes],[data-share-theme],#more,.sheet");
     if (!t) return;
     if (t.matches("[data-usb-dl]")) {
       post("/api/usb/download", {}).then(async (r) => { if (!r.ok) toast((await r.json().catch(() => ({}))).error || "Download failed"); loadUsb(); });
@@ -1994,8 +2030,14 @@
       copy(SITE + "app/" + t.dataset.share + "/");
     } else if (t.matches("[data-chart]")) {
       S.chartCat = t.dataset.chart; rerender();
+    } else if (t.matches("[data-gal]")) {
+      e.preventDefault(); galGo(+t.dataset.gal);
+    } else if (t.matches("[data-gal-to]")) {
+      e.preventDefault(); galGo(0, +t.dataset.galTo);
+    } else if (t.matches("[data-lb]")) {
+      e.preventDefault(); e.stopPropagation(); lbStep(+t.dataset.lb);
     } else if (t.matches("[data-zoom]")) {
-      showSheet(`<img src="${esc(t.src)}" alt="">`, "lightbox");
+      openLightbox(t);
     } else if (t.id === "more") {
       $("#desc").classList.remove("clamp"); t.remove();
     } else if (t.matches(".sheet") && (e.target === t || t.classList.contains("lightbox"))) {

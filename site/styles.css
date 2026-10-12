@@ -929,3 +929,26 @@ html[data-look="white"] .brand .wordmark img[src*="wordmark-store"] { filter: sa
 /* list rows: GET keeps clear of the row's right edge */
 .lockup { padding-right: 6px; }
 .lockup .get { flex: none; }
+
+/* Screenshot gallery: whole pictures (never cropped), arrows + dots, swipe/scroll between them */
+.gallery { position: relative; margin: 6px 0 4px; }
+.shots img { aspect-ratio: auto !important; height: clamp(220px, 34vw, 420px); width: auto !important; max-width: none; object-fit: contain !important; }
+.shots { grid-auto-columns: max-content !important; scroll-snap-type: x mandatory; scroll-padding: 0 2px; }
+.g-nav { position: absolute; top: calc(50% - 22px); transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line);
+  background: color-mix(in srgb, var(--bg) 70%, transparent); backdrop-filter: blur(12px); color: var(--text); font-size: 26px; line-height: 1; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0,0,0,.3); display: grid; place-items: center; padding-bottom: 3px; }
+.g-nav:hover { background: var(--card-hover); }
+.g-prev { left: 10px; } .g-next { right: 10px; }
+.g-dots { display: flex; justify-content: center; gap: 7px; margin-top: 12px; }
+.g-dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--text-3); cursor: pointer; transition: width .2s, background .2s; }
+.g-dots i.on { width: 20px; border-radius: 4px; background: var(--accent); }
+@media (max-width: 720px) { .shots img { height: 52vw; } .g-nav { display: none; } }
+/* Full-size viewer: arrows and keyboard left/right */
+.lightbox .lb-nav { position: fixed; top: 50%; transform: translateY(-50%); width: 54px; height: 54px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(255,255,255,.14); color: #fff; font-size: 34px; line-height: 1; padding-bottom: 4px; backdrop-filter: blur(10px); }
+.lightbox .lb-nav:hover { background: rgba(255,255,255,.26); }
+.lightbox .lb-prev { left: 3vw; } .lightbox .lb-next { right: 3vw; }
+.lightbox .lb-count { position: fixed; bottom: 4vh; left: 0; right: 0; text-align: center; color: rgba(255,255,255,.8); font-weight: 600; font-size: 14px; }
+.lightbox img { object-fit: contain; }
+/* version number under "Desktop app" */
+.mode-badge .ver { font-weight: 600; font-size: 11px; color: var(--text-3); margin-left: 4px; }
