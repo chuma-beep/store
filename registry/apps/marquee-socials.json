@@ -9,7 +9,7 @@
     "packages": ["marquee-socials"],
     "version": "1.0.0",
     "url": "https://github.com/omarchy-community/marquee-socials/releases/download/v1.0.0/marquee-socials-1.0.0-1-any.pkg.tar.zst",
-    "sha256": "d223f763f6e7ac241c9edb321d11fe1accecec1d01680516cfcb10f50971ef22"
+    "sha256": "b515a0b2165b7e7f1038729eff62eb0e23974d89ffa2205354eab242e70a0cf8"
   },
   "detect": [
     "marquee-socials"
