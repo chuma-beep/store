@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.7.1"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.7.2"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
@@ -996,11 +996,21 @@ def update_catalog(quiet=False):
         os.makedirs(icons, exist_ok=True)
         for a in cat["apps"]:
             ic = a.get("icon") or ""
+            # Handle both icons/name.png and featured/app-name/icon.png
             m = re.match(r"^icons/([a-z0-9-]+\.(png|svg|jpg|webp))$", ic)
+            m2 = re.match(r"^featured/([a-z0-9-]+)/icon\.(png|svg|jpg|webp)$", ic)
             if m and not os.path.exists(os.path.join(SITE_DIR, ic)):
                 try:
                     with urllib.request.urlopen(REMOTE + ic, timeout=20) as r:
                         open(os.path.join(icons, m.group(1)), "wb").write(r.read(2_000_000))
+                except Exception:
+                    pass
+            elif m2 and not os.path.exists(os.path.join(SITE_DIR, ic)):
+                try:
+                    feat_dir = os.path.join(SITE_DIR, "featured", m2.group(1))
+                    os.makedirs(feat_dir, exist_ok=True)
+                    with urllib.request.urlopen(REMOTE + ic, timeout=20) as r:
+                        open(os.path.join(feat_dir, f"icon.{m2.group(2)}"), "wb").write(r.read(2_000_000))
                 except Exception:
                     pass
         tmp = os.path.join(SITE_DIR, ".catalog.json.tmp")
