@@ -900,6 +900,8 @@ html[data-look="glass"] .look-switch button.on { background: rgba(255,255,255,.2
 @media (max-width: 720px) { html[data-look="glass"] .sidebar { background: rgba(18,20,30,.65) !important; } }
 html[data-look="white"] .brand .wordmark img[src*="wordmark-omarchy"] { filter: invert(1) brightness(.12); }
 html[data-look="white"] .brand .wordmark img[src*="wordmark-store"] { filter: saturate(1.6) brightness(.72); }
+/* Glass look: add shadow so white wordmark is visible on any background */
+html[data-look="glass"] .brand .wordmark img { filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
 /* Sidebar on computers: the menu scrolls in its own area, and the appearance switch + desktop-app card
    sit BELOW it as a fixed footer. Nothing is layered on top of anything, so nothing can overlap. */
 @media (min-width: 721px) {
