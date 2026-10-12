@@ -1,19 +1,21 @@
 {
-  "id": "heroic",
-  "name": "Heroic Games Launcher",
-  "category": "games",
-  "github": "Heroic-Games-Launcher/HeroicGamesLauncher",
-  "flathub": "com.heroicgameslauncher.hgl",
-  "install": {
-    "method": "omarchy",
-    "command": "omarchy install gaming heroic"
-  },
-  "detect": [
-    "heroic-games-launcher-bin"
-  ],
-  "kind": "gui",
-  "tags": [
-    "epic",
-    "gog"
-  ]
+ "id": "heroic",
+ "name": "Heroic Games Launcher",
+ "category": "games",
+ "github": "Heroic-Games-Launcher/HeroicGamesLauncher",
+ "flathub": "com.heroicgameslauncher.hgl",
+ "install": {
+  "method": "omarchy",
+  "command": "omarchy install gaming heroic"
+ },
+ "detect": [
+  "heroic-games-launcher-bin"
+ ],
+ "kind": "gui",
+ "tags": [
+  "epic",
+  "gog"
+ ],
+ "stars": 4.7,
+ "reviews": 521
 }

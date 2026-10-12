@@ -1,19 +1,21 @@
 {
-  "id": "firefox",
-  "name": "Firefox",
-  "category": "browsers",
-  "github": "mozilla-firefox/firefox",
-  "flathub": "org.mozilla.firefox",
-  "install": {
-    "method": "omarchy",
-    "command": "omarchy install browser firefox"
-  },
-  "detect": [
-    "firefox"
-  ],
-  "kind": "gui",
-  "tags": [
-    "web",
-    "privacy"
-  ]
+ "id": "firefox",
+ "name": "Firefox",
+ "category": "browsers",
+ "github": "mozilla-firefox/firefox",
+ "flathub": "org.mozilla.firefox",
+ "install": {
+  "method": "omarchy",
+  "command": "omarchy install browser firefox"
+ },
+ "detect": [
+  "firefox"
+ ],
+ "kind": "gui",
+ "tags": [
+  "web",
+  "privacy"
+ ],
+ "stars": 4.9,
+ "reviews": 245
 }

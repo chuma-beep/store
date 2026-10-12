@@ -1,18 +1,20 @@
 {
-  "id": "video-downloader",
-  "name": "Video Downloader",
-  "category": "utilities",
-  "github": "Unrud/video-downloader",
-  "flathub": "com.github.unrud.VideoDownloader",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "video-downloader"
-    ]
-  },
-  "detect": [
-    "video-downloader"
-  ],
-  "kind": "gui",
-  "developer": "Unrud"
+ "id": "video-downloader",
+ "name": "Video Downloader",
+ "category": "utilities",
+ "github": "Unrud/video-downloader",
+ "flathub": "com.github.unrud.VideoDownloader",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "video-downloader"
+  ]
+ },
+ "detect": [
+  "video-downloader"
+ ],
+ "kind": "gui",
+ "developer": "Unrud",
+ "stars": 4.2,
+ "reviews": 157
 }

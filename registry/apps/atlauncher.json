@@ -1,18 +1,20 @@
 {
-  "id": "atlauncher",
-  "name": "ATLauncher",
-  "category": "games",
-  "github": "ATLauncher/ATLauncher",
-  "flathub": "com.atlauncher.ATLauncher",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "atlauncher"
-    ]
-  },
-  "detect": [
-    "atlauncher"
-  ],
-  "kind": "gui",
-  "developer": "The ATLauncher Team"
+ "id": "atlauncher",
+ "name": "ATLauncher",
+ "category": "games",
+ "github": "ATLauncher/ATLauncher",
+ "flathub": "com.atlauncher.ATLauncher",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "atlauncher"
+  ]
+ },
+ "detect": [
+  "atlauncher"
+ ],
+ "kind": "gui",
+ "developer": "The ATLauncher Team",
+ "stars": 5.0,
+ "reviews": 543
 }

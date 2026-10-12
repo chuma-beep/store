@@ -1,18 +1,20 @@
 {
-  "id": "hugin",
-  "name": "hugin",
-  "category": "graphics",
-  "flathub": "net.sourceforge.Hugin",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "hugin"
-    ]
-  },
-  "detect": [
-    "hugin"
-  ],
-  "kind": "gui",
-  "developer": "Hugin Developers",
-  "github": null
+ "id": "hugin",
+ "name": "hugin",
+ "category": "graphics",
+ "flathub": "net.sourceforge.Hugin",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "hugin"
+  ]
+ },
+ "detect": [
+  "hugin"
+ ],
+ "kind": "gui",
+ "developer": "Hugin Developers",
+ "github": null,
+ "stars": 5.0,
+ "reviews": 398
 }

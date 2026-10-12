@@ -1,17 +1,19 @@
 {
-  "id": "orcaslicer",
-  "name": "OrcaSlicer",
-  "category": "graphics",
-  "github": "OrcaSlicer/OrcaSlicer",
-  "flathub": "com.orcaslicer.OrcaSlicer",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "orca-slicer"
-    ]
-  },
-  "detect": [
-    "orca-slicer"
-  ],
-  "kind": "gui"
+ "id": "orcaslicer",
+ "name": "OrcaSlicer",
+ "category": "graphics",
+ "github": "OrcaSlicer/OrcaSlicer",
+ "flathub": "com.orcaslicer.OrcaSlicer",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "orca-slicer"
+  ]
+ },
+ "detect": [
+  "orca-slicer"
+ ],
+ "kind": "gui",
+ "stars": 5.0,
+ "reviews": 507
 }

@@ -1,18 +1,20 @@
 {
-  "id": "flowblade",
-  "name": "Flowblade",
-  "category": "video-audio",
-  "flathub": "io.github.jliljebl.Flowblade",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "flowblade"
-    ]
-  },
-  "detect": [
-    "flowblade"
-  ],
-  "kind": "gui",
-  "developer": "Janne Liljeblad",
-  "github": null
+ "id": "flowblade",
+ "name": "Flowblade",
+ "category": "video-audio",
+ "flathub": "io.github.jliljebl.Flowblade",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "flowblade"
+  ]
+ },
+ "detect": [
+  "flowblade"
+ ],
+ "kind": "gui",
+ "developer": "Janne Liljeblad",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 249
 }

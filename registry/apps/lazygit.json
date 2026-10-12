@@ -1,25 +1,27 @@
 {
-  "id": "lazygit",
-  "name": "lazygit",
-  "category": "developer-tools",
-  "github": "jesseduffield/lazygit",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "lazygit"
-    ]
-  },
-  "detect": [
-    "lazygit"
-  ],
-  "kind": "terminal",
-  "open": "lazygit",
-  "tags": [
-    "git",
-    "tui"
-  ],
-  "summary": "Simple terminal UI for git commands",
-  "developer": "Jesse Duffield",
-  "icon": "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/Papirus/64x64/apps/git.svg"
+ "id": "lazygit",
+ "name": "lazygit",
+ "category": "developer-tools",
+ "github": "jesseduffield/lazygit",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "lazygit"
+  ]
+ },
+ "detect": [
+  "lazygit"
+ ],
+ "kind": "terminal",
+ "open": "lazygit",
+ "tags": [
+  "git",
+  "tui"
+ ],
+ "summary": "Simple terminal UI for git commands",
+ "developer": "Jesse Duffield",
+ "icon": "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/Papirus/64x64/apps/git.svg",
+ "stars": 4.6,
+ "reviews": 346
 }

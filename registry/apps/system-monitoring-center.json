@@ -1,18 +1,20 @@
 {
-  "id": "system-monitoring-center",
-  "name": "System Monitoring Center",
-  "category": "utilities",
-  "flathub": "io.github.hakandundar34coding.system-monitoring-center",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "system-monitoring-center"
-    ]
-  },
-  "detect": [
-    "system-monitoring-center"
-  ],
-  "kind": "gui",
-  "developer": "Hakan Dündar",
-  "github": null
+ "id": "system-monitoring-center",
+ "name": "System Monitoring Center",
+ "category": "utilities",
+ "flathub": "io.github.hakandundar34coding.system-monitoring-center",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "system-monitoring-center"
+  ]
+ },
+ "detect": [
+  "system-monitoring-center"
+ ],
+ "kind": "gui",
+ "developer": "Hakan Dündar",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 516
 }

@@ -1,18 +1,20 @@
 {
-  "id": "clion",
-  "name": "CLion",
-  "category": "developer-tools",
-  "flathub": "com.jetbrains.CLion",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "clion"
-    ]
-  },
-  "detect": [
-    "clion"
-  ],
-  "kind": "gui",
-  "developer": "JetBrains s.r.o.",
-  "github": null
+ "id": "clion",
+ "name": "CLion",
+ "category": "developer-tools",
+ "flathub": "com.jetbrains.CLion",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "clion"
+  ]
+ },
+ "detect": [
+  "clion"
+ ],
+ "kind": "gui",
+ "developer": "JetBrains s.r.o.",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 249
 }

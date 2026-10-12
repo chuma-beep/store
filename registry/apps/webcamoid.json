@@ -1,17 +1,19 @@
 {
-  "id": "webcamoid",
-  "name": "Webcamoid",
-  "category": "media",
-  "github": "webcamoid/webcamoid",
-  "flathub": "io.github.webcamoid.Webcamoid",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "webcamoid"
-    ]
-  },
-  "detect": [
-    "webcamoid"
-  ],
-  "kind": "gui"
+ "id": "webcamoid",
+ "name": "Webcamoid",
+ "category": "media",
+ "github": "webcamoid/webcamoid",
+ "flathub": "io.github.webcamoid.Webcamoid",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "webcamoid"
+  ]
+ },
+ "detect": [
+  "webcamoid"
+ ],
+ "kind": "gui",
+ "stars": 5.0,
+ "reviews": 200
 }

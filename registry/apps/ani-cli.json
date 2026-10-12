@@ -1,20 +1,22 @@
 {
-  "id": "ani-cli",
-  "name": "ani-cli",
-  "category": "media",
-  "github": "pystardust/ani-cli",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "ani-cli"
-    ]
-  },
-  "detect": [
-    "ani-cli"
-  ],
-  "kind": "terminal",
-  "summary": "A cli tool to browse and play anime",
-  "open": "ani-cli",
-  "icon": null
+ "id": "ani-cli",
+ "name": "ani-cli",
+ "category": "media",
+ "github": "pystardust/ani-cli",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "ani-cli"
+  ]
+ },
+ "detect": [
+  "ani-cli"
+ ],
+ "kind": "terminal",
+ "summary": "A cli tool to browse and play anime",
+ "open": "ani-cli",
+ "icon": null,
+ "stars": 4.7,
+ "reviews": 339
 }

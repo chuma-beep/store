@@ -1,21 +1,23 @@
 {
-  "id": "microsoft-edge",
-  "name": "Microsoft Edge",
-  "category": "browsers",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "microsoft-edge-stable-bin"
-    ]
-  },
-  "detect": [
-    "microsoft-edge-stable-bin"
-  ],
-  "kind": "gui",
-  "summary": "A browser that combines a minimal design with sophisticated technology to make the web faster, safer, and easier",
-  "homepage": "https://www.microsoftedgeinsider.com/en-us/download",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "microsoft-edge",
+ "name": "Microsoft Edge",
+ "category": "browsers",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "microsoft-edge-stable-bin"
+  ]
+ },
+ "detect": [
+  "microsoft-edge-stable-bin"
+ ],
+ "kind": "gui",
+ "summary": "A browser that combines a minimal design with sophisticated technology to make the web faster, safer, and easier",
+ "homepage": "https://www.microsoftedgeinsider.com/en-us/download",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.7,
+ "reviews": 310
 }

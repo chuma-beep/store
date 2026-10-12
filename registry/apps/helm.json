@@ -1,20 +1,22 @@
 {
-  "id": "helm",
-  "name": "Helm",
-  "category": "terminal",
-  "github": "helm/helm",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "helm"
-    ]
-  },
-  "detect": [
-    "helm"
-  ],
-  "kind": "terminal",
-  "summary": "The Kubernetes Package Manager",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/15859888?s=256"
+ "id": "helm",
+ "name": "Helm",
+ "category": "terminal",
+ "github": "helm/helm",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "helm"
+  ]
+ },
+ "detect": [
+  "helm"
+ ],
+ "kind": "terminal",
+ "summary": "The Kubernetes Package Manager",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/15859888?s=256",
+ "stars": 4.7,
+ "reviews": 148
 }

@@ -1,23 +1,25 @@
 {
-  "id": "omaspeak",
-  "name": "Omaspeak",
-  "category": "ai",
-  "github": "jacob-vincent-mink/omaspeak",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "omaspeak-bin"
-    ]
-  },
-  "detect": [
-    "omaspeak-bin"
-  ],
-  "kind": "terminal",
-  "summary": "Local-first text-to-speech application and daemon (pre-built binary)",
-  "homepage": "https://github.com/jacob-vincent-mink/omaspeak",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "omaspeak",
+ "name": "Omaspeak",
+ "category": "ai",
+ "github": "jacob-vincent-mink/omaspeak",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "omaspeak-bin"
+  ]
+ },
+ "detect": [
+  "omaspeak-bin"
+ ],
+ "kind": "terminal",
+ "summary": "Local-first text-to-speech application and daemon (pre-built binary)",
+ "homepage": "https://github.com/jacob-vincent-mink/omaspeak",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 445
 }

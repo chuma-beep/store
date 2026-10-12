@@ -1,18 +1,20 @@
 {
-  "id": "free-download-manager",
-  "name": "Free Download Manager",
-  "category": "utilities",
-  "flathub": "org.freedownloadmanager.Manager",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "freedownloadmanager"
-    ]
-  },
-  "detect": [
-    "freedownloadmanager"
-  ],
-  "kind": "gui",
-  "developer": "FreeDownloadManager Team",
-  "github": null
+ "id": "free-download-manager",
+ "name": "Free Download Manager",
+ "category": "utilities",
+ "flathub": "org.freedownloadmanager.Manager",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "freedownloadmanager"
+  ]
+ },
+ "detect": [
+  "freedownloadmanager"
+ ],
+ "kind": "gui",
+ "developer": "FreeDownloadManager Team",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 293
 }

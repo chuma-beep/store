@@ -1,18 +1,20 @@
 {
-  "id": "openmw",
-  "name": "OpenMW",
-  "category": "games",
-  "flathub": "org.openmw.OpenMW",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "openmw"
-    ]
-  },
-  "detect": [
-    "openmw"
-  ],
-  "kind": "gui",
-  "developer": "OpenMW Contributors",
-  "github": null
+ "id": "openmw",
+ "name": "OpenMW",
+ "category": "games",
+ "flathub": "org.openmw.OpenMW",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "openmw"
+  ]
+ },
+ "detect": [
+  "openmw"
+ ],
+ "kind": "gui",
+ "developer": "OpenMW Contributors",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 127
 }

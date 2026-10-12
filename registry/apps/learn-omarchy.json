@@ -1,22 +1,24 @@
 {
-  "id": "learn-omarchy",
-  "name": "Learn Omarchy",
-  "category": "productivity",
-  "github": "DanWahlin/learn-omarchy",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "learn-omarchy"
-    ]
-  },
-  "detect": [
-    "learn-omarchy"
-  ],
-  "kind": "gui",
-  "summary": "Interactive, theme-aware courses for learning Omarchy",
-  "homepage": "https://github.com/DanWahlin/learn-omarchy",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "learn-omarchy",
+ "name": "Learn Omarchy",
+ "category": "productivity",
+ "github": "DanWahlin/learn-omarchy",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "learn-omarchy"
+  ]
+ },
+ "detect": [
+  "learn-omarchy"
+ ],
+ "kind": "gui",
+ "summary": "Interactive, theme-aware courses for learning Omarchy",
+ "homepage": "https://github.com/DanWahlin/learn-omarchy",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.6,
+ "reviews": 491
 }

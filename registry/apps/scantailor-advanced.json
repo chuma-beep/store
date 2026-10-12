@@ -1,18 +1,20 @@
 {
-  "id": "scantailor-advanced",
-  "name": "ScanTailor Advanced",
-  "category": "graphics",
-  "flathub": "com.github._4lex4.ScanTailor-Advanced",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "scantailor-advanced"
-    ]
-  },
-  "detect": [
-    "scantailor-advanced"
-  ],
-  "kind": "gui",
-  "developer": "ScanTailor-Advanced developers",
-  "github": null
+ "id": "scantailor-advanced",
+ "name": "ScanTailor Advanced",
+ "category": "graphics",
+ "flathub": "com.github._4lex4.ScanTailor-Advanced",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "scantailor-advanced"
+  ]
+ },
+ "detect": [
+  "scantailor-advanced"
+ ],
+ "kind": "gui",
+ "developer": "ScanTailor-Advanced developers",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 452
 }

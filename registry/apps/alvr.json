@@ -1,18 +1,20 @@
 {
-  "id": "alvr",
-  "name": "ALVR",
-  "category": "games",
-  "github": "alvr-org/ALVR",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "alvr"
-    ]
-  },
-  "detect": [
-    "alvr"
-  ],
-  "kind": "gui",
-  "summary": "Stream VR games from your PC to your headset via Wi-Fi"
+ "id": "alvr",
+ "name": "ALVR",
+ "category": "games",
+ "github": "alvr-org/ALVR",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "alvr"
+  ]
+ },
+ "detect": [
+  "alvr"
+ ],
+ "kind": "gui",
+ "summary": "Stream VR games from your PC to your headset via Wi-Fi",
+ "stars": 4.3,
+ "reviews": 166
 }

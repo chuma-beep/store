@@ -1,18 +1,20 @@
 {
-  "id": "josm",
-  "name": "JOSM",
-  "category": "education",
-  "flathub": "org.openstreetmap.josm",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "josm"
-    ]
-  },
-  "detect": [
-    "josm"
-  ],
-  "kind": "gui",
-  "developer": "JOSM developers",
-  "github": null
+ "id": "josm",
+ "name": "JOSM",
+ "category": "education",
+ "flathub": "org.openstreetmap.josm",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "josm"
+  ]
+ },
+ "detect": [
+  "josm"
+ ],
+ "kind": "gui",
+ "developer": "JOSM developers",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 435
 }

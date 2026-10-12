@@ -1,21 +1,23 @@
 {
-  "id": "obs-studio",
-  "name": "OBS Studio",
-  "category": "video-audio",
-  "github": "obsproject/obs-studio",
-  "flathub": "com.obsproject.Studio",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "obs-studio"
-    ]
-  },
-  "detect": [
-    "obs-studio"
-  ],
-  "kind": "gui",
-  "tags": [
-    "streaming",
-    "recording"
+ "id": "obs-studio",
+ "name": "OBS Studio",
+ "category": "video-audio",
+ "github": "obsproject/obs-studio",
+ "flathub": "com.obsproject.Studio",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "obs-studio"
   ]
+ },
+ "detect": [
+  "obs-studio"
+ ],
+ "kind": "gui",
+ "tags": [
+  "streaming",
+  "recording"
+ ],
+ "stars": 4.6,
+ "reviews": 576
 }

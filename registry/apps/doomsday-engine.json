@@ -1,18 +1,20 @@
 {
-  "id": "doomsday-engine",
-  "name": "Doomsday Engine",
-  "category": "games",
-  "flathub": "net.dengine.Doomsday",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "doomsday"
-    ]
-  },
-  "detect": [
-    "doomsday"
-  ],
-  "kind": "gui",
-  "developer": "Jaakko Keränen",
-  "github": null
+ "id": "doomsday-engine",
+ "name": "Doomsday Engine",
+ "category": "games",
+ "flathub": "net.dengine.Doomsday",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "doomsday"
+  ]
+ },
+ "detect": [
+  "doomsday"
+ ],
+ "kind": "gui",
+ "developer": "Jaakko Keränen",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 128
 }

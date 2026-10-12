@@ -1,21 +1,23 @@
 {
-  "id": "freecad",
-  "name": "FreeCAD",
-  "category": "graphics",
-  "github": "FreeCAD/FreeCAD",
-  "flathub": "org.freecad.FreeCAD",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "freecad"
-    ]
-  },
-  "detect": [
-    "freecad"
-  ],
-  "kind": "gui",
-  "tags": [
-    "cad",
-    "3d"
+ "id": "freecad",
+ "name": "FreeCAD",
+ "category": "graphics",
+ "github": "FreeCAD/FreeCAD",
+ "flathub": "org.freecad.FreeCAD",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "freecad"
   ]
+ },
+ "detect": [
+  "freecad"
+ ],
+ "kind": "gui",
+ "tags": [
+  "cad",
+  "3d"
+ ],
+ "stars": 4.5,
+ "reviews": 465
 }

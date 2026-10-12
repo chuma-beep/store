@@ -1,17 +1,19 @@
 {
-  "id": "xca",
-  "name": "XCA",
-  "category": "utilities",
-  "github": "chris2511/xca",
-  "flathub": "de.hohnstaedt.xca",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "xca"
-    ]
-  },
-  "detect": [
-    "xca"
-  ],
-  "kind": "gui"
+ "id": "xca",
+ "name": "XCA",
+ "category": "utilities",
+ "github": "chris2511/xca",
+ "flathub": "de.hohnstaedt.xca",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "xca"
+  ]
+ },
+ "detect": [
+  "xca"
+ ],
+ "kind": "gui",
+ "stars": 4.5,
+ "reviews": 426
 }

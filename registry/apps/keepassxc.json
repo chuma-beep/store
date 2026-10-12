@@ -1,21 +1,23 @@
 {
-  "id": "keepassxc",
-  "name": "KeePassXC",
-  "category": "security",
-  "github": "keepassxreboot/keepassxc",
-  "flathub": "org.keepassxc.KeePassXC",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "keepassxc"
-    ]
-  },
-  "detect": [
-    "keepassxc"
-  ],
-  "kind": "gui",
-  "tags": [
-    "passwords",
-    "offline"
+ "id": "keepassxc",
+ "name": "KeePassXC",
+ "category": "security",
+ "github": "keepassxreboot/keepassxc",
+ "flathub": "org.keepassxc.KeePassXC",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "keepassxc"
   ]
+ },
+ "detect": [
+  "keepassxc"
+ ],
+ "kind": "gui",
+ "tags": [
+  "passwords",
+  "offline"
+ ],
+ "stars": 4.8,
+ "reviews": 475
 }

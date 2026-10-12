@@ -1,17 +1,19 @@
 {
-  "id": "vcmi",
-  "name": "VCMI",
-  "category": "games",
-  "github": "vcmi/vcmi",
-  "flathub": "eu.vcmi.VCMI",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "vcmi"
-    ]
-  },
-  "detect": [
-    "vcmi"
-  ],
-  "kind": "gui"
+ "id": "vcmi",
+ "name": "VCMI",
+ "category": "games",
+ "github": "vcmi/vcmi",
+ "flathub": "eu.vcmi.VCMI",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "vcmi"
+  ]
+ },
+ "detect": [
+  "vcmi"
+ ],
+ "kind": "gui",
+ "stars": 4.6,
+ "reviews": 141
 }

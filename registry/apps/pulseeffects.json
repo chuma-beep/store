@@ -1,18 +1,20 @@
 {
-  "id": "pulseeffects",
-  "name": "PulseEffects",
-  "category": "video-audio",
-  "github": "wwmm/easyeffects",
-  "flathub": "com.github.wwmm.pulseeffects",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "pulseeffects-legacy"
-    ]
-  },
-  "detect": [
-    "pulseeffects-legacy"
-  ],
-  "kind": "gui",
-  "developer": "Wellington Wallace"
+ "id": "pulseeffects",
+ "name": "PulseEffects",
+ "category": "video-audio",
+ "github": "wwmm/easyeffects",
+ "flathub": "com.github.wwmm.pulseeffects",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "pulseeffects-legacy"
+  ]
+ },
+ "detect": [
+  "pulseeffects-legacy"
+ ],
+ "kind": "gui",
+ "developer": "Wellington Wallace",
+ "stars": 4.3,
+ "reviews": 184
 }

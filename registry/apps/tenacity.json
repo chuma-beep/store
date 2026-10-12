@@ -1,18 +1,20 @@
 {
-  "id": "tenacity",
-  "name": "Tenacity",
-  "category": "video-audio",
-  "flathub": "org.tenacityaudio.Tenacity",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "tenacity"
-    ]
-  },
-  "detect": [
-    "tenacity"
-  ],
-  "kind": "gui",
-  "developer": "Tenacity Community",
-  "github": null
+ "id": "tenacity",
+ "name": "Tenacity",
+ "category": "video-audio",
+ "flathub": "org.tenacityaudio.Tenacity",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "tenacity"
+  ]
+ },
+ "detect": [
+  "tenacity"
+ ],
+ "kind": "gui",
+ "developer": "Tenacity Community",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 481
 }

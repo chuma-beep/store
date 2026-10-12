@@ -1,18 +1,20 @@
 {
-  "id": "notes-kana",
-  "name": "Notes (Kana)",
-  "category": "utilities",
-  "flathub": "io.github.nuttyartist.notes",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "notes"
-    ]
-  },
-  "detect": [
-    "notes"
-  ],
-  "kind": "gui",
-  "developer": "Ruby Mamistvalove",
-  "github": null
+ "id": "notes-kana",
+ "name": "Notes (Kana)",
+ "category": "utilities",
+ "flathub": "io.github.nuttyartist.notes",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "notes"
+  ]
+ },
+ "detect": [
+  "notes"
+ ],
+ "kind": "gui",
+ "developer": "Ruby Mamistvalove",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 277
 }

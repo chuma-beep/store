@@ -1,20 +1,22 @@
 {
-  "id": "minikube",
-  "name": "minikube",
-  "category": "terminal",
-  "github": "kubernetes/minikube",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "minikube"
-    ]
-  },
-  "detect": [
-    "minikube"
-  ],
-  "kind": "terminal",
-  "summary": "Run Kubernetes locally",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/13629408?s=256"
+ "id": "minikube",
+ "name": "minikube",
+ "category": "terminal",
+ "github": "kubernetes/minikube",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "minikube"
+  ]
+ },
+ "detect": [
+  "minikube"
+ ],
+ "kind": "terminal",
+ "summary": "Run Kubernetes locally",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/13629408?s=256",
+ "stars": 4.6,
+ "reviews": 155
 }

@@ -1,17 +1,19 @@
 {
-  "id": "parabolic",
-  "name": "Parabolic",
-  "category": "video-audio",
-  "github": "NickvisionApps/Parabolic",
-  "flathub": "org.nickvision.tubeconverter",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "parabolic"
-    ]
-  },
-  "detect": [
-    "parabolic"
-  ],
-  "kind": "gui"
+ "id": "parabolic",
+ "name": "Parabolic",
+ "category": "video-audio",
+ "github": "NickvisionApps/Parabolic",
+ "flathub": "org.nickvision.tubeconverter",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "parabolic"
+  ]
+ },
+ "detect": [
+  "parabolic"
+ ],
+ "kind": "gui",
+ "stars": 4.5,
+ "reviews": 353
 }

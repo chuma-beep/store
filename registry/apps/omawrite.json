@@ -1,22 +1,24 @@
 {
-  "id": "omawrite",
-  "name": "Omawrite",
-  "category": "productivity",
-  "github": "omacom-io/omawrite",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "omawrite"
-    ]
-  },
-  "detect": [
-    "omawrite"
-  ],
-  "kind": "gui",
-  "summary": "Dead-simple Markdown writing app built with Qt Quick",
-  "homepage": "https://github.com/omacom-io/omawrite",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "omawrite",
+ "name": "Omawrite",
+ "category": "productivity",
+ "github": "omacom-io/omawrite",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "omawrite"
+  ]
+ },
+ "detect": [
+  "omawrite"
+ ],
+ "kind": "gui",
+ "summary": "Dead-simple Markdown writing app built with Qt Quick",
+ "homepage": "https://github.com/omacom-io/omawrite",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.2,
+ "reviews": 107
 }

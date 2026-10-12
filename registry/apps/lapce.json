@@ -1,17 +1,19 @@
 {
-  "id": "lapce",
-  "name": "Lapce",
-  "category": "developer-tools",
-  "github": "lapce/lapce",
-  "flathub": "dev.lapce.lapce",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "lapce"
-    ]
-  },
-  "detect": [
-    "lapce"
-  ],
-  "kind": "gui"
+ "id": "lapce",
+ "name": "Lapce",
+ "category": "developer-tools",
+ "github": "lapce/lapce",
+ "flathub": "dev.lapce.lapce",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "lapce"
+  ]
+ },
+ "detect": [
+  "lapce"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 575
 }

@@ -1,18 +1,20 @@
 {
-  "id": "gtkhash",
-  "name": "GtkHash",
-  "category": "utilities",
-  "github": "gtkhash/gtkhash",
-  "flathub": "org.gtkhash.gtkhash",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "gtkhash"
-    ]
-  },
-  "detect": [
-    "gtkhash"
-  ],
-  "kind": "gui",
-  "developer": "Tristan Heaven"
+ "id": "gtkhash",
+ "name": "GtkHash",
+ "category": "utilities",
+ "github": "gtkhash/gtkhash",
+ "flathub": "org.gtkhash.gtkhash",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "gtkhash"
+  ]
+ },
+ "detect": [
+  "gtkhash"
+ ],
+ "kind": "gui",
+ "developer": "Tristan Heaven",
+ "stars": 4.3,
+ "reviews": 87
 }

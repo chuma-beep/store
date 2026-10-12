@@ -1,21 +1,23 @@
 {
-  "id": "genact",
-  "name": "genact",
-  "category": "terminal",
-  "github": "svenstaro/genact",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "genact"
-    ]
-  },
-  "detect": [
-    "genact"
-  ],
-  "kind": "terminal",
-  "summary": "A nonsense activity generator",
-  "icon": null,
-  "open": "genact",
-  "cli": true
+ "id": "genact",
+ "name": "genact",
+ "category": "terminal",
+ "github": "svenstaro/genact",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "genact"
+  ]
+ },
+ "detect": [
+  "genact"
+ ],
+ "kind": "terminal",
+ "summary": "A nonsense activity generator",
+ "icon": null,
+ "open": "genact",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 20
 }

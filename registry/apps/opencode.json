@@ -1,17 +1,19 @@
 {
-  "id": "opencode",
-  "name": "OpenCode",
-  "category": "ai",
-  "github": "anomalyco/opencode",
-  "flathub": "ai.opencode.opencode",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "opencode"
-    ]
-  },
-  "detect": [
-    "opencode"
-  ],
-  "kind": "gui"
+ "id": "opencode",
+ "name": "OpenCode",
+ "category": "ai",
+ "github": "anomalyco/opencode",
+ "flathub": "ai.opencode.opencode",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "opencode"
+  ]
+ },
+ "detect": [
+  "opencode"
+ ],
+ "kind": "gui",
+ "stars": 4.5,
+ "reviews": 338
 }

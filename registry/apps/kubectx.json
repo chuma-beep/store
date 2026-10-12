@@ -1,20 +1,22 @@
 {
-  "id": "kubectx",
-  "name": "kubectx",
-  "category": "terminal",
-  "github": "ahmetb/kubectx",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kubectx"
-    ]
-  },
-  "detect": [
-    "kubectx"
-  ],
-  "kind": "terminal",
-  "summary": "Faster way to switch between clusters and namespaces in kubectl",
-  "cli": true,
-  "icon": null
+ "id": "kubectx",
+ "name": "kubectx",
+ "category": "terminal",
+ "github": "ahmetb/kubectx",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kubectx"
+  ]
+ },
+ "detect": [
+  "kubectx"
+ ],
+ "kind": "terminal",
+ "summary": "Faster way to switch between clusters and namespaces in kubectl",
+ "cli": true,
+ "icon": null,
+ "stars": 4.4,
+ "reviews": 282
 }

@@ -1,18 +1,20 @@
 {
-  "id": "elisa",
-  "name": "Elisa",
-  "category": "video-audio",
-  "flathub": "org.kde.elisa",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "elisa"
-    ]
-  },
-  "detect": [
-    "elisa"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "elisa",
+ "name": "Elisa",
+ "category": "video-audio",
+ "flathub": "org.kde.elisa",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "elisa"
+  ]
+ },
+ "detect": [
+  "elisa"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 224
 }

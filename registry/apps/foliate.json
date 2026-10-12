@@ -1,17 +1,19 @@
 {
-  "id": "foliate",
-  "name": "Foliate",
-  "category": "productivity",
-  "github": "johnfactotum/foliate",
-  "flathub": "com.github.johnfactotum.Foliate",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "foliate"
-    ]
-  },
-  "detect": [
-    "foliate"
-  ],
-  "kind": "gui"
+ "id": "foliate",
+ "name": "Foliate",
+ "category": "productivity",
+ "github": "johnfactotum/foliate",
+ "flathub": "com.github.johnfactotum.Foliate",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "foliate"
+  ]
+ },
+ "detect": [
+  "foliate"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 107
 }

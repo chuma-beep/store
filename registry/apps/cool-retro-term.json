@@ -1,18 +1,20 @@
 {
-  "id": "cool-retro-term",
-  "name": "cool-retro-term",
-  "category": "terminal",
-  "github": "Swordfish90/cool-retro-term",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "cool-retro-term"
-    ]
-  },
-  "detect": [
-    "cool-retro-term"
-  ],
-  "kind": "gui",
-  "summary": "A good looking terminal emulator which mimics the old cathode display..."
+ "id": "cool-retro-term",
+ "name": "cool-retro-term",
+ "category": "terminal",
+ "github": "Swordfish90/cool-retro-term",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "cool-retro-term"
+  ]
+ },
+ "detect": [
+  "cool-retro-term"
+ ],
+ "kind": "gui",
+ "summary": "A good looking terminal emulator which mimics the old cathode display...",
+ "stars": 5.0,
+ "reviews": 153
 }

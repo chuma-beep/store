@@ -1,20 +1,22 @@
 {
-  "id": "terraform",
-  "name": "Terraform",
-  "category": "terminal",
-  "github": "hashicorp/terraform",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "terraform"
-    ]
-  },
-  "detect": [
-    "terraform"
-  ],
-  "kind": "terminal",
-  "summary": "Terraform enables you to safely and predictably create, change, and improve infrastructure. It is a source-available too",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/761456?s=256"
+ "id": "terraform",
+ "name": "Terraform",
+ "category": "terminal",
+ "github": "hashicorp/terraform",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "terraform"
+  ]
+ },
+ "detect": [
+  "terraform"
+ ],
+ "kind": "terminal",
+ "summary": "Terraform enables you to safely and predictably create, change, and improve infrastructure. It is a source-available too",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/761456?s=256",
+ "stars": 4.2,
+ "reviews": 543
 }

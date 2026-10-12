@@ -1,18 +1,20 @@
 {
-  "id": "rpcs3",
-  "name": "RPCS3",
-  "category": "games",
-  "flathub": "net.rpcs3.RPCS3",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "rpcs3-bin"
-    ]
-  },
-  "detect": [
-    "rpcs3-bin"
-  ],
-  "kind": "gui",
-  "developer": "RPCS3 Developers",
-  "github": null
+ "id": "rpcs3",
+ "name": "RPCS3",
+ "category": "games",
+ "flathub": "net.rpcs3.RPCS3",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "rpcs3-bin"
+  ]
+ },
+ "detect": [
+  "rpcs3-bin"
+ ],
+ "kind": "gui",
+ "developer": "RPCS3 Developers",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 61
 }

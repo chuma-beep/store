@@ -1,21 +1,23 @@
 {
-  "id": "hurl",
-  "name": "Hurl",
-  "category": "developer-tools",
-  "github": "Orange-OpenSource/hurl",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "hurl"
-    ]
-  },
-  "detect": [
-    "hurl"
-  ],
-  "kind": "terminal",
-  "summary": "Hurl, run and test HTTP requests with plain text.",
-  "icon": null,
-  "open": "hurl",
-  "cli": true
+ "id": "hurl",
+ "name": "Hurl",
+ "category": "developer-tools",
+ "github": "Orange-OpenSource/hurl",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "hurl"
+  ]
+ },
+ "detect": [
+  "hurl"
+ ],
+ "kind": "terminal",
+ "summary": "Hurl, run and test HTTP requests with plain text.",
+ "icon": null,
+ "open": "hurl",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 383
 }

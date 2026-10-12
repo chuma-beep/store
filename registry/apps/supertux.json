@@ -1,17 +1,19 @@
 {
-  "id": "supertux",
-  "name": "SuperTux",
-  "category": "games",
-  "github": "SuperTux/supertux",
-  "flathub": "org.supertuxproject.SuperTux",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "supertux"
-    ]
-  },
-  "detect": [
-    "supertux"
-  ],
-  "kind": "gui"
+ "id": "supertux",
+ "name": "SuperTux",
+ "category": "games",
+ "github": "SuperTux/supertux",
+ "flathub": "org.supertuxproject.SuperTux",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "supertux"
+  ]
+ },
+ "detect": [
+  "supertux"
+ ],
+ "kind": "gui",
+ "stars": 4.7,
+ "reviews": 243
 }

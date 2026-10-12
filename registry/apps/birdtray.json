@@ -1,18 +1,20 @@
 {
-  "id": "birdtray",
-  "name": "Birdtray",
-  "category": "productivity",
-  "github": "gyunaev/birdtray",
-  "flathub": "com.ulduzsoft.Birdtray",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "birdtray"
-    ]
-  },
-  "detect": [
-    "birdtray"
-  ],
-  "kind": "gui",
-  "developer": "ulduzsoft"
+ "id": "birdtray",
+ "name": "Birdtray",
+ "category": "productivity",
+ "github": "gyunaev/birdtray",
+ "flathub": "com.ulduzsoft.Birdtray",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "birdtray"
+  ]
+ },
+ "detect": [
+  "birdtray"
+ ],
+ "kind": "gui",
+ "developer": "ulduzsoft",
+ "stars": 4.8,
+ "reviews": 28
 }

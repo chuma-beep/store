@@ -1,18 +1,20 @@
 {
-  "id": "sauerbraten",
-  "name": "Sauerbraten",
-  "category": "games",
-  "flathub": "org.sauerbraten.Sauerbraten",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "sauerbraten"
-    ]
-  },
-  "detect": [
-    "sauerbraten"
-  ],
-  "kind": "gui",
-  "developer": "Wouter van Oortmerssen and others",
-  "github": null
+ "id": "sauerbraten",
+ "name": "Sauerbraten",
+ "category": "games",
+ "flathub": "org.sauerbraten.Sauerbraten",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "sauerbraten"
+  ]
+ },
+ "detect": [
+  "sauerbraten"
+ ],
+ "kind": "gui",
+ "developer": "Wouter van Oortmerssen and others",
+ "github": null,
+ "stars": 5.0,
+ "reviews": 341
 }

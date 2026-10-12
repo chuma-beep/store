@@ -1,23 +1,25 @@
 {
-  "id": "hey-cli",
-  "name": "HEY CLI",
-  "category": "productivity",
-  "github": "basecamp/hey-cli",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "hey-cli"
-    ]
-  },
-  "detect": [
-    "hey-cli"
-  ],
-  "kind": "terminal",
-  "summary": "CLI for HEY email",
-  "homepage": "https://github.com/basecamp/hey-cli",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "hey-cli",
+ "name": "HEY CLI",
+ "category": "productivity",
+ "github": "basecamp/hey-cli",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "hey-cli"
+  ]
+ },
+ "detect": [
+  "hey-cli"
+ ],
+ "kind": "terminal",
+ "summary": "CLI for HEY email",
+ "homepage": "https://github.com/basecamp/hey-cli",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.6,
+ "reviews": 161
 }

@@ -1,18 +1,20 @@
 {
-  "id": "dune-legacy",
-  "name": "Dune Legacy",
-  "category": "games",
-  "flathub": "net.sourceforge.DuneLegacy",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "dunelegacy"
-    ]
-  },
-  "detect": [
-    "dunelegacy"
-  ],
-  "kind": "gui",
-  "developer": "Dune Legacy contributors",
-  "github": null
+ "id": "dune-legacy",
+ "name": "Dune Legacy",
+ "category": "games",
+ "flathub": "net.sourceforge.DuneLegacy",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "dunelegacy"
+  ]
+ },
+ "detect": [
+  "dunelegacy"
+ ],
+ "kind": "gui",
+ "developer": "Dune Legacy contributors",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 165
 }

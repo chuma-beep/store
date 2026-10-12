@@ -1,21 +1,23 @@
 {
-  "id": "jupyterlab",
-  "name": "JupyterLab",
-  "category": "education",
-  "github": "jupyterlab/jupyterlab",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "jupyterlab"
-    ]
-  },
-  "detect": [
-    "jupyterlab"
-  ],
-  "kind": "terminal",
-  "summary": "JupyterLab computational environment.",
-  "icon": null,
-  "open": "jupyter-lab",
-  "cli": true
+ "id": "jupyterlab",
+ "name": "JupyterLab",
+ "category": "education",
+ "github": "jupyterlab/jupyterlab",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "jupyterlab"
+  ]
+ },
+ "detect": [
+  "jupyterlab"
+ ],
+ "kind": "terminal",
+ "summary": "JupyterLab computational environment.",
+ "icon": null,
+ "open": "jupyter-lab",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 112
 }

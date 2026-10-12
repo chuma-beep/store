@@ -1,23 +1,25 @@
 {
-  "id": "flea",
-  "name": "Flea",
-  "category": "terminal",
-  "github": "thisisgm/flea",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "flea"
-    ]
-  },
-  "detect": [
-    "flea"
-  ],
-  "kind": "terminal",
-  "summary": "Fast, keyboard-first file manager for Omarchy",
-  "homepage": "https://github.com/thisisgm/flea",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "flea",
+ "name": "Flea",
+ "category": "terminal",
+ "github": "thisisgm/flea",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "flea"
+  ]
+ },
+ "detect": [
+  "flea"
+ ],
+ "kind": "terminal",
+ "summary": "Fast, keyboard-first file manager for Omarchy",
+ "homepage": "https://github.com/thisisgm/flea",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.6,
+ "reviews": 555
 }

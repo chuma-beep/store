@@ -1,18 +1,20 @@
 {
-  "id": "komikku",
-  "name": "Komikku",
-  "category": "graphics",
-  "flathub": "info.febvre.Komikku",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "komikku"
-    ]
-  },
-  "detect": [
-    "komikku"
-  ],
-  "kind": "gui",
-  "developer": "Valéry Febvre",
-  "github": null
+ "id": "komikku",
+ "name": "Komikku",
+ "category": "graphics",
+ "flathub": "info.febvre.Komikku",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "komikku"
+  ]
+ },
+ "detect": [
+  "komikku"
+ ],
+ "kind": "gui",
+ "developer": "Valéry Febvre",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 341
 }

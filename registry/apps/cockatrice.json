@@ -1,17 +1,19 @@
 {
-  "id": "cockatrice",
-  "name": "Cockatrice",
-  "category": "games",
-  "github": "Cockatrice/Cockatrice",
-  "flathub": "io.github.Cockatrice.cockatrice",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "cockatrice"
-    ]
-  },
-  "detect": [
-    "cockatrice"
-  ],
-  "kind": "gui"
+ "id": "cockatrice",
+ "name": "Cockatrice",
+ "category": "games",
+ "github": "Cockatrice/Cockatrice",
+ "flathub": "io.github.Cockatrice.cockatrice",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "cockatrice"
+  ]
+ },
+ "detect": [
+  "cockatrice"
+ ],
+ "kind": "gui",
+ "stars": 4.7,
+ "reviews": 155
 }

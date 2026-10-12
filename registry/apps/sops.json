@@ -1,21 +1,23 @@
 {
-  "id": "sops",
-  "name": "SOPS",
-  "category": "security",
-  "github": "getsops/sops",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "sops"
-    ]
-  },
-  "detect": [
-    "sops"
-  ],
-  "kind": "terminal",
-  "summary": "Simple and flexible tool for managing secrets",
-  "icon": null,
-  "open": "sops",
-  "cli": true
+ "id": "sops",
+ "name": "SOPS",
+ "category": "security",
+ "github": "getsops/sops",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "sops"
+  ]
+ },
+ "detect": [
+  "sops"
+ ],
+ "kind": "terminal",
+ "summary": "Simple and flexible tool for managing secrets",
+ "icon": null,
+ "open": "sops",
+ "cli": true,
+ "stars": 4.2,
+ "reviews": 364
 }

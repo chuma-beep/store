@@ -1,17 +1,19 @@
 {
-  "id": "netbeans",
-  "name": "NetBeans",
-  "category": "developer-tools",
-  "github": "apache/netbeans",
-  "flathub": "org.apache.netbeans",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "netbeans"
-    ]
-  },
-  "detect": [
-    "netbeans"
-  ],
-  "kind": "gui"
+ "id": "netbeans",
+ "name": "NetBeans",
+ "category": "developer-tools",
+ "github": "apache/netbeans",
+ "flathub": "org.apache.netbeans",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "netbeans"
+  ]
+ },
+ "detect": [
+  "netbeans"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 520
 }

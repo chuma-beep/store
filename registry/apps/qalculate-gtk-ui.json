@@ -1,17 +1,19 @@
 {
-  "id": "qalculate-gtk-ui",
-  "name": "Qalculate! (GTK UI)",
-  "category": "utilities",
-  "github": "Qalculate/qalculate-gtk",
-  "flathub": "io.github.Qalculate",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "qalculate-gtk"
-    ]
-  },
-  "detect": [
-    "qalculate-gtk"
-  ],
-  "kind": "gui"
+ "id": "qalculate-gtk-ui",
+ "name": "Qalculate! (GTK UI)",
+ "category": "utilities",
+ "github": "Qalculate/qalculate-gtk",
+ "flathub": "io.github.Qalculate",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "qalculate-gtk"
+  ]
+ },
+ "detect": [
+  "qalculate-gtk"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 13
 }

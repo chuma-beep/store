@@ -1,21 +1,23 @@
 {
-  "id": "pueue",
-  "name": "Pueue",
-  "category": "terminal",
-  "github": "Nukesor/pueue",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "pueue"
-    ]
-  },
-  "detect": [
-    "pueue"
-  ],
-  "kind": "terminal",
-  "summary": "stars: Manage your shell commands.",
-  "icon": null,
-  "open": "pueue",
-  "cli": true
+ "id": "pueue",
+ "name": "Pueue",
+ "category": "terminal",
+ "github": "Nukesor/pueue",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "pueue"
+  ]
+ },
+ "detect": [
+  "pueue"
+ ],
+ "kind": "terminal",
+ "summary": "stars: Manage your shell commands.",
+ "icon": null,
+ "open": "pueue",
+ "cli": true,
+ "stars": 4.7,
+ "reviews": 482
 }

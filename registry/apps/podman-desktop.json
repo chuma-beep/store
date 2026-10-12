@@ -1,17 +1,19 @@
 {
-  "id": "podman-desktop",
-  "name": "Podman Desktop",
-  "category": "developer-tools",
-  "github": "podman-desktop/podman-desktop",
-  "flathub": "io.podman_desktop.PodmanDesktop",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "podman-desktop"
-    ]
-  },
-  "detect": [
-    "podman-desktop"
-  ],
-  "kind": "gui"
+ "id": "podman-desktop",
+ "name": "Podman Desktop",
+ "category": "developer-tools",
+ "github": "podman-desktop/podman-desktop",
+ "flathub": "io.podman_desktop.PodmanDesktop",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "podman-desktop"
+  ]
+ },
+ "detect": [
+  "podman-desktop"
+ ],
+ "kind": "gui",
+ "stars": 4.2,
+ "reviews": 455
 }

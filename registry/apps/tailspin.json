@@ -1,21 +1,23 @@
 {
-  "id": "tailspin",
-  "name": "tailspin",
-  "category": "terminal",
-  "github": "bensadeh/tailspin",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "tailspin"
-    ]
-  },
-  "detect": [
-    "tailspin"
-  ],
-  "kind": "terminal",
-  "summary": "A log file highlighter",
-  "icon": null,
-  "open": "tspin",
-  "cli": true
+ "id": "tailspin",
+ "name": "tailspin",
+ "category": "terminal",
+ "github": "bensadeh/tailspin",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "tailspin"
+  ]
+ },
+ "detect": [
+  "tailspin"
+ ],
+ "kind": "terminal",
+ "summary": "A log file highlighter",
+ "icon": null,
+ "open": "tspin",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 337
 }

@@ -1,17 +1,19 @@
 {
-  "id": "qview",
-  "name": "qView",
-  "category": "graphics",
-  "github": "jurplel/qView",
-  "flathub": "com.interversehq.qView",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "qview"
-    ]
-  },
-  "detect": [
-    "qview"
-  ],
-  "kind": "gui"
+ "id": "qview",
+ "name": "qView",
+ "category": "graphics",
+ "github": "jurplel/qView",
+ "flathub": "com.interversehq.qView",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "qview"
+  ]
+ },
+ "detect": [
+  "qview"
+ ],
+ "kind": "gui",
+ "stars": 4.2,
+ "reviews": 349
 }

@@ -1,18 +1,20 @@
 {
-  "id": "transmission-remote",
-  "name": "Transmission Remote",
-  "category": "utilities",
-  "github": "transmission-remote-gtk/transmission-remote-gtk",
-  "flathub": "io.github.TransmissionRemoteGtk",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "transmission-remote-gtk"
-    ]
-  },
-  "detect": [
-    "transmission-remote-gtk"
-  ],
-  "kind": "gui",
-  "developer": "Transmission Remote Gtk Team"
+ "id": "transmission-remote",
+ "name": "Transmission Remote",
+ "category": "utilities",
+ "github": "transmission-remote-gtk/transmission-remote-gtk",
+ "flathub": "io.github.TransmissionRemoteGtk",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "transmission-remote-gtk"
+  ]
+ },
+ "detect": [
+  "transmission-remote-gtk"
+ ],
+ "kind": "gui",
+ "developer": "Transmission Remote Gtk Team",
+ "stars": 4.8,
+ "reviews": 87
 }

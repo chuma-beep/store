@@ -1,18 +1,20 @@
 {
-  "id": "binary",
-  "name": "Binary",
-  "category": "utilities",
-  "flathub": "io.github.fizzyizzy05.binary",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "binary"
-    ]
-  },
-  "detect": [
-    "binary"
-  ],
-  "kind": "gui",
-  "developer": "Isabelle Jackson",
-  "github": null
+ "id": "binary",
+ "name": "Binary",
+ "category": "utilities",
+ "flathub": "io.github.fizzyizzy05.binary",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "binary"
+  ]
+ },
+ "detect": [
+  "binary"
+ ],
+ "kind": "gui",
+ "developer": "Isabelle Jackson",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 572
 }

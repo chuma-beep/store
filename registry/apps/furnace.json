@@ -1,17 +1,19 @@
 {
-  "id": "furnace",
-  "name": "Furnace",
-  "category": "video-audio",
-  "github": "tildearrow/furnace",
-  "flathub": "org.tildearrow.furnace",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "furnace"
-    ]
-  },
-  "detect": [
-    "furnace"
-  ],
-  "kind": "gui"
+ "id": "furnace",
+ "name": "Furnace",
+ "category": "video-audio",
+ "github": "tildearrow/furnace",
+ "flathub": "org.tildearrow.furnace",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "furnace"
+  ]
+ },
+ "detect": [
+  "furnace"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 148
 }

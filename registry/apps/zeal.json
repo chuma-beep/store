@@ -1,17 +1,19 @@
 {
-  "id": "zeal",
-  "name": "Zeal",
-  "category": "developer-tools",
-  "github": "zealdocs/zeal",
-  "flathub": "org.zealdocs.Zeal",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "zeal"
-    ]
-  },
-  "detect": [
-    "zeal"
-  ],
-  "kind": "gui"
+ "id": "zeal",
+ "name": "Zeal",
+ "category": "developer-tools",
+ "github": "zealdocs/zeal",
+ "flathub": "org.zealdocs.Zeal",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "zeal"
+  ]
+ },
+ "detect": [
+  "zeal"
+ ],
+ "kind": "gui",
+ "stars": 4.2,
+ "reviews": 507
 }

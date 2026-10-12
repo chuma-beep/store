@@ -1,17 +1,19 @@
 {
-  "id": "kopia",
-  "name": "Kopia",
-  "category": "utilities",
-  "github": "kopia/kopia",
-  "flathub": "io.kopia.KopiaUI",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "kopia-bin"
-    ]
-  },
-  "detect": [
-    "kopia-bin"
-  ],
-  "kind": "gui"
+ "id": "kopia",
+ "name": "Kopia",
+ "category": "utilities",
+ "github": "kopia/kopia",
+ "flathub": "io.kopia.KopiaUI",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "kopia-bin"
+  ]
+ },
+ "detect": [
+  "kopia-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 509
 }

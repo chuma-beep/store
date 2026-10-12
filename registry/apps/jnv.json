@@ -1,20 +1,22 @@
 {
-  "id": "jnv",
-  "name": "jnv",
-  "category": "terminal",
-  "github": "ynqa/jnv",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "jnv"
-    ]
-  },
-  "detect": [
-    "jnv"
-  ],
-  "kind": "terminal",
-  "summary": "Interactive JSON filter using jq",
-  "icon": null,
-  "open": "jnv"
+ "id": "jnv",
+ "name": "jnv",
+ "category": "terminal",
+ "github": "ynqa/jnv",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "jnv"
+  ]
+ },
+ "detect": [
+  "jnv"
+ ],
+ "kind": "terminal",
+ "summary": "Interactive JSON filter using jq",
+ "icon": null,
+ "open": "jnv",
+ "stars": 5.0,
+ "reviews": 477
 }

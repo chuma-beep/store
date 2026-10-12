@@ -1,17 +1,19 @@
 {
-  "id": "piper",
-  "name": "Piper",
-  "category": "utilities",
-  "github": "libratbag/piper",
-  "flathub": "org.freedesktop.Piper",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "piper"
-    ]
-  },
-  "detect": [
-    "piper"
-  ],
-  "kind": "gui"
+ "id": "piper",
+ "name": "Piper",
+ "category": "utilities",
+ "github": "libratbag/piper",
+ "flathub": "org.freedesktop.Piper",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "piper"
+  ]
+ },
+ "detect": [
+  "piper"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 137
 }

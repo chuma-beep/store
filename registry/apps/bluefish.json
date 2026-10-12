@@ -1,18 +1,20 @@
 {
-  "id": "bluefish",
-  "name": "Bluefish",
-  "category": "developer-tools",
-  "flathub": "nl.openoffice.bluefish",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "bluefish"
-    ]
-  },
-  "detect": [
-    "bluefish"
-  ],
-  "kind": "gui",
-  "developer": "Olivier Sessink",
-  "github": null
+ "id": "bluefish",
+ "name": "Bluefish",
+ "category": "developer-tools",
+ "flathub": "nl.openoffice.bluefish",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "bluefish"
+  ]
+ },
+ "detect": [
+  "bluefish"
+ ],
+ "kind": "gui",
+ "developer": "Olivier Sessink",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 412
 }

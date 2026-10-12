@@ -1,18 +1,20 @@
 {
-  "id": "hotspot",
-  "name": "Hotspot",
-  "category": "developer-tools",
-  "github": "KDAB/hotspot",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "hotspot"
-    ]
-  },
-  "detect": [
-    "hotspot"
-  ],
-  "kind": "gui",
-  "summary": "The Linux perf GUI for performance analysis."
+ "id": "hotspot",
+ "name": "Hotspot",
+ "category": "developer-tools",
+ "github": "KDAB/hotspot",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "hotspot"
+  ]
+ },
+ "detect": [
+  "hotspot"
+ ],
+ "kind": "gui",
+ "summary": "The Linux perf GUI for performance analysis.",
+ "stars": 4.3,
+ "reviews": 438
 }

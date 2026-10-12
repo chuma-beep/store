@@ -1,21 +1,23 @@
 {
-  "id": "yara",
-  "name": "YARA",
-  "category": "security",
-  "github": "VirusTotal/yara",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "yara"
-    ]
-  },
-  "detect": [
-    "yara"
-  ],
-  "kind": "terminal",
-  "summary": "The pattern matching swiss knife",
-  "icon": null,
-  "open": "yara",
-  "cli": true
+ "id": "yara",
+ "name": "YARA",
+ "category": "security",
+ "github": "VirusTotal/yara",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "yara"
+  ]
+ },
+ "detect": [
+  "yara"
+ ],
+ "kind": "terminal",
+ "summary": "The pattern matching swiss knife",
+ "icon": null,
+ "open": "yara",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 164
 }

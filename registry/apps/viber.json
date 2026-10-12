@@ -1,18 +1,20 @@
 {
-  "id": "viber",
-  "name": "Viber",
-  "category": "communication",
-  "flathub": "com.viber.Viber",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "viber"
-    ]
-  },
-  "detect": [
-    "viber"
-  ],
-  "kind": "gui",
-  "developer": "Viber",
-  "github": null
+ "id": "viber",
+ "name": "Viber",
+ "category": "communication",
+ "flathub": "com.viber.Viber",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "viber"
+  ]
+ },
+ "detect": [
+  "viber"
+ ],
+ "kind": "gui",
+ "developer": "Viber",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 85
 }

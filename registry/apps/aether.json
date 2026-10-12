@@ -1,22 +1,24 @@
 {
-  "id": "aether",
-  "name": "Aether",
-  "category": "graphics",
-  "github": "omacom/aether",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "aether"
-    ]
-  },
-  "detect": [
-    "aether"
-  ],
-  "kind": "gui",
-  "summary": "Desktop theming application - extract colors from wallpapers and apply cohesive themes",
-  "homepage": "https://github.com/omacom/aether",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "aether",
+ "name": "Aether",
+ "category": "graphics",
+ "github": "omacom/aether",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "aether"
+  ]
+ },
+ "detect": [
+  "aether"
+ ],
+ "kind": "gui",
+ "summary": "Desktop theming application - extract colors from wallpapers and apply cohesive themes",
+ "homepage": "https://github.com/omacom/aether",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.6,
+ "reviews": 174
 }

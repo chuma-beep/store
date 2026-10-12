@@ -1,17 +1,19 @@
 {
-  "id": "fre-ac",
-  "name": "fre:ac",
-  "category": "video-audio",
-  "github": "enzo1982/freac",
-  "flathub": "org.freac.freac",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "freac"
-    ]
-  },
-  "detect": [
-    "freac"
-  ],
-  "kind": "gui"
+ "id": "fre-ac",
+ "name": "fre:ac",
+ "category": "video-audio",
+ "github": "enzo1982/freac",
+ "flathub": "org.freac.freac",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "freac"
+  ]
+ },
+ "detect": [
+  "freac"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 194
 }

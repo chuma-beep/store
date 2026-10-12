@@ -1,18 +1,20 @@
 {
-  "id": "zoom",
-  "name": "Zoom",
-  "category": "communication",
-  "flathub": "us.zoom.Zoom",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "zoom"
-    ]
-  },
-  "detect": [
-    "zoom"
-  ],
-  "kind": "gui",
-  "developer": "zoom.us",
-  "github": null
+ "id": "zoom",
+ "name": "Zoom",
+ "category": "communication",
+ "flathub": "us.zoom.Zoom",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "zoom"
+  ]
+ },
+ "detect": [
+  "zoom"
+ ],
+ "kind": "gui",
+ "developer": "zoom.us",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 575
 }

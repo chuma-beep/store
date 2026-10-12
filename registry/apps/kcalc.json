@@ -1,18 +1,20 @@
 {
-  "id": "kcalc",
-  "name": "KCalc",
-  "category": "utilities",
-  "flathub": "org.kde.kcalc",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kcalc"
-    ]
-  },
-  "detect": [
-    "kcalc"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "kcalc",
+ "name": "KCalc",
+ "category": "utilities",
+ "flathub": "org.kde.kcalc",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kcalc"
+  ]
+ },
+ "detect": [
+  "kcalc"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 48
 }

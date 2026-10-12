@@ -1,17 +1,19 @@
 {
-  "id": "strawberry-music-player",
-  "name": "Strawberry Music Player",
-  "category": "media",
-  "github": "strawberrymusicplayer/strawberry",
-  "flathub": "org.strawberrymusicplayer.strawberry",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "strawberry"
-    ]
-  },
-  "detect": [
-    "strawberry"
-  ],
-  "kind": "gui"
+ "id": "strawberry-music-player",
+ "name": "Strawberry Music Player",
+ "category": "media",
+ "github": "strawberrymusicplayer/strawberry",
+ "flathub": "org.strawberrymusicplayer.strawberry",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "strawberry"
+  ]
+ },
+ "detect": [
+  "strawberry"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 171
 }

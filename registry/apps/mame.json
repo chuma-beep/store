@@ -1,17 +1,19 @@
 {
-  "id": "mame",
-  "name": "MAME",
-  "category": "games",
-  "github": "mamedev/mame",
-  "flathub": "org.mamedev.MAME",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "mame"
-    ]
-  },
-  "detect": [
-    "mame"
-  ],
-  "kind": "gui"
+ "id": "mame",
+ "name": "MAME",
+ "category": "games",
+ "github": "mamedev/mame",
+ "flathub": "org.mamedev.MAME",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "mame"
+  ]
+ },
+ "detect": [
+  "mame"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 131
 }

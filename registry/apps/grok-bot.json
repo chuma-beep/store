@@ -1,21 +1,23 @@
 {
-  "id": "grok-bot",
-  "name": "Grok Bot",
-  "category": "ai",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "grok-bot"
-    ]
-  },
-  "detect": [
-    "grok-bot"
-  ],
-  "kind": "gui",
-  "summary": "Grok Bot desktop agent",
-  "homepage": "https://x.ai/bot",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "grok-bot",
+ "name": "Grok Bot",
+ "category": "ai",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "grok-bot"
+  ]
+ },
+ "detect": [
+  "grok-bot"
+ ],
+ "kind": "gui",
+ "summary": "Grok Bot desktop agent",
+ "homepage": "https://x.ai/bot",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.3,
+ "reviews": 130
 }

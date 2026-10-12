@@ -1,18 +1,20 @@
 {
-  "id": "vivaldi",
-  "name": "Vivaldi",
-  "category": "browsers",
-  "flathub": "com.vivaldi.Vivaldi",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "vivaldi"
-    ]
-  },
-  "detect": [
-    "vivaldi"
-  ],
-  "kind": "gui",
-  "developer": "Vivaldi Technologies",
-  "github": null
+ "id": "vivaldi",
+ "name": "Vivaldi",
+ "category": "browsers",
+ "flathub": "com.vivaldi.Vivaldi",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "vivaldi"
+  ]
+ },
+ "detect": [
+  "vivaldi"
+ ],
+ "kind": "gui",
+ "developer": "Vivaldi Technologies",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 167
 }

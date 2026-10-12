@@ -1,17 +1,19 @@
 {
-  "id": "rio",
-  "name": "Rio",
-  "category": "developer-tools",
-  "github": "raphamorim/rio",
-  "flathub": "com.rioterm.Rio",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "rio"
-    ]
-  },
-  "detect": [
-    "rio"
-  ],
-  "kind": "gui"
+ "id": "rio",
+ "name": "Rio",
+ "category": "developer-tools",
+ "github": "raphamorim/rio",
+ "flathub": "com.rioterm.Rio",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "rio"
+  ]
+ },
+ "detect": [
+  "rio"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 328
 }

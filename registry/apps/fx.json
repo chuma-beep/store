@@ -1,20 +1,22 @@
 {
-  "id": "fx",
-  "name": "fx",
-  "category": "terminal",
-  "github": "antonmedv/fx",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "fx"
-    ]
-  },
-  "detect": [
-    "fx"
-  ],
-  "kind": "terminal",
-  "summary": "Terminal JSON viewer & processor",
-  "cli": true,
-  "icon": null
+ "id": "fx",
+ "name": "fx",
+ "category": "terminal",
+ "github": "antonmedv/fx",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "fx"
+  ]
+ },
+ "detect": [
+  "fx"
+ ],
+ "kind": "terminal",
+ "summary": "Terminal JSON viewer & processor",
+ "cli": true,
+ "icon": null,
+ "stars": 4.7,
+ "reviews": 488
 }

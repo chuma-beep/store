@@ -1,23 +1,25 @@
 {
-  "id": "qmk-hid",
-  "name": "qmk_hid",
-  "category": "developer-tools",
-  "github": "FrameworkComputer/qmk_hid",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "qmk-hid"
-    ]
-  },
-  "detect": [
-    "qmk-hid"
-  ],
-  "kind": "terminal",
-  "summary": "Commandline tool for interacting with QMK devices over HID",
-  "homepage": "https://github.com/FrameworkComputer/qmk_hid",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "qmk-hid",
+ "name": "qmk_hid",
+ "category": "developer-tools",
+ "github": "FrameworkComputer/qmk_hid",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "qmk-hid"
+  ]
+ },
+ "detect": [
+  "qmk-hid"
+ ],
+ "kind": "terminal",
+ "summary": "Commandline tool for interacting with QMK devices over HID",
+ "homepage": "https://github.com/FrameworkComputer/qmk_hid",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 5.0,
+ "reviews": 428
 }

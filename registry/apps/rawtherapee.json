@@ -1,18 +1,20 @@
 {
-  "id": "rawtherapee",
-  "name": "RawTherapee",
-  "category": "graphics",
-  "flathub": "com.rawtherapee.RawTherapee",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "rawtherapee"
-    ]
-  },
-  "detect": [
-    "rawtherapee"
-  ],
-  "kind": "gui",
-  "developer": "The RawTherapee Team",
-  "github": null
+ "id": "rawtherapee",
+ "name": "RawTherapee",
+ "category": "graphics",
+ "flathub": "com.rawtherapee.RawTherapee",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "rawtherapee"
+  ]
+ },
+ "detect": [
+  "rawtherapee"
+ ],
+ "kind": "gui",
+ "developer": "The RawTherapee Team",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 375
 }

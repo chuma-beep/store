@@ -1,18 +1,20 @@
 {
-  "id": "metronome",
-  "name": "Metronome",
-  "category": "utilities",
-  "flathub": "com.adrienplazas.Metronome",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "metronome"
-    ]
-  },
-  "detect": [
-    "metronome"
-  ],
-  "kind": "gui",
-  "developer": "Adrien Plazas",
-  "github": null
+ "id": "metronome",
+ "name": "Metronome",
+ "category": "utilities",
+ "flathub": "com.adrienplazas.Metronome",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "metronome"
+  ]
+ },
+ "detect": [
+  "metronome"
+ ],
+ "kind": "gui",
+ "developer": "Adrien Plazas",
+ "github": null,
+ "stars": 4.6,
+ "reviews": 73
 }

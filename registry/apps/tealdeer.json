@@ -1,21 +1,23 @@
 {
-  "id": "tealdeer",
-  "name": "tealdeer",
-  "category": "terminal",
-  "github": "tealdeer-rs/tealdeer",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "tealdeer"
-    ]
-  },
-  "detect": [
-    "tealdeer"
-  ],
-  "kind": "terminal",
-  "summary": "A very fast implementation of tldr in Rust.",
-  "icon": null,
-  "open": "tldr",
-  "cli": true
+ "id": "tealdeer",
+ "name": "tealdeer",
+ "category": "terminal",
+ "github": "tealdeer-rs/tealdeer",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "tealdeer"
+  ]
+ },
+ "detect": [
+  "tealdeer"
+ ],
+ "kind": "terminal",
+ "summary": "A very fast implementation of tldr in Rust.",
+ "icon": null,
+ "open": "tldr",
+ "cli": true,
+ "stars": 4.3,
+ "reviews": 491
 }

@@ -1,20 +1,22 @@
 {
-  "id": "hstr",
-  "name": "HSTR",
-  "category": "terminal",
-  "github": "dvorka/hstr",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "hstr"
-    ]
-  },
-  "detect": [
-    "hstr"
-  ],
-  "kind": "terminal",
-  "summary": "Bash and Zsh shell history TUI suggest box - easily view, navigate, search and manage your command history.",
-  "icon": null,
-  "open": "hstr"
+ "id": "hstr",
+ "name": "HSTR",
+ "category": "terminal",
+ "github": "dvorka/hstr",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "hstr"
+  ]
+ },
+ "detect": [
+  "hstr"
+ ],
+ "kind": "terminal",
+ "summary": "Bash and Zsh shell history TUI suggest box - easily view, navigate, search and manage your command history.",
+ "icon": null,
+ "open": "hstr",
+ "stars": 4.5,
+ "reviews": 87
 }

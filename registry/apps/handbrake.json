@@ -1,18 +1,20 @@
 {
-  "id": "handbrake",
-  "name": "HandBrake",
-  "category": "video-audio",
-  "github": "HandBrake/HandBrake",
-  "flathub": "fr.handbrake.ghb",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "handbrake"
-    ]
-  },
-  "detect": [
-    "handbrake"
-  ],
-  "kind": "gui",
-  "developer": "HandBrake Team"
+ "id": "handbrake",
+ "name": "HandBrake",
+ "category": "video-audio",
+ "github": "HandBrake/HandBrake",
+ "flathub": "fr.handbrake.ghb",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "handbrake"
+  ]
+ },
+ "detect": [
+  "handbrake"
+ ],
+ "kind": "gui",
+ "developer": "HandBrake Team",
+ "stars": 4.7,
+ "reviews": 489
 }

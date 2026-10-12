@@ -1,21 +1,23 @@
 {
-  "id": "zola",
-  "name": "Zola",
-  "category": "developer-tools",
-  "github": "getzola/zola",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "zola"
-    ]
-  },
-  "detect": [
-    "zola"
-  ],
-  "kind": "terminal",
-  "summary": "A fast static site generator in a single binary with everything built-in. https://www.getzola.org",
-  "icon": null,
-  "open": "zola",
-  "cli": true
+ "id": "zola",
+ "name": "Zola",
+ "category": "developer-tools",
+ "github": "getzola/zola",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "zola"
+  ]
+ },
+ "detect": [
+  "zola"
+ ],
+ "kind": "terminal",
+ "summary": "A fast static site generator in a single binary with everything built-in. https://www.getzola.org",
+ "icon": null,
+ "open": "zola",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 233
 }

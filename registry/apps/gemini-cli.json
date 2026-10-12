@@ -1,20 +1,22 @@
 {
-  "id": "gemini-cli",
-  "name": "Gemini CLI",
-  "category": "ai",
-  "github": "google-gemini/gemini-cli",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gemini-cli"
-    ]
-  },
-  "detect": [
-    "gemini-cli"
-  ],
-  "kind": "terminal",
-  "summary": "An open-source AI agent that brings the power of Gemini directly into your terminal",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/161781182?s=256"
+ "id": "gemini-cli",
+ "name": "Gemini CLI",
+ "category": "ai",
+ "github": "google-gemini/gemini-cli",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gemini-cli"
+  ]
+ },
+ "detect": [
+  "gemini-cli"
+ ],
+ "kind": "terminal",
+ "summary": "An open-source AI agent that brings the power of Gemini directly into your terminal",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/161781182?s=256",
+ "stars": 4.5,
+ "reviews": 458
 }

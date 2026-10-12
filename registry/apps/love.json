@@ -1,17 +1,19 @@
 {
-  "id": "love",
-  "name": "LÖVE",
-  "category": "games",
-  "github": "love2d/love",
-  "flathub": "org.love2d.love2d",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "love"
-    ]
-  },
-  "detect": [
-    "love"
-  ],
-  "kind": "gui"
+ "id": "love",
+ "name": "LÖVE",
+ "category": "games",
+ "github": "love2d/love",
+ "flathub": "org.love2d.love2d",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "love"
+  ]
+ },
+ "detect": [
+  "love"
+ ],
+ "kind": "gui",
+ "stars": 4.6,
+ "reviews": 367
 }

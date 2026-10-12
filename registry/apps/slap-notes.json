@@ -1,21 +1,23 @@
 {
-  "id": "slap-notes",
-  "name": "Slap Notes",
-  "category": "productivity",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "slap-notes-bin"
-    ]
-  },
-  "detect": [
-    "slap-notes-bin"
-  ],
-  "kind": "gui",
-  "summary": "Local-first block notes with a wiki-link graph and a built-in AI research agent",
-  "homepage": "https://slapnotes.com",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "slap-notes",
+ "name": "Slap Notes",
+ "category": "productivity",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "slap-notes-bin"
+  ]
+ },
+ "detect": [
+  "slap-notes-bin"
+ ],
+ "kind": "gui",
+ "summary": "Local-first block notes with a wiki-link graph and a built-in AI research agent",
+ "homepage": "https://slapnotes.com",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.5,
+ "reviews": 41
 }

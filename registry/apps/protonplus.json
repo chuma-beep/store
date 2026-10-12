@@ -1,17 +1,19 @@
 {
-  "id": "protonplus",
-  "name": "ProtonPlus",
-  "category": "games",
-  "github": "Vysp3r/ProtonPlus",
-  "flathub": "com.vysp3r.ProtonPlus",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "protonplus"
-    ]
-  },
-  "detect": [
-    "protonplus"
-  ],
-  "kind": "gui"
+ "id": "protonplus",
+ "name": "ProtonPlus",
+ "category": "games",
+ "github": "Vysp3r/ProtonPlus",
+ "flathub": "com.vysp3r.ProtonPlus",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "protonplus"
+  ]
+ },
+ "detect": [
+  "protonplus"
+ ],
+ "kind": "gui",
+ "stars": 5.0,
+ "reviews": 483
 }

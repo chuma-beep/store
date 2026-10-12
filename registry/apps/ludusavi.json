@@ -1,18 +1,20 @@
 {
-  "id": "ludusavi",
-  "name": "Ludusavi",
-  "category": "utilities",
-  "flathub": "com.github.mtkennerly.ludusavi",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "ludusavi"
-    ]
-  },
-  "detect": [
-    "ludusavi"
-  ],
-  "kind": "gui",
-  "developer": "mtkennerly",
-  "github": null
+ "id": "ludusavi",
+ "name": "Ludusavi",
+ "category": "utilities",
+ "flathub": "com.github.mtkennerly.ludusavi",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "ludusavi"
+  ]
+ },
+ "detect": [
+  "ludusavi"
+ ],
+ "kind": "gui",
+ "developer": "mtkennerly",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 40
 }

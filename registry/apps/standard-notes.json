@@ -1,17 +1,19 @@
 {
-  "id": "standard-notes",
-  "name": "Standard Notes",
-  "category": "utilities",
-  "github": "standardnotes/app",
-  "flathub": "org.standardnotes.standardnotes",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "standardnotes-bin"
-    ]
-  },
-  "detect": [
-    "standardnotes-bin"
-  ],
-  "kind": "gui"
+ "id": "standard-notes",
+ "name": "Standard Notes",
+ "category": "utilities",
+ "github": "standardnotes/app",
+ "flathub": "org.standardnotes.standardnotes",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "standardnotes-bin"
+  ]
+ },
+ "detect": [
+  "standardnotes-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 160
 }

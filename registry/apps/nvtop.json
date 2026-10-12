@@ -1,20 +1,22 @@
 {
-  "id": "nvtop",
-  "name": "nvtop",
-  "category": "terminal",
-  "github": "Syllo/nvtop",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "nvtop"
-    ]
-  },
-  "detect": [
-    "nvtop"
-  ],
-  "kind": "terminal",
-  "summary": "GPU & Accelerator process monitoring for AMD, Apple, Huawei, Intel, NVIDIA and Qualcomm",
-  "open": "nvtop",
-  "icon": null
+ "id": "nvtop",
+ "name": "nvtop",
+ "category": "terminal",
+ "github": "Syllo/nvtop",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "nvtop"
+  ]
+ },
+ "detect": [
+  "nvtop"
+ ],
+ "kind": "terminal",
+ "summary": "GPU & Accelerator process monitoring for AMD, Apple, Huawei, Intel, NVIDIA and Qualcomm",
+ "open": "nvtop",
+ "icon": null,
+ "stars": 5.0,
+ "reviews": 445
 }

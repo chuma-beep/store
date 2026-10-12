@@ -1,21 +1,23 @@
 {
-  "id": "pulumi",
-  "name": "Pulumi",
-  "category": "developer-tools",
-  "github": "pulumi/pulumi",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "pulumi"
-    ]
-  },
-  "detect": [
-    "pulumi"
-  ],
-  "kind": "terminal",
-  "summary": "Pulumi - Infrastructure as Code in any programming language",
-  "icon": null,
-  "open": "pulumi",
-  "cli": true
+ "id": "pulumi",
+ "name": "Pulumi",
+ "category": "developer-tools",
+ "github": "pulumi/pulumi",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "pulumi"
+  ]
+ },
+ "detect": [
+  "pulumi"
+ ],
+ "kind": "terminal",
+ "summary": "Pulumi - Infrastructure as Code in any programming language",
+ "icon": null,
+ "open": "pulumi",
+ "cli": true,
+ "stars": 4.9,
+ "reviews": 120
 }

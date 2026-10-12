@@ -1,22 +1,24 @@
 {
-  "id": "neovim",
-  "name": "Neovim",
-  "category": "developer-tools",
-  "github": "neovim/neovim",
-  "flathub": "io.neovim.nvim",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "neovim"
-    ]
-  },
-  "detect": [
-    "neovim"
-  ],
-  "kind": "terminal",
-  "open": "nvim",
-  "tags": [
-    "editor",
-    "vim"
+ "id": "neovim",
+ "name": "Neovim",
+ "category": "developer-tools",
+ "github": "neovim/neovim",
+ "flathub": "io.neovim.nvim",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "neovim"
   ]
+ },
+ "detect": [
+  "neovim"
+ ],
+ "kind": "terminal",
+ "open": "nvim",
+ "tags": [
+  "editor",
+  "vim"
+ ],
+ "stars": 4.7,
+ "reviews": 280
 }

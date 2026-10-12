@@ -1,20 +1,22 @@
 {
-  "id": "presenterm",
-  "name": "presenterm",
-  "category": "terminal",
-  "github": "mfontanini/presenterm",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "presenterm"
-    ]
-  },
-  "detect": [
-    "presenterm"
-  ],
-  "kind": "terminal",
-  "summary": "A markdown terminal slideshow tool",
-  "cli": true,
-  "icon": null
+ "id": "presenterm",
+ "name": "presenterm",
+ "category": "terminal",
+ "github": "mfontanini/presenterm",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "presenterm"
+  ]
+ },
+ "detect": [
+  "presenterm"
+ ],
+ "kind": "terminal",
+ "summary": "A markdown terminal slideshow tool",
+ "cli": true,
+ "icon": null,
+ "stars": 4.6,
+ "reviews": 276
 }

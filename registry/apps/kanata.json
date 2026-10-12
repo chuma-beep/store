@@ -1,21 +1,23 @@
 {
-  "id": "kanata",
-  "name": "Kanata",
-  "category": "utilities",
-  "github": "jtroo/kanata",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "kanata-bin"
-    ]
-  },
-  "detect": [
-    "kanata-bin"
-  ],
-  "kind": "terminal",
-  "summary": "Improve keyboard comfort and usability with advanced customization",
-  "icon": null,
-  "open": "kanata",
-  "cli": true
+ "id": "kanata",
+ "name": "Kanata",
+ "category": "utilities",
+ "github": "jtroo/kanata",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "kanata-bin"
+  ]
+ },
+ "detect": [
+  "kanata-bin"
+ ],
+ "kind": "terminal",
+ "summary": "Improve keyboard comfort and usability with advanced customization",
+ "icon": null,
+ "open": "kanata",
+ "cli": true,
+ "stars": 4.7,
+ "reviews": 63
 }

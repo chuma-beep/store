@@ -1,18 +1,20 @@
 {
-  "id": "paperwork",
-  "name": "Paperwork",
-  "category": "productivity",
-  "flathub": "work.openpaper.Paperwork",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "paperwork"
-    ]
-  },
-  "detect": [
-    "paperwork"
-  ],
-  "kind": "gui",
-  "developer": "Openpaper.work",
-  "github": null
+ "id": "paperwork",
+ "name": "Paperwork",
+ "category": "productivity",
+ "flathub": "work.openpaper.Paperwork",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "paperwork"
+  ]
+ },
+ "detect": [
+  "paperwork"
+ ],
+ "kind": "gui",
+ "developer": "Openpaper.work",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 340
 }

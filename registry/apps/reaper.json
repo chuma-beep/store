@@ -1,18 +1,20 @@
 {
-  "id": "reaper",
-  "name": "Reaper",
-  "category": "video-audio",
-  "flathub": "fm.reaper.Reaper",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "reaper"
-    ]
-  },
-  "detect": [
-    "reaper"
-  ],
-  "kind": "gui",
-  "developer": "Cockos Incorporated",
-  "github": null
+ "id": "reaper",
+ "name": "Reaper",
+ "category": "video-audio",
+ "flathub": "fm.reaper.Reaper",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "reaper"
+  ]
+ },
+ "detect": [
+  "reaper"
+ ],
+ "kind": "gui",
+ "developer": "Cockos Incorporated",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 342
 }

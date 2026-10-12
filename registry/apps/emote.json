@@ -1,18 +1,20 @@
 {
-  "id": "emote",
-  "name": "Emote",
-  "category": "utilities",
-  "github": "tom-james-watson/Emote",
-  "flathub": "com.tomjwatson.Emote",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "emote"
-    ]
-  },
-  "detect": [
-    "emote"
-  ],
-  "kind": "gui",
-  "developer": "Tom Watson"
+ "id": "emote",
+ "name": "Emote",
+ "category": "utilities",
+ "github": "tom-james-watson/Emote",
+ "flathub": "com.tomjwatson.Emote",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "emote"
+  ]
+ },
+ "detect": [
+  "emote"
+ ],
+ "kind": "gui",
+ "developer": "Tom Watson",
+ "stars": 4.6,
+ "reviews": 158
 }

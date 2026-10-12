@@ -1,20 +1,22 @@
 {
-  "id": "k9s",
-  "name": "k9s",
-  "category": "terminal",
-  "github": "derailed/k9s",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "k9s"
-    ]
-  },
-  "detect": [
-    "k9s"
-  ],
-  "kind": "terminal",
-  "summary": "Kubernetes CLI To Manage Your Clusters In Style!",
-  "open": "k9s",
-  "icon": null
+ "id": "k9s",
+ "name": "k9s",
+ "category": "terminal",
+ "github": "derailed/k9s",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "k9s"
+  ]
+ },
+ "detect": [
+  "k9s"
+ ],
+ "kind": "terminal",
+ "summary": "Kubernetes CLI To Manage Your Clusters In Style!",
+ "open": "k9s",
+ "icon": null,
+ "stars": 4.8,
+ "reviews": 74
 }

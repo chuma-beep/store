@@ -1,18 +1,20 @@
 {
-  "id": "kcolorchooser",
-  "name": "KColorChooser",
-  "category": "graphics",
-  "flathub": "org.kde.kcolorchooser",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kcolorchooser"
-    ]
-  },
-  "detect": [
-    "kcolorchooser"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "kcolorchooser",
+ "name": "KColorChooser",
+ "category": "graphics",
+ "flathub": "org.kde.kcolorchooser",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kcolorchooser"
+  ]
+ },
+ "detect": [
+  "kcolorchooser"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 360
 }

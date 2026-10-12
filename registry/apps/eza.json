@@ -1,20 +1,22 @@
 {
-  "id": "eza",
-  "name": "eza",
-  "category": "terminal",
-  "github": "eza-community/eza",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "eza"
-    ]
-  },
-  "detect": [
-    "eza"
-  ],
-  "kind": "terminal",
-  "summary": "A modern alternative to ls",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/141388427?s=256"
+ "id": "eza",
+ "name": "eza",
+ "category": "terminal",
+ "github": "eza-community/eza",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "eza"
+  ]
+ },
+ "detect": [
+  "eza"
+ ],
+ "kind": "terminal",
+ "summary": "A modern alternative to ls",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/141388427?s=256",
+ "stars": 4.8,
+ "reviews": 451
 }

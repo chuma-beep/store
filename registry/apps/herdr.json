@@ -1,23 +1,25 @@
 {
-  "id": "herdr",
-  "name": "Herdr",
-  "category": "ai",
-  "github": "herdrdev/herdr",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "herdr"
-    ]
-  },
-  "detect": [
-    "herdr"
-  ],
-  "kind": "terminal",
-  "summary": "Herdr terminal workspace manager for AI coding agents",
-  "homepage": "https://github.com/herdrdev/herdr",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "herdr",
+ "name": "Herdr",
+ "category": "ai",
+ "github": "herdrdev/herdr",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "herdr"
+  ]
+ },
+ "detect": [
+  "herdr"
+ ],
+ "kind": "terminal",
+ "summary": "Herdr terminal workspace manager for AI coding agents",
+ "homepage": "https://github.com/herdrdev/herdr",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 5.0,
+ "reviews": 87
 }

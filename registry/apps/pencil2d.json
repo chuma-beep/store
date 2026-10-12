@@ -1,18 +1,20 @@
 {
-  "id": "pencil2d",
-  "name": "Pencil2D",
-  "category": "graphics",
-  "flathub": "org.pencil2d.Pencil2D",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "pencil2d"
-    ]
-  },
-  "detect": [
-    "pencil2d"
-  ],
-  "kind": "gui",
-  "developer": "The Pencil2D Team",
-  "github": null
+ "id": "pencil2d",
+ "name": "Pencil2D",
+ "category": "graphics",
+ "flathub": "org.pencil2d.Pencil2D",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "pencil2d"
+  ]
+ },
+ "detect": [
+  "pencil2d"
+ ],
+ "kind": "gui",
+ "developer": "The Pencil2D Team",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 34
 }

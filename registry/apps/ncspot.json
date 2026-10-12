@@ -1,18 +1,20 @@
 {
-  "id": "ncspot",
-  "name": "ncspot",
-  "category": "media",
-  "github": "hrkfdn/ncspot",
-  "flathub": "io.github.hrkfdn.ncspot",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "ncspot"
-    ]
-  },
-  "detect": [
-    "ncspot"
-  ],
-  "kind": "terminal",
-  "open": "ncspot"
+ "id": "ncspot",
+ "name": "ncspot",
+ "category": "media",
+ "github": "hrkfdn/ncspot",
+ "flathub": "io.github.hrkfdn.ncspot",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "ncspot"
+  ]
+ },
+ "detect": [
+  "ncspot"
+ ],
+ "kind": "terminal",
+ "open": "ncspot",
+ "stars": 4.9,
+ "reviews": 327
 }

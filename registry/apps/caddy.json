@@ -1,20 +1,22 @@
 {
-  "id": "caddy",
-  "name": "Caddy",
-  "category": "terminal",
-  "github": "caddyserver/caddy",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "caddy"
-    ]
-  },
-  "detect": [
-    "caddy"
-  ],
-  "kind": "terminal",
-  "summary": "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/12955528?s=256"
+ "id": "caddy",
+ "name": "Caddy",
+ "category": "terminal",
+ "github": "caddyserver/caddy",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "caddy"
+  ]
+ },
+ "detect": [
+  "caddy"
+ ],
+ "kind": "terminal",
+ "summary": "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/12955528?s=256",
+ "stars": 4.3,
+ "reviews": 147
 }

@@ -1,17 +1,19 @@
 {
-  "id": "antimicrox",
-  "name": "AntiMicroX",
-  "category": "utilities",
-  "github": "AntiMicroX/antimicrox",
-  "flathub": "io.github.antimicrox.antimicrox",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "antimicrox"
-    ]
-  },
-  "detect": [
-    "antimicrox"
-  ],
-  "kind": "gui"
+ "id": "antimicrox",
+ "name": "AntiMicroX",
+ "category": "utilities",
+ "github": "AntiMicroX/antimicrox",
+ "flathub": "io.github.antimicrox.antimicrox",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "antimicrox"
+  ]
+ },
+ "detect": [
+  "antimicrox"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 536
 }

@@ -1,20 +1,22 @@
 {
-  "id": "cloudflared",
-  "name": "cloudflared",
-  "category": "utilities",
-  "github": "cloudflare/cloudflared",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "cloudflared"
-    ]
-  },
-  "detect": [
-    "cloudflared"
-  ],
-  "kind": "terminal",
-  "summary": "Cloudflare Tunnel client",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/314135?s=256"
+ "id": "cloudflared",
+ "name": "cloudflared",
+ "category": "utilities",
+ "github": "cloudflare/cloudflared",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "cloudflared"
+  ]
+ },
+ "detect": [
+  "cloudflared"
+ ],
+ "kind": "terminal",
+ "summary": "Cloudflare Tunnel client",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/314135?s=256",
+ "stars": 4.4,
+ "reviews": 20
 }

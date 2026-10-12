@@ -1,17 +1,19 @@
 {
-  "id": "fluffychat-matrix-messenger",
-  "name": "FluffyChat Matrix Messenger",
-  "category": "communication",
-  "github": "krille-chan/fluffychat",
-  "flathub": "im.fluffychat.Fluffychat",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "fluffychat"
-    ]
-  },
-  "detect": [
-    "fluffychat"
-  ],
-  "kind": "gui"
+ "id": "fluffychat-matrix-messenger",
+ "name": "FluffyChat Matrix Messenger",
+ "category": "communication",
+ "github": "krille-chan/fluffychat",
+ "flathub": "im.fluffychat.Fluffychat",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "fluffychat"
+  ]
+ },
+ "detect": [
+  "fluffychat"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 183
 }

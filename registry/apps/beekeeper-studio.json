@@ -1,17 +1,19 @@
 {
-  "id": "beekeeper-studio",
-  "name": "Beekeeper Studio",
-  "category": "developer-tools",
-  "github": "beekeeper-studio/beekeeper-studio",
-  "flathub": "io.beekeeperstudio.Studio",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "beekeeper-studio-bin"
-    ]
-  },
-  "detect": [
-    "beekeeper-studio-bin"
-  ],
-  "kind": "gui"
+ "id": "beekeeper-studio",
+ "name": "Beekeeper Studio",
+ "category": "developer-tools",
+ "github": "beekeeper-studio/beekeeper-studio",
+ "flathub": "io.beekeeperstudio.Studio",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "beekeeper-studio-bin"
+  ]
+ },
+ "detect": [
+  "beekeeper-studio-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.5,
+ "reviews": 511
 }

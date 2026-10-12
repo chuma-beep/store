@@ -1,20 +1,22 @@
 {
-  "id": "httpie",
-  "name": "HTTPie",
-  "category": "terminal",
-  "github": "httpie/cli",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "httpie"
-    ]
-  },
-  "detect": [
-    "httpie"
-  ],
-  "kind": "terminal",
-  "summary": "HTTPie CLI — modern, user-friendly command-line HTTP client for the API era. JSON support, colors, sessions, downloads, ",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/24454777?s=256"
+ "id": "httpie",
+ "name": "HTTPie",
+ "category": "terminal",
+ "github": "httpie/cli",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "httpie"
+  ]
+ },
+ "detect": [
+  "httpie"
+ ],
+ "kind": "terminal",
+ "summary": "HTTPie CLI — modern, user-friendly command-line HTTP client for the API era. JSON support, colors, sessions, downloads, ",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/24454777?s=256",
+ "stars": 4.9,
+ "reviews": 203
 }

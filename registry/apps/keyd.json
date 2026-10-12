@@ -1,21 +1,23 @@
 {
-  "id": "keyd",
-  "name": "keyd",
-  "category": "utilities",
-  "github": "rvaiya/keyd",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "keyd"
-    ]
-  },
-  "detect": [
-    "keyd"
-  ],
-  "kind": "terminal",
-  "summary": "A key remapping daemon for linux.",
-  "icon": null,
-  "open": "keyd",
-  "cli": true
+ "id": "keyd",
+ "name": "keyd",
+ "category": "utilities",
+ "github": "rvaiya/keyd",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "keyd"
+  ]
+ },
+ "detect": [
+  "keyd"
+ ],
+ "kind": "terminal",
+ "summary": "A key remapping daemon for linux.",
+ "icon": null,
+ "open": "keyd",
+ "cli": true,
+ "stars": 4.7,
+ "reviews": 149
 }

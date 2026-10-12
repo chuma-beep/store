@@ -1,21 +1,23 @@
 {
-  "id": "gocryptfs",
-  "name": "gocryptfs",
-  "category": "security",
-  "github": "rfjakob/gocryptfs",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gocryptfs"
-    ]
-  },
-  "detect": [
-    "gocryptfs"
-  ],
-  "kind": "terminal",
-  "summary": "Encrypted overlay filesystem written in Go",
-  "icon": null,
-  "open": "gocryptfs",
-  "cli": true
+ "id": "gocryptfs",
+ "name": "gocryptfs",
+ "category": "security",
+ "github": "rfjakob/gocryptfs",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gocryptfs"
+  ]
+ },
+ "detect": [
+  "gocryptfs"
+ ],
+ "kind": "terminal",
+ "summary": "Encrypted overlay filesystem written in Go",
+ "icon": null,
+ "open": "gocryptfs",
+ "cli": true,
+ "stars": 4.3,
+ "reviews": 519
 }

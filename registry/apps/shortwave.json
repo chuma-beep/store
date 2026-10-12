@@ -1,18 +1,20 @@
 {
-  "id": "shortwave",
-  "name": "Shortwave",
-  "category": "video-audio",
-  "flathub": "de.haeckerfelix.Shortwave",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "shortwave"
-    ]
-  },
-  "detect": [
-    "shortwave"
-  ],
-  "kind": "gui",
-  "developer": "Felix Häcker",
-  "github": null
+ "id": "shortwave",
+ "name": "Shortwave",
+ "category": "video-audio",
+ "flathub": "de.haeckerfelix.Shortwave",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "shortwave"
+  ]
+ },
+ "detect": [
+  "shortwave"
+ ],
+ "kind": "gui",
+ "developer": "Felix Häcker",
+ "github": null,
+ "stars": 4.2,
+ "reviews": 28
 }

@@ -1,20 +1,22 @@
 {
-  "id": "nnn",
-  "name": "nnn",
-  "category": "terminal",
-  "github": "jarun/nnn",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "nnn"
-    ]
-  },
-  "detect": [
-    "nnn"
-  ],
-  "kind": "terminal",
-  "summary": "n³ The unorthodox terminal file manager",
-  "open": "nnn",
-  "icon": null
+ "id": "nnn",
+ "name": "nnn",
+ "category": "terminal",
+ "github": "jarun/nnn",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "nnn"
+  ]
+ },
+ "detect": [
+  "nnn"
+ ],
+ "kind": "terminal",
+ "summary": "n³ The unorthodox terminal file manager",
+ "open": "nnn",
+ "icon": null,
+ "stars": 4.7,
+ "reviews": 569
 }

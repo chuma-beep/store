@@ -1,21 +1,23 @@
 {
-  "id": "firejail",
-  "name": "Firejail",
-  "category": "security",
-  "github": "netblue30/firejail",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "firejail"
-    ]
-  },
-  "detect": [
-    "firejail"
-  ],
-  "kind": "terminal",
-  "summary": "Linux namespaces and seccomp-bpf sandbox",
-  "icon": null,
-  "open": "firejail",
-  "cli": true
+ "id": "firejail",
+ "name": "Firejail",
+ "category": "security",
+ "github": "netblue30/firejail",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "firejail"
+  ]
+ },
+ "detect": [
+  "firejail"
+ ],
+ "kind": "terminal",
+ "summary": "Linux namespaces and seccomp-bpf sandbox",
+ "icon": null,
+ "open": "firejail",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 533
 }

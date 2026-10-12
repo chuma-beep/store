@@ -1,20 +1,22 @@
 {
-  "id": "git-cliff",
-  "name": "git-cliff",
-  "category": "terminal",
-  "github": "orhun/git-cliff",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "git-cliff"
-    ]
-  },
-  "detect": [
-    "git-cliff"
-  ],
-  "kind": "terminal",
-  "summary": "A highly customizable Changelog Generator that follows Conventional Commit specifications",
-  "cli": true,
-  "icon": null
+ "id": "git-cliff",
+ "name": "git-cliff",
+ "category": "terminal",
+ "github": "orhun/git-cliff",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "git-cliff"
+  ]
+ },
+ "detect": [
+  "git-cliff"
+ ],
+ "kind": "terminal",
+ "summary": "A highly customizable Changelog Generator that follows Conventional Commit specifications",
+ "cli": true,
+ "icon": null,
+ "stars": 4.5,
+ "reviews": 46
 }

@@ -1,17 +1,19 @@
 {
-  "id": "widelands",
-  "name": "Widelands",
-  "category": "games",
-  "github": "widelands/widelands",
-  "flathub": "org.widelands.Widelands",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "widelands"
-    ]
-  },
-  "detect": [
-    "widelands"
-  ],
-  "kind": "gui"
+ "id": "widelands",
+ "name": "Widelands",
+ "category": "games",
+ "github": "widelands/widelands",
+ "flathub": "org.widelands.Widelands",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "widelands"
+  ]
+ },
+ "detect": [
+  "widelands"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 119
 }

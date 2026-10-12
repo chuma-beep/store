@@ -1,20 +1,22 @@
 {
-  "id": "restic",
-  "name": "restic",
-  "category": "security",
-  "github": "restic/restic",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "restic"
-    ]
-  },
-  "detect": [
-    "restic"
-  ],
-  "kind": "terminal",
-  "summary": "Fast, secure, efficient backup program",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/10073512?s=256"
+ "id": "restic",
+ "name": "restic",
+ "category": "security",
+ "github": "restic/restic",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "restic"
+  ]
+ },
+ "detect": [
+  "restic"
+ ],
+ "kind": "terminal",
+ "summary": "Fast, secure, efficient backup program",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/10073512?s=256",
+ "stars": 4.4,
+ "reviews": 303
 }

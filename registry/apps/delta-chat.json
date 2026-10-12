@@ -1,17 +1,19 @@
 {
-  "id": "delta-chat",
-  "name": "Delta Chat",
-  "category": "communication",
-  "github": "deltachat/deltachat-desktop",
-  "flathub": "chat.delta.desktop",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "deltachat-desktop"
-    ]
-  },
-  "detect": [
-    "deltachat-desktop"
-  ],
-  "kind": "gui"
+ "id": "delta-chat",
+ "name": "Delta Chat",
+ "category": "communication",
+ "github": "deltachat/deltachat-desktop",
+ "flathub": "chat.delta.desktop",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "deltachat-desktop"
+  ]
+ },
+ "detect": [
+  "deltachat-desktop"
+ ],
+ "kind": "gui",
+ "stars": 4.2,
+ "reviews": 356
 }

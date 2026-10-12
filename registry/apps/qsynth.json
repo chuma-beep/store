@@ -1,18 +1,20 @@
 {
-  "id": "qsynth",
-  "name": "Qsynth",
-  "category": "video-audio",
-  "flathub": "org.rncbc.qsynth",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "qsynth"
-    ]
-  },
-  "detect": [
-    "qsynth"
-  ],
-  "kind": "gui",
-  "developer": "rncbc aka. Rui Nuno Capela",
-  "github": null
+ "id": "qsynth",
+ "name": "Qsynth",
+ "category": "video-audio",
+ "flathub": "org.rncbc.qsynth",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "qsynth"
+  ]
+ },
+ "detect": [
+  "qsynth"
+ ],
+ "kind": "gui",
+ "developer": "rncbc aka. Rui Nuno Capela",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 476
 }

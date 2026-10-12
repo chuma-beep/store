@@ -1,17 +1,19 @@
 {
-  "id": "neovide",
-  "name": "neovide",
-  "category": "utilities",
-  "github": "neovide/neovide",
-  "flathub": "dev.neovide.neovide",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "neovide"
-    ]
-  },
-  "detect": [
-    "neovide"
-  ],
-  "kind": "gui"
+ "id": "neovide",
+ "name": "neovide",
+ "category": "utilities",
+ "github": "neovide/neovide",
+ "flathub": "dev.neovide.neovide",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "neovide"
+  ]
+ },
+ "detect": [
+  "neovide"
+ ],
+ "kind": "gui",
+ "stars": 4.5,
+ "reviews": 477
 }

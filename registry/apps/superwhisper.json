@@ -1,21 +1,23 @@
 {
-  "id": "superwhisper",
-  "name": "Superwhisper",
-  "category": "ai",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "superwhisper-bin"
-    ]
-  },
-  "detect": [
-    "superwhisper-bin"
-  ],
-  "kind": "gui",
-  "summary": "Local and cloud voice dictation with Superwhisper",
-  "homepage": "https://superwhisper.com",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "superwhisper",
+ "name": "Superwhisper",
+ "category": "ai",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "superwhisper-bin"
+  ]
+ },
+ "detect": [
+  "superwhisper-bin"
+ ],
+ "kind": "gui",
+ "summary": "Local and cloud voice dictation with Superwhisper",
+ "homepage": "https://superwhisper.com",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.3,
+ "reviews": 453
 }

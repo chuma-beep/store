@@ -1,20 +1,22 @@
 {
-  "id": "just",
-  "name": "just",
-  "category": "terminal",
-  "github": "casey/just",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "just"
-    ]
-  },
-  "detect": [
-    "just"
-  ],
-  "kind": "terminal",
-  "summary": "Just a command runner",
-  "cli": true,
-  "icon": null
+ "id": "just",
+ "name": "just",
+ "category": "terminal",
+ "github": "casey/just",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "just"
+  ]
+ },
+ "detect": [
+  "just"
+ ],
+ "kind": "terminal",
+ "summary": "Just a command runner",
+ "cli": true,
+ "icon": null,
+ "stars": 4.9,
+ "reviews": 34
 }

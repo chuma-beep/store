@@ -1,20 +1,22 @@
 {
-  "id": "claude-code",
-  "name": "Claude Code",
-  "category": "ai",
-  "github": "anthropics/claude-code",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "claude-code"
-    ]
-  },
-  "detect": [
-    "claude-code"
-  ],
-  "kind": "terminal",
-  "summary": "Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine",
-  "icon": null,
-  "open": "claude"
+ "id": "claude-code",
+ "name": "Claude Code",
+ "category": "ai",
+ "github": "anthropics/claude-code",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "claude-code"
+  ]
+ },
+ "detect": [
+  "claude-code"
+ ],
+ "kind": "terminal",
+ "summary": "Claude Code is an agentic coding tool that lives in your terminal, understands your codebase, and helps you code faster by executing routine",
+ "icon": null,
+ "open": "claude",
+ "stars": 4.8,
+ "reviews": 557
 }

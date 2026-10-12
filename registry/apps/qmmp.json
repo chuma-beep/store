@@ -1,18 +1,20 @@
 {
-  "id": "qmmp",
-  "name": "Qmmp",
-  "category": "video-audio",
-  "flathub": "com.ylsoftware.qmmp.Qmmp",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "qmmp"
-    ]
-  },
-  "detect": [
-    "qmmp"
-  ],
-  "kind": "gui",
-  "developer": "Qmmp Development Team",
-  "github": null
+ "id": "qmmp",
+ "name": "Qmmp",
+ "category": "video-audio",
+ "flathub": "com.ylsoftware.qmmp.Qmmp",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "qmmp"
+  ]
+ },
+ "detect": [
+  "qmmp"
+ ],
+ "kind": "gui",
+ "developer": "Qmmp Development Team",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 506
 }

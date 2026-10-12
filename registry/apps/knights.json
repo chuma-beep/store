@@ -1,18 +1,20 @@
 {
-  "id": "knights",
-  "name": "KNights",
-  "category": "games",
-  "flathub": "org.kde.knights",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "knights"
-    ]
-  },
-  "detect": [
-    "knights"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "knights",
+ "name": "KNights",
+ "category": "games",
+ "flathub": "org.kde.knights",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "knights"
+  ]
+ },
+ "detect": [
+  "knights"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 43
 }

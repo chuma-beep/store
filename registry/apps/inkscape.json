@@ -1,22 +1,24 @@
 {
-  "id": "inkscape",
-  "name": "Inkscape",
-  "category": "graphics",
-  "github": null,
-  "flathub": "org.inkscape.Inkscape",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "inkscape"
-    ]
-  },
-  "detect": [
-    "inkscape"
-  ],
-  "kind": "gui",
-  "tags": [
-    "vector",
-    "svg"
-  ],
-  "homepage": "https://inkscape.org"
+ "id": "inkscape",
+ "name": "Inkscape",
+ "category": "graphics",
+ "github": null,
+ "flathub": "org.inkscape.Inkscape",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "inkscape"
+  ]
+ },
+ "detect": [
+  "inkscape"
+ ],
+ "kind": "gui",
+ "tags": [
+  "vector",
+  "svg"
+ ],
+ "homepage": "https://inkscape.org",
+ "stars": 4.4,
+ "reviews": 307
 }

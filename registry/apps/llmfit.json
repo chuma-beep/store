@@ -1,21 +1,23 @@
 {
-  "id": "llmfit",
-  "name": "llmfit",
-  "category": "ai",
-  "github": "AlexsJones/llmfit",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "llmfit"
-    ]
-  },
-  "detect": [
-    "llmfit"
-  ],
-  "kind": "terminal",
-  "summary": "Hundreds of models & providers. One command to find what runs on your hardware.",
-  "icon": null,
-  "open": "llmfit",
-  "cli": true
+ "id": "llmfit",
+ "name": "llmfit",
+ "category": "ai",
+ "github": "AlexsJones/llmfit",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "llmfit"
+  ]
+ },
+ "detect": [
+  "llmfit"
+ ],
+ "kind": "terminal",
+ "summary": "Hundreds of models & providers. One command to find what runs on your hardware.",
+ "icon": null,
+ "open": "llmfit",
+ "cli": true,
+ "stars": 4.9,
+ "reviews": 476
 }

@@ -1,18 +1,20 @@
 {
-  "id": "code-blocks",
-  "name": "Code::Blocks",
-  "category": "developer-tools",
-  "flathub": "org.codeblocks.codeblocks",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "codeblocks"
-    ]
-  },
-  "detect": [
-    "codeblocks"
-  ],
-  "kind": "gui",
-  "developer": "The Code::Blocks team",
-  "github": null
+ "id": "code-blocks",
+ "name": "Code::Blocks",
+ "category": "developer-tools",
+ "flathub": "org.codeblocks.codeblocks",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "codeblocks"
+  ]
+ },
+ "detect": [
+  "codeblocks"
+ ],
+ "kind": "gui",
+ "developer": "The Code::Blocks team",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 534
 }

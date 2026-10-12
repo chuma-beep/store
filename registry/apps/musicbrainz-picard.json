@@ -1,18 +1,20 @@
 {
-  "id": "musicbrainz-picard",
-  "name": "MusicBrainz Picard",
-  "category": "video-audio",
-  "github": "metabrainz/picard",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "picard"
-    ]
-  },
-  "detect": [
-    "picard"
-  ],
-  "kind": "gui",
-  "summary": "Picard is a cross-platform music tagger powered by the MusicBrainz database"
+ "id": "musicbrainz-picard",
+ "name": "MusicBrainz Picard",
+ "category": "video-audio",
+ "github": "metabrainz/picard",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "picard"
+  ]
+ },
+ "detect": [
+  "picard"
+ ],
+ "kind": "gui",
+ "summary": "Picard is a cross-platform music tagger powered by the MusicBrainz database",
+ "stars": 4.4,
+ "reviews": 420
 }

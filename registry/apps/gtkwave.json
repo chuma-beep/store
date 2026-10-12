@@ -1,17 +1,19 @@
 {
-  "id": "gtkwave",
-  "name": "GTKWave",
-  "category": "utilities",
-  "github": "gtkwave/gtkwave",
-  "flathub": "io.github.gtkwave.GTKWave",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gtkwave"
-    ]
-  },
-  "detect": [
-    "gtkwave"
-  ],
-  "kind": "gui"
+ "id": "gtkwave",
+ "name": "GTKWave",
+ "category": "utilities",
+ "github": "gtkwave/gtkwave",
+ "flathub": "io.github.gtkwave.GTKWave",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gtkwave"
+  ]
+ },
+ "detect": [
+  "gtkwave"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 178
 }

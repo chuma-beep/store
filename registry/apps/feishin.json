@@ -1,17 +1,19 @@
 {
-  "id": "feishin",
-  "name": "Feishin",
-  "category": "media",
-  "github": "jeffvli/feishin",
-  "flathub": "org.jeffvli.feishin",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "feishin"
-    ]
-  },
-  "detect": [
-    "feishin"
-  ],
-  "kind": "gui"
+ "id": "feishin",
+ "name": "Feishin",
+ "category": "media",
+ "github": "jeffvli/feishin",
+ "flathub": "org.jeffvli.feishin",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "feishin"
+  ]
+ },
+ "detect": [
+  "feishin"
+ ],
+ "kind": "gui",
+ "stars": 4.7,
+ "reviews": 314
 }

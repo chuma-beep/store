@@ -1,18 +1,20 @@
 {
-  "id": "xnview-mp",
-  "name": "XnView MP",
-  "category": "graphics",
-  "flathub": "com.xnview.XnViewMP",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "xnviewmp"
-    ]
-  },
-  "detect": [
-    "xnviewmp"
-  ],
-  "kind": "gui",
-  "developer": "Pierre-e Gougelet",
-  "github": null
+ "id": "xnview-mp",
+ "name": "XnView MP",
+ "category": "graphics",
+ "flathub": "com.xnview.XnViewMP",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "xnviewmp"
+  ]
+ },
+ "detect": [
+  "xnviewmp"
+ ],
+ "kind": "gui",
+ "developer": "Pierre-e Gougelet",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 49
 }

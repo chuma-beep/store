@@ -1,17 +1,19 @@
 {
-  "id": "jamesdsp",
-  "name": "JamesDSP",
-  "category": "video-audio",
-  "github": "Audio4Linux/JDSP4Linux",
-  "flathub": "me.timschneeberger.jdsp4linux",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "jamesdsp"
-    ]
-  },
-  "detect": [
-    "jamesdsp"
-  ],
-  "kind": "gui"
+ "id": "jamesdsp",
+ "name": "JamesDSP",
+ "category": "video-audio",
+ "github": "Audio4Linux/JDSP4Linux",
+ "flathub": "me.timschneeberger.jdsp4linux",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "jamesdsp"
+  ]
+ },
+ "detect": [
+  "jamesdsp"
+ ],
+ "kind": "gui",
+ "stars": 4.7,
+ "reviews": 189
 }

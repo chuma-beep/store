@@ -1,21 +1,23 @@
 {
-  "id": "rustscan",
-  "name": "RustScan",
-  "category": "security",
-  "github": "bee-san/RustScan",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "rustscan"
-    ]
-  },
-  "detect": [
-    "rustscan"
-  ],
-  "kind": "terminal",
-  "summary": "The Modern Port Scanner",
-  "icon": null,
-  "open": "rustscan",
-  "cli": true
+ "id": "rustscan",
+ "name": "RustScan",
+ "category": "security",
+ "github": "bee-san/RustScan",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "rustscan"
+  ]
+ },
+ "detect": [
+  "rustscan"
+ ],
+ "kind": "terminal",
+ "summary": "The Modern Port Scanner",
+ "icon": null,
+ "open": "rustscan",
+ "cli": true,
+ "stars": 4.4,
+ "reviews": 290
 }

@@ -1,17 +1,19 @@
 {
-  "id": "bruno",
-  "name": "Bruno",
-  "category": "developer-tools",
-  "github": "usebruno/bruno",
-  "flathub": "com.usebruno.Bruno",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "bruno-bin"
-    ]
-  },
-  "detect": [
-    "bruno-bin"
-  ],
-  "kind": "gui"
+ "id": "bruno",
+ "name": "Bruno",
+ "category": "developer-tools",
+ "github": "usebruno/bruno",
+ "flathub": "com.usebruno.Bruno",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "bruno-bin"
+  ]
+ },
+ "detect": [
+  "bruno-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 312
 }

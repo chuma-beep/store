@@ -1,20 +1,22 @@
 {
-  "id": "rainfrog",
-  "name": "rainfrog",
-  "category": "developer-tools",
-  "github": "achristmascarl/rainfrog",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "rainfrog"
-    ]
-  },
-  "detect": [
-    "rainfrog"
-  ],
-  "kind": "terminal",
-  "summary": "a database tool for the terminal",
-  "icon": null,
-  "open": "rainfrog"
+ "id": "rainfrog",
+ "name": "rainfrog",
+ "category": "developer-tools",
+ "github": "achristmascarl/rainfrog",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "rainfrog"
+  ]
+ },
+ "detect": [
+  "rainfrog"
+ ],
+ "kind": "terminal",
+ "summary": "a database tool for the terminal",
+ "icon": null,
+ "open": "rainfrog",
+ "stars": 4.3,
+ "reviews": 280
 }

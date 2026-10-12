@@ -1,18 +1,20 @@
 {
-  "id": "xivlauncher",
-  "name": "XIVLauncher",
-  "category": "games",
-  "flathub": "dev.goats.xivlauncher",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "xivlauncher"
-    ]
-  },
-  "detect": [
-    "xivlauncher"
-  ],
-  "kind": "gui",
-  "developer": "XIVLauncher Contributors",
-  "github": null
+ "id": "xivlauncher",
+ "name": "XIVLauncher",
+ "category": "games",
+ "flathub": "dev.goats.xivlauncher",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "xivlauncher"
+  ]
+ },
+ "detect": [
+  "xivlauncher"
+ ],
+ "kind": "gui",
+ "developer": "XIVLauncher Contributors",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 118
 }

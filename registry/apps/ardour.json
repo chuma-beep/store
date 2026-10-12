@@ -1,17 +1,19 @@
 {
-  "id": "ardour",
-  "name": "Ardour",
-  "category": "video-audio",
-  "github": "Ardour/ardour",
-  "flathub": "org.ardour.Ardour",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "ardour"
-    ]
-  },
-  "detect": [
-    "ardour"
-  ],
-  "kind": "gui"
+ "id": "ardour",
+ "name": "Ardour",
+ "category": "video-audio",
+ "github": "Ardour/ardour",
+ "flathub": "org.ardour.Ardour",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "ardour"
+  ]
+ },
+ "detect": [
+  "ardour"
+ ],
+ "kind": "gui",
+ "stars": 4.6,
+ "reviews": 85
 }

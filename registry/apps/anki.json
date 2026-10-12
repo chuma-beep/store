@@ -1,21 +1,23 @@
 {
-  "id": "anki",
-  "name": "Anki",
-  "category": "productivity",
-  "github": "ankitects/anki",
-  "flathub": "net.ankiweb.Anki",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "anki"
-    ]
-  },
-  "detect": [
-    "anki"
-  ],
-  "kind": "gui",
-  "tags": [
-    "flashcards",
-    "study"
+ "id": "anki",
+ "name": "Anki",
+ "category": "productivity",
+ "github": "ankitects/anki",
+ "flathub": "net.ankiweb.Anki",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "anki"
   ]
+ },
+ "detect": [
+  "anki"
+ ],
+ "kind": "gui",
+ "tags": [
+  "flashcards",
+  "study"
+ ],
+ "stars": 4.9,
+ "reviews": 323
 }

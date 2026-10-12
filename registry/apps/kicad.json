@@ -1,18 +1,20 @@
 {
-  "id": "kicad",
-  "name": "KiCad",
-  "category": "graphics",
-  "flathub": "org.kicad.KiCad",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kicad"
-    ]
-  },
-  "detect": [
-    "kicad"
-  ],
-  "kind": "gui",
-  "developer": "The KiCad Developers",
-  "github": null
+ "id": "kicad",
+ "name": "KiCad",
+ "category": "graphics",
+ "flathub": "org.kicad.KiCad",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kicad"
+  ]
+ },
+ "detect": [
+  "kicad"
+ ],
+ "kind": "gui",
+ "developer": "The KiCad Developers",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 266
 }

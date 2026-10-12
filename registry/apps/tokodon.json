@@ -1,18 +1,20 @@
 {
-  "id": "tokodon",
-  "name": "Tokodon",
-  "category": "utilities",
-  "flathub": "org.kde.tokodon",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "tokodon"
-    ]
-  },
-  "detect": [
-    "tokodon"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "tokodon",
+ "name": "Tokodon",
+ "category": "utilities",
+ "flathub": "org.kde.tokodon",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "tokodon"
+  ]
+ },
+ "detect": [
+  "tokodon"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 228
 }

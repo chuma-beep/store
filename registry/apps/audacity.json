@@ -1,21 +1,23 @@
 {
-  "id": "audacity",
-  "name": "Audacity",
-  "category": "video-audio",
-  "github": "audacity/audacity",
-  "flathub": "org.audacityteam.Audacity",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "audacity"
-    ]
-  },
-  "detect": [
-    "audacity"
-  ],
-  "kind": "gui",
-  "tags": [
-    "audio",
-    "recording"
+ "id": "audacity",
+ "name": "Audacity",
+ "category": "video-audio",
+ "github": "audacity/audacity",
+ "flathub": "org.audacityteam.Audacity",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "audacity"
   ]
+ },
+ "detect": [
+  "audacity"
+ ],
+ "kind": "gui",
+ "tags": [
+  "audio",
+  "recording"
+ ],
+ "stars": 4.6,
+ "reviews": 145
 }

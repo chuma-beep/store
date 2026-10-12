@@ -1,17 +1,19 @@
 {
-  "id": "projectm",
-  "name": "projectM",
-  "category": "video-audio",
-  "github": "projectM-visualizer/projectm",
-  "flathub": "net.sourceforge.projectM",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "projectm"
-    ]
-  },
-  "detect": [
-    "projectm"
-  ],
-  "kind": "gui"
+ "id": "projectm",
+ "name": "projectM",
+ "category": "video-audio",
+ "github": "projectM-visualizer/projectm",
+ "flathub": "net.sourceforge.projectM",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "projectm"
+  ]
+ },
+ "detect": [
+  "projectm"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 364
 }

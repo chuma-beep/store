@@ -1,17 +1,19 @@
 {
-  "id": "ferdium",
-  "name": "Ferdium",
-  "category": "communication",
-  "github": "ferdium/ferdium-app",
-  "flathub": "org.ferdium.Ferdium",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "ferdium-bin"
-    ]
-  },
-  "detect": [
-    "ferdium-bin"
-  ],
-  "kind": "gui"
+ "id": "ferdium",
+ "name": "Ferdium",
+ "category": "communication",
+ "github": "ferdium/ferdium-app",
+ "flathub": "org.ferdium.Ferdium",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "ferdium-bin"
+  ]
+ },
+ "detect": [
+  "ferdium-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 514
 }

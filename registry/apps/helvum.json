@@ -1,18 +1,20 @@
 {
-  "id": "helvum",
-  "name": "Helvum",
-  "category": "video-audio",
-  "flathub": "org.pipewire.Helvum",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "helvum"
-    ]
-  },
-  "detect": [
-    "helvum"
-  ],
-  "kind": "gui",
-  "developer": "Tom A. Wagner, Naveen Prashanth",
-  "github": null
+ "id": "helvum",
+ "name": "Helvum",
+ "category": "video-audio",
+ "flathub": "org.pipewire.Helvum",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "helvum"
+  ]
+ },
+ "detect": [
+  "helvum"
+ ],
+ "kind": "gui",
+ "developer": "Tom A. Wagner, Naveen Prashanth",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 125
 }

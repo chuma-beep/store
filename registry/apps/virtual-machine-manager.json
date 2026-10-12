@@ -1,17 +1,19 @@
 {
-  "id": "virtual-machine-manager",
-  "name": "Virtual Machine Manager",
-  "category": "utilities",
-  "github": "virt-manager/virt-manager",
-  "flathub": "org.virt_manager.virt-manager",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "virt-manager"
-    ]
-  },
-  "detect": [
-    "virt-manager"
-  ],
-  "kind": "gui"
+ "id": "virtual-machine-manager",
+ "name": "Virtual Machine Manager",
+ "category": "utilities",
+ "github": "virt-manager/virt-manager",
+ "flathub": "org.virt_manager.virt-manager",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "virt-manager"
+  ]
+ },
+ "detect": [
+  "virt-manager"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 92
 }

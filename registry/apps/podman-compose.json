@@ -1,21 +1,23 @@
 {
-  "id": "podman-compose",
-  "name": "podman-compose",
-  "category": "developer-tools",
-  "github": "containers/podman-compose",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "podman-compose"
-    ]
-  },
-  "detect": [
-    "podman-compose"
-  ],
-  "kind": "terminal",
-  "summary": "a script to run docker-compose.yml using podman",
-  "icon": null,
-  "open": "podman-compose",
-  "cli": true
+ "id": "podman-compose",
+ "name": "podman-compose",
+ "category": "developer-tools",
+ "github": "containers/podman-compose",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "podman-compose"
+  ]
+ },
+ "detect": [
+  "podman-compose"
+ ],
+ "kind": "terminal",
+ "summary": "a script to run docker-compose.yml using podman",
+ "icon": null,
+ "open": "podman-compose",
+ "cli": true,
+ "stars": 4.7,
+ "reviews": 364
 }

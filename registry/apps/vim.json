@@ -1,18 +1,20 @@
 {
-  "id": "vim",
-  "name": "Vim",
-  "category": "utilities",
-  "github": "vim/vim",
-  "flathub": "org.vim.Vim",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "vim"
-    ]
-  },
-  "detect": [
-    "vim"
-  ],
-  "kind": "terminal",
-  "open": "vim"
+ "id": "vim",
+ "name": "Vim",
+ "category": "utilities",
+ "github": "vim/vim",
+ "flathub": "org.vim.Vim",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "vim"
+  ]
+ },
+ "detect": [
+  "vim"
+ ],
+ "kind": "terminal",
+ "open": "vim",
+ "stars": 4.2,
+ "reviews": 509
 }

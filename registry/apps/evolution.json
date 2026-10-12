@@ -1,18 +1,20 @@
 {
-  "id": "evolution",
-  "name": "Evolution",
-  "category": "productivity",
-  "flathub": "org.gnome.Evolution",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "evolution"
-    ]
-  },
-  "detect": [
-    "evolution"
-  ],
-  "kind": "gui",
-  "developer": "The Evolution Team",
-  "github": null
+ "id": "evolution",
+ "name": "Evolution",
+ "category": "productivity",
+ "flathub": "org.gnome.Evolution",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "evolution"
+  ]
+ },
+ "detect": [
+  "evolution"
+ ],
+ "kind": "gui",
+ "developer": "The Evolution Team",
+ "github": null,
+ "stars": 4.2,
+ "reviews": 548
 }

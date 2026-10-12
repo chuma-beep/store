@@ -1,17 +1,19 @@
 {
-  "id": "lact",
-  "name": "LACT",
-  "category": "utilities",
-  "github": "ilya-zlobintsev/LACT",
-  "flathub": "io.github.ilya_zlobintsev.LACT",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "lact"
-    ]
-  },
-  "detect": [
-    "lact"
-  ],
-  "kind": "gui"
+ "id": "lact",
+ "name": "LACT",
+ "category": "utilities",
+ "github": "ilya-zlobintsev/LACT",
+ "flathub": "io.github.ilya_zlobintsev.LACT",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "lact"
+  ]
+ },
+ "detect": [
+  "lact"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 36
 }

@@ -1,17 +1,19 @@
 {
-  "id": "gqrx",
-  "name": "Gqrx",
-  "category": "video-audio",
-  "github": "gqrx-sdr/gqrx",
-  "flathub": "dk.gqrx.gqrx",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gqrx"
-    ]
-  },
-  "detect": [
-    "gqrx"
-  ],
-  "kind": "gui"
+ "id": "gqrx",
+ "name": "Gqrx",
+ "category": "video-audio",
+ "github": "gqrx-sdr/gqrx",
+ "flathub": "dk.gqrx.gqrx",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gqrx"
+  ]
+ },
+ "detect": [
+  "gqrx"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 69
 }

@@ -1,17 +1,19 @@
 {
-  "id": "oculante",
-  "name": "Oculante",
-  "category": "graphics",
-  "github": "woelper/oculante",
-  "flathub": "io.github.woelper.Oculante",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "oculante"
-    ]
-  },
-  "detect": [
-    "oculante"
-  ],
-  "kind": "gui"
+ "id": "oculante",
+ "name": "Oculante",
+ "category": "graphics",
+ "github": "woelper/oculante",
+ "flathub": "io.github.woelper.Oculante",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "oculante"
+  ]
+ },
+ "detect": [
+  "oculante"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 183
 }

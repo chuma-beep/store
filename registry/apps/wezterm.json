@@ -1,17 +1,19 @@
 {
-  "id": "wezterm",
-  "name": "WezTerm",
-  "category": "developer-tools",
-  "github": "wezterm/wezterm",
-  "flathub": "org.wezfurlong.wezterm",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "wezterm"
-    ]
-  },
-  "detect": [
-    "wezterm"
-  ],
-  "kind": "gui"
+ "id": "wezterm",
+ "name": "WezTerm",
+ "category": "developer-tools",
+ "github": "wezterm/wezterm",
+ "flathub": "org.wezfurlong.wezterm",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "wezterm"
+  ]
+ },
+ "detect": [
+  "wezterm"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 63
 }

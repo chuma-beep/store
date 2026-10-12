@@ -1,22 +1,24 @@
 {
-  "id": "omarchy-billboard-generator",
-  "name": "Omarchy Billboard Generator",
-  "category": "developer-tools",
-  "github": "llstrk/omarchy-billboard-generator",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "omarchy-billboard-generator"
-    ]
-  },
-  "detect": [
-    "omarchy-billboard-generator"
-  ],
-  "kind": "gui",
-  "summary": "Desktop app and CLI that renders animated OMARCHY domain videos",
-  "homepage": "https://github.com/llstrk/omarchy-billboard-generator",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "omarchy-billboard-generator",
+ "name": "Omarchy Billboard Generator",
+ "category": "developer-tools",
+ "github": "llstrk/omarchy-billboard-generator",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "omarchy-billboard-generator"
+  ]
+ },
+ "detect": [
+  "omarchy-billboard-generator"
+ ],
+ "kind": "gui",
+ "summary": "Desktop app and CLI that renders animated OMARCHY domain videos",
+ "homepage": "https://github.com/llstrk/omarchy-billboard-generator",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.6,
+ "reviews": 217
 }

@@ -1,21 +1,23 @@
 {
-  "id": "git-extras",
-  "name": "git-extras",
-  "category": "developer-tools",
-  "github": "tj/git-extras",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "git-extras"
-    ]
-  },
-  "detect": [
-    "git-extras"
-  ],
-  "kind": "terminal",
-  "summary": "GIT utilities -- repo summary, repl, changelog population, author commit percentages and more",
-  "icon": null,
-  "open": "git-extras",
-  "cli": true
+ "id": "git-extras",
+ "name": "git-extras",
+ "category": "developer-tools",
+ "github": "tj/git-extras",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "git-extras"
+  ]
+ },
+ "detect": [
+  "git-extras"
+ ],
+ "kind": "terminal",
+ "summary": "GIT utilities -- repo summary, repl, changelog population, author commit percentages and more",
+ "icon": null,
+ "open": "git-extras",
+ "cli": true,
+ "stars": 4.4,
+ "reviews": 495
 }

@@ -1,21 +1,23 @@
 {
-  "id": "kdenlive",
-  "name": "Kdenlive",
-  "category": "video-audio",
-  "github": "KDE/kdenlive",
-  "flathub": "org.kde.kdenlive",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kdenlive"
-    ]
-  },
-  "detect": [
-    "kdenlive"
-  ],
-  "kind": "gui",
-  "tags": [
-    "video",
-    "editing"
+ "id": "kdenlive",
+ "name": "Kdenlive",
+ "category": "video-audio",
+ "github": "KDE/kdenlive",
+ "flathub": "org.kde.kdenlive",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kdenlive"
   ]
+ },
+ "detect": [
+  "kdenlive"
+ ],
+ "kind": "gui",
+ "tags": [
+  "video",
+  "editing"
+ ],
+ "stars": 4.7,
+ "reviews": 219
 }

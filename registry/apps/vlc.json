@@ -1,21 +1,23 @@
 {
-  "id": "vlc",
-  "name": "VLC",
-  "category": "media",
-  "github": "videolan/vlc",
-  "flathub": "org.videolan.VLC",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "vlc"
-    ]
-  },
-  "detect": [
-    "vlc"
-  ],
-  "kind": "gui",
-  "tags": [
-    "video",
-    "player"
+ "id": "vlc",
+ "name": "VLC",
+ "category": "media",
+ "github": "videolan/vlc",
+ "flathub": "org.videolan.VLC",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "vlc"
   ]
+ },
+ "detect": [
+  "vlc"
+ ],
+ "kind": "gui",
+ "tags": [
+  "video",
+  "player"
+ ],
+ "stars": 4.5,
+ "reviews": 151
 }

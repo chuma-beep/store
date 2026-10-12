@@ -1,17 +1,19 @@
 {
-  "id": "protontricks",
-  "name": "Protontricks",
-  "category": "utilities",
-  "github": "Matoking/protontricks",
-  "flathub": "com.github.Matoking.protontricks",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "protontricks"
-    ]
-  },
-  "detect": [
-    "protontricks"
-  ],
-  "kind": "gui"
+ "id": "protontricks",
+ "name": "Protontricks",
+ "category": "utilities",
+ "github": "Matoking/protontricks",
+ "flathub": "com.github.Matoking.protontricks",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "protontricks"
+  ]
+ },
+ "detect": [
+  "protontricks"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 416
 }

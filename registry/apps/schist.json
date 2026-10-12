@@ -1,22 +1,24 @@
 {
-  "id": "schist",
-  "name": "Schist",
-  "category": "graphics",
-  "github": "Infrawrench/schist",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "schist"
-    ]
-  },
-  "detect": [
-    "schist"
-  ],
-  "kind": "gui",
-  "summary": "Layered image editor with PSD and Affinity support",
-  "homepage": "https://github.com/Infrawrench/schist",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "schist",
+ "name": "Schist",
+ "category": "graphics",
+ "github": "Infrawrench/schist",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "schist"
+  ]
+ },
+ "detect": [
+  "schist"
+ ],
+ "kind": "gui",
+ "summary": "Layered image editor with PSD and Affinity support",
+ "homepage": "https://github.com/Infrawrench/schist",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 5.0,
+ "reviews": 114
 }

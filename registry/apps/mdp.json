@@ -1,21 +1,23 @@
 {
-  "id": "mdp",
-  "name": "mdp",
-  "category": "terminal",
-  "github": "visit1985/mdp",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "mdp"
-    ]
-  },
-  "detect": [
-    "mdp"
-  ],
-  "kind": "terminal",
-  "summary": "A command-line based markdown presentation tool.",
-  "icon": null,
-  "open": "mdp",
-  "cli": true
+ "id": "mdp",
+ "name": "mdp",
+ "category": "terminal",
+ "github": "visit1985/mdp",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "mdp"
+  ]
+ },
+ "detect": [
+  "mdp"
+ ],
+ "kind": "terminal",
+ "summary": "A command-line based markdown presentation tool.",
+ "icon": null,
+ "open": "mdp",
+ "cli": true,
+ "stars": 4.6,
+ "reviews": 436
 }

@@ -1,18 +1,20 @@
 {
-  "id": "kdevelop",
-  "name": "KDevelop",
-  "category": "developer-tools",
-  "flathub": "org.kde.kdevelop",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kdevelop"
-    ]
-  },
-  "detect": [
-    "kdevelop"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "kdevelop",
+ "name": "KDevelop",
+ "category": "developer-tools",
+ "flathub": "org.kde.kdevelop",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kdevelop"
+  ]
+ },
+ "detect": [
+  "kdevelop"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 364
 }

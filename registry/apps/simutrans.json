@@ -1,18 +1,20 @@
 {
-  "id": "simutrans",
-  "name": "Simutrans",
-  "category": "games",
-  "flathub": "com.simutrans.Simutrans",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "simutrans"
-    ]
-  },
-  "detect": [
-    "simutrans"
-  ],
-  "kind": "gui",
-  "developer": "The Simutrans Team",
-  "github": null
+ "id": "simutrans",
+ "name": "Simutrans",
+ "category": "games",
+ "flathub": "com.simutrans.Simutrans",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "simutrans"
+  ]
+ },
+ "detect": [
+  "simutrans"
+ ],
+ "kind": "gui",
+ "developer": "The Simutrans Team",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 125
 }

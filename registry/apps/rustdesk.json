@@ -1,17 +1,19 @@
 {
-  "id": "rustdesk",
-  "name": "RustDesk",
-  "category": "utilities",
-  "github": "rustdesk/rustdesk",
-  "flathub": "com.rustdesk.RustDesk",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "rustdesk-bin"
-    ]
-  },
-  "detect": [
-    "rustdesk-bin"
-  ],
-  "kind": "gui"
+ "id": "rustdesk",
+ "name": "RustDesk",
+ "category": "utilities",
+ "github": "rustdesk/rustdesk",
+ "flathub": "com.rustdesk.RustDesk",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "rustdesk-bin"
+  ]
+ },
+ "detect": [
+  "rustdesk-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 522
 }

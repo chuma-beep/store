@@ -1,20 +1,22 @@
 {
-  "id": "telegram",
-  "name": "Telegram",
-  "category": "communication",
-  "github": "telegramdesktop/tdesktop",
-  "flathub": "org.telegram.desktop",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "telegram-desktop"
-    ]
-  },
-  "detect": [
-    "telegram-desktop"
-  ],
-  "kind": "gui",
-  "tags": [
-    "messaging"
+ "id": "telegram",
+ "name": "Telegram",
+ "category": "communication",
+ "github": "telegramdesktop/tdesktop",
+ "flathub": "org.telegram.desktop",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "telegram-desktop"
   ]
+ },
+ "detect": [
+  "telegram-desktop"
+ ],
+ "kind": "gui",
+ "tags": [
+  "messaging"
+ ],
+ "stars": 4.2,
+ "reviews": 308
 }

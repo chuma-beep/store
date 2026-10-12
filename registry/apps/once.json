@@ -1,23 +1,25 @@
 {
-  "id": "once",
-  "name": "ONCE",
-  "category": "developer-tools",
-  "github": "basecamp/once",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "once-bin"
-    ]
-  },
-  "detect": [
-    "once-bin"
-  ],
-  "kind": "terminal",
-  "summary": "CLI/TUI for installing and managing self-hosted web applications",
-  "homepage": "https://github.com/basecamp/once",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "once",
+ "name": "ONCE",
+ "category": "developer-tools",
+ "github": "basecamp/once",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "once-bin"
+  ]
+ },
+ "detect": [
+  "once-bin"
+ ],
+ "kind": "terminal",
+ "summary": "CLI/TUI for installing and managing self-hosted web applications",
+ "homepage": "https://github.com/basecamp/once",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 5.0,
+ "reviews": 333
 }

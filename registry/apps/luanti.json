@@ -1,17 +1,19 @@
 {
-  "id": "luanti",
-  "name": "Luanti",
-  "category": "games",
-  "github": "luanti-org/luanti",
-  "flathub": "org.luanti.luanti",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "luanti"
-    ]
-  },
-  "detect": [
-    "luanti"
-  ],
-  "kind": "gui"
+ "id": "luanti",
+ "name": "Luanti",
+ "category": "games",
+ "github": "luanti-org/luanti",
+ "flathub": "org.luanti.luanti",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "luanti"
+  ]
+ },
+ "detect": [
+  "luanti"
+ ],
+ "kind": "gui",
+ "stars": 4.2,
+ "reviews": 460
 }

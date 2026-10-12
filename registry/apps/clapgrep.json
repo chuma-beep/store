@@ -1,18 +1,20 @@
 {
-  "id": "clapgrep",
-  "name": "Clapgrep",
-  "category": "utilities",
-  "github": "luleyleo/clapgrep",
-  "flathub": "de.leopoldluley.Clapgrep",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "clapgrep"
-    ]
-  },
-  "detect": [
-    "clapgrep"
-  ],
-  "kind": "gui",
-  "developer": "Leopold Luley"
+ "id": "clapgrep",
+ "name": "Clapgrep",
+ "category": "utilities",
+ "github": "luleyleo/clapgrep",
+ "flathub": "de.leopoldluley.Clapgrep",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "clapgrep"
+  ]
+ },
+ "detect": [
+  "clapgrep"
+ ],
+ "kind": "gui",
+ "developer": "Leopold Luley",
+ "stars": 4.8,
+ "reviews": 142
 }

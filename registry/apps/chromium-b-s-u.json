@@ -1,18 +1,20 @@
 {
-  "id": "chromium-b-s-u",
-  "name": "Chromium B.S.U.",
-  "category": "games",
-  "flathub": "net.sourceforge.chromium-bsu",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "chromium-bsu"
-    ]
-  },
-  "detect": [
-    "chromium-bsu"
-  ],
-  "kind": "gui",
-  "developer": "Mark B. Allan",
-  "github": null
+ "id": "chromium-b-s-u",
+ "name": "Chromium B.S.U.",
+ "category": "games",
+ "flathub": "net.sourceforge.chromium-bsu",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "chromium-bsu"
+  ]
+ },
+ "detect": [
+  "chromium-bsu"
+ ],
+ "kind": "gui",
+ "developer": "Mark B. Allan",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 542
 }

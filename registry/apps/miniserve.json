@@ -1,21 +1,23 @@
 {
-  "id": "miniserve",
-  "name": "miniserve",
-  "category": "terminal",
-  "github": "svenstaro/miniserve",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "miniserve"
-    ]
-  },
-  "detect": [
-    "miniserve"
-  ],
-  "kind": "terminal",
-  "summary": "For when you really just want to serve some files over HTTP right now!",
-  "icon": null,
-  "open": "miniserve",
-  "cli": true
+ "id": "miniserve",
+ "name": "miniserve",
+ "category": "terminal",
+ "github": "svenstaro/miniserve",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "miniserve"
+  ]
+ },
+ "detect": [
+  "miniserve"
+ ],
+ "kind": "terminal",
+ "summary": "For when you really just want to serve some files over HTTP right now!",
+ "icon": null,
+ "open": "miniserve",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 60
 }

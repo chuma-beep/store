@@ -1,22 +1,24 @@
 {
-  "id": "tailscale",
-  "name": "Tailscale",
-  "category": "security",
-  "github": "tailscale/tailscale",
-  "flathub": null,
-  "install": {
-    "method": "omarchy",
-    "command": "omarchy install service tailscale"
-  },
-  "detect": [
-    "tailscale"
-  ],
-  "kind": "terminal",
-  "tags": [
-    "vpn",
-    "network"
-  ],
-  "icon": "https://github.com/tailscale.png?size=256",
-  "summary": "Zero-config mesh VPN built on WireGuard",
-  "developer": "Tailscale Inc."
+ "id": "tailscale",
+ "name": "Tailscale",
+ "category": "security",
+ "github": "tailscale/tailscale",
+ "flathub": null,
+ "install": {
+  "method": "omarchy",
+  "command": "omarchy install service tailscale"
+ },
+ "detect": [
+  "tailscale"
+ ],
+ "kind": "terminal",
+ "tags": [
+  "vpn",
+  "network"
+ ],
+ "icon": "https://github.com/tailscale.png?size=256",
+ "summary": "Zero-config mesh VPN built on WireGuard",
+ "developer": "Tailscale Inc.",
+ "stars": 4.4,
+ "reviews": 441
 }

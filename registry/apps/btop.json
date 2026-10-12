@@ -1,25 +1,27 @@
 {
-  "id": "btop",
-  "name": "btop",
-  "category": "utilities",
-  "github": "aristocratos/btop",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "btop"
-    ]
-  },
-  "detect": [
-    "btop"
-  ],
-  "kind": "terminal",
-  "open": "btop",
-  "tags": [
-    "monitor",
-    "tui"
-  ],
-  "icon": "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/Papirus/64x64/apps/btop.svg",
-  "summary": "Beautiful resource monitor for the terminal",
-  "developer": "Aristocratos"
+ "id": "btop",
+ "name": "btop",
+ "category": "utilities",
+ "github": "aristocratos/btop",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "btop"
+  ]
+ },
+ "detect": [
+  "btop"
+ ],
+ "kind": "terminal",
+ "open": "btop",
+ "tags": [
+  "monitor",
+  "tui"
+ ],
+ "icon": "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/Papirus/64x64/apps/btop.svg",
+ "summary": "Beautiful resource monitor for the terminal",
+ "developer": "Aristocratos",
+ "stars": 4.7,
+ "reviews": 28
 }

@@ -1,18 +1,20 @@
 {
-  "id": "the-gnumeric-spreadsheet",
-  "name": "The Gnumeric Spreadsheet",
-  "category": "productivity",
-  "flathub": "org.gnumeric.Gnumeric",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gnumeric"
-    ]
-  },
-  "detect": [
-    "gnumeric"
-  ],
-  "kind": "gui",
-  "developer": "The Gnumeric Team",
-  "github": null
+ "id": "the-gnumeric-spreadsheet",
+ "name": "The Gnumeric Spreadsheet",
+ "category": "productivity",
+ "flathub": "org.gnumeric.Gnumeric",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gnumeric"
+  ]
+ },
+ "detect": [
+  "gnumeric"
+ ],
+ "kind": "gui",
+ "developer": "The Gnumeric Team",
+ "github": null,
+ "stars": 4.2,
+ "reviews": 301
 }

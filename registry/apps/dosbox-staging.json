@@ -1,17 +1,19 @@
 {
-  "id": "dosbox-staging",
-  "name": "DOSBox Staging",
-  "category": "utilities",
-  "github": "dosbox-staging/dosbox-staging",
-  "flathub": "io.github.dosbox-staging",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "dosbox-staging"
-    ]
-  },
-  "detect": [
-    "dosbox-staging"
-  ],
-  "kind": "gui"
+ "id": "dosbox-staging",
+ "name": "DOSBox Staging",
+ "category": "utilities",
+ "github": "dosbox-staging/dosbox-staging",
+ "flathub": "io.github.dosbox-staging",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "dosbox-staging"
+  ]
+ },
+ "detect": [
+  "dosbox-staging"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 572
 }

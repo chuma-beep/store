@@ -1,20 +1,22 @@
 {
-  "id": "gping",
-  "name": "gping",
-  "category": "terminal",
-  "github": "orf/gping",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gping"
-    ]
-  },
-  "detect": [
-    "gping"
-  ],
-  "kind": "terminal",
-  "summary": "Ping, but with a graph",
-  "cli": true,
-  "icon": null
+ "id": "gping",
+ "name": "gping",
+ "category": "terminal",
+ "github": "orf/gping",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gping"
+  ]
+ },
+ "detect": [
+  "gping"
+ ],
+ "kind": "terminal",
+ "summary": "Ping, but with a graph",
+ "cli": true,
+ "icon": null,
+ "stars": 4.6,
+ "reviews": 321
 }

@@ -1,20 +1,22 @@
 {
-  "id": "iperf3",
-  "name": "iperf3",
-  "category": "terminal",
-  "github": "esnet/iperf",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "iperf3"
-    ]
-  },
-  "detect": [
-    "iperf3"
-  ],
-  "kind": "terminal",
-  "summary": "iperf3: A TCP, UDP, and SCTP network bandwidth measurement tool",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/1566018?s=256"
+ "id": "iperf3",
+ "name": "iperf3",
+ "category": "terminal",
+ "github": "esnet/iperf",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "iperf3"
+  ]
+ },
+ "detect": [
+  "iperf3"
+ ],
+ "kind": "terminal",
+ "summary": "iperf3: A TCP, UDP, and SCTP network bandwidth measurement tool",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/1566018?s=256",
+ "stars": 4.6,
+ "reviews": 461
 }

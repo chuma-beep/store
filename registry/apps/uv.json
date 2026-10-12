@@ -1,20 +1,22 @@
 {
-  "id": "uv",
-  "name": "uv",
-  "category": "terminal",
-  "github": "astral-sh/uv",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "uv"
-    ]
-  },
-  "detect": [
-    "uv"
-  ],
-  "kind": "terminal",
-  "summary": "An extremely fast Python package and project manager, written in Rust",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/115962839?s=256"
+ "id": "uv",
+ "name": "uv",
+ "category": "terminal",
+ "github": "astral-sh/uv",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "uv"
+  ]
+ },
+ "detect": [
+  "uv"
+ ],
+ "kind": "terminal",
+ "summary": "An extremely fast Python package and project manager, written in Rust",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/115962839?s=256",
+ "stars": 4.6,
+ "reviews": 428
 }

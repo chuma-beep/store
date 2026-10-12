@@ -1,21 +1,23 @@
 {
-  "id": "element",
-  "name": "Element",
-  "category": "communication",
-  "github": "element-hq/element-web",
-  "flathub": "im.riot.Riot",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "element-desktop"
-    ]
-  },
-  "detect": [
-    "element-desktop"
-  ],
-  "kind": "gui",
-  "tags": [
-    "matrix",
-    "chat"
+ "id": "element",
+ "name": "Element",
+ "category": "communication",
+ "github": "element-hq/element-web",
+ "flathub": "im.riot.Riot",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "element-desktop"
   ]
+ },
+ "detect": [
+  "element-desktop"
+ ],
+ "kind": "gui",
+ "tags": [
+  "matrix",
+  "chat"
+ ],
+ "stars": 4.9,
+ "reviews": 195
 }

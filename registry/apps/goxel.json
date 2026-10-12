@@ -1,17 +1,19 @@
 {
-  "id": "goxel",
-  "name": "Goxel",
-  "category": "graphics",
-  "github": "guillaumechereau/goxel",
-  "flathub": "io.github.guillaumechereau.Goxel",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "goxel"
-    ]
-  },
-  "detect": [
-    "goxel"
-  ],
-  "kind": "gui"
+ "id": "goxel",
+ "name": "Goxel",
+ "category": "graphics",
+ "github": "guillaumechereau/goxel",
+ "flathub": "io.github.guillaumechereau.Goxel",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "goxel"
+  ]
+ },
+ "detect": [
+  "goxel"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 356
 }

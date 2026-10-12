@@ -1,17 +1,19 @@
 {
-  "id": "brogue-ce",
-  "name": "Brogue CE",
-  "category": "games",
-  "github": "tmewett/BrogueCE",
-  "flathub": "com.github.tmewett.BrogueCE",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "brogue"
-    ]
-  },
-  "detect": [
-    "brogue"
-  ],
-  "kind": "gui"
+ "id": "brogue-ce",
+ "name": "Brogue CE",
+ "category": "games",
+ "github": "tmewett/BrogueCE",
+ "flathub": "com.github.tmewett.BrogueCE",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "brogue"
+  ]
+ },
+ "detect": [
+  "brogue"
+ ],
+ "kind": "gui",
+ "stars": 4.2,
+ "reviews": 23
 }

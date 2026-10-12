@@ -1,17 +1,19 @@
 {
-  "id": "converseen",
-  "name": "Converseen",
-  "category": "graphics",
-  "github": "Faster3ck/Converseen",
-  "flathub": "net.fasterland.converseen",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "converseen"
-    ]
-  },
-  "detect": [
-    "converseen"
-  ],
-  "kind": "gui"
+ "id": "converseen",
+ "name": "Converseen",
+ "category": "graphics",
+ "github": "Faster3ck/Converseen",
+ "flathub": "net.fasterland.converseen",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "converseen"
+  ]
+ },
+ "detect": [
+  "converseen"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 138
 }

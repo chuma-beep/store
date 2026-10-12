@@ -1,21 +1,23 @@
 {
-  "id": "screenfetch",
-  "name": "screenFetch",
-  "category": "terminal",
-  "github": "KittyKatt/screenFetch",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "screenfetch"
-    ]
-  },
-  "detect": [
-    "screenfetch"
-  ],
-  "kind": "terminal",
-  "summary": "Fetches system/theme information in terminal for Linux desktop screenshots.",
-  "icon": null,
-  "open": "screenfetch",
-  "cli": true
+ "id": "screenfetch",
+ "name": "screenFetch",
+ "category": "terminal",
+ "github": "KittyKatt/screenFetch",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "screenfetch"
+  ]
+ },
+ "detect": [
+  "screenfetch"
+ ],
+ "kind": "terminal",
+ "summary": "Fetches system/theme information in terminal for Linux desktop screenshots.",
+ "icon": null,
+ "open": "screenfetch",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 414
 }

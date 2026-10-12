@@ -1,18 +1,20 @@
 {
-  "id": "qalculate-qt-ui",
-  "name": "Qalculate! (Qt UI)",
-  "category": "utilities",
-  "flathub": "io.github.Qalculate.qalculate-qt",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "qalculate-qt"
-    ]
-  },
-  "detect": [
-    "qalculate-qt"
-  ],
-  "kind": "gui",
-  "developer": "Hanna Knutsson",
-  "github": null
+ "id": "qalculate-qt-ui",
+ "name": "Qalculate! (Qt UI)",
+ "category": "utilities",
+ "flathub": "io.github.Qalculate.qalculate-qt",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "qalculate-qt"
+  ]
+ },
+ "detect": [
+  "qalculate-qt"
+ ],
+ "kind": "gui",
+ "developer": "Hanna Knutsson",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 264
 }

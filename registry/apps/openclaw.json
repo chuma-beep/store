@@ -1,23 +1,25 @@
 {
-  "id": "openclaw",
-  "name": "Openclaw",
-  "category": "ai",
-  "github": "openclaw/openclaw",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "openclaw"
-    ]
-  },
-  "detect": [
-    "openclaw"
-  ],
-  "kind": "terminal",
-  "summary": "Multi-channel AI gateway with extensible messaging integrations",
-  "homepage": "https://github.com/openclaw/openclaw",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "openclaw",
+ "name": "Openclaw",
+ "category": "ai",
+ "github": "openclaw/openclaw",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "openclaw"
+  ]
+ },
+ "detect": [
+  "openclaw"
+ ],
+ "kind": "terminal",
+ "summary": "Multi-channel AI gateway with extensible messaging integrations",
+ "homepage": "https://github.com/openclaw/openclaw",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.4,
+ "reviews": 360
 }

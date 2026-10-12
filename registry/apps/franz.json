@@ -1,18 +1,20 @@
 {
-  "id": "franz",
-  "name": "Franz",
-  "category": "communication",
-  "flathub": "com.meetfranz.Franz",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "franz-bin"
-    ]
-  },
-  "detect": [
-    "franz-bin"
-  ],
-  "kind": "gui",
-  "developer": "Stefan Maizner",
-  "github": null
+ "id": "franz",
+ "name": "Franz",
+ "category": "communication",
+ "flathub": "com.meetfranz.Franz",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "franz-bin"
+  ]
+ },
+ "detect": [
+  "franz-bin"
+ ],
+ "kind": "gui",
+ "developer": "Stefan Maizner",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 120
 }

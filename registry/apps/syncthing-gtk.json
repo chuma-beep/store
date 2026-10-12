@@ -1,18 +1,20 @@
 {
-  "id": "syncthing-gtk",
-  "name": "Syncthing GTK",
-  "category": "utilities",
-  "flathub": "me.kozec.syncthingtk",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "syncthing-gtk"
-    ]
-  },
-  "detect": [
-    "syncthing-gtk"
-  ],
-  "kind": "gui",
-  "developer": "kozec",
-  "github": null
+ "id": "syncthing-gtk",
+ "name": "Syncthing GTK",
+ "category": "utilities",
+ "flathub": "me.kozec.syncthingtk",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "syncthing-gtk"
+  ]
+ },
+ "detect": [
+  "syncthing-gtk"
+ ],
+ "kind": "gui",
+ "developer": "kozec",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 488
 }

@@ -1,18 +1,20 @@
 {
-  "id": "papers-document-viewer",
-  "name": "Papers Document Viewer",
-  "category": "productivity",
-  "flathub": "org.gnome.Papers",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "papers"
-    ]
-  },
-  "detect": [
-    "papers"
-  ],
-  "kind": "gui",
-  "developer": "The GNOME Project",
-  "github": null
+ "id": "papers-document-viewer",
+ "name": "Papers Document Viewer",
+ "category": "productivity",
+ "flathub": "org.gnome.Papers",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "papers"
+  ]
+ },
+ "detect": [
+  "papers"
+ ],
+ "kind": "gui",
+ "developer": "The GNOME Project",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 165
 }

@@ -1,18 +1,20 @@
 {
-  "id": "enpass",
-  "name": "Enpass",
-  "category": "security",
-  "flathub": "io.enpass.Enpass",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "enpass-bin"
-    ]
-  },
-  "detect": [
-    "enpass-bin"
-  ],
-  "kind": "gui",
-  "developer": "Enpass Technologies Inc.",
-  "github": null
+ "id": "enpass",
+ "name": "Enpass",
+ "category": "security",
+ "flathub": "io.enpass.Enpass",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "enpass-bin"
+  ]
+ },
+ "detect": [
+  "enpass-bin"
+ ],
+ "kind": "gui",
+ "developer": "Enpass Technologies Inc.",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 547
 }

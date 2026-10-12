@@ -1,21 +1,23 @@
 {
-  "id": "htmlq",
-  "name": "htmlq",
-  "category": "terminal",
-  "github": "mgdm/htmlq",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "htmlq"
-    ]
-  },
-  "detect": [
-    "htmlq"
-  ],
-  "kind": "terminal",
-  "summary": "Like jq, but for HTML.",
-  "icon": null,
-  "open": "htmlq",
-  "cli": true
+ "id": "htmlq",
+ "name": "htmlq",
+ "category": "terminal",
+ "github": "mgdm/htmlq",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "htmlq"
+  ]
+ },
+ "detect": [
+  "htmlq"
+ ],
+ "kind": "terminal",
+ "summary": "Like jq, but for HTML.",
+ "icon": null,
+ "open": "htmlq",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 193
 }

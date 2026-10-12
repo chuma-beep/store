@@ -1,20 +1,22 @@
 {
-  "id": "progress",
-  "name": "progress",
-  "category": "terminal",
-  "github": "Xfennec/progress",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "progress"
-    ]
-  },
-  "detect": [
-    "progress"
-  ],
-  "kind": "terminal",
-  "summary": "Linux tool to show progress for cp, mv, dd, ... (formerly known as cv)",
-  "cli": true,
-  "icon": null
+ "id": "progress",
+ "name": "progress",
+ "category": "terminal",
+ "github": "Xfennec/progress",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "progress"
+  ]
+ },
+ "detect": [
+  "progress"
+ ],
+ "kind": "terminal",
+ "summary": "Linux tool to show progress for cp, mv, dd, ... (formerly known as cv)",
+ "cli": true,
+ "icon": null,
+ "stars": 4.9,
+ "reviews": 158
 }

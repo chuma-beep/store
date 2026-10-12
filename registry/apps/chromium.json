@@ -1,18 +1,20 @@
 {
-  "id": "chromium",
-  "name": "Chromium",
-  "category": "browsers",
-  "flathub": "org.chromium.Chromium",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "chromium"
-    ]
-  },
-  "detect": [
-    "chromium"
-  ],
-  "kind": "gui",
-  "developer": "The Chromium Authors",
-  "github": null
+ "id": "chromium",
+ "name": "Chromium",
+ "category": "browsers",
+ "flathub": "org.chromium.Chromium",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "chromium"
+  ]
+ },
+ "detect": [
+  "chromium"
+ ],
+ "kind": "gui",
+ "developer": "The Chromium Authors",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 143
 }

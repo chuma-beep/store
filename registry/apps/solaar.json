@@ -1,17 +1,19 @@
 {
-  "id": "solaar",
-  "name": "Solaar",
-  "category": "utilities",
-  "github": "pwr-Solaar/Solaar",
-  "flathub": "io.github.pwr_solaar.solaar",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "solaar"
-    ]
-  },
-  "detect": [
-    "solaar"
-  ],
-  "kind": "gui"
+ "id": "solaar",
+ "name": "Solaar",
+ "category": "utilities",
+ "github": "pwr-Solaar/Solaar",
+ "flathub": "io.github.pwr_solaar.solaar",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "solaar"
+  ]
+ },
+ "detect": [
+  "solaar"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 12
 }

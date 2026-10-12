@@ -1,21 +1,23 @@
 {
-  "id": "binwalk",
-  "name": "binwalk",
-  "category": "security",
-  "github": "ReFirmLabs/binwalk",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "binwalk"
-    ]
-  },
-  "detect": [
-    "binwalk"
-  ],
-  "kind": "terminal",
-  "summary": "Firmware Analysis Tool",
-  "icon": null,
-  "open": "binwalk",
-  "cli": true
+ "id": "binwalk",
+ "name": "binwalk",
+ "category": "security",
+ "github": "ReFirmLabs/binwalk",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "binwalk"
+  ]
+ },
+ "detect": [
+  "binwalk"
+ ],
+ "kind": "terminal",
+ "summary": "Firmware Analysis Tool",
+ "icon": null,
+ "open": "binwalk",
+ "cli": true,
+ "stars": 4.9,
+ "reviews": 425
 }

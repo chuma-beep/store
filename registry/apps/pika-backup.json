@@ -1,18 +1,20 @@
 {
-  "id": "pika-backup",
-  "name": "Pika Backup",
-  "category": "utilities",
-  "flathub": "org.gnome.World.PikaBackup",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "pika-backup"
-    ]
-  },
-  "detect": [
-    "pika-backup"
-  ],
-  "kind": "gui",
-  "developer": "Small Mammal Collective",
-  "github": null
+ "id": "pika-backup",
+ "name": "Pika Backup",
+ "category": "utilities",
+ "flathub": "org.gnome.World.PikaBackup",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "pika-backup"
+  ]
+ },
+ "detect": [
+  "pika-backup"
+ ],
+ "kind": "gui",
+ "developer": "Small Mammal Collective",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 553
 }

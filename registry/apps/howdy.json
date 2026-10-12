@@ -1,21 +1,23 @@
 {
-  "id": "howdy",
-  "name": "Howdy",
-  "category": "security",
-  "github": "boltgolt/howdy",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "howdy"
-    ]
-  },
-  "detect": [
-    "howdy"
-  ],
-  "kind": "terminal",
-  "summary": "Windows Hello™ style facial authentication for Linux",
-  "icon": null,
-  "open": "howdy",
-  "cli": true
+ "id": "howdy",
+ "name": "Howdy",
+ "category": "security",
+ "github": "boltgolt/howdy",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "howdy"
+  ]
+ },
+ "detect": [
+  "howdy"
+ ],
+ "kind": "terminal",
+ "summary": "Windows Hello™ style facial authentication for Linux",
+ "icon": null,
+ "open": "howdy",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 185
 }

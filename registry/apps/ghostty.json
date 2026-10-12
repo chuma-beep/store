@@ -1,19 +1,21 @@
 {
-  "id": "ghostty",
-  "name": "Ghostty",
-  "category": "developer-tools",
-  "github": "ghostty-org/ghostty",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "ghostty"
-    ]
-  },
-  "detect": [
-    "ghostty"
-  ],
-  "kind": "gui",
-  "summary": "Ghostty is a fast, feature-rich, and cross-platform terminal emulator that uses platform-native UI and GPU acceleration",
-  "icon": "https://avatars.githubusercontent.com/u/169223740?s=256"
+ "id": "ghostty",
+ "name": "Ghostty",
+ "category": "developer-tools",
+ "github": "ghostty-org/ghostty",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "ghostty"
+  ]
+ },
+ "detect": [
+  "ghostty"
+ ],
+ "kind": "gui",
+ "summary": "Ghostty is a fast, feature-rich, and cross-platform terminal emulator that uses platform-native UI and GPU acceleration",
+ "icon": "https://avatars.githubusercontent.com/u/169223740?s=256",
+ "stars": 4.6,
+ "reviews": 369
 }

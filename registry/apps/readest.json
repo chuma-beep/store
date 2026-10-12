@@ -1,17 +1,19 @@
 {
-  "id": "readest",
-  "name": "Readest",
-  "category": "productivity",
-  "github": "readest/readest",
-  "flathub": "com.bilingify.readest",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "readest"
-    ]
-  },
-  "detect": [
-    "readest"
-  ],
-  "kind": "gui"
+ "id": "readest",
+ "name": "Readest",
+ "category": "productivity",
+ "github": "readest/readest",
+ "flathub": "com.bilingify.readest",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "readest"
+  ]
+ },
+ "detect": [
+  "readest"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 333
 }

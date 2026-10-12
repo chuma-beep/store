@@ -1,17 +1,19 @@
 {
-  "id": "warpinator",
-  "name": "Warpinator",
-  "category": "utilities",
-  "github": "linuxmint/warpinator",
-  "flathub": "org.x.Warpinator",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "warpinator"
-    ]
-  },
-  "detect": [
-    "warpinator"
-  ],
-  "kind": "gui"
+ "id": "warpinator",
+ "name": "Warpinator",
+ "category": "utilities",
+ "github": "linuxmint/warpinator",
+ "flathub": "org.x.Warpinator",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "warpinator"
+  ]
+ },
+ "detect": [
+  "warpinator"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 91
 }

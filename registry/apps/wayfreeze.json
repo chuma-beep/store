@@ -1,23 +1,25 @@
 {
-  "id": "wayfreeze",
-  "name": "Wayfreeze",
-  "category": "utilities",
-  "github": "Jappie3/wayfreeze",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "wayfreeze"
-    ]
-  },
-  "detect": [
-    "wayfreeze"
-  ],
-  "kind": "terminal",
-  "summary": "Tool to freeze the screen of a Wayland compositor",
-  "homepage": "https://github.com/Jappie3/wayfreeze",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "wayfreeze",
+ "name": "Wayfreeze",
+ "category": "utilities",
+ "github": "Jappie3/wayfreeze",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "wayfreeze"
+  ]
+ },
+ "detect": [
+  "wayfreeze"
+ ],
+ "kind": "terminal",
+ "summary": "Tool to freeze the screen of a Wayland compositor",
+ "homepage": "https://github.com/Jappie3/wayfreeze",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.6,
+ "reviews": 261
 }

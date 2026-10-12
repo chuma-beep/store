@@ -1,17 +1,19 @@
 {
-  "id": "protonup-qt",
-  "name": "ProtonUp-Qt",
-  "category": "games",
-  "github": "DavidoTek/ProtonUp-Qt",
-  "flathub": "net.davidotek.pupgui2",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "protonup-qt"
-    ]
-  },
-  "detect": [
-    "protonup-qt"
-  ],
-  "kind": "gui"
+ "id": "protonup-qt",
+ "name": "ProtonUp-Qt",
+ "category": "games",
+ "github": "DavidoTek/ProtonUp-Qt",
+ "flathub": "net.davidotek.pupgui2",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "protonup-qt"
+  ]
+ },
+ "detect": [
+  "protonup-qt"
+ ],
+ "kind": "gui",
+ "stars": 4.7,
+ "reviews": 60
 }

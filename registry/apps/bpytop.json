@@ -1,20 +1,22 @@
 {
-  "id": "bpytop",
-  "name": "bpytop",
-  "category": "terminal",
-  "github": "aristocratos/bpytop",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "bpytop"
-    ]
-  },
-  "detect": [
-    "bpytop"
-  ],
-  "kind": "terminal",
-  "summary": "Linux/OSX/FreeBSD resource monitor",
-  "icon": null,
-  "open": "bpytop"
+ "id": "bpytop",
+ "name": "bpytop",
+ "category": "terminal",
+ "github": "aristocratos/bpytop",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "bpytop"
+  ]
+ },
+ "detect": [
+  "bpytop"
+ ],
+ "kind": "terminal",
+ "summary": "Linux/OSX/FreeBSD resource monitor",
+ "icon": null,
+ "open": "bpytop",
+ "stars": 4.7,
+ "reviews": 571
 }

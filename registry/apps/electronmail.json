@@ -1,17 +1,19 @@
 {
-  "id": "electronmail",
-  "name": "ElectronMail",
-  "category": "productivity",
-  "github": "vladimiry/ElectronMail",
-  "flathub": "com.github.vladimiry.ElectronMail",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "electronmail-bin"
-    ]
-  },
-  "detect": [
-    "electronmail-bin"
-  ],
-  "kind": "gui"
+ "id": "electronmail",
+ "name": "ElectronMail",
+ "category": "productivity",
+ "github": "vladimiry/ElectronMail",
+ "flathub": "com.github.vladimiry.ElectronMail",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "electronmail-bin"
+  ]
+ },
+ "detect": [
+  "electronmail-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 233
 }

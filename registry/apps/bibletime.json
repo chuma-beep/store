@@ -1,18 +1,20 @@
 {
-  "id": "bibletime",
-  "name": "BibleTime",
-  "category": "education",
-  "flathub": "info.bibletime.BibleTime",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "bibletime"
-    ]
-  },
-  "detect": [
-    "bibletime"
-  ],
-  "kind": "gui",
-  "developer": "The BibleTime Project",
-  "github": null
+ "id": "bibletime",
+ "name": "BibleTime",
+ "category": "education",
+ "flathub": "info.bibletime.BibleTime",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "bibletime"
+  ]
+ },
+ "detect": [
+  "bibletime"
+ ],
+ "kind": "gui",
+ "developer": "The BibleTime Project",
+ "github": null,
+ "stars": 4.2,
+ "reviews": 36
 }

@@ -1,22 +1,24 @@
 {
-  "id": "dropbox-cli",
-  "name": "Dropbox CLI",
-  "category": "utilities",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "dropbox-cli"
-    ]
-  },
-  "detect": [
-    "dropbox-cli"
-  ],
-  "kind": "terminal",
-  "summary": "Command line interface for Dropbox",
-  "homepage": "https://www.dropbox.com",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "dropbox-cli",
+ "name": "Dropbox CLI",
+ "category": "utilities",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "dropbox-cli"
+  ]
+ },
+ "detect": [
+  "dropbox-cli"
+ ],
+ "kind": "terminal",
+ "summary": "Command line interface for Dropbox",
+ "homepage": "https://www.dropbox.com",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.6,
+ "reviews": 568
 }

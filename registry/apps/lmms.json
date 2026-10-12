@@ -1,18 +1,20 @@
 {
-  "id": "lmms",
-  "name": "LMMS",
-  "category": "video-audio",
-  "flathub": "io.lmms.LMMS",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "lmms"
-    ]
-  },
-  "detect": [
-    "lmms"
-  ],
-  "kind": "gui",
-  "developer": "LMMS Developers",
-  "github": null
+ "id": "lmms",
+ "name": "LMMS",
+ "category": "video-audio",
+ "flathub": "io.lmms.LMMS",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "lmms"
+  ]
+ },
+ "detect": [
+  "lmms"
+ ],
+ "kind": "gui",
+ "developer": "LMMS Developers",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 433
 }

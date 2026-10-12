@@ -1,17 +1,19 @@
 {
-  "id": "drawpile",
-  "name": "Drawpile",
-  "category": "graphics",
-  "github": "drawpile/Drawpile",
-  "flathub": "net.drawpile.drawpile",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "drawpile"
-    ]
-  },
-  "detect": [
-    "drawpile"
-  ],
-  "kind": "gui"
+ "id": "drawpile",
+ "name": "Drawpile",
+ "category": "graphics",
+ "github": "drawpile/Drawpile",
+ "flathub": "net.drawpile.drawpile",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "drawpile"
+  ]
+ },
+ "detect": [
+  "drawpile"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 259
 }

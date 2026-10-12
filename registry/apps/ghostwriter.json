@@ -1,18 +1,20 @@
 {
-  "id": "ghostwriter",
-  "name": "ghostwriter",
-  "category": "productivity",
-  "flathub": "org.kde.ghostwriter",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "ghostwriter"
-    ]
-  },
-  "detect": [
-    "ghostwriter"
-  ],
-  "kind": "gui",
-  "developer": "Megan Conkle",
-  "github": null
+ "id": "ghostwriter",
+ "name": "ghostwriter",
+ "category": "productivity",
+ "flathub": "org.kde.ghostwriter",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "ghostwriter"
+  ]
+ },
+ "detect": [
+  "ghostwriter"
+ ],
+ "kind": "gui",
+ "developer": "Megan Conkle",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 398
 }

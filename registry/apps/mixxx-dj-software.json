@@ -1,17 +1,19 @@
 {
-  "id": "mixxx-dj-software",
-  "name": "Mixxx DJ Software",
-  "category": "media",
-  "github": "mixxxdj/mixxx",
-  "flathub": "org.mixxx.Mixxx",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "mixxx"
-    ]
-  },
-  "detect": [
-    "mixxx"
-  ],
-  "kind": "gui"
+ "id": "mixxx-dj-software",
+ "name": "Mixxx DJ Software",
+ "category": "media",
+ "github": "mixxxdj/mixxx",
+ "flathub": "org.mixxx.Mixxx",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "mixxx"
+  ]
+ },
+ "detect": [
+  "mixxx"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 345
 }

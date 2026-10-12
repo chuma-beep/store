@@ -1,18 +1,20 @@
 {
-  "id": "ristretto",
-  "name": "Ristretto",
-  "category": "graphics",
-  "flathub": "org.xfce.ristretto",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "ristretto"
-    ]
-  },
-  "detect": [
-    "ristretto"
-  ],
-  "kind": "gui",
-  "developer": "Xfce Developers",
-  "github": null
+ "id": "ristretto",
+ "name": "Ristretto",
+ "category": "graphics",
+ "flathub": "org.xfce.ristretto",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "ristretto"
+  ]
+ },
+ "detect": [
+  "ristretto"
+ ],
+ "kind": "gui",
+ "developer": "Xfce Developers",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 493
 }

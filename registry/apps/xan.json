@@ -1,21 +1,23 @@
 {
-  "id": "xan",
-  "name": "xan",
-  "category": "terminal",
-  "github": "medialab/xan",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "xan"
-    ]
-  },
-  "detect": [
-    "xan"
-  ],
-  "kind": "terminal",
-  "summary": "The CSV magician",
-  "icon": null,
-  "open": "xan",
-  "cli": true
+ "id": "xan",
+ "name": "xan",
+ "category": "terminal",
+ "github": "medialab/xan",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "xan"
+  ]
+ },
+ "detect": [
+  "xan"
+ ],
+ "kind": "terminal",
+ "summary": "The CSV magician",
+ "icon": null,
+ "open": "xan",
+ "cli": true,
+ "stars": 5.0,
+ "reviews": 175
 }

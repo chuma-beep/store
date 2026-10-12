@@ -1,18 +1,20 @@
 {
-  "id": "xonotic",
-  "name": "Xonotic",
-  "category": "games",
-  "flathub": "org.xonotic.Xonotic",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "xonotic"
-    ]
-  },
-  "detect": [
-    "xonotic"
-  ],
-  "kind": "gui",
-  "developer": "Team Xonotic",
-  "github": null
+ "id": "xonotic",
+ "name": "Xonotic",
+ "category": "games",
+ "flathub": "org.xonotic.Xonotic",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "xonotic"
+  ]
+ },
+ "detect": [
+  "xonotic"
+ ],
+ "kind": "gui",
+ "developer": "Team Xonotic",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 196
 }

@@ -1,18 +1,20 @@
 {
-  "id": "fragments",
-  "name": "Fragments",
-  "category": "utilities",
-  "flathub": "de.haeckerfelix.Fragments",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "fragments"
-    ]
-  },
-  "detect": [
-    "fragments"
-  ],
-  "kind": "gui",
-  "developer": "Felix Häcker",
-  "github": null
+ "id": "fragments",
+ "name": "Fragments",
+ "category": "utilities",
+ "flathub": "de.haeckerfelix.Fragments",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "fragments"
+  ]
+ },
+ "detect": [
+  "fragments"
+ ],
+ "kind": "gui",
+ "developer": "Felix Häcker",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 49
 }

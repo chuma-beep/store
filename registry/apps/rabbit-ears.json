@@ -232,5 +232,7 @@
    "file_name": "rabbit-ears-install.sh",
    "note": "Needs Quickshell and Qt Multimedia (the installer adds them if they're missing). Nothing else on your system is changed."
   }
- }
+ },
+ "stars": 4.2,
+ "reviews": 385
 }

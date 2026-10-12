@@ -1,17 +1,19 @@
 {
-  "id": "tlp-ui",
-  "name": "TLP-UI",
-  "category": "utilities",
-  "github": "d4nj1/TLPUI",
-  "flathub": "com.github.d4nj1.tlpui",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "tlpui"
-    ]
-  },
-  "detect": [
-    "tlpui"
-  ],
-  "kind": "gui"
+ "id": "tlp-ui",
+ "name": "TLP-UI",
+ "category": "utilities",
+ "github": "d4nj1/TLPUI",
+ "flathub": "com.github.d4nj1.tlpui",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "tlpui"
+  ]
+ },
+ "detect": [
+  "tlpui"
+ ],
+ "kind": "gui",
+ "stars": 4.5,
+ "reviews": 24
 }

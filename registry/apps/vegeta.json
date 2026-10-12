@@ -1,21 +1,23 @@
 {
-  "id": "vegeta",
-  "name": "Vegeta",
-  "category": "developer-tools",
-  "github": "tsenart/vegeta",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "vegeta"
-    ]
-  },
-  "detect": [
-    "vegeta"
-  ],
-  "kind": "terminal",
-  "summary": "HTTP load testing tool and library. It's over 9000!",
-  "icon": null,
-  "open": "vegeta",
-  "cli": true
+ "id": "vegeta",
+ "name": "Vegeta",
+ "category": "developer-tools",
+ "github": "tsenart/vegeta",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "vegeta"
+  ]
+ },
+ "detect": [
+  "vegeta"
+ ],
+ "kind": "terminal",
+ "summary": "HTTP load testing tool and library. It's over 9000!",
+ "icon": null,
+ "open": "vegeta",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 361
 }

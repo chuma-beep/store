@@ -1,23 +1,25 @@
 {
-  "id": "ghostty-nautilus",
-  "name": "Ghostty for Files",
-  "category": "utilities",
-  "github": "ghostty-org/ghostty",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "ghostty-nautilus"
-    ]
-  },
-  "detect": [
-    "ghostty-nautilus"
-  ],
-  "kind": "terminal",
-  "summary": "Open in Ghostty for GNOME Files",
-  "homepage": "https://github.com/ghostty-org/ghostty",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "ghostty-nautilus",
+ "name": "Ghostty for Files",
+ "category": "utilities",
+ "github": "ghostty-org/ghostty",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "ghostty-nautilus"
+  ]
+ },
+ "detect": [
+  "ghostty-nautilus"
+ ],
+ "kind": "terminal",
+ "summary": "Open in Ghostty for GNOME Files",
+ "homepage": "https://github.com/ghostty-org/ghostty",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 348
 }

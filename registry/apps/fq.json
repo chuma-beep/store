@@ -1,21 +1,23 @@
 {
-  "id": "fq",
-  "name": "fq",
-  "category": "terminal",
-  "github": "wader/fq",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "fq"
-    ]
-  },
-  "detect": [
-    "fq"
-  ],
-  "kind": "terminal",
-  "summary": "fq - jq for binary formats. Tool, language and decoders for working with binary formats.",
-  "icon": null,
-  "open": "fq",
-  "cli": true
+ "id": "fq",
+ "name": "fq",
+ "category": "terminal",
+ "github": "wader/fq",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "fq"
+  ]
+ },
+ "detect": [
+  "fq"
+ ],
+ "kind": "terminal",
+ "summary": "fq - jq for binary formats. Tool, language and decoders for working with binary formats.",
+ "icon": null,
+ "open": "fq",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 266
 }

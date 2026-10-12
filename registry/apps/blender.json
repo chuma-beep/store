@@ -1,21 +1,23 @@
 {
-  "id": "blender",
-  "name": "Blender",
-  "category": "graphics",
-  "github": "blender/blender",
-  "flathub": "org.blender.Blender",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "blender"
-    ]
-  },
-  "detect": [
-    "blender"
-  ],
-  "kind": "gui",
-  "tags": [
-    "3d",
-    "animation"
+ "id": "blender",
+ "name": "Blender",
+ "category": "graphics",
+ "github": "blender/blender",
+ "flathub": "org.blender.Blender",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "blender"
   ]
+ },
+ "detect": [
+  "blender"
+ ],
+ "kind": "gui",
+ "tags": [
+  "3d",
+  "animation"
+ ],
+ "stars": 4.4,
+ "reviews": 258
 }

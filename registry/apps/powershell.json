@@ -1,20 +1,22 @@
 {
-  "id": "powershell",
-  "name": "PowerShell",
-  "category": "terminal",
-  "github": "PowerShell/PowerShell",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "powershell-bin"
-    ]
-  },
-  "detect": [
-    "powershell-bin"
-  ],
-  "kind": "terminal",
-  "summary": "PowerShell for every system!",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/11524380?s=256"
+ "id": "powershell",
+ "name": "PowerShell",
+ "category": "terminal",
+ "github": "PowerShell/PowerShell",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "powershell-bin"
+  ]
+ },
+ "detect": [
+  "powershell-bin"
+ ],
+ "kind": "terminal",
+ "summary": "PowerShell for every system!",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/11524380?s=256",
+ "stars": 4.5,
+ "reviews": 556
 }

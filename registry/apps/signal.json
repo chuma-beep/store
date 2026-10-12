@@ -1,19 +1,21 @@
 {
-  "id": "signal",
-  "name": "Signal",
-  "category": "communication",
-  "github": "signalapp/Signal-Desktop",
-  "flathub": "org.signal.Signal",
-  "install": {
-    "method": "omarchy",
-    "command": "omarchy install service signal"
-  },
-  "detect": [
-    "signal-desktop"
-  ],
-  "kind": "gui",
-  "tags": [
-    "messaging",
-    "privacy"
-  ]
+ "id": "signal",
+ "name": "Signal",
+ "category": "communication",
+ "github": "signalapp/Signal-Desktop",
+ "flathub": "org.signal.Signal",
+ "install": {
+  "method": "omarchy",
+  "command": "omarchy install service signal"
+ },
+ "detect": [
+  "signal-desktop"
+ ],
+ "kind": "gui",
+ "tags": [
+  "messaging",
+  "privacy"
+ ],
+ "stars": 4.5,
+ "reviews": 200
 }

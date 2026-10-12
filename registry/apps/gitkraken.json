@@ -1,18 +1,20 @@
 {
-  "id": "gitkraken",
-  "name": "GitKraken",
-  "category": "developer-tools",
-  "flathub": "com.axosoft.GitKraken",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "gitkraken"
-    ]
-  },
-  "detect": [
-    "gitkraken"
-  ],
-  "kind": "gui",
-  "developer": "Axosoft",
-  "github": null
+ "id": "gitkraken",
+ "name": "GitKraken",
+ "category": "developer-tools",
+ "flathub": "com.axosoft.GitKraken",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "gitkraken"
+  ]
+ },
+ "detect": [
+  "gitkraken"
+ ],
+ "kind": "gui",
+ "developer": "Axosoft",
+ "github": null,
+ "stars": 4.2,
+ "reviews": 513
 }

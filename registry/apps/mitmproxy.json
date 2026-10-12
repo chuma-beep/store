@@ -1,17 +1,19 @@
 {
-  "id": "mitmproxy",
-  "name": "mitmproxy",
-  "category": "developer-tools",
-  "github": "mitmproxy/mitmproxy",
-  "flathub": "org.mitmproxy.mitmproxy",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "mitmproxy"
-    ]
-  },
-  "detect": [
-    "mitmproxy"
-  ],
-  "kind": "gui"
+ "id": "mitmproxy",
+ "name": "mitmproxy",
+ "category": "developer-tools",
+ "github": "mitmproxy/mitmproxy",
+ "flathub": "org.mitmproxy.mitmproxy",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "mitmproxy"
+  ]
+ },
+ "detect": [
+  "mitmproxy"
+ ],
+ "kind": "gui",
+ "stars": 4.5,
+ "reviews": 368
 }

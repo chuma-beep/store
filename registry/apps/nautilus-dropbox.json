@@ -1,22 +1,24 @@
 {
-  "id": "nautilus-dropbox",
-  "name": "Dropbox for Files",
-  "category": "utilities",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "nautilus-dropbox"
-    ]
-  },
-  "detect": [
-    "nautilus-dropbox"
-  ],
-  "kind": "terminal",
-  "summary": "Dropbox Nautilus Extension",
-  "homepage": "https://www.dropbox.com/",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "nautilus-dropbox",
+ "name": "Dropbox for Files",
+ "category": "utilities",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "nautilus-dropbox"
+  ]
+ },
+ "detect": [
+  "nautilus-dropbox"
+ ],
+ "kind": "terminal",
+ "summary": "Dropbox Nautilus Extension",
+ "homepage": "https://www.dropbox.com/",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 5.0,
+ "reviews": 364
 }

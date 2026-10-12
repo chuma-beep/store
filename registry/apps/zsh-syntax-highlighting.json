@@ -1,20 +1,22 @@
 {
-  "id": "zsh-syntax-highlighting",
-  "name": "zsh-syntax-highlighting",
-  "category": "terminal",
-  "github": "zsh-users/zsh-syntax-highlighting",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "zsh-syntax-highlighting"
-    ]
-  },
-  "detect": [
-    "zsh-syntax-highlighting"
-  ],
-  "kind": "terminal",
-  "summary": "Fish shell like syntax highlighting for Zsh",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/567410?s=256"
+ "id": "zsh-syntax-highlighting",
+ "name": "zsh-syntax-highlighting",
+ "category": "terminal",
+ "github": "zsh-users/zsh-syntax-highlighting",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "zsh-syntax-highlighting"
+  ]
+ },
+ "detect": [
+  "zsh-syntax-highlighting"
+ ],
+ "kind": "terminal",
+ "summary": "Fish shell like syntax highlighting for Zsh",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/567410?s=256",
+ "stars": 4.2,
+ "reviews": 276
 }

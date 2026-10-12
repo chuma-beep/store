@@ -1,18 +1,20 @@
 {
-  "id": "anydesk",
-  "name": "AnyDesk",
-  "category": "utilities",
-  "flathub": "com.anydesk.Anydesk",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "anydesk-bin"
-    ]
-  },
-  "detect": [
-    "anydesk-bin"
-  ],
-  "kind": "gui",
-  "developer": "AnyDesk Software GmbH",
-  "github": null
+ "id": "anydesk",
+ "name": "AnyDesk",
+ "category": "utilities",
+ "flathub": "com.anydesk.Anydesk",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "anydesk-bin"
+  ]
+ },
+ "detect": [
+  "anydesk-bin"
+ ],
+ "kind": "gui",
+ "developer": "AnyDesk Software GmbH",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 485
 }

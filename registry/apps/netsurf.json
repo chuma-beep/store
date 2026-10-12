@@ -1,18 +1,20 @@
 {
-  "id": "netsurf",
-  "name": "NetSurf",
-  "category": "browsers",
-  "flathub": "org.netsurf_browser.NetSurf",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "netsurf"
-    ]
-  },
-  "detect": [
-    "netsurf"
-  ],
-  "kind": "gui",
-  "developer": "NetSurf Developers",
-  "github": null
+ "id": "netsurf",
+ "name": "NetSurf",
+ "category": "browsers",
+ "flathub": "org.netsurf_browser.NetSurf",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "netsurf"
+  ]
+ },
+ "detect": [
+  "netsurf"
+ ],
+ "kind": "gui",
+ "developer": "NetSurf Developers",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 557
 }

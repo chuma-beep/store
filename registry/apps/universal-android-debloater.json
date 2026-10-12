@@ -1,18 +1,20 @@
 {
-  "id": "universal-android-debloater",
-  "name": "Universal Android Debloater",
-  "category": "utilities",
-  "github": "Universal-Debloater-Alliance/universal-android-debloater-next-generation",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "universal-android-debloater"
-    ]
-  },
-  "detect": [
-    "universal-android-debloater"
-  ],
-  "kind": "gui",
-  "summary": "Cross-platform GUI written in Rust using ADB to debloat non-rooted Android devices. Improve your privacy, the security and battery life of y"
+ "id": "universal-android-debloater",
+ "name": "Universal Android Debloater",
+ "category": "utilities",
+ "github": "Universal-Debloater-Alliance/universal-android-debloater-next-generation",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "universal-android-debloater"
+  ]
+ },
+ "detect": [
+  "universal-android-debloater"
+ ],
+ "kind": "gui",
+ "summary": "Cross-platform GUI written in Rust using ADB to debloat non-rooted Android devices. Improve your privacy, the security and battery life of y",
+ "stars": 4.9,
+ "reviews": 332
 }

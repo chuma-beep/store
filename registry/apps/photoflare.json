@@ -1,18 +1,20 @@
 {
-  "id": "photoflare",
-  "name": "Photoflare",
-  "category": "graphics",
-  "flathub": "io.photoflare.photoflare",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "photoflare"
-    ]
-  },
-  "detect": [
-    "photoflare"
-  ],
-  "kind": "gui",
-  "developer": "Photoflare Developers",
-  "github": null
+ "id": "photoflare",
+ "name": "Photoflare",
+ "category": "graphics",
+ "flathub": "io.photoflare.photoflare",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "photoflare"
+  ]
+ },
+ "detect": [
+  "photoflare"
+ ],
+ "kind": "gui",
+ "developer": "Photoflare Developers",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 137
 }

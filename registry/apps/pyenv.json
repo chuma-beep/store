@@ -1,20 +1,22 @@
 {
-  "id": "pyenv",
-  "name": "pyenv",
-  "category": "terminal",
-  "github": "pyenv/pyenv",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "pyenv"
-    ]
-  },
-  "detect": [
-    "pyenv"
-  ],
-  "kind": "terminal",
-  "summary": "Simple Python version management",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/16530698?s=256"
+ "id": "pyenv",
+ "name": "pyenv",
+ "category": "terminal",
+ "github": "pyenv/pyenv",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "pyenv"
+  ]
+ },
+ "detect": [
+  "pyenv"
+ ],
+ "kind": "terminal",
+ "summary": "Simple Python version management",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/16530698?s=256",
+ "stars": 4.5,
+ "reviews": 349
 }

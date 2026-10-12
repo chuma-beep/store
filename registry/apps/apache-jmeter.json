@@ -1,17 +1,19 @@
 {
-  "id": "apache-jmeter",
-  "name": "Apache JMeter",
-  "category": "developer-tools",
-  "github": "apache/jmeter",
-  "flathub": "org.apache.jmeter",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "jmeter"
-    ]
-  },
-  "detect": [
-    "jmeter"
-  ],
-  "kind": "gui"
+ "id": "apache-jmeter",
+ "name": "Apache JMeter",
+ "category": "developer-tools",
+ "github": "apache/jmeter",
+ "flathub": "org.apache.jmeter",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "jmeter"
+  ]
+ },
+ "detect": [
+  "jmeter"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 119
 }

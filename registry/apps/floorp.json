@@ -1,17 +1,19 @@
 {
-  "id": "floorp",
-  "name": "Floorp",
-  "category": "browsers",
-  "github": "Floorp-Projects/Floorp",
-  "flathub": "one.ablaze.floorp",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "floorp-bin"
-    ]
-  },
-  "detect": [
-    "floorp-bin"
-  ],
-  "kind": "gui"
+ "id": "floorp",
+ "name": "Floorp",
+ "category": "browsers",
+ "github": "Floorp-Projects/Floorp",
+ "flathub": "one.ablaze.floorp",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "floorp-bin"
+  ]
+ },
+ "detect": [
+  "floorp-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 463
 }

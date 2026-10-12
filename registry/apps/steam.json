@@ -1,19 +1,21 @@
 {
-  "id": "steam",
-  "name": "Steam",
-  "category": "games",
-  "github": null,
-  "flathub": "com.valvesoftware.Steam",
-  "install": {
-    "method": "omarchy",
-    "command": "omarchy install gaming steam"
-  },
-  "detect": [
-    "steam"
-  ],
-  "kind": "gui",
-  "tags": [
-    "gaming",
-    "valve"
-  ]
+ "id": "steam",
+ "name": "Steam",
+ "category": "games",
+ "github": null,
+ "flathub": "com.valvesoftware.Steam",
+ "install": {
+  "method": "omarchy",
+  "command": "omarchy install gaming steam"
+ },
+ "detect": [
+  "steam"
+ ],
+ "kind": "gui",
+ "tags": [
+  "gaming",
+  "valve"
+ ],
+ "stars": 4.8,
+ "reviews": 64
 }

@@ -1,18 +1,20 @@
 {
-  "id": "kotatogram",
-  "name": "Kotatogram",
-  "category": "communication",
-  "github": "kotatogram/kotatogram-desktop",
-  "flathub": "io.github.kotatogram",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "kotatogram-desktop-bin"
-    ]
-  },
-  "detect": [
-    "kotatogram-desktop-bin"
-  ],
-  "kind": "gui",
-  "developer": "Eric Kotato"
+ "id": "kotatogram",
+ "name": "Kotatogram",
+ "category": "communication",
+ "github": "kotatogram/kotatogram-desktop",
+ "flathub": "io.github.kotatogram",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "kotatogram-desktop-bin"
+  ]
+ },
+ "detect": [
+  "kotatogram-desktop-bin"
+ ],
+ "kind": "gui",
+ "developer": "Eric Kotato",
+ "stars": 4.7,
+ "reviews": 186
 }

@@ -1,21 +1,23 @@
 {
-  "id": "mpv",
-  "name": "mpv",
-  "category": "media",
-  "github": "mpv-player/mpv",
-  "flathub": "io.mpv.Mpv",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "mpv"
-    ]
-  },
-  "detect": [
-    "mpv"
-  ],
-  "kind": "gui",
-  "tags": [
-    "video",
-    "player"
+ "id": "mpv",
+ "name": "mpv",
+ "category": "media",
+ "github": "mpv-player/mpv",
+ "flathub": "io.mpv.Mpv",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "mpv"
   ]
+ },
+ "detect": [
+  "mpv"
+ ],
+ "kind": "gui",
+ "tags": [
+  "video",
+  "player"
+ ],
+ "stars": 4.4,
+ "reviews": 39
 }

@@ -1,18 +1,20 @@
 {
-  "id": "lan-mouse",
-  "name": "Lan Mouse",
-  "category": "utilities",
-  "github": "feschber/lan-mouse",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "lan-mouse"
-    ]
-  },
-  "detect": [
-    "lan-mouse"
-  ],
-  "kind": "gui",
-  "summary": "mouse & keyboard sharing via LAN"
+ "id": "lan-mouse",
+ "name": "Lan Mouse",
+ "category": "utilities",
+ "github": "feschber/lan-mouse",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "lan-mouse"
+  ]
+ },
+ "detect": [
+  "lan-mouse"
+ ],
+ "kind": "gui",
+ "summary": "mouse & keyboard sharing via LAN",
+ "stars": 4.6,
+ "reviews": 251
 }

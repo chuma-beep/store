@@ -1,18 +1,20 @@
 {
-  "id": "fheroes2",
-  "name": "fheroes2",
-  "category": "games",
-  "flathub": "io.github.ihhub.Fheroes2",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "fheroes2"
-    ]
-  },
-  "detect": [
-    "fheroes2"
-  ],
-  "kind": "gui",
-  "developer": "fheroes2 Resurrection team",
-  "github": null
+ "id": "fheroes2",
+ "name": "fheroes2",
+ "category": "games",
+ "flathub": "io.github.ihhub.Fheroes2",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "fheroes2"
+  ]
+ },
+ "detect": [
+  "fheroes2"
+ ],
+ "kind": "gui",
+ "developer": "fheroes2 Resurrection team",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 443
 }

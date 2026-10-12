@@ -1,19 +1,21 @@
 {
-  "id": "kitty",
-  "name": "kitty",
-  "category": "developer-tools",
-  "github": "kovidgoyal/kitty",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kitty"
-    ]
-  },
-  "detect": [
-    "kitty"
-  ],
-  "kind": "gui",
-  "summary": "If you live in the terminal, kitty is made for you! Cross-platform, fast, feature-rich, GPU based",
-  "icon": null
+ "id": "kitty",
+ "name": "kitty",
+ "category": "developer-tools",
+ "github": "kovidgoyal/kitty",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kitty"
+  ]
+ },
+ "detect": [
+  "kitty"
+ ],
+ "kind": "gui",
+ "summary": "If you live in the terminal, kitty is made for you! Cross-platform, fast, feature-rich, GPU based",
+ "icon": null,
+ "stars": 4.2,
+ "reviews": 196
 }

@@ -1,17 +1,19 @@
 {
-  "id": "goldendict-ng",
-  "name": "GoldenDict-ng",
-  "category": "education",
-  "github": "xiaoyifang/goldendict-ng",
-  "flathub": "io.github.xiaoyifang.goldendict_ng",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "goldendict-ng"
-    ]
-  },
-  "detect": [
-    "goldendict-ng"
-  ],
-  "kind": "gui"
+ "id": "goldendict-ng",
+ "name": "GoldenDict-ng",
+ "category": "education",
+ "github": "xiaoyifang/goldendict-ng",
+ "flathub": "io.github.xiaoyifang.goldendict_ng",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "goldendict-ng"
+  ]
+ },
+ "detect": [
+  "goldendict-ng"
+ ],
+ "kind": "gui",
+ "stars": 4.6,
+ "reviews": 426
 }

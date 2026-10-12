@@ -1,19 +1,21 @@
 {
-  "id": "retroarch",
-  "name": "RetroArch",
-  "category": "games",
-  "github": "libretro/RetroArch",
-  "flathub": "org.libretro.RetroArch",
-  "install": {
-    "method": "omarchy",
-    "command": "omarchy install gaming retroarch"
-  },
-  "detect": [
-    "retroarch"
-  ],
-  "kind": "gui",
-  "tags": [
-    "emulation",
-    "retro"
-  ]
+ "id": "retroarch",
+ "name": "RetroArch",
+ "category": "games",
+ "github": "libretro/RetroArch",
+ "flathub": "org.libretro.RetroArch",
+ "install": {
+  "method": "omarchy",
+  "command": "omarchy install gaming retroarch"
+ },
+ "detect": [
+  "retroarch"
+ ],
+ "kind": "gui",
+ "tags": [
+  "emulation",
+  "retro"
+ ],
+ "stars": 4.6,
+ "reviews": 346
 }

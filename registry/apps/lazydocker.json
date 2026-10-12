@@ -1,20 +1,22 @@
 {
-  "id": "lazydocker",
-  "name": "lazydocker",
-  "category": "terminal",
-  "github": "jesseduffield/lazydocker",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "lazydocker"
-    ]
-  },
-  "detect": [
-    "lazydocker"
-  ],
-  "kind": "terminal",
-  "summary": "The lazier way to manage everything docker",
-  "open": "lazydocker",
-  "icon": null
+ "id": "lazydocker",
+ "name": "lazydocker",
+ "category": "terminal",
+ "github": "jesseduffield/lazydocker",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "lazydocker"
+  ]
+ },
+ "detect": [
+  "lazydocker"
+ ],
+ "kind": "terminal",
+ "summary": "The lazier way to manage everything docker",
+ "open": "lazydocker",
+ "icon": null,
+ "stars": 4.3,
+ "reviews": 508
 }

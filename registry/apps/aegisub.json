@@ -1,17 +1,19 @@
 {
-  "id": "aegisub",
-  "name": "Aegisub",
-  "category": "video-audio",
-  "github": "TypesettingTools/Aegisub",
-  "flathub": "org.aegisub.Aegisub",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "aegisub"
-    ]
-  },
-  "detect": [
-    "aegisub"
-  ],
-  "kind": "gui"
+ "id": "aegisub",
+ "name": "Aegisub",
+ "category": "video-audio",
+ "github": "TypesettingTools/Aegisub",
+ "flathub": "org.aegisub.Aegisub",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "aegisub"
+  ]
+ },
+ "detect": [
+  "aegisub"
+ ],
+ "kind": "gui",
+ "stars": 4.7,
+ "reviews": 524
 }

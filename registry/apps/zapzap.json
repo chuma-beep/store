@@ -1,17 +1,19 @@
 {
-  "id": "zapzap",
-  "name": "ZapZap",
-  "category": "communication",
-  "github": "rafatosta/zapzap",
-  "flathub": "com.rtosta.zapzap",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "zapzap"
-    ]
-  },
-  "detect": [
-    "zapzap"
-  ],
-  "kind": "gui"
+ "id": "zapzap",
+ "name": "ZapZap",
+ "category": "communication",
+ "github": "rafatosta/zapzap",
+ "flathub": "com.rtosta.zapzap",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "zapzap"
+  ]
+ },
+ "detect": [
+  "zapzap"
+ ],
+ "kind": "gui",
+ "stars": 4.6,
+ "reviews": 354
 }

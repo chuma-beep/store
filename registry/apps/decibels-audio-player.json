@@ -1,18 +1,20 @@
 {
-  "id": "decibels-audio-player",
-  "name": "Decibels Audio Player",
-  "category": "video-audio",
-  "flathub": "org.gnome.Decibels",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "decibels"
-    ]
-  },
-  "detect": [
-    "decibels"
-  ],
-  "kind": "gui",
-  "developer": "The GNOME Project",
-  "github": null
+ "id": "decibels-audio-player",
+ "name": "Decibels Audio Player",
+ "category": "video-audio",
+ "flathub": "org.gnome.Decibels",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "decibels"
+  ]
+ },
+ "detect": [
+  "decibels"
+ ],
+ "kind": "gui",
+ "developer": "The GNOME Project",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 471
 }

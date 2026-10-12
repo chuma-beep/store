@@ -1,20 +1,22 @@
 {
-  "id": "dua",
-  "name": "dua",
-  "category": "terminal",
-  "github": "Byron/dua-cli",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "dua-cli"
-    ]
-  },
-  "detect": [
-    "dua-cli"
-  ],
-  "kind": "terminal",
-  "summary": "View disk space usage and delete unwanted data, fast.",
-  "icon": null,
-  "open": "dua"
+ "id": "dua",
+ "name": "dua",
+ "category": "terminal",
+ "github": "Byron/dua-cli",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "dua-cli"
+  ]
+ },
+ "detect": [
+  "dua-cli"
+ ],
+ "kind": "terminal",
+ "summary": "View disk space usage and delete unwanted data, fast.",
+ "icon": null,
+ "open": "dua",
+ "stars": 4.8,
+ "reviews": 577
 }

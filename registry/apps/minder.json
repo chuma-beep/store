@@ -1,17 +1,19 @@
 {
-  "id": "minder",
-  "name": "Minder",
-  "category": "utilities",
-  "github": "phase1geo/Minder",
-  "flathub": "com.github.phase1geo.minder",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "minder"
-    ]
-  },
-  "detect": [
-    "minder"
-  ],
-  "kind": "gui"
+ "id": "minder",
+ "name": "Minder",
+ "category": "utilities",
+ "github": "phase1geo/Minder",
+ "flathub": "com.github.phase1geo.minder",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "minder"
+  ]
+ },
+ "detect": [
+  "minder"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 58
 }

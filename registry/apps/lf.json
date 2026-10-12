@@ -1,20 +1,22 @@
 {
-  "id": "lf",
-  "name": "lf",
-  "category": "terminal",
-  "github": "gokcehan/lf",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "lf"
-    ]
-  },
-  "detect": [
-    "lf"
-  ],
-  "kind": "terminal",
-  "summary": "Terminal file manager",
-  "open": "lf",
-  "icon": null
+ "id": "lf",
+ "name": "lf",
+ "category": "terminal",
+ "github": "gokcehan/lf",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "lf"
+  ]
+ },
+ "detect": [
+  "lf"
+ ],
+ "kind": "terminal",
+ "summary": "Terminal file manager",
+ "open": "lf",
+ "icon": null,
+ "stars": 4.6,
+ "reviews": 218
 }

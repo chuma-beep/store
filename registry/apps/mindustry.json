@@ -1,18 +1,20 @@
 {
-  "id": "mindustry",
-  "name": "Mindustry",
-  "category": "games",
-  "github": "Anuken/Mindustry",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "mindustry-bin"
-    ]
-  },
-  "detect": [
-    "mindustry-bin"
-  ],
-  "kind": "gui",
-  "summary": "The automation tower defense RTS"
+ "id": "mindustry",
+ "name": "Mindustry",
+ "category": "games",
+ "github": "Anuken/Mindustry",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "mindustry-bin"
+  ]
+ },
+ "detect": [
+  "mindustry-bin"
+ ],
+ "kind": "gui",
+ "summary": "The automation tower defense RTS",
+ "stars": 4.4,
+ "reviews": 467
 }

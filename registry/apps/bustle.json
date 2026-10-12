@@ -1,18 +1,20 @@
 {
-  "id": "bustle",
-  "name": "Bustle",
-  "category": "developer-tools",
-  "flathub": "org.freedesktop.Bustle",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "bustle"
-    ]
-  },
-  "detect": [
-    "bustle"
-  ],
-  "kind": "gui",
-  "developer": "The Bustle developers",
-  "github": null
+ "id": "bustle",
+ "name": "Bustle",
+ "category": "developer-tools",
+ "flathub": "org.freedesktop.Bustle",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "bustle"
+  ]
+ },
+ "detect": [
+  "bustle"
+ ],
+ "kind": "gui",
+ "developer": "The Bustle developers",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 200
 }

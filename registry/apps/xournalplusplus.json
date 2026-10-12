@@ -1,17 +1,19 @@
 {
-  "id": "xournalplusplus",
-  "name": "Xournal++",
-  "category": "productivity",
-  "github": "xournalpp/xournalpp",
-  "flathub": "com.github.xournalpp.xournalpp",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "xournalpp"
-    ]
-  },
-  "detect": [
-    "xournalpp"
-  ],
-  "kind": "gui"
+ "id": "xournalplusplus",
+ "name": "Xournal++",
+ "category": "productivity",
+ "github": "xournalpp/xournalpp",
+ "flathub": "com.github.xournalpp.xournalpp",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "xournalpp"
+  ]
+ },
+ "detect": [
+  "xournalpp"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 293
 }

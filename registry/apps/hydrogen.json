@@ -1,18 +1,20 @@
 {
-  "id": "hydrogen",
-  "name": "Hydrogen",
-  "category": "utilities",
-  "flathub": "org.hydrogenmusic.Hydrogen",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "hydrogen"
-    ]
-  },
-  "detect": [
-    "hydrogen"
-  ],
-  "kind": "gui",
-  "developer": "Hydrogen Developers",
-  "github": null
+ "id": "hydrogen",
+ "name": "Hydrogen",
+ "category": "utilities",
+ "flathub": "org.hydrogenmusic.Hydrogen",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "hydrogen"
+  ]
+ },
+ "detect": [
+  "hydrogen"
+ ],
+ "kind": "gui",
+ "developer": "Hydrogen Developers",
+ "github": null,
+ "stars": 5.0,
+ "reviews": 283
 }

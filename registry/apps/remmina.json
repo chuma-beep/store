@@ -1,18 +1,20 @@
 {
-  "id": "remmina",
-  "name": "Remmina",
-  "category": "utilities",
-  "flathub": "org.remmina.Remmina",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "remmina"
-    ]
-  },
-  "detect": [
-    "remmina"
-  ],
-  "kind": "gui",
-  "developer": "Hiroyuki_Tanaka",
-  "github": null
+ "id": "remmina",
+ "name": "Remmina",
+ "category": "utilities",
+ "flathub": "org.remmina.Remmina",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "remmina"
+  ]
+ },
+ "detect": [
+  "remmina"
+ ],
+ "kind": "gui",
+ "developer": "Hiroyuki_Tanaka",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 482
 }

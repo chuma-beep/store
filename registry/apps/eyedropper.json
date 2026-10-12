@@ -1,18 +1,20 @@
 {
-  "id": "eyedropper",
-  "name": "Eyedropper",
-  "category": "developer-tools",
-  "flathub": "com.github.finefindus.eyedropper",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "eyedropper"
-    ]
-  },
-  "detect": [
-    "eyedropper"
-  ],
-  "kind": "gui",
-  "developer": "FineFindus",
-  "github": null
+ "id": "eyedropper",
+ "name": "Eyedropper",
+ "category": "developer-tools",
+ "flathub": "com.github.finefindus.eyedropper",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "eyedropper"
+  ]
+ },
+ "detect": [
+  "eyedropper"
+ ],
+ "kind": "gui",
+ "developer": "FineFindus",
+ "github": null,
+ "stars": 4.6,
+ "reviews": 320
 }

@@ -1,17 +1,19 @@
 {
-  "id": "tidal-hi-fi",
-  "name": "TIDAL Hi-Fi",
-  "category": "media",
-  "github": "Mastermindzh/tidal-hifi",
-  "flathub": "com.mastermindzh.tidal-hifi",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "tidal-hifi-bin"
-    ]
-  },
-  "detect": [
-    "tidal-hifi-bin"
-  ],
-  "kind": "gui"
+ "id": "tidal-hi-fi",
+ "name": "TIDAL Hi-Fi",
+ "category": "media",
+ "github": "Mastermindzh/tidal-hifi",
+ "flathub": "com.mastermindzh.tidal-hifi",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "tidal-hifi-bin"
+  ]
+ },
+ "detect": [
+  "tidal-hifi-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.6,
+ "reviews": 420
 }

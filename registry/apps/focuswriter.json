@@ -1,18 +1,20 @@
 {
-  "id": "focuswriter",
-  "name": "FocusWriter",
-  "category": "productivity",
-  "flathub": "org.gottcode.FocusWriter",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "focuswriter"
-    ]
-  },
-  "detect": [
-    "focuswriter"
-  ],
-  "kind": "gui",
-  "developer": "Graeme Gott",
-  "github": null
+ "id": "focuswriter",
+ "name": "FocusWriter",
+ "category": "productivity",
+ "flathub": "org.gottcode.FocusWriter",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "focuswriter"
+  ]
+ },
+ "detect": [
+  "focuswriter"
+ ],
+ "kind": "gui",
+ "developer": "Graeme Gott",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 384
 }

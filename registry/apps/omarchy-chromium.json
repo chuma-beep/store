@@ -1,22 +1,24 @@
 {
-  "id": "omarchy-chromium",
-  "name": "Omarchy Chromium",
-  "category": "browsers",
-  "github": "omacom-io/omarchy-chromium",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "omarchy-chromium"
-    ]
-  },
-  "detect": [
-    "omarchy-chromium"
-  ],
-  "kind": "gui",
-  "summary": "A web browser built for speed, simplicity, and security, with patches for Omarchy",
-  "homepage": "https://github.com/omacom-io/omarchy-chromium",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "omarchy-chromium",
+ "name": "Omarchy Chromium",
+ "category": "browsers",
+ "github": "omacom-io/omarchy-chromium",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "omarchy-chromium"
+  ]
+ },
+ "detect": [
+  "omarchy-chromium"
+ ],
+ "kind": "gui",
+ "summary": "A web browser built for speed, simplicity, and security, with patches for Omarchy",
+ "homepage": "https://github.com/omacom-io/omarchy-chromium",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.6,
+ "reviews": 321
 }

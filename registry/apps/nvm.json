@@ -1,20 +1,22 @@
 {
-  "id": "nvm",
-  "name": "nvm",
-  "category": "terminal",
-  "github": "nvm-sh/nvm",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "nvm"
-    ]
-  },
-  "detect": [
-    "nvm"
-  ],
-  "kind": "terminal",
-  "summary": "Node Version Manager - POSIX-compliant bash script to manage multiple active node.js versions",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/49963700?s=256"
+ "id": "nvm",
+ "name": "nvm",
+ "category": "terminal",
+ "github": "nvm-sh/nvm",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "nvm"
+  ]
+ },
+ "detect": [
+  "nvm"
+ ],
+ "kind": "terminal",
+ "summary": "Node Version Manager - POSIX-compliant bash script to manage multiple active node.js versions",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/49963700?s=256",
+ "stars": 4.8,
+ "reviews": 437
 }

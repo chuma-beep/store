@@ -1,20 +1,22 @@
 {
-  "id": "jujutsu-jj",
-  "name": "Jujutsu (jj)",
-  "category": "terminal",
-  "github": "jj-vcs/jj",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "jujutsu"
-    ]
-  },
-  "detect": [
-    "jujutsu"
-  ],
-  "kind": "terminal",
-  "summary": "A Git-compatible VCS that is both simple and powerful",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/166203655?s=256"
+ "id": "jujutsu-jj",
+ "name": "Jujutsu (jj)",
+ "category": "terminal",
+ "github": "jj-vcs/jj",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "jujutsu"
+  ]
+ },
+ "detect": [
+  "jujutsu"
+ ],
+ "kind": "terminal",
+ "summary": "A Git-compatible VCS that is both simple and powerful",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/166203655?s=256",
+ "stars": 4.4,
+ "reviews": 375
 }

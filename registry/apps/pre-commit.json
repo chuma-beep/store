@@ -1,20 +1,22 @@
 {
-  "id": "pre-commit",
-  "name": "pre-commit",
-  "category": "terminal",
-  "github": "pre-commit/pre-commit",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "pre-commit"
-    ]
-  },
-  "detect": [
-    "pre-commit"
-  ],
-  "kind": "terminal",
-  "summary": "A framework for managing and maintaining multi-language pre-commit hooks",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/6943086?s=256"
+ "id": "pre-commit",
+ "name": "pre-commit",
+ "category": "terminal",
+ "github": "pre-commit/pre-commit",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "pre-commit"
+  ]
+ },
+ "detect": [
+  "pre-commit"
+ ],
+ "kind": "terminal",
+ "summary": "A framework for managing and maintaining multi-language pre-commit hooks",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/6943086?s=256",
+ "stars": 4.8,
+ "reviews": 243
 }

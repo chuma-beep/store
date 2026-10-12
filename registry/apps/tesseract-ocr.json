@@ -1,20 +1,22 @@
 {
-  "id": "tesseract-ocr",
-  "name": "Tesseract OCR",
-  "category": "productivity",
-  "github": "tesseract-ocr/tesseract",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "tesseract"
-    ]
-  },
-  "detect": [
-    "tesseract"
-  ],
-  "kind": "terminal",
-  "summary": "Tesseract Open Source OCR Engine (main repository)",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/8401422?s=256"
+ "id": "tesseract-ocr",
+ "name": "Tesseract OCR",
+ "category": "productivity",
+ "github": "tesseract-ocr/tesseract",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "tesseract"
+  ]
+ },
+ "detect": [
+  "tesseract"
+ ],
+ "kind": "terminal",
+ "summary": "Tesseract Open Source OCR Engine (main repository)",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/8401422?s=256",
+ "stars": 4.4,
+ "reviews": 297
 }

@@ -1,20 +1,22 @@
 {
-  "id": "zsh-autosuggestions",
-  "name": "zsh-autosuggestions",
-  "category": "terminal",
-  "github": "zsh-users/zsh-autosuggestions",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "zsh-autosuggestions"
-    ]
-  },
-  "detect": [
-    "zsh-autosuggestions"
-  ],
-  "kind": "terminal",
-  "summary": "Fish-like autosuggestions for zsh",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/567410?s=256"
+ "id": "zsh-autosuggestions",
+ "name": "zsh-autosuggestions",
+ "category": "terminal",
+ "github": "zsh-users/zsh-autosuggestions",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "zsh-autosuggestions"
+  ]
+ },
+ "detect": [
+  "zsh-autosuggestions"
+ ],
+ "kind": "terminal",
+ "summary": "Fish-like autosuggestions for zsh",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/567410?s=256",
+ "stars": 4.5,
+ "reviews": 19
 }

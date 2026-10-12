@@ -1,18 +1,20 @@
 {
-  "id": "betterbird",
-  "name": "Betterbird",
-  "category": "communication",
-  "flathub": "eu.betterbird.Betterbird",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "betterbird-bin"
-    ]
-  },
-  "detect": [
-    "betterbird-bin"
-  ],
-  "kind": "gui",
-  "developer": "Betterbird Project",
-  "github": null
+ "id": "betterbird",
+ "name": "Betterbird",
+ "category": "communication",
+ "flathub": "eu.betterbird.Betterbird",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "betterbird-bin"
+  ]
+ },
+ "detect": [
+  "betterbird-bin"
+ ],
+ "kind": "gui",
+ "developer": "Betterbird Project",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 271
 }

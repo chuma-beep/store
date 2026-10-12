@@ -1,18 +1,20 @@
 {
-  "id": "apostrophe",
-  "name": "Apostrophe",
-  "category": "productivity",
-  "flathub": "org.gnome.gitlab.somas.Apostrophe",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "apostrophe"
-    ]
-  },
-  "detect": [
-    "apostrophe"
-  ],
-  "kind": "gui",
-  "developer": "Manuel Genovés",
-  "github": null
+ "id": "apostrophe",
+ "name": "Apostrophe",
+ "category": "productivity",
+ "flathub": "org.gnome.gitlab.somas.Apostrophe",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "apostrophe"
+  ]
+ },
+ "detect": [
+  "apostrophe"
+ ],
+ "kind": "gui",
+ "developer": "Manuel Genovés",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 331
 }

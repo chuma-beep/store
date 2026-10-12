@@ -1,18 +1,20 @@
 {
-  "id": "photoqt",
-  "name": "PhotoQt",
-  "category": "graphics",
-  "flathub": "org.photoqt.PhotoQt",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "photoqt"
-    ]
-  },
-  "detect": [
-    "photoqt"
-  ],
-  "kind": "gui",
-  "developer": "Lukas Spies",
-  "github": null
+ "id": "photoqt",
+ "name": "PhotoQt",
+ "category": "graphics",
+ "flathub": "org.photoqt.PhotoQt",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "photoqt"
+  ]
+ },
+ "detect": [
+  "photoqt"
+ ],
+ "kind": "gui",
+ "developer": "Lukas Spies",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 281
 }

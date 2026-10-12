@@ -1,18 +1,20 @@
 {
-  "id": "tv-browser",
-  "name": "TV-Browser",
-  "category": "video-audio",
-  "flathub": "org.tvbrowser.TVBrowser",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "tvbrowser"
-    ]
-  },
-  "detect": [
-    "tvbrowser"
-  ],
-  "kind": "gui",
-  "developer": "TV-Browser Team",
-  "github": null
+ "id": "tv-browser",
+ "name": "TV-Browser",
+ "category": "video-audio",
+ "flathub": "org.tvbrowser.TVBrowser",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "tvbrowser"
+  ]
+ },
+ "detect": [
+  "tvbrowser"
+ ],
+ "kind": "gui",
+ "developer": "TV-Browser Team",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 532
 }

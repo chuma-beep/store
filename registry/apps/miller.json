@@ -1,20 +1,22 @@
 {
-  "id": "miller",
-  "name": "Miller",
-  "category": "terminal",
-  "github": "johnkerl/miller",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "miller"
-    ]
-  },
-  "detect": [
-    "miller"
-  ],
-  "kind": "terminal",
-  "summary": "Miller is like awk, sed, cut, join, and sort for name-indexed data such as CSV, TSV, and tabular JSON",
-  "cli": true,
-  "icon": null
+ "id": "miller",
+ "name": "Miller",
+ "category": "terminal",
+ "github": "johnkerl/miller",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "miller"
+  ]
+ },
+ "detect": [
+  "miller"
+ ],
+ "kind": "terminal",
+ "summary": "Miller is like awk, sed, cut, join, and sort for name-indexed data such as CSV, TSV, and tabular JSON",
+ "cli": true,
+ "icon": null,
+ "stars": 4.3,
+ "reviews": 143
 }

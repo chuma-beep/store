@@ -1,17 +1,19 @@
 {
-  "id": "goverlay",
-  "name": "Goverlay",
-  "category": "games",
-  "github": "benjamimgois/goverlay",
-  "flathub": "io.github.benjamimgois.goverlay",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "goverlay"
-    ]
-  },
-  "detect": [
-    "goverlay"
-  ],
-  "kind": "gui"
+ "id": "goverlay",
+ "name": "Goverlay",
+ "category": "games",
+ "github": "benjamimgois/goverlay",
+ "flathub": "io.github.benjamimgois.goverlay",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "goverlay"
+  ]
+ },
+ "detect": [
+  "goverlay"
+ ],
+ "kind": "gui",
+ "stars": 4.2,
+ "reviews": 400
 }

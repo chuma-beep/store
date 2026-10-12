@@ -1,18 +1,20 @@
 {
-  "id": "kmymoney",
-  "name": "KMyMoney",
-  "category": "productivity",
-  "flathub": "org.kde.kmymoney",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kmymoney"
-    ]
-  },
-  "detect": [
-    "kmymoney"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "kmymoney",
+ "name": "KMyMoney",
+ "category": "productivity",
+ "flathub": "org.kde.kmymoney",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kmymoney"
+  ]
+ },
+ "detect": [
+  "kmymoney"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 83
 }

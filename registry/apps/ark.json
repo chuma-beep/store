@@ -1,18 +1,20 @@
 {
-  "id": "ark",
-  "name": "Ark",
-  "category": "utilities",
-  "flathub": "org.kde.ark",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "ark"
-    ]
-  },
-  "detect": [
-    "ark"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "ark",
+ "name": "Ark",
+ "category": "utilities",
+ "flathub": "org.kde.ark",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "ark"
+  ]
+ },
+ "detect": [
+  "ark"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 503
 }

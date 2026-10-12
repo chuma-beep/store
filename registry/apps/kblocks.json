@@ -1,18 +1,20 @@
 {
-  "id": "kblocks",
-  "name": "KBlocks",
-  "category": "games",
-  "flathub": "org.kde.kblocks",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kblocks"
-    ]
-  },
-  "detect": [
-    "kblocks"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "kblocks",
+ "name": "KBlocks",
+ "category": "games",
+ "flathub": "org.kde.kblocks",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kblocks"
+  ]
+ },
+ "detect": [
+  "kblocks"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 460
 }

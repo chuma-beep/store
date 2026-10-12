@@ -1,17 +1,19 @@
 {
-  "id": "proton-mail-bridge",
-  "name": "Proton Mail Bridge",
-  "category": "productivity",
-  "github": "ProtonMail/proton-bridge",
-  "flathub": "ch.protonmail.protonmail-bridge",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "protonmail-bridge"
-    ]
-  },
-  "detect": [
-    "protonmail-bridge"
-  ],
-  "kind": "gui"
+ "id": "proton-mail-bridge",
+ "name": "Proton Mail Bridge",
+ "category": "productivity",
+ "github": "ProtonMail/proton-bridge",
+ "flathub": "ch.protonmail.protonmail-bridge",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "protonmail-bridge"
+  ]
+ },
+ "detect": [
+  "protonmail-bridge"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 365
 }

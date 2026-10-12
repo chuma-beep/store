@@ -1,17 +1,19 @@
 {
-  "id": "deskflow",
-  "name": "Deskflow",
-  "category": "utilities",
-  "github": "deskflow/deskflow",
-  "flathub": "org.deskflow.deskflow",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "deskflow"
-    ]
-  },
-  "detect": [
-    "deskflow"
-  ],
-  "kind": "gui"
+ "id": "deskflow",
+ "name": "Deskflow",
+ "category": "utilities",
+ "github": "deskflow/deskflow",
+ "flathub": "org.deskflow.deskflow",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "deskflow"
+  ]
+ },
+ "detect": [
+  "deskflow"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 371
 }

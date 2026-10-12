@@ -1,17 +1,19 @@
 {
-  "id": "zap",
-  "name": "ZAP",
-  "category": "security",
-  "github": "zaproxy/zaproxy",
-  "flathub": "org.zaproxy.ZAP",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "zaproxy"
-    ]
-  },
-  "detect": [
-    "zaproxy"
-  ],
-  "kind": "gui"
+ "id": "zap",
+ "name": "ZAP",
+ "category": "security",
+ "github": "zaproxy/zaproxy",
+ "flathub": "org.zaproxy.ZAP",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "zaproxy"
+  ]
+ },
+ "detect": [
+  "zaproxy"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 258
 }

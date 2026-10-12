@@ -1,17 +1,19 @@
 {
-  "id": "mailspring",
-  "name": "Mailspring",
-  "category": "communication",
-  "github": "Foundry376/Mailspring",
-  "flathub": "com.getmailspring.Mailspring",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "mailspring-bin"
-    ]
-  },
-  "detect": [
-    "mailspring-bin"
-  ],
-  "kind": "gui"
+ "id": "mailspring",
+ "name": "Mailspring",
+ "category": "communication",
+ "github": "Foundry376/Mailspring",
+ "flathub": "com.getmailspring.Mailspring",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "mailspring-bin"
+  ]
+ },
+ "detect": [
+  "mailspring-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 184
 }

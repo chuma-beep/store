@@ -1,17 +1,19 @@
 {
-  "id": "godot-engine",
-  "name": "Godot Engine",
-  "category": "developer-tools",
-  "github": "godotengine/godot",
-  "flathub": "org.godotengine.Godot",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "godot"
-    ]
-  },
-  "detect": [
-    "godot"
-  ],
-  "kind": "gui"
+ "id": "godot-engine",
+ "name": "Godot Engine",
+ "category": "developer-tools",
+ "github": "godotengine/godot",
+ "flathub": "org.godotengine.Godot",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "godot"
+  ]
+ },
+ "detect": [
+  "godot"
+ ],
+ "kind": "gui",
+ "stars": 4.7,
+ "reviews": 76
 }

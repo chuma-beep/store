@@ -1,18 +1,20 @@
 {
-  "id": "kpatience",
-  "name": "KPatience",
-  "category": "games",
-  "flathub": "org.kde.kpat",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kpat"
-    ]
-  },
-  "detect": [
-    "kpat"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "kpatience",
+ "name": "KPatience",
+ "category": "games",
+ "flathub": "org.kde.kpat",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kpat"
+  ]
+ },
+ "detect": [
+  "kpat"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 191
 }

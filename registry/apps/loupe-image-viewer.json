@@ -1,18 +1,20 @@
 {
-  "id": "loupe-image-viewer",
-  "name": "Loupe Image Viewer",
-  "category": "graphics",
-  "flathub": "org.gnome.Loupe",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "loupe"
-    ]
-  },
-  "detect": [
-    "loupe"
-  ],
-  "kind": "gui",
-  "developer": "The GNOME Project",
-  "github": null
+ "id": "loupe-image-viewer",
+ "name": "Loupe Image Viewer",
+ "category": "graphics",
+ "flathub": "org.gnome.Loupe",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "loupe"
+  ]
+ },
+ "detect": [
+  "loupe"
+ ],
+ "kind": "gui",
+ "developer": "The GNOME Project",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 406
 }

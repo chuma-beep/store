@@ -1,18 +1,20 @@
 {
-  "id": "teamspeak-3",
-  "name": "TeamSpeak 3",
-  "category": "communication",
-  "flathub": "com.teamspeak.TeamSpeak3",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "teamspeak3"
-    ]
-  },
-  "detect": [
-    "teamspeak3"
-  ],
-  "kind": "gui",
-  "developer": "TeamSpeak Systems, Inc.",
-  "github": null
+ "id": "teamspeak-3",
+ "name": "TeamSpeak 3",
+ "category": "communication",
+ "flathub": "com.teamspeak.TeamSpeak3",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "teamspeak3"
+  ]
+ },
+ "detect": [
+  "teamspeak3"
+ ],
+ "kind": "gui",
+ "developer": "TeamSpeak Systems, Inc.",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 376
 }

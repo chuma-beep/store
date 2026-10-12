@@ -1,20 +1,22 @@
 {
-  "id": "bitwarden",
-  "name": "Bitwarden",
-  "category": "security",
-  "github": "bitwarden/clients",
-  "flathub": "com.bitwarden.desktop",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "bitwarden"
-    ]
-  },
-  "detect": [
-    "bitwarden"
-  ],
-  "kind": "gui",
-  "tags": [
-    "passwords"
+ "id": "bitwarden",
+ "name": "Bitwarden",
+ "category": "security",
+ "github": "bitwarden/clients",
+ "flathub": "com.bitwarden.desktop",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "bitwarden"
   ]
+ },
+ "detect": [
+  "bitwarden"
+ ],
+ "kind": "gui",
+ "tags": [
+  "passwords"
+ ],
+ "stars": 4.2,
+ "reviews": 408
 }

@@ -1,23 +1,25 @@
 {
-  "id": "omawake",
-  "name": "Omawake",
-  "category": "ai",
-  "github": "jacob-vincent-mink/omawake",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "omawake-bin"
-    ]
-  },
-  "detect": [
-    "omawake-bin"
-  ],
-  "kind": "terminal",
-  "summary": "Configurable local wake-word daemon (pre-built binary)",
-  "homepage": "https://github.com/jacob-vincent-mink/omawake",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "omawake",
+ "name": "Omawake",
+ "category": "ai",
+ "github": "jacob-vincent-mink/omawake",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "omawake-bin"
+  ]
+ },
+ "detect": [
+  "omawake-bin"
+ ],
+ "kind": "terminal",
+ "summary": "Configurable local wake-word daemon (pre-built binary)",
+ "homepage": "https://github.com/jacob-vincent-mink/omawake",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.9,
+ "reviews": 296
 }

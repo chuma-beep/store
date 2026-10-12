@@ -1,17 +1,19 @@
 {
-  "id": "proton-mail",
-  "name": "Proton Mail",
-  "category": "communication",
-  "github": "ProtonMail/WebClients",
-  "flathub": "me.proton.Mail",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "proton-mail-bin"
-    ]
-  },
-  "detect": [
-    "proton-mail-bin"
-  ],
-  "kind": "gui"
+ "id": "proton-mail",
+ "name": "Proton Mail",
+ "category": "communication",
+ "github": "ProtonMail/WebClients",
+ "flathub": "me.proton.Mail",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "proton-mail-bin"
+  ]
+ },
+ "detect": [
+  "proton-mail-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 184
 }

@@ -1,18 +1,20 @@
 {
-  "id": "kmines",
-  "name": "KMines",
-  "category": "games",
-  "flathub": "org.kde.kmines",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kmines"
-    ]
-  },
-  "detect": [
-    "kmines"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "kmines",
+ "name": "KMines",
+ "category": "games",
+ "flathub": "org.kde.kmines",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kmines"
+  ]
+ },
+ "detect": [
+  "kmines"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 238
 }

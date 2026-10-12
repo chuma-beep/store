@@ -1,20 +1,22 @@
 {
-  "id": "tmux",
-  "name": "tmux",
-  "category": "terminal",
-  "github": "tmux/tmux",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "tmux"
-    ]
-  },
-  "detect": [
-    "tmux"
-  ],
-  "kind": "terminal",
-  "summary": "tmux source code",
-  "open": "tmux",
-  "icon": "https://avatars.githubusercontent.com/u/12054114?s=256"
+ "id": "tmux",
+ "name": "tmux",
+ "category": "terminal",
+ "github": "tmux/tmux",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "tmux"
+  ]
+ },
+ "detect": [
+  "tmux"
+ ],
+ "kind": "terminal",
+ "summary": "tmux source code",
+ "open": "tmux",
+ "icon": "https://avatars.githubusercontent.com/u/12054114?s=256",
+ "stars": 4.6,
+ "reviews": 545
 }

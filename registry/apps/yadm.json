@@ -1,21 +1,23 @@
 {
-  "id": "yadm",
-  "name": "yadm",
-  "category": "terminal",
-  "github": "yadm-dev/yadm",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "yadm"
-    ]
-  },
-  "detect": [
-    "yadm"
-  ],
-  "kind": "terminal",
-  "summary": "Yet Another Dotfiles Manager",
-  "icon": null,
-  "open": "yadm",
-  "cli": true
+ "id": "yadm",
+ "name": "yadm",
+ "category": "terminal",
+ "github": "yadm-dev/yadm",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "yadm"
+  ]
+ },
+ "detect": [
+  "yadm"
+ ],
+ "kind": "terminal",
+ "summary": "Yet Another Dotfiles Manager",
+ "icon": null,
+ "open": "yadm",
+ "cli": true,
+ "stars": 4.2,
+ "reviews": 156
 }

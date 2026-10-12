@@ -1,17 +1,19 @@
 {
-  "id": "cataclysm-dark-days-ahead",
-  "name": "Cataclysm: Dark Days Ahead",
-  "category": "games",
-  "github": "CleverRaven/Cataclysm-DDA",
-  "flathub": "org.cataclysmdda.CataclysmDDA",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "cataclysm-dda"
-    ]
-  },
-  "detect": [
-    "cataclysm-dda"
-  ],
-  "kind": "gui"
+ "id": "cataclysm-dark-days-ahead",
+ "name": "Cataclysm: Dark Days Ahead",
+ "category": "games",
+ "github": "CleverRaven/Cataclysm-DDA",
+ "flathub": "org.cataclysmdda.CataclysmDDA",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "cataclysm-dda"
+  ]
+ },
+ "detect": [
+  "cataclysm-dda"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 401
 }

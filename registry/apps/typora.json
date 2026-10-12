@@ -1,18 +1,20 @@
 {
-  "id": "typora",
-  "name": "Typora",
-  "category": "productivity",
-  "flathub": "io.typora.Typora",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "typora"
-    ]
-  },
-  "detect": [
-    "typora"
-  ],
-  "kind": "gui",
-  "developer": "Typora",
-  "github": null
+ "id": "typora",
+ "name": "Typora",
+ "category": "productivity",
+ "flathub": "io.typora.Typora",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "typora"
+  ]
+ },
+ "detect": [
+  "typora"
+ ],
+ "kind": "gui",
+ "developer": "Typora",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 157
 }

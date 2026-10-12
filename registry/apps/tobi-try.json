@@ -1,23 +1,25 @@
 {
-  "id": "tobi-try",
-  "name": "try",
-  "category": "developer-tools",
-  "github": "tobi/try",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "tobi-try"
-    ]
-  },
-  "detect": [
-    "tobi-try"
-  ],
-  "kind": "terminal",
-  "summary": "Fresh directories for every vibe",
-  "homepage": "https://github.com/tobi/try",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "tobi-try",
+ "name": "try",
+ "category": "developer-tools",
+ "github": "tobi/try",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "tobi-try"
+  ]
+ },
+ "detect": [
+  "tobi-try"
+ ],
+ "kind": "terminal",
+ "summary": "Fresh directories for every vibe",
+ "homepage": "https://github.com/tobi/try",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.6,
+ "reviews": 518
 }

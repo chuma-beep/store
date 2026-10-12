@@ -1,18 +1,20 @@
 {
-  "id": "osu",
-  "name": "osu!",
-  "category": "games",
-  "flathub": "sh.ppy.osu",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "osu"
-    ]
-  },
-  "detect": [
-    "osu"
-  ],
-  "kind": "gui",
-  "developer": "ppy Pty Ltd",
-  "github": null
+ "id": "osu",
+ "name": "osu!",
+ "category": "games",
+ "flathub": "sh.ppy.osu",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "osu"
+  ]
+ },
+ "detect": [
+  "osu"
+ ],
+ "kind": "gui",
+ "developer": "ppy Pty Ltd",
+ "github": null,
+ "stars": 4.6,
+ "reviews": 45
 }

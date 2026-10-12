@@ -1,18 +1,20 @@
 {
-  "id": "parsec",
-  "name": "Parsec",
-  "category": "utilities",
-  "flathub": "com.parsecgaming.parsec",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "parsec-bin"
-    ]
-  },
-  "detect": [
-    "parsec-bin"
-  ],
-  "kind": "gui",
-  "developer": "Parsec Cloud, Inc.",
-  "github": null
+ "id": "parsec",
+ "name": "Parsec",
+ "category": "utilities",
+ "flathub": "com.parsecgaming.parsec",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "parsec-bin"
+  ]
+ },
+ "detect": [
+  "parsec-bin"
+ ],
+ "kind": "gui",
+ "developer": "Parsec Cloud, Inc.",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 58
 }

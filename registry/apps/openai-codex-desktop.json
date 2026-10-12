@@ -1,21 +1,23 @@
 {
-  "id": "openai-codex-desktop",
-  "name": "ChatGPT Codex",
-  "category": "ai",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "openai-codex-desktop"
-    ]
-  },
-  "detect": [
-    "openai-codex-desktop"
-  ],
-  "kind": "gui",
-  "summary": "Official ChatGPT desktop app with Codex",
-  "homepage": "https://chatgpt.com/codex/",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "openai-codex-desktop",
+ "name": "ChatGPT Codex",
+ "category": "ai",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "openai-codex-desktop"
+  ]
+ },
+ "detect": [
+  "openai-codex-desktop"
+ ],
+ "kind": "gui",
+ "summary": "Official ChatGPT desktop app with Codex",
+ "homepage": "https://chatgpt.com/codex/",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.3,
+ "reviews": 12
 }

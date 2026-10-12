@@ -1,18 +1,20 @@
 {
-  "id": "pdf-mix-tool",
-  "name": "PDF Mix Tool",
-  "category": "productivity",
-  "flathub": "eu.scarpetta.PDFMixTool",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "pdfmixtool"
-    ]
-  },
-  "detect": [
-    "pdfmixtool"
-  ],
-  "kind": "gui",
-  "developer": "Marco Scarpetta",
-  "github": null
+ "id": "pdf-mix-tool",
+ "name": "PDF Mix Tool",
+ "category": "productivity",
+ "flathub": "eu.scarpetta.PDFMixTool",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "pdfmixtool"
+  ]
+ },
+ "detect": [
+  "pdfmixtool"
+ ],
+ "kind": "gui",
+ "developer": "Marco Scarpetta",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 311
 }

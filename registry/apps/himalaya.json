@@ -1,21 +1,23 @@
 {
-  "id": "himalaya",
-  "name": "Himalaya",
-  "category": "communication",
-  "github": "pimalaya/himalaya",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "himalaya"
-    ]
-  },
-  "detect": [
-    "himalaya"
-  ],
-  "kind": "terminal",
-  "summary": "CLI to manage emails",
-  "icon": null,
-  "open": "himalaya",
-  "cli": true
+ "id": "himalaya",
+ "name": "Himalaya",
+ "category": "communication",
+ "github": "pimalaya/himalaya",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "himalaya"
+  ]
+ },
+ "detect": [
+  "himalaya"
+ ],
+ "kind": "terminal",
+ "summary": "CLI to manage emails",
+ "icon": null,
+ "open": "himalaya",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 157
 }

@@ -1,19 +1,21 @@
 {
-  "id": "sniffnet",
-  "name": "Sniffnet",
-  "category": "utilities",
-  "github": "GyulyVGC/sniffnet",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "sniffnet"
-    ]
-  },
-  "detect": [
-    "sniffnet"
-  ],
-  "kind": "gui",
-  "summary": "Comfortably monitor your network traffic ‍",
-  "icon": null
+ "id": "sniffnet",
+ "name": "Sniffnet",
+ "category": "utilities",
+ "github": "GyulyVGC/sniffnet",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "sniffnet"
+  ]
+ },
+ "detect": [
+  "sniffnet"
+ ],
+ "kind": "gui",
+ "summary": "Comfortably monitor your network traffic ‍",
+ "icon": null,
+ "stars": 4.7,
+ "reviews": 146
 }

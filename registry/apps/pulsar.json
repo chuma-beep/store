@@ -1,17 +1,19 @@
 {
-  "id": "pulsar",
-  "name": "Pulsar",
-  "category": "developer-tools",
-  "github": "pulsar-edit/pulsar",
-  "flathub": "dev.pulsar_edit.Pulsar",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "pulsar-bin"
-    ]
-  },
-  "detect": [
-    "pulsar-bin"
-  ],
-  "kind": "gui"
+ "id": "pulsar",
+ "name": "Pulsar",
+ "category": "developer-tools",
+ "github": "pulsar-edit/pulsar",
+ "flathub": "dev.pulsar_edit.Pulsar",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "pulsar-bin"
+  ]
+ },
+ "detect": [
+  "pulsar-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 409
 }

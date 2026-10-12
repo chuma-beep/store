@@ -1,20 +1,22 @@
 {
-  "id": "fnm",
-  "name": "fnm",
-  "category": "terminal",
-  "github": "Schniz/fnm",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "fnm"
-    ]
-  },
-  "detect": [
-    "fnm"
-  ],
-  "kind": "terminal",
-  "summary": "Fast and simple Node.js version manager, built in Rust",
-  "cli": true,
-  "icon": null
+ "id": "fnm",
+ "name": "fnm",
+ "category": "terminal",
+ "github": "Schniz/fnm",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "fnm"
+  ]
+ },
+ "detect": [
+  "fnm"
+ ],
+ "kind": "terminal",
+ "summary": "Fast and simple Node.js version manager, built in Rust",
+ "cli": true,
+ "icon": null,
+ "stars": 4.7,
+ "reviews": 557
 }

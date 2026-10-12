@@ -1,23 +1,25 @@
 {
-  "id": "omarchy-nvim",
-  "name": "Omarchy Neovim",
-  "category": "developer-tools",
-  "github": "LazyVim/LazyVim",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "omarchy-nvim"
-    ]
-  },
-  "detect": [
-    "omarchy-nvim"
-  ],
-  "kind": "terminal",
-  "summary": "Pre-built LazyVim configuration with cached plugins",
-  "homepage": "https://github.com/LazyVim/LazyVim",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "omarchy-nvim",
+ "name": "Omarchy Neovim",
+ "category": "developer-tools",
+ "github": "LazyVim/LazyVim",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "omarchy-nvim"
+  ]
+ },
+ "detect": [
+  "omarchy-nvim"
+ ],
+ "kind": "terminal",
+ "summary": "Pre-built LazyVim configuration with cached plugins",
+ "homepage": "https://github.com/LazyVim/LazyVim",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.7,
+ "reviews": 456
 }

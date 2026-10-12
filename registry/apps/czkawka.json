@@ -1,21 +1,23 @@
 {
-  "id": "czkawka",
-  "name": "Czkawka",
-  "category": "utilities",
-  "github": "qarmin/czkawka",
-  "flathub": "com.github.qarmin.czkawka",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "czkawka-gui"
-    ]
-  },
-  "detect": [
-    "czkawka-gui"
-  ],
-  "kind": "gui",
-  "tags": [
-    "duplicates",
-    "cleanup"
+ "id": "czkawka",
+ "name": "Czkawka",
+ "category": "utilities",
+ "github": "qarmin/czkawka",
+ "flathub": "com.github.qarmin.czkawka",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "czkawka-gui"
   ]
+ },
+ "detect": [
+  "czkawka-gui"
+ ],
+ "kind": "gui",
+ "tags": [
+  "duplicates",
+  "cleanup"
+ ],
+ "stars": 4.5,
+ "reviews": 39
 }

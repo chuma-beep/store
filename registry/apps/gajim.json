@@ -1,18 +1,20 @@
 {
-  "id": "gajim",
-  "name": "Gajim",
-  "category": "communication",
-  "flathub": "org.gajim.Gajim",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gajim"
-    ]
-  },
-  "detect": [
-    "gajim"
-  ],
-  "kind": "gui",
-  "developer": "Gajim Team",
-  "github": null
+ "id": "gajim",
+ "name": "Gajim",
+ "category": "communication",
+ "flathub": "org.gajim.Gajim",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gajim"
+  ]
+ },
+ "detect": [
+  "gajim"
+ ],
+ "kind": "gui",
+ "developer": "Gajim Team",
+ "github": null,
+ "stars": 4.2,
+ "reviews": 280
 }

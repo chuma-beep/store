@@ -1,18 +1,20 @@
 {
-  "id": "pithos",
-  "name": "Pithos",
-  "category": "video-audio",
-  "flathub": "io.github.Pithos",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "pithos"
-    ]
-  },
-  "detect": [
-    "pithos"
-  ],
-  "kind": "gui",
-  "developer": "Pithos",
-  "github": null
+ "id": "pithos",
+ "name": "Pithos",
+ "category": "video-audio",
+ "flathub": "io.github.Pithos",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "pithos"
+  ]
+ },
+ "detect": [
+  "pithos"
+ ],
+ "kind": "gui",
+ "developer": "Pithos",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 343
 }

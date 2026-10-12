@@ -1,21 +1,23 @@
 {
-  "id": "krita",
-  "name": "Krita",
-  "category": "graphics",
-  "github": "KDE/krita",
-  "flathub": "org.kde.krita",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "krita"
-    ]
-  },
-  "detect": [
-    "krita"
-  ],
-  "kind": "gui",
-  "tags": [
-    "painting",
-    "drawing"
+ "id": "krita",
+ "name": "Krita",
+ "category": "graphics",
+ "github": "KDE/krita",
+ "flathub": "org.kde.krita",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "krita"
   ]
+ },
+ "detect": [
+  "krita"
+ ],
+ "kind": "gui",
+ "tags": [
+  "painting",
+  "drawing"
+ ],
+ "stars": 4.8,
+ "reviews": 55
 }

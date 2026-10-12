@@ -1,23 +1,25 @@
 {
-  "id": "ufw-docker",
-  "name": "ufw-docker",
-  "category": "security",
-  "github": "chaifeng/ufw-docker",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "ufw-docker"
-    ]
-  },
-  "detect": [
-    "ufw-docker"
-  ],
-  "kind": "terminal",
-  "summary": "To fix the Docker and UFW security flaw without disabling iptables",
-  "homepage": "https://github.com/chaifeng/ufw-docker",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "ufw-docker",
+ "name": "ufw-docker",
+ "category": "security",
+ "github": "chaifeng/ufw-docker",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "ufw-docker"
+  ]
+ },
+ "detect": [
+  "ufw-docker"
+ ],
+ "kind": "terminal",
+ "summary": "To fix the Docker and UFW security flaw without disabling iptables",
+ "homepage": "https://github.com/chaifeng/ufw-docker",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.6,
+ "reviews": 574
 }

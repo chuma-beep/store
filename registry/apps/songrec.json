@@ -1,17 +1,19 @@
 {
-  "id": "songrec",
-  "name": "SongRec",
-  "category": "video-audio",
-  "github": "marin-m/SongRec",
-  "flathub": "re.fossplant.songrec",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "songrec"
-    ]
-  },
-  "detect": [
-    "songrec"
-  ],
-  "kind": "gui"
+ "id": "songrec",
+ "name": "SongRec",
+ "category": "video-audio",
+ "github": "marin-m/SongRec",
+ "flathub": "re.fossplant.songrec",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "songrec"
+  ]
+ },
+ "detect": [
+  "songrec"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 110
 }

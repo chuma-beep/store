@@ -1,17 +1,19 @@
 {
-  "id": "librecad",
-  "name": "LibreCAD",
-  "category": "graphics",
-  "github": "LibreCAD/LibreCAD",
-  "flathub": "org.librecad.librecad",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "librecad"
-    ]
-  },
-  "detect": [
-    "librecad"
-  ],
-  "kind": "gui"
+ "id": "librecad",
+ "name": "LibreCAD",
+ "category": "graphics",
+ "github": "LibreCAD/LibreCAD",
+ "flathub": "org.librecad.librecad",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "librecad"
+  ]
+ },
+ "detect": [
+  "librecad"
+ ],
+ "kind": "gui",
+ "stars": 4.6,
+ "reviews": 306
 }

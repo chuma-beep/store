@@ -1,17 +1,19 @@
 {
-  "id": "bespokesynth",
-  "name": "BespokeSynth",
-  "category": "video-audio",
-  "github": "BespokeSynth/BespokeSynth",
-  "flathub": "com.bespokesynth.BespokeSynth",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "bespokesynth"
-    ]
-  },
-  "detect": [
-    "bespokesynth"
-  ],
-  "kind": "gui"
+ "id": "bespokesynth",
+ "name": "BespokeSynth",
+ "category": "video-audio",
+ "github": "BespokeSynth/BespokeSynth",
+ "flathub": "com.bespokesynth.BespokeSynth",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "bespokesynth"
+  ]
+ },
+ "detect": [
+  "bespokesynth"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 244
 }

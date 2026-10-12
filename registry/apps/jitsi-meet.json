@@ -1,17 +1,19 @@
 {
-  "id": "jitsi-meet",
-  "name": "Jitsi Meet",
-  "category": "video-audio",
-  "github": "jitsi/jitsi-meet-electron",
-  "flathub": "org.jitsi.jitsi-meet",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "jitsi-meet-desktop-bin"
-    ]
-  },
-  "detect": [
-    "jitsi-meet-desktop-bin"
-  ],
-  "kind": "gui"
+ "id": "jitsi-meet",
+ "name": "Jitsi Meet",
+ "category": "video-audio",
+ "github": "jitsi/jitsi-meet-electron",
+ "flathub": "org.jitsi.jitsi-meet",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "jitsi-meet-desktop-bin"
+  ]
+ },
+ "detect": [
+  "jitsi-meet-desktop-bin"
+ ],
+ "kind": "gui",
+ "stars": 5.0,
+ "reviews": 139
 }

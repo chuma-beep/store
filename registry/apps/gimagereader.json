@@ -1,17 +1,19 @@
 {
-  "id": "gimagereader",
-  "name": "gImageReader",
-  "category": "graphics",
-  "github": "manisandro/gImageReader",
-  "flathub": "io.github.manisandro.gImageReader",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gimagereader-qt"
-    ]
-  },
-  "detect": [
-    "gimagereader-qt"
-  ],
-  "kind": "gui"
+ "id": "gimagereader",
+ "name": "gImageReader",
+ "category": "graphics",
+ "github": "manisandro/gImageReader",
+ "flathub": "io.github.manisandro.gImageReader",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gimagereader-qt"
+  ]
+ },
+ "detect": [
+  "gimagereader-qt"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 62
 }

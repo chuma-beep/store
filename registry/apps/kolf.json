@@ -1,18 +1,20 @@
 {
-  "id": "kolf",
-  "name": "Kolf",
-  "category": "games",
-  "flathub": "org.kde.kolf",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kolf"
-    ]
-  },
-  "detect": [
-    "kolf"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "kolf",
+ "name": "Kolf",
+ "category": "games",
+ "flathub": "org.kde.kolf",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kolf"
+  ]
+ },
+ "detect": [
+  "kolf"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 270
 }

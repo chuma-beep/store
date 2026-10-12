@@ -1,18 +1,20 @@
 {
-  "id": "media-downloader",
-  "name": "Media Downloader",
-  "category": "utilities",
-  "github": "mhogomchungu/media-downloader",
-  "flathub": "io.github.mhogomchungu.media-downloader",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "media-downloader"
-    ]
-  },
-  "detect": [
-    "media-downloader"
-  ],
-  "kind": "gui",
-  "developer": "Francis Banyikwa"
+ "id": "media-downloader",
+ "name": "Media Downloader",
+ "category": "utilities",
+ "github": "mhogomchungu/media-downloader",
+ "flathub": "io.github.mhogomchungu.media-downloader",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "media-downloader"
+  ]
+ },
+ "detect": [
+  "media-downloader"
+ ],
+ "kind": "gui",
+ "developer": "Francis Banyikwa",
+ "stars": 4.2,
+ "reviews": 307
 }

@@ -1,17 +1,19 @@
 {
-  "id": "musescore",
-  "name": "MuseScore",
-  "category": "video-audio",
-  "github": "musescore/MuseScore",
-  "flathub": "org.musescore.MuseScore",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "musescore"
-    ]
-  },
-  "detect": [
-    "musescore"
-  ],
-  "kind": "gui"
+ "id": "musescore",
+ "name": "MuseScore",
+ "category": "video-audio",
+ "github": "musescore/MuseScore",
+ "flathub": "org.musescore.MuseScore",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "musescore"
+  ]
+ },
+ "detect": [
+  "musescore"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 475
 }

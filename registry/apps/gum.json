@@ -1,20 +1,22 @@
 {
-  "id": "gum",
-  "name": "Gum",
-  "category": "terminal",
-  "github": "charmbracelet/gum",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gum"
-    ]
-  },
-  "detect": [
-    "gum"
-  ],
-  "kind": "terminal",
-  "summary": "A tool for glamorous shell scripts",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/57376114?s=256"
+ "id": "gum",
+ "name": "Gum",
+ "category": "terminal",
+ "github": "charmbracelet/gum",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gum"
+  ]
+ },
+ "detect": [
+  "gum"
+ ],
+ "kind": "terminal",
+ "summary": "A tool for glamorous shell scripts",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/57376114?s=256",
+ "stars": 4.2,
+ "reviews": 264
 }

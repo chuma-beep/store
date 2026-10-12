@@ -1,19 +1,21 @@
 {
-  "id": "alacritty",
-  "name": "Alacritty",
-  "category": "developer-tools",
-  "github": "alacritty/alacritty",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "alacritty"
-    ]
-  },
-  "detect": [
-    "alacritty"
-  ],
-  "kind": "gui",
-  "summary": "A cross-platform, OpenGL terminal emulator",
-  "icon": "https://avatars.githubusercontent.com/u/29714349?s=256"
+ "id": "alacritty",
+ "name": "Alacritty",
+ "category": "developer-tools",
+ "github": "alacritty/alacritty",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "alacritty"
+  ]
+ },
+ "detect": [
+  "alacritty"
+ ],
+ "kind": "gui",
+ "summary": "A cross-platform, OpenGL terminal emulator",
+ "icon": "https://avatars.githubusercontent.com/u/29714349?s=256",
+ "stars": 4.8,
+ "reviews": 370
 }

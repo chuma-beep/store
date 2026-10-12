@@ -1,18 +1,20 @@
 {
-  "id": "pulseaudio-volume-control",
-  "name": "PulseAudio Volume Control",
-  "category": "video-audio",
-  "flathub": "org.pulseaudio.pavucontrol",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "pavucontrol"
-    ]
-  },
-  "detect": [
-    "pavucontrol"
-  ],
-  "kind": "gui",
-  "developer": "The PulseAudio Developers",
-  "github": null
+ "id": "pulseaudio-volume-control",
+ "name": "PulseAudio Volume Control",
+ "category": "video-audio",
+ "flathub": "org.pulseaudio.pavucontrol",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "pavucontrol"
+  ]
+ },
+ "detect": [
+  "pavucontrol"
+ ],
+ "kind": "gui",
+ "developer": "The PulseAudio Developers",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 565
 }

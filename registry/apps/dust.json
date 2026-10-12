@@ -1,20 +1,22 @@
 {
-  "id": "dust",
-  "name": "dust",
-  "category": "terminal",
-  "github": "bootandy/dust",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "dust"
-    ]
-  },
-  "detect": [
-    "dust"
-  ],
-  "kind": "terminal",
-  "summary": "A more intuitive version of du in rust",
-  "cli": true,
-  "icon": null
+ "id": "dust",
+ "name": "dust",
+ "category": "terminal",
+ "github": "bootandy/dust",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "dust"
+  ]
+ },
+ "detect": [
+  "dust"
+ ],
+ "kind": "terminal",
+ "summary": "A more intuitive version of du in rust",
+ "cli": true,
+ "icon": null,
+ "stars": 4.5,
+ "reviews": 465
 }

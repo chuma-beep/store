@@ -1,17 +1,19 @@
 {
-  "id": "qownnotes",
-  "name": "QOwnNotes",
-  "category": "utilities",
-  "github": "pbek/QOwnNotes",
-  "flathub": "org.qownnotes.QOwnNotes",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "qownnotes"
-    ]
-  },
-  "detect": [
-    "qownnotes"
-  ],
-  "kind": "gui"
+ "id": "qownnotes",
+ "name": "QOwnNotes",
+ "category": "utilities",
+ "github": "pbek/QOwnNotes",
+ "flathub": "org.qownnotes.QOwnNotes",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "qownnotes"
+  ]
+ },
+ "detect": [
+  "qownnotes"
+ ],
+ "kind": "gui",
+ "stars": 4.5,
+ "reviews": 570
 }

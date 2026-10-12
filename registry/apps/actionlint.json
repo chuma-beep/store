@@ -1,21 +1,23 @@
 {
-  "id": "actionlint",
-  "name": "actionlint",
-  "category": "developer-tools",
-  "github": "rhysd/actionlint",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "actionlint"
-    ]
-  },
-  "detect": [
-    "actionlint"
-  ],
-  "kind": "terminal",
-  "summary": "octocat: Static checker for GitHub Actions workflow files",
-  "icon": null,
-  "open": "actionlint",
-  "cli": true
+ "id": "actionlint",
+ "name": "actionlint",
+ "category": "developer-tools",
+ "github": "rhysd/actionlint",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "actionlint"
+  ]
+ },
+ "detect": [
+  "actionlint"
+ ],
+ "kind": "terminal",
+ "summary": "octocat: Static checker for GitHub Actions workflow files",
+ "icon": null,
+ "open": "actionlint",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 40
 }

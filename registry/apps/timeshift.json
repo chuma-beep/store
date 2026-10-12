@@ -1,18 +1,20 @@
 {
-  "id": "timeshift",
-  "name": "Timeshift",
-  "category": "utilities",
-  "github": "linuxmint/timeshift",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "timeshift"
-    ]
-  },
-  "detect": [
-    "timeshift"
-  ],
-  "kind": "gui",
-  "summary": "System restore tool for Linux. Creates filesystem snapshots using rsync+hardlinks, or BTRFS snapshots. Supports scheduled snapshots, multipl"
+ "id": "timeshift",
+ "name": "Timeshift",
+ "category": "utilities",
+ "github": "linuxmint/timeshift",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "timeshift"
+  ]
+ },
+ "detect": [
+  "timeshift"
+ ],
+ "kind": "gui",
+ "summary": "System restore tool for Linux. Creates filesystem snapshots using rsync+hardlinks, or BTRFS snapshots. Supports scheduled snapshots, multipl",
+ "stars": 4.6,
+ "reviews": 42
 }

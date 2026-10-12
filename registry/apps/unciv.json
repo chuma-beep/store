@@ -1,18 +1,20 @@
 {
-  "id": "unciv",
-  "name": "Unciv",
-  "category": "games",
-  "flathub": "io.github.yairm210.unciv",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "unciv"
-    ]
-  },
-  "detect": [
-    "unciv"
-  ],
-  "kind": "gui",
-  "developer": "Yair Morgenstern",
-  "github": null
+ "id": "unciv",
+ "name": "Unciv",
+ "category": "games",
+ "flathub": "io.github.yairm210.unciv",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "unciv"
+  ]
+ },
+ "detect": [
+  "unciv"
+ ],
+ "kind": "gui",
+ "developer": "Yair Morgenstern",
+ "github": null,
+ "stars": 4.2,
+ "reviews": 41
 }

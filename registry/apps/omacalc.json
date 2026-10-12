@@ -1,22 +1,24 @@
 {
-  "id": "omacalc",
-  "name": "Omacalc",
-  "category": "productivity",
-  "github": "omacom-io/omacalc",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "omacalc"
-    ]
-  },
-  "detect": [
-    "omacalc"
-  ],
-  "kind": "gui",
-  "summary": "Dead-simple calculator built with Qt Quick",
-  "homepage": "https://github.com/omacom-io/omacalc",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "omacalc",
+ "name": "Omacalc",
+ "category": "productivity",
+ "github": "omacom-io/omacalc",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "omacalc"
+  ]
+ },
+ "detect": [
+  "omacalc"
+ ],
+ "kind": "gui",
+ "summary": "Dead-simple calculator built with Qt Quick",
+ "homepage": "https://github.com/omacom-io/omacalc",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.7,
+ "reviews": 309
 }

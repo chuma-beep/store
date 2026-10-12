@@ -1,17 +1,19 @@
 {
-  "id": "zerobrane-studio",
-  "name": "ZeroBrane Studio",
-  "category": "developer-tools",
-  "github": "pkulchenko/ZeroBraneStudio",
-  "flathub": "com.zerobrane.studio",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "zerobrane-studio"
-    ]
-  },
-  "detect": [
-    "zerobrane-studio"
-  ],
-  "kind": "gui"
+ "id": "zerobrane-studio",
+ "name": "ZeroBrane Studio",
+ "category": "developer-tools",
+ "github": "pkulchenko/ZeroBraneStudio",
+ "flathub": "com.zerobrane.studio",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "zerobrane-studio"
+  ]
+ },
+ "detect": [
+  "zerobrane-studio"
+ ],
+ "kind": "gui",
+ "stars": 4.7,
+ "reviews": 157
 }

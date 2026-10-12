@@ -1,18 +1,20 @@
 {
-  "id": "google-earth-pro",
-  "name": "Google Earth Pro",
-  "category": "utilities",
-  "flathub": "com.google.EarthPro",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "google-earth-pro"
-    ]
-  },
-  "detect": [
-    "google-earth-pro"
-  ],
-  "kind": "gui",
-  "developer": "Google",
-  "github": null
+ "id": "google-earth-pro",
+ "name": "Google Earth Pro",
+ "category": "utilities",
+ "flathub": "com.google.EarthPro",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "google-earth-pro"
+  ]
+ },
+ "detect": [
+  "google-earth-pro"
+ ],
+ "kind": "gui",
+ "developer": "Google",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 253
 }

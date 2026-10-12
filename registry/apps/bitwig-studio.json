@@ -1,18 +1,20 @@
 {
-  "id": "bitwig-studio",
-  "name": "Bitwig Studio",
-  "category": "video-audio",
-  "flathub": "com.bitwig.BitwigStudio",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "bitwig-studio"
-    ]
-  },
-  "detect": [
-    "bitwig-studio"
-  ],
-  "kind": "gui",
-  "developer": "Bitwig GmbH",
-  "github": null
+ "id": "bitwig-studio",
+ "name": "Bitwig Studio",
+ "category": "video-audio",
+ "flathub": "com.bitwig.BitwigStudio",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "bitwig-studio"
+  ]
+ },
+ "detect": [
+  "bitwig-studio"
+ ],
+ "kind": "gui",
+ "developer": "Bitwig GmbH",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 299
 }

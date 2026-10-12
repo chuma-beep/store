@@ -1,18 +1,20 @@
 {
-  "id": "aisleriot-solitaire",
-  "name": "Aisleriot Solitaire",
-  "category": "games",
-  "flathub": "org.gnome.Aisleriot",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "aisleriot"
-    ]
-  },
-  "detect": [
-    "aisleriot"
-  ],
-  "kind": "gui",
-  "developer": "The GNOME Project",
-  "github": null
+ "id": "aisleriot-solitaire",
+ "name": "Aisleriot Solitaire",
+ "category": "games",
+ "flathub": "org.gnome.Aisleriot",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "aisleriot"
+  ]
+ },
+ "detect": [
+  "aisleriot"
+ ],
+ "kind": "gui",
+ "developer": "The GNOME Project",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 253
 }

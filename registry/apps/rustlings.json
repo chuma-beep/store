@@ -1,21 +1,23 @@
 {
-  "id": "rustlings",
-  "name": "Rustlings",
-  "category": "education",
-  "github": "rust-lang/rustlings",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "rustlings"
-    ]
-  },
-  "detect": [
-    "rustlings"
-  ],
-  "kind": "terminal",
-  "summary": "crab: Small exercises to get you used to reading and writing Rust code!",
-  "icon": null,
-  "open": "rustlings",
-  "cli": true
+ "id": "rustlings",
+ "name": "Rustlings",
+ "category": "education",
+ "github": "rust-lang/rustlings",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "rustlings"
+  ]
+ },
+ "detect": [
+  "rustlings"
+ ],
+ "kind": "terminal",
+ "summary": "crab: Small exercises to get you used to reading and writing Rust code!",
+ "icon": null,
+ "open": "rustlings",
+ "cli": true,
+ "stars": 4.7,
+ "reviews": 78
 }

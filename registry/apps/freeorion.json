@@ -1,17 +1,19 @@
 {
-  "id": "freeorion",
-  "name": "FreeOrion",
-  "category": "games",
-  "github": "freeorion/freeorion",
-  "flathub": "org.freeorion.FreeOrion",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "freeorion"
-    ]
-  },
-  "detect": [
-    "freeorion"
-  ],
-  "kind": "gui"
+ "id": "freeorion",
+ "name": "FreeOrion",
+ "category": "games",
+ "github": "freeorion/freeorion",
+ "flathub": "org.freeorion.FreeOrion",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "freeorion"
+  ]
+ },
+ "detect": [
+  "freeorion"
+ ],
+ "kind": "gui",
+ "stars": 4.5,
+ "reviews": 64
 }

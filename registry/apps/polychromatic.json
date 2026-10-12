@@ -1,17 +1,19 @@
 {
-  "id": "polychromatic",
-  "name": "Polychromatic",
-  "category": "utilities",
-  "github": "polychromatic/polychromatic",
-  "flathub": "app.polychromatic.controller",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "polychromatic"
-    ]
-  },
-  "detect": [
-    "polychromatic"
-  ],
-  "kind": "gui"
+ "id": "polychromatic",
+ "name": "Polychromatic",
+ "category": "utilities",
+ "github": "polychromatic/polychromatic",
+ "flathub": "app.polychromatic.controller",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "polychromatic"
+  ]
+ },
+ "detect": [
+  "polychromatic"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 314
 }

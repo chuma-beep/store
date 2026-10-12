@@ -1,18 +1,20 @@
 {
-  "id": "bluej",
-  "name": "BlueJ",
-  "category": "developer-tools",
-  "flathub": "org.bluej.BlueJ",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "bluej"
-    ]
-  },
-  "detect": [
-    "bluej"
-  ],
-  "kind": "gui",
-  "developer": "King's College London",
-  "github": null
+ "id": "bluej",
+ "name": "BlueJ",
+ "category": "developer-tools",
+ "flathub": "org.bluej.BlueJ",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "bluej"
+  ]
+ },
+ "detect": [
+  "bluej"
+ ],
+ "kind": "gui",
+ "developer": "King's College London",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 406
 }

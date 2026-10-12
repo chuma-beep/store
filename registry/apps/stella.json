@@ -1,18 +1,20 @@
 {
-  "id": "stella",
-  "name": "Stella",
-  "category": "games",
-  "flathub": "io.github.stella_emu.Stella",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "stella"
-    ]
-  },
-  "detect": [
-    "stella"
-  ],
-  "kind": "gui",
-  "developer": "The Stella Team",
-  "github": null
+ "id": "stella",
+ "name": "Stella",
+ "category": "games",
+ "flathub": "io.github.stella_emu.Stella",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "stella"
+  ]
+ },
+ "detect": [
+  "stella"
+ ],
+ "kind": "gui",
+ "developer": "The Stella Team",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 127
 }

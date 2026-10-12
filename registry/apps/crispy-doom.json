@@ -1,18 +1,20 @@
 {
-  "id": "crispy-doom",
-  "name": "Crispy Doom",
-  "category": "games",
-  "flathub": "io.github.fabiangreffrath.Doom",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "crispy-doom"
-    ]
-  },
-  "detect": [
-    "crispy-doom"
-  ],
-  "kind": "gui",
-  "developer": "Fabian Greffrath",
-  "github": null
+ "id": "crispy-doom",
+ "name": "Crispy Doom",
+ "category": "games",
+ "flathub": "io.github.fabiangreffrath.Doom",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "crispy-doom"
+  ]
+ },
+ "detect": [
+  "crispy-doom"
+ ],
+ "kind": "gui",
+ "developer": "Fabian Greffrath",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 577
 }

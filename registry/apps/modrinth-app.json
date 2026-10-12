@@ -1,18 +1,20 @@
 {
-  "id": "modrinth-app",
-  "name": "Modrinth App",
-  "category": "games",
-  "flathub": "com.modrinth.ModrinthApp",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "modrinth-app"
-    ]
-  },
-  "detect": [
-    "modrinth-app"
-  ],
-  "kind": "gui",
-  "developer": "Rinth, Inc",
-  "github": null
+ "id": "modrinth-app",
+ "name": "Modrinth App",
+ "category": "games",
+ "flathub": "com.modrinth.ModrinthApp",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "modrinth-app"
+  ]
+ },
+ "detect": [
+  "modrinth-app"
+ ],
+ "kind": "gui",
+ "developer": "Rinth, Inc",
+ "github": null,
+ "stars": 4.2,
+ "reviews": 147
 }

@@ -1,21 +1,23 @@
 {
-  "id": "monolith",
-  "name": "Monolith",
-  "category": "terminal",
-  "github": "Y2Z/monolith",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "monolith"
-    ]
-  },
-  "detect": [
-    "monolith"
-  ],
-  "kind": "terminal",
-  "summary": "GUI/CLI tool and library for saving complete web pages as a single HTML file",
-  "icon": null,
-  "open": "monolith",
-  "cli": true
+ "id": "monolith",
+ "name": "Monolith",
+ "category": "terminal",
+ "github": "Y2Z/monolith",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "monolith"
+  ]
+ },
+ "detect": [
+  "monolith"
+ ],
+ "kind": "terminal",
+ "summary": "GUI/CLI tool and library for saving complete web pages as a single HTML file",
+ "icon": null,
+ "open": "monolith",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 12
 }

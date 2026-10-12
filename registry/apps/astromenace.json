@@ -1,18 +1,20 @@
 {
-  "id": "astromenace",
-  "name": "AstroMenace",
-  "category": "games",
-  "flathub": "com.viewizard.AstroMenace",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "astromenace"
-    ]
-  },
-  "detect": [
-    "astromenace"
-  ],
-  "kind": "gui",
-  "developer": "Viewizard",
-  "github": null
+ "id": "astromenace",
+ "name": "AstroMenace",
+ "category": "games",
+ "flathub": "com.viewizard.AstroMenace",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "astromenace"
+  ]
+ },
+ "detect": [
+  "astromenace"
+ ],
+ "kind": "gui",
+ "developer": "Viewizard",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 17
 }

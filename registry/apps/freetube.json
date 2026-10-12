@@ -1,17 +1,19 @@
 {
-  "id": "freetube",
-  "name": "FreeTube",
-  "category": "media",
-  "github": "FreeTubeApp/FreeTube",
-  "flathub": "io.freetubeapp.FreeTube",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "freetube-bin"
-    ]
-  },
-  "detect": [
-    "freetube-bin"
-  ],
-  "kind": "gui"
+ "id": "freetube",
+ "name": "FreeTube",
+ "category": "media",
+ "github": "FreeTubeApp/FreeTube",
+ "flathub": "io.freetubeapp.FreeTube",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "freetube-bin"
+  ]
+ },
+ "detect": [
+  "freetube-bin"
+ ],
+ "kind": "gui",
+ "stars": 4.2,
+ "reviews": 33
 }

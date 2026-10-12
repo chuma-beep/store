@@ -1,21 +1,23 @@
 {
-  "id": "bore",
-  "name": "bore",
-  "category": "developer-tools",
-  "github": "ekzhang/bore",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "bore"
-    ]
-  },
-  "detect": [
-    "bore"
-  ],
-  "kind": "terminal",
-  "summary": "bore is a simple CLI tool for making tunnels to localhost",
-  "icon": null,
-  "open": "bore",
-  "cli": true
+ "id": "bore",
+ "name": "bore",
+ "category": "developer-tools",
+ "github": "ekzhang/bore",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "bore"
+  ]
+ },
+ "detect": [
+  "bore"
+ ],
+ "kind": "terminal",
+ "summary": "bore is a simple CLI tool for making tunnels to localhost",
+ "icon": null,
+ "open": "bore",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 537
 }

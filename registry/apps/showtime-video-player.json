@@ -1,18 +1,20 @@
 {
-  "id": "showtime-video-player",
-  "name": "Showtime Video Player",
-  "category": "video-audio",
-  "flathub": "org.gnome.Showtime",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "showtime"
-    ]
-  },
-  "detect": [
-    "showtime"
-  ],
-  "kind": "gui",
-  "developer": "The GNOME Project",
-  "github": null
+ "id": "showtime-video-player",
+ "name": "Showtime Video Player",
+ "category": "video-audio",
+ "flathub": "org.gnome.Showtime",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "showtime"
+  ]
+ },
+ "detect": [
+  "showtime"
+ ],
+ "kind": "gui",
+ "developer": "The GNOME Project",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 530
 }

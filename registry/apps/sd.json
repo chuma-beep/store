@@ -1,21 +1,23 @@
 {
-  "id": "sd",
-  "name": "sd",
-  "category": "terminal",
-  "github": "chmln/sd",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "sd"
-    ]
-  },
-  "detect": [
-    "sd"
-  ],
-  "kind": "terminal",
-  "summary": "Intuitive find & replace CLI (sed alternative)",
-  "icon": null,
-  "open": "sd",
-  "cli": true
+ "id": "sd",
+ "name": "sd",
+ "category": "terminal",
+ "github": "chmln/sd",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "sd"
+  ]
+ },
+ "detect": [
+  "sd"
+ ],
+ "kind": "terminal",
+ "summary": "Intuitive find & replace CLI (sed alternative)",
+ "icon": null,
+ "open": "sd",
+ "cli": true,
+ "stars": 4.2,
+ "reviews": 303
 }

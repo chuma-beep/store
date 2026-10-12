@@ -1,22 +1,24 @@
 {
-  "id": "omasnap",
-  "name": "Omasnap",
-  "category": "graphics",
-  "github": "tobi/omasnap",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "omasnap"
-    ]
-  },
-  "detect": [
-    "omasnap"
-  ],
-  "kind": "gui",
-  "summary": "Native Wayland screenshot and annotation overlay for Hyprland",
-  "homepage": "https://github.com/tobi/omasnap",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "omasnap",
+ "name": "Omasnap",
+ "category": "graphics",
+ "github": "tobi/omasnap",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "omasnap"
+  ]
+ },
+ "detect": [
+  "omasnap"
+ ],
+ "kind": "gui",
+ "summary": "Native Wayland screenshot and annotation overlay for Hyprland",
+ "homepage": "https://github.com/tobi/omasnap",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.5,
+ "reviews": 406
 }

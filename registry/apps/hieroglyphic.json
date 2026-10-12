@@ -1,18 +1,20 @@
 {
-  "id": "hieroglyphic",
-  "name": "Hieroglyphic",
-  "category": "education",
-  "flathub": "io.github.finefindus.Hieroglyphic",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "hieroglyphic"
-    ]
-  },
-  "detect": [
-    "hieroglyphic"
-  ],
-  "kind": "gui",
-  "developer": "FineFindus",
-  "github": null
+ "id": "hieroglyphic",
+ "name": "Hieroglyphic",
+ "category": "education",
+ "flathub": "io.github.finefindus.Hieroglyphic",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "hieroglyphic"
+  ]
+ },
+ "detect": [
+  "hieroglyphic"
+ ],
+ "kind": "gui",
+ "developer": "FineFindus",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 82
 }

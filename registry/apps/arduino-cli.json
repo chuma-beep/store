@@ -1,21 +1,23 @@
 {
-  "id": "arduino-cli",
-  "name": "Arduino CLI",
-  "category": "developer-tools",
-  "github": "arduino/arduino-cli",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "arduino-cli"
-    ]
-  },
-  "detect": [
-    "arduino-cli"
-  ],
-  "kind": "terminal",
-  "summary": "Arduino command line tool",
-  "icon": null,
-  "open": "arduino-cli",
-  "cli": true
+ "id": "arduino-cli",
+ "name": "Arduino CLI",
+ "category": "developer-tools",
+ "github": "arduino/arduino-cli",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "arduino-cli"
+  ]
+ },
+ "detect": [
+  "arduino-cli"
+ ],
+ "kind": "terminal",
+ "summary": "Arduino command line tool",
+ "icon": null,
+ "open": "arduino-cli",
+ "cli": true,
+ "stars": 4.3,
+ "reviews": 510
 }

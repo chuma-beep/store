@@ -1,18 +1,20 @@
 {
-  "id": "quakespasm",
-  "name": "Quakespasm",
-  "category": "games",
-  "flathub": "net.sourceforge.quakespasm.Quakespasm",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "quakespasm"
-    ]
-  },
-  "detect": [
-    "quakespasm"
-  ],
-  "kind": "gui",
-  "developer": "Quakespasm contributors",
-  "github": null
+ "id": "quakespasm",
+ "name": "Quakespasm",
+ "category": "games",
+ "flathub": "net.sourceforge.quakespasm.Quakespasm",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "quakespasm"
+  ]
+ },
+ "detect": [
+  "quakespasm"
+ ],
+ "kind": "gui",
+ "developer": "Quakespasm contributors",
+ "github": null,
+ "stars": 4.6,
+ "reviews": 102
 }

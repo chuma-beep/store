@@ -1,19 +1,21 @@
 {
-  "id": "spotify",
-  "name": "Spotify",
-  "category": "media",
-  "github": null,
-  "flathub": "com.spotify.Client",
-  "install": {
-    "method": "omarchy",
-    "command": "omarchy install service spotify"
-  },
-  "detect": [
-    "spotify"
-  ],
-  "kind": "gui",
-  "tags": [
-    "music",
-    "streaming"
-  ]
+ "id": "spotify",
+ "name": "Spotify",
+ "category": "media",
+ "github": null,
+ "flathub": "com.spotify.Client",
+ "install": {
+  "method": "omarchy",
+  "command": "omarchy install service spotify"
+ },
+ "detect": [
+  "spotify"
+ ],
+ "kind": "gui",
+ "tags": [
+  "music",
+  "streaming"
+ ],
+ "stars": 4.3,
+ "reviews": 154
 }

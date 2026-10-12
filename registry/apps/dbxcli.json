@@ -1,23 +1,25 @@
 {
-  "id": "dbxcli",
-  "name": "dbxcli",
-  "category": "developer-tools",
-  "github": "dropbox/dbxcli",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "dbxcli-bin"
-    ]
-  },
-  "detect": [
-    "dbxcli-bin"
-  ],
-  "kind": "terminal",
-  "summary": "A command line client for Dropbox built using the Go SDK",
-  "homepage": "https://github.com/dropbox/dbxcli",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "dbxcli",
+ "name": "dbxcli",
+ "category": "developer-tools",
+ "github": "dropbox/dbxcli",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "dbxcli-bin"
+  ]
+ },
+ "detect": [
+  "dbxcli-bin"
+ ],
+ "kind": "terminal",
+ "summary": "A command line client for Dropbox built using the Go SDK",
+ "homepage": "https://github.com/dropbox/dbxcli",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.6,
+ "reviews": 532
 }

@@ -1,18 +1,20 @@
 {
-  "id": "geary",
-  "name": "Geary",
-  "category": "communication",
-  "flathub": "org.gnome.Geary",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "geary"
-    ]
-  },
-  "detect": [
-    "geary"
-  ],
-  "kind": "gui",
-  "developer": "Geary Development Team",
-  "github": null
+ "id": "geary",
+ "name": "Geary",
+ "category": "communication",
+ "flathub": "org.gnome.Geary",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "geary"
+  ]
+ },
+ "detect": [
+  "geary"
+ ],
+ "kind": "gui",
+ "developer": "Geary Development Team",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 472
 }

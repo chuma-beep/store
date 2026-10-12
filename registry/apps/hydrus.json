@@ -1,17 +1,19 @@
 {
-  "id": "hydrus",
-  "name": "Hydrus",
-  "category": "utilities",
-  "github": "hydrusnetwork/hydrus",
-  "flathub": "io.github.hydrusnetwork.hydrus",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "hydrus"
-    ]
-  },
-  "detect": [
-    "hydrus"
-  ],
-  "kind": "gui"
+ "id": "hydrus",
+ "name": "Hydrus",
+ "category": "utilities",
+ "github": "hydrusnetwork/hydrus",
+ "flathub": "io.github.hydrusnetwork.hydrus",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "hydrus"
+  ]
+ },
+ "detect": [
+  "hydrus"
+ ],
+ "kind": "gui",
+ "stars": 4.6,
+ "reviews": 379
 }

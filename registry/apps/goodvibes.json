@@ -1,18 +1,20 @@
 {
-  "id": "goodvibes",
-  "name": "Goodvibes",
-  "category": "video-audio",
-  "flathub": "io.gitlab.Goodvibes",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "goodvibes"
-    ]
-  },
-  "detect": [
-    "goodvibes"
-  ],
-  "kind": "gui",
-  "developer": "Arnaud Rebillout",
-  "github": null
+ "id": "goodvibes",
+ "name": "Goodvibes",
+ "category": "video-audio",
+ "flathub": "io.gitlab.Goodvibes",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "goodvibes"
+  ]
+ },
+ "detect": [
+  "goodvibes"
+ ],
+ "kind": "gui",
+ "developer": "Arnaud Rebillout",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 198
 }

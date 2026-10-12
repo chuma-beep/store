@@ -1,17 +1,19 @@
 {
-  "id": "sunshine",
-  "name": "Sunshine",
-  "category": "utilities",
-  "github": "LizardByte/Sunshine",
-  "flathub": "dev.lizardbyte.app.Sunshine",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "sunshine"
-    ]
-  },
-  "detect": [
-    "sunshine"
-  ],
-  "kind": "gui"
+ "id": "sunshine",
+ "name": "Sunshine",
+ "category": "utilities",
+ "github": "LizardByte/Sunshine",
+ "flathub": "dev.lizardbyte.app.Sunshine",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "sunshine"
+  ]
+ },
+ "detect": [
+  "sunshine"
+ ],
+ "kind": "gui",
+ "stars": 4.7,
+ "reviews": 429
 }

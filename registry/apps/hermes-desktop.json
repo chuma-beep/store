@@ -1,22 +1,24 @@
 {
-  "id": "hermes-desktop",
-  "name": "Hermes Desktop",
-  "category": "ai",
-  "github": "NousResearch/hermes-agent",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "hermes-desktop"
-    ]
-  },
-  "detect": [
-    "hermes-desktop"
-  ],
-  "kind": "gui",
-  "summary": "Native desktop shell for Hermes Agent",
-  "homepage": "https://github.com/NousResearch/hermes-agent",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "hermes-desktop",
+ "name": "Hermes Desktop",
+ "category": "ai",
+ "github": "NousResearch/hermes-agent",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "hermes-desktop"
+  ]
+ },
+ "detect": [
+  "hermes-desktop"
+ ],
+ "kind": "gui",
+ "summary": "Native desktop shell for Hermes Agent",
+ "homepage": "https://github.com/NousResearch/hermes-agent",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.2,
+ "reviews": 224
 }

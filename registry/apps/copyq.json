@@ -1,17 +1,19 @@
 {
-  "id": "copyq",
-  "name": "CopyQ",
-  "category": "utilities",
-  "github": "hluk/CopyQ",
-  "flathub": "com.github.hluk.copyq",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "copyq"
-    ]
-  },
-  "detect": [
-    "copyq"
-  ],
-  "kind": "gui"
+ "id": "copyq",
+ "name": "CopyQ",
+ "category": "utilities",
+ "github": "hluk/CopyQ",
+ "flathub": "com.github.hluk.copyq",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "copyq"
+  ]
+ },
+ "detect": [
+  "copyq"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 58
 }

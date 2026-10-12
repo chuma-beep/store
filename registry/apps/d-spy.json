@@ -1,18 +1,20 @@
 {
-  "id": "d-spy",
-  "name": "D-Spy",
-  "category": "developer-tools",
-  "flathub": "org.gnome.dspy",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "d-spy"
-    ]
-  },
-  "detect": [
-    "d-spy"
-  ],
-  "kind": "gui",
-  "developer": "Christian Hergert",
-  "github": null
+ "id": "d-spy",
+ "name": "D-Spy",
+ "category": "developer-tools",
+ "flathub": "org.gnome.dspy",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "d-spy"
+  ]
+ },
+ "detect": [
+  "d-spy"
+ ],
+ "kind": "gui",
+ "developer": "Christian Hergert",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 475
 }

@@ -1,20 +1,22 @@
 {
-  "id": "binsider",
-  "name": "binsider",
-  "category": "security",
-  "github": "orhun/binsider",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "binsider"
-    ]
-  },
-  "detect": [
-    "binsider"
-  ],
-  "kind": "terminal",
-  "summary": "Analyze ELF binaries like a boss️‍️",
-  "icon": null,
-  "open": "binsider"
+ "id": "binsider",
+ "name": "binsider",
+ "category": "security",
+ "github": "orhun/binsider",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "binsider"
+  ]
+ },
+ "detect": [
+  "binsider"
+ ],
+ "kind": "terminal",
+ "summary": "Analyze ELF binaries like a boss️‍️",
+ "icon": null,
+ "open": "binsider",
+ "stars": 4.5,
+ "reviews": 109
 }

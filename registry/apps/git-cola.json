@@ -1,17 +1,19 @@
 {
-  "id": "git-cola",
-  "name": "Git Cola",
-  "category": "developer-tools",
-  "github": "git-cola/git-cola",
-  "flathub": "com.github.git_cola.git-cola",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "git-cola"
-    ]
-  },
-  "detect": [
-    "git-cola"
-  ],
-  "kind": "gui"
+ "id": "git-cola",
+ "name": "Git Cola",
+ "category": "developer-tools",
+ "github": "git-cola/git-cola",
+ "flathub": "com.github.git_cola.git-cola",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "git-cola"
+  ]
+ },
+ "detect": [
+  "git-cola"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 328
 }

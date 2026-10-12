@@ -1,18 +1,20 @@
 {
-  "id": "cobang",
-  "name": "CoBang",
-  "category": "productivity",
-  "github": "hongquan/CoBang",
-  "flathub": "vn.hoabinh.quan.CoBang",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "cobang"
-    ]
-  },
-  "detect": [
-    "cobang"
-  ],
-  "kind": "gui",
-  "developer": "Nguyễn Hồng Quân"
+ "id": "cobang",
+ "name": "CoBang",
+ "category": "productivity",
+ "github": "hongquan/CoBang",
+ "flathub": "vn.hoabinh.quan.CoBang",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "cobang"
+  ]
+ },
+ "detect": [
+  "cobang"
+ ],
+ "kind": "gui",
+ "developer": "Nguyễn Hồng Quân",
+ "stars": 4.7,
+ "reviews": 105
 }

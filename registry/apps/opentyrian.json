@@ -1,18 +1,20 @@
 {
-  "id": "opentyrian",
-  "name": "OpenTyrian",
-  "category": "games",
-  "flathub": "com.github.opentyrian.OpenTyrian",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "opentyrian"
-    ]
-  },
-  "detect": [
-    "opentyrian"
-  ],
-  "kind": "gui",
-  "developer": "OpenTyrian team",
-  "github": null
+ "id": "opentyrian",
+ "name": "OpenTyrian",
+ "category": "games",
+ "flathub": "com.github.opentyrian.OpenTyrian",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "opentyrian"
+  ]
+ },
+ "detect": [
+  "opentyrian"
+ ],
+ "kind": "gui",
+ "developer": "OpenTyrian team",
+ "github": null,
+ "stars": 4.6,
+ "reviews": 503
 }

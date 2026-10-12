@@ -1,17 +1,19 @@
 {
-  "id": "dbeaver-community",
-  "name": "DBeaver Community",
-  "category": "developer-tools",
-  "github": "dbeaver/dbeaver",
-  "flathub": "io.dbeaver.DBeaverCommunity",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "dbeaver"
-    ]
-  },
-  "detect": [
-    "dbeaver"
-  ],
-  "kind": "gui"
+ "id": "dbeaver-community",
+ "name": "DBeaver Community",
+ "category": "developer-tools",
+ "github": "dbeaver/dbeaver",
+ "flathub": "io.dbeaver.DBeaverCommunity",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "dbeaver"
+  ]
+ },
+ "detect": [
+  "dbeaver"
+ ],
+ "kind": "gui",
+ "stars": 4.2,
+ "reviews": 51
 }

@@ -1,20 +1,22 @@
 {
-  "id": "hexyl",
-  "name": "hexyl",
-  "category": "terminal",
-  "github": "sharkdp/hexyl",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "hexyl"
-    ]
-  },
-  "detect": [
-    "hexyl"
-  ],
-  "kind": "terminal",
-  "summary": "A command-line hex viewer",
-  "cli": true,
-  "icon": null
+ "id": "hexyl",
+ "name": "hexyl",
+ "category": "terminal",
+ "github": "sharkdp/hexyl",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "hexyl"
+  ]
+ },
+ "detect": [
+  "hexyl"
+ ],
+ "kind": "terminal",
+ "summary": "A command-line hex viewer",
+ "cli": true,
+ "icon": null,
+ "stars": 4.5,
+ "reviews": 203
 }

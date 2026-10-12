@@ -1,18 +1,20 @@
 {
-  "id": "unvanquished",
-  "name": "Unvanquished",
-  "category": "games",
-  "flathub": "net.unvanquished.Unvanquished",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "unvanquished"
-    ]
-  },
-  "detect": [
-    "unvanquished"
-  ],
-  "kind": "gui",
-  "developer": "Unvanquished Development",
-  "github": null
+ "id": "unvanquished",
+ "name": "Unvanquished",
+ "category": "games",
+ "flathub": "net.unvanquished.Unvanquished",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "unvanquished"
+  ]
+ },
+ "detect": [
+  "unvanquished"
+ ],
+ "kind": "gui",
+ "developer": "Unvanquished Development",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 244
 }

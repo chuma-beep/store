@@ -1,18 +1,20 @@
 {
-  "id": "soundconverter",
-  "name": "SoundConverter",
-  "category": "video-audio",
-  "flathub": "org.soundconverter.SoundConverter",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "soundconverter"
-    ]
-  },
-  "detect": [
-    "soundconverter"
-  ],
-  "kind": "gui",
-  "developer": "Gautier Portet",
-  "github": null
+ "id": "soundconverter",
+ "name": "SoundConverter",
+ "category": "video-audio",
+ "flathub": "org.soundconverter.SoundConverter",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "soundconverter"
+  ]
+ },
+ "detect": [
+  "soundconverter"
+ ],
+ "kind": "gui",
+ "developer": "Gautier Portet",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 569
 }

@@ -1,17 +1,19 @@
 {
-  "id": "shotcut",
-  "name": "Shotcut",
-  "category": "video-audio",
-  "github": "mltframework/shotcut",
-  "flathub": "org.shotcut.Shotcut",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "shotcut"
-    ]
-  },
-  "detect": [
-    "shotcut"
-  ],
-  "kind": "gui"
+ "id": "shotcut",
+ "name": "Shotcut",
+ "category": "video-audio",
+ "github": "mltframework/shotcut",
+ "flathub": "org.shotcut.Shotcut",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "shotcut"
+  ]
+ },
+ "detect": [
+  "shotcut"
+ ],
+ "kind": "gui",
+ "stars": 4.7,
+ "reviews": 123
 }

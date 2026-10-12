@@ -1,21 +1,23 @@
 {
-  "id": "qbittorrent",
-  "name": "qBittorrent",
-  "category": "utilities",
-  "github": "qbittorrent/qBittorrent",
-  "flathub": "org.qbittorrent.qBittorrent",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "qbittorrent"
-    ]
-  },
-  "detect": [
-    "qbittorrent"
-  ],
-  "kind": "gui",
-  "tags": [
-    "torrent",
-    "downloads"
+ "id": "qbittorrent",
+ "name": "qBittorrent",
+ "category": "utilities",
+ "github": "qbittorrent/qBittorrent",
+ "flathub": "org.qbittorrent.qBittorrent",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "qbittorrent"
   ]
+ },
+ "detect": [
+  "qbittorrent"
+ ],
+ "kind": "gui",
+ "tags": [
+  "torrent",
+  "downloads"
+ ],
+ "stars": 4.2,
+ "reviews": 242
 }

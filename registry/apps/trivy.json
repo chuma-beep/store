@@ -1,20 +1,22 @@
 {
-  "id": "trivy",
-  "name": "Trivy",
-  "category": "security",
-  "github": "aquasecurity/trivy",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "trivy"
-    ]
-  },
-  "detect": [
-    "trivy"
-  ],
-  "kind": "terminal",
-  "summary": "Find vulnerabilities, misconfigurations, secrets, SBOM in containers, Kubernetes, code repositories, clouds and more",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/12783832?s=256"
+ "id": "trivy",
+ "name": "Trivy",
+ "category": "security",
+ "github": "aquasecurity/trivy",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "trivy"
+  ]
+ },
+ "detect": [
+  "trivy"
+ ],
+ "kind": "terminal",
+ "summary": "Find vulnerabilities, misconfigurations, secrets, SBOM in containers, Kubernetes, code repositories, clouds and more",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/12783832?s=256",
+ "stars": 4.5,
+ "reviews": 463
 }

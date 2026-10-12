@@ -1,17 +1,19 @@
 {
-  "id": "openttd",
-  "name": "OpenTTD",
-  "category": "games",
-  "github": "OpenTTD/OpenTTD",
-  "flathub": "org.openttd.OpenTTD",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "openttd"
-    ]
-  },
-  "detect": [
-    "openttd"
-  ],
-  "kind": "gui"
+ "id": "openttd",
+ "name": "OpenTTD",
+ "category": "games",
+ "github": "OpenTTD/OpenTTD",
+ "flathub": "org.openttd.OpenTTD",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "openttd"
+  ]
+ },
+ "detect": [
+  "openttd"
+ ],
+ "kind": "gui",
+ "stars": 4.5,
+ "reviews": 173
 }

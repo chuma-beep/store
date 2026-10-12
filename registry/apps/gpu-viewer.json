@@ -1,18 +1,20 @@
 {
-  "id": "gpu-viewer",
-  "name": "GPU-Viewer",
-  "category": "utilities",
-  "github": "arunsivaramanneo/GPU-Viewer",
-  "flathub": "io.github.arunsivaramanneo.GPUViewer",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gpu-viewer"
-    ]
-  },
-  "detect": [
-    "gpu-viewer"
-  ],
-  "kind": "gui",
-  "developer": "Arun Sivaraman"
+ "id": "gpu-viewer",
+ "name": "GPU-Viewer",
+ "category": "utilities",
+ "github": "arunsivaramanneo/GPU-Viewer",
+ "flathub": "io.github.arunsivaramanneo.GPUViewer",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gpu-viewer"
+  ]
+ },
+ "detect": [
+  "gpu-viewer"
+ ],
+ "kind": "gui",
+ "developer": "Arun Sivaraman",
+ "stars": 4.3,
+ "reviews": 98
 }

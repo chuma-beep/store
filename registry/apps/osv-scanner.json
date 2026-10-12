@@ -1,21 +1,23 @@
 {
-  "id": "osv-scanner",
-  "name": "OSV-Scanner",
-  "category": "security",
-  "github": "google/osv-scanner",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "osv-scanner"
-    ]
-  },
-  "detect": [
-    "osv-scanner"
-  ],
-  "kind": "terminal",
-  "summary": "Vulnerability scanner written in Go which uses the data provided by https://osv.dev",
-  "icon": null,
-  "open": "osv-scanner",
-  "cli": true
+ "id": "osv-scanner",
+ "name": "OSV-Scanner",
+ "category": "security",
+ "github": "google/osv-scanner",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "osv-scanner"
+  ]
+ },
+ "detect": [
+  "osv-scanner"
+ ],
+ "kind": "terminal",
+ "summary": "Vulnerability scanner written in Go which uses the data provided by https://osv.dev",
+ "icon": null,
+ "open": "osv-scanner",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 461
 }

@@ -1,18 +1,20 @@
 {
-  "id": "drawing",
-  "name": "Drawing",
-  "category": "graphics",
-  "flathub": "com.github.maoschanz.drawing",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "drawing"
-    ]
-  },
-  "detect": [
-    "drawing"
-  ],
-  "kind": "gui",
-  "developer": "Romain F. T.",
-  "github": null
+ "id": "drawing",
+ "name": "Drawing",
+ "category": "graphics",
+ "flathub": "com.github.maoschanz.drawing",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "drawing"
+  ]
+ },
+ "detect": [
+  "drawing"
+ ],
+ "kind": "gui",
+ "developer": "Romain F. T.",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 196
 }

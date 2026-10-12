@@ -1,25 +1,27 @@
 {
-  "id": "yazi",
-  "name": "Yazi",
-  "category": "utilities",
-  "github": "sxyazi/yazi",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "yazi"
-    ]
-  },
-  "detect": [
-    "yazi"
-  ],
-  "kind": "terminal",
-  "open": "yazi",
-  "tags": [
-    "files",
-    "tui"
-  ],
-  "icon": "https://raw.githubusercontent.com/sxyazi/yazi/main/assets/logo.png",
-  "summary": "Blazing fast terminal file manager",
-  "developer": "sxyazi"
+ "id": "yazi",
+ "name": "Yazi",
+ "category": "utilities",
+ "github": "sxyazi/yazi",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "yazi"
+  ]
+ },
+ "detect": [
+  "yazi"
+ ],
+ "kind": "terminal",
+ "open": "yazi",
+ "tags": [
+  "files",
+  "tui"
+ ],
+ "icon": "https://raw.githubusercontent.com/sxyazi/yazi/main/assets/logo.png",
+ "summary": "Blazing fast terminal file manager",
+ "developer": "sxyazi",
+ "stars": 4.7,
+ "reviews": 113
 }

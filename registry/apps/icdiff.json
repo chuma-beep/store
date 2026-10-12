@@ -1,21 +1,23 @@
 {
-  "id": "icdiff",
-  "name": "icdiff",
-  "category": "terminal",
-  "github": "jeffkaufman/icdiff",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "icdiff"
-    ]
-  },
-  "detect": [
-    "icdiff"
-  ],
-  "kind": "terminal",
-  "summary": "improved colored diff",
-  "icon": null,
-  "open": "icdiff",
-  "cli": true
+ "id": "icdiff",
+ "name": "icdiff",
+ "category": "terminal",
+ "github": "jeffkaufman/icdiff",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "icdiff"
+  ]
+ },
+ "detect": [
+  "icdiff"
+ ],
+ "kind": "terminal",
+ "summary": "improved colored diff",
+ "icon": null,
+ "open": "icdiff",
+ "cli": true,
+ "stars": 4.4,
+ "reviews": 414
 }

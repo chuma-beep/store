@@ -1,18 +1,20 @@
 {
-  "id": "zulip",
-  "name": "Zulip",
-  "category": "communication",
-  "flathub": "org.zulip.Zulip",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "zulip-desktop"
-    ]
-  },
-  "detect": [
-    "zulip-desktop"
-  ],
-  "kind": "gui",
-  "developer": "Kandra Labs, Inc.",
-  "github": null
+ "id": "zulip",
+ "name": "Zulip",
+ "category": "communication",
+ "flathub": "org.zulip.Zulip",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "zulip-desktop"
+  ]
+ },
+ "detect": [
+  "zulip-desktop"
+ ],
+ "kind": "gui",
+ "developer": "Kandra Labs, Inc.",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 352
 }

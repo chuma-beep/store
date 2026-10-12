@@ -1,17 +1,19 @@
 {
-  "id": "pinta",
-  "name": "Pinta",
-  "category": "graphics",
-  "github": "PintaProject/Pinta",
-  "flathub": "com.github.PintaProject.Pinta",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "pinta"
-    ]
-  },
-  "detect": [
-    "pinta"
-  ],
-  "kind": "gui"
+ "id": "pinta",
+ "name": "Pinta",
+ "category": "graphics",
+ "github": "PintaProject/Pinta",
+ "flathub": "com.github.PintaProject.Pinta",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "pinta"
+  ]
+ },
+ "detect": [
+  "pinta"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 536
 }

@@ -1,17 +1,19 @@
 {
-  "id": "waterfox",
-  "name": "Waterfox",
-  "category": "browsers",
-  "github": "BrowserWorks/waterfox",
-  "flathub": "net.waterfox.waterfox",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "waterfox"
-    ]
-  },
-  "detect": [
-    "waterfox"
-  ],
-  "kind": "gui"
+ "id": "waterfox",
+ "name": "Waterfox",
+ "category": "browsers",
+ "github": "BrowserWorks/waterfox",
+ "flathub": "net.waterfox.waterfox",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "waterfox"
+  ]
+ },
+ "detect": [
+  "waterfox"
+ ],
+ "kind": "gui",
+ "stars": 4.6,
+ "reviews": 329
 }

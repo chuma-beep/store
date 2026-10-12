@@ -1,19 +1,21 @@
 {
-  "id": "dropbox",
-  "name": "Dropbox",
-  "category": "productivity",
-  "github": null,
-  "flathub": "com.dropbox.Client",
-  "install": {
-    "method": "omarchy",
-    "command": "omarchy install service dropbox"
-  },
-  "detect": [
-    "dropbox"
-  ],
-  "kind": "gui",
-  "tags": [
-    "cloud",
-    "sync"
-  ]
+ "id": "dropbox",
+ "name": "Dropbox",
+ "category": "productivity",
+ "github": null,
+ "flathub": "com.dropbox.Client",
+ "install": {
+  "method": "omarchy",
+  "command": "omarchy install service dropbox"
+ },
+ "detect": [
+  "dropbox"
+ ],
+ "kind": "gui",
+ "tags": [
+  "cloud",
+  "sync"
+ ],
+ "stars": 4.3,
+ "reviews": 557
 }

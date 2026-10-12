@@ -1,18 +1,20 @@
 {
-  "id": "kasts",
-  "name": "Kasts",
-  "category": "utilities",
-  "flathub": "org.kde.kasts",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kasts"
-    ]
-  },
-  "detect": [
-    "kasts"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "kasts",
+ "name": "Kasts",
+ "category": "utilities",
+ "flathub": "org.kde.kasts",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kasts"
+  ]
+ },
+ "detect": [
+  "kasts"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 96
 }

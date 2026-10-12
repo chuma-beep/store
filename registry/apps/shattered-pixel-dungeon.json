@@ -1,17 +1,19 @@
 {
-  "id": "shattered-pixel-dungeon",
-  "name": "Shattered Pixel Dungeon",
-  "category": "games",
-  "github": "00-Evan/shattered-pixel-dungeon",
-  "flathub": "com.shatteredpixel.shatteredpixeldungeon",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "shattered-pixel-dungeon"
-    ]
-  },
-  "detect": [
-    "shattered-pixel-dungeon"
-  ],
-  "kind": "gui"
+ "id": "shattered-pixel-dungeon",
+ "name": "Shattered Pixel Dungeon",
+ "category": "games",
+ "github": "00-Evan/shattered-pixel-dungeon",
+ "flathub": "com.shatteredpixel.shatteredpixeldungeon",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "shattered-pixel-dungeon"
+  ]
+ },
+ "detect": [
+  "shattered-pixel-dungeon"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 520
 }

@@ -1,17 +1,19 @@
 {
-  "id": "klayout",
-  "name": "KLayout",
-  "category": "developer-tools",
-  "github": "KLayout/klayout",
-  "flathub": "de.klayout.KLayout",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "klayout"
-    ]
-  },
-  "detect": [
-    "klayout"
-  ],
-  "kind": "gui"
+ "id": "klayout",
+ "name": "KLayout",
+ "category": "developer-tools",
+ "github": "KLayout/klayout",
+ "flathub": "de.klayout.KLayout",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "klayout"
+  ]
+ },
+ "detect": [
+  "klayout"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 391
 }

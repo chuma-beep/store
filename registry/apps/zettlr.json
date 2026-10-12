@@ -1,17 +1,19 @@
 {
-  "id": "zettlr",
-  "name": "Zettlr",
-  "category": "productivity",
-  "github": "Zettlr/Zettlr",
-  "flathub": "com.zettlr.Zettlr",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "zettlr"
-    ]
-  },
-  "detect": [
-    "zettlr"
-  ],
-  "kind": "gui"
+ "id": "zettlr",
+ "name": "Zettlr",
+ "category": "productivity",
+ "github": "Zettlr/Zettlr",
+ "flathub": "com.zettlr.Zettlr",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "zettlr"
+  ]
+ },
+ "detect": [
+  "zettlr"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 305
 }

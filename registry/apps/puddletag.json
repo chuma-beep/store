@@ -1,18 +1,20 @@
 {
-  "id": "puddletag",
-  "name": "Puddletag",
-  "category": "video-audio",
-  "flathub": "net.puddletag.puddletag",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "puddletag"
-    ]
-  },
-  "detect": [
-    "puddletag"
-  ],
-  "kind": "gui",
-  "developer": "Puddletag Authors",
-  "github": null
+ "id": "puddletag",
+ "name": "Puddletag",
+ "category": "video-audio",
+ "flathub": "net.puddletag.puddletag",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "puddletag"
+  ]
+ },
+ "detect": [
+  "puddletag"
+ ],
+ "kind": "gui",
+ "developer": "Puddletag Authors",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 125
 }

@@ -1,17 +1,19 @@
 {
-  "id": "gpxsee",
-  "name": "GPXSee",
-  "category": "utilities",
-  "github": "tumic0/GPXSee",
-  "flathub": "org.gpxsee.GPXSee",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gpxsee"
-    ]
-  },
-  "detect": [
-    "gpxsee"
-  ],
-  "kind": "gui"
+ "id": "gpxsee",
+ "name": "GPXSee",
+ "category": "utilities",
+ "github": "tumic0/GPXSee",
+ "flathub": "org.gpxsee.GPXSee",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gpxsee"
+  ]
+ },
+ "detect": [
+  "gpxsee"
+ ],
+ "kind": "gui",
+ "stars": 4.7,
+ "reviews": 361
 }

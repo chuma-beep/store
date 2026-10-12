@@ -1,18 +1,20 @@
 {
-  "id": "plasmatube",
-  "name": "PlasmaTube",
-  "category": "video-audio",
-  "flathub": "org.kde.plasmatube",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "plasmatube"
-    ]
-  },
-  "detect": [
-    "plasmatube"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "plasmatube",
+ "name": "PlasmaTube",
+ "category": "video-audio",
+ "flathub": "org.kde.plasmatube",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "plasmatube"
+  ]
+ },
+ "detect": [
+  "plasmatube"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 131
 }

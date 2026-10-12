@@ -1,17 +1,19 @@
 {
-  "id": "openra",
-  "name": "OpenRA",
-  "category": "games",
-  "github": "OpenRA/OpenRA",
-  "flathub": "net.openra.OpenRA",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "openra"
-    ]
-  },
-  "detect": [
-    "openra"
-  ],
-  "kind": "gui"
+ "id": "openra",
+ "name": "OpenRA",
+ "category": "games",
+ "github": "OpenRA/OpenRA",
+ "flathub": "net.openra.OpenRA",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "openra"
+  ]
+ },
+ "detect": [
+  "openra"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 172
 }

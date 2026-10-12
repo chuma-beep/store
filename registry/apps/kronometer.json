@@ -1,18 +1,20 @@
 {
-  "id": "kronometer",
-  "name": "Kronometer",
-  "category": "utilities",
-  "flathub": "org.kde.kronometer",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "kronometer"
-    ]
-  },
-  "detect": [
-    "kronometer"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "kronometer",
+ "name": "Kronometer",
+ "category": "utilities",
+ "flathub": "org.kde.kronometer",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "kronometer"
+  ]
+ },
+ "detect": [
+  "kronometer"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 471
 }

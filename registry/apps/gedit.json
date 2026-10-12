@@ -1,18 +1,20 @@
 {
-  "id": "gedit",
-  "name": "gedit",
-  "category": "utilities",
-  "flathub": "org.gnome.gedit",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gedit"
-    ]
-  },
-  "detect": [
-    "gedit"
-  ],
-  "kind": "gui",
-  "developer": "The gedit team",
-  "github": null
+ "id": "gedit",
+ "name": "gedit",
+ "category": "utilities",
+ "flathub": "org.gnome.gedit",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gedit"
+  ]
+ },
+ "detect": [
+  "gedit"
+ ],
+ "kind": "gui",
+ "developer": "The gedit team",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 436
 }

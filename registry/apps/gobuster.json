@@ -1,21 +1,23 @@
 {
-  "id": "gobuster",
-  "name": "Gobuster",
-  "category": "security",
-  "github": "OJ/gobuster",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gobuster"
-    ]
-  },
-  "detect": [
-    "gobuster"
-  ],
-  "kind": "terminal",
-  "summary": "Directory/File, DNS and VHost busting tool written in Go",
-  "icon": null,
-  "open": "gobuster",
-  "cli": true
+ "id": "gobuster",
+ "name": "Gobuster",
+ "category": "security",
+ "github": "OJ/gobuster",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gobuster"
+  ]
+ },
+ "detect": [
+  "gobuster"
+ ],
+ "kind": "terminal",
+ "summary": "Directory/File, DNS and VHost busting tool written in Go",
+ "icon": null,
+ "open": "gobuster",
+ "cli": true,
+ "stars": 4.6,
+ "reviews": 428
 }

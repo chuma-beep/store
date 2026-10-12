@@ -1,18 +1,20 @@
 {
-  "id": "desmume",
-  "name": "DeSmuME",
-  "category": "games",
-  "flathub": "org.desmume.DeSmuME",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "desmume"
-    ]
-  },
-  "detect": [
-    "desmume"
-  ],
-  "kind": "gui",
-  "developer": "DeSmuME Team",
-  "github": null
+ "id": "desmume",
+ "name": "DeSmuME",
+ "category": "games",
+ "flathub": "org.desmume.DeSmuME",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "desmume"
+  ]
+ },
+ "detect": [
+  "desmume"
+ ],
+ "kind": "gui",
+ "developer": "DeSmuME Team",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 279
 }

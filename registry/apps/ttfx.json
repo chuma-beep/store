@@ -1,23 +1,25 @@
 {
-  "id": "ttfx",
-  "name": "Ttfx",
-  "category": "terminal",
-  "github": "omacom-io/ttfx",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "ttfx"
-    ]
-  },
-  "detect": [
-    "ttfx"
-  ],
-  "kind": "terminal",
-  "summary": "Terminal text effects as a single static binary \u2014 Rust port of terminaltexteffects",
-  "homepage": "https://github.com/omacom-io/ttfx",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "ttfx",
+ "name": "Ttfx",
+ "category": "terminal",
+ "github": "omacom-io/ttfx",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "ttfx"
+  ]
+ },
+ "detect": [
+  "ttfx"
+ ],
+ "kind": "terminal",
+ "summary": "Terminal text effects as a single static binary — Rust port of terminaltexteffects",
+ "homepage": "https://github.com/omacom-io/ttfx",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.7,
+ "reviews": 423
 }

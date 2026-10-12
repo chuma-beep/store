@@ -1,21 +1,23 @@
 {
-  "id": "autojump",
-  "name": "autojump",
-  "category": "terminal",
-  "github": "wting/autojump",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "autojump"
-    ]
-  },
-  "detect": [
-    "autojump"
-  ],
-  "kind": "terminal",
-  "summary": "A cd command that learns - easily navigate directories from the command line",
-  "icon": null,
-  "open": "autojump",
-  "cli": true
+ "id": "autojump",
+ "name": "autojump",
+ "category": "terminal",
+ "github": "wting/autojump",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "autojump"
+  ]
+ },
+ "detect": [
+  "autojump"
+ ],
+ "kind": "terminal",
+ "summary": "A cd command that learns - easily navigate directories from the command line",
+ "icon": null,
+ "open": "autojump",
+ "cli": true,
+ "stars": 4.4,
+ "reviews": 279
 }

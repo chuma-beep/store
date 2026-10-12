@@ -1,18 +1,20 @@
 {
-  "id": "logisim",
-  "name": "Logisim",
-  "category": "education",
-  "flathub": "com.cburch.Logisim",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "logisim"
-    ]
-  },
-  "detect": [
-    "logisim"
-  ],
-  "kind": "gui",
-  "developer": "carlburch",
-  "github": null
+ "id": "logisim",
+ "name": "Logisim",
+ "category": "education",
+ "flathub": "com.cburch.Logisim",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "logisim"
+  ]
+ },
+ "detect": [
+  "logisim"
+ ],
+ "kind": "gui",
+ "developer": "carlburch",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 176
 }

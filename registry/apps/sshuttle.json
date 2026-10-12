@@ -1,20 +1,22 @@
 {
-  "id": "sshuttle",
-  "name": "sshuttle",
-  "category": "security",
-  "github": "sshuttle/sshuttle",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "sshuttle"
-    ]
-  },
-  "detect": [
-    "sshuttle"
-  ],
-  "kind": "terminal",
-  "summary": "Transparent proxy server that works as a poor man's VPN. Forwards over ssh. Doesn't require admin. Works with Linux and ",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/8774006?s=256"
+ "id": "sshuttle",
+ "name": "sshuttle",
+ "category": "security",
+ "github": "sshuttle/sshuttle",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "sshuttle"
+  ]
+ },
+ "detect": [
+  "sshuttle"
+ ],
+ "kind": "terminal",
+ "summary": "Transparent proxy server that works as a poor man's VPN. Forwards over ssh. Doesn't require admin. Works with Linux and ",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/8774006?s=256",
+ "stars": 4.2,
+ "reviews": 204
 }

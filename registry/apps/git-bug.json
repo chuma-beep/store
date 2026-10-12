@@ -1,21 +1,23 @@
 {
-  "id": "git-bug",
-  "name": "git-bug",
-  "category": "developer-tools",
-  "github": "git-bug/git-bug",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "git-bug"
-    ]
-  },
-  "detect": [
-    "git-bug"
-  ],
-  "kind": "terminal",
-  "summary": "Distributed, offline-first bug tracker integrated in git",
-  "icon": null,
-  "open": "git-bug",
-  "cli": true
+ "id": "git-bug",
+ "name": "git-bug",
+ "category": "developer-tools",
+ "github": "git-bug/git-bug",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "git-bug"
+  ]
+ },
+ "detect": [
+  "git-bug"
+ ],
+ "kind": "terminal",
+ "summary": "Distributed, offline-first bug tracker integrated in git",
+ "icon": null,
+ "open": "git-bug",
+ "cli": true,
+ "stars": 4.4,
+ "reviews": 564
 }

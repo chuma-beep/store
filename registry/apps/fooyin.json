@@ -1,17 +1,19 @@
 {
-  "id": "fooyin",
-  "name": "fooyin",
-  "category": "media",
-  "github": "fooyin/fooyin",
-  "flathub": "org.fooyin.fooyin",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "fooyin"
-    ]
-  },
-  "detect": [
-    "fooyin"
-  ],
-  "kind": "gui"
+ "id": "fooyin",
+ "name": "fooyin",
+ "category": "media",
+ "github": "fooyin/fooyin",
+ "flathub": "org.fooyin.fooyin",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "fooyin"
+  ]
+ },
+ "detect": [
+  "fooyin"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 265
 }

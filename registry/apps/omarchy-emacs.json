@@ -1,23 +1,25 @@
 {
-  "id": "omarchy-emacs",
-  "name": "Omarchy Emacs",
-  "category": "developer-tools",
-  "github": "scottjones/omarchy-emacs",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "omarchy-emacs"
-    ]
-  },
-  "detect": [
-    "omarchy-emacs"
-  ],
-  "kind": "terminal",
-  "summary": "Emacs integration for Omarchy with automatic theme and font syncing",
-  "homepage": "https://github.com/scottjones/omarchy-emacs",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "omarchy-emacs",
+ "name": "Omarchy Emacs",
+ "category": "developer-tools",
+ "github": "scottjones/omarchy-emacs",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "omarchy-emacs"
+  ]
+ },
+ "detect": [
+  "omarchy-emacs"
+ ],
+ "kind": "terminal",
+ "summary": "Emacs integration for Omarchy with automatic theme and font syncing",
+ "homepage": "https://github.com/scottjones/omarchy-emacs",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 240
 }

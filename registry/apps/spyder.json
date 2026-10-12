@@ -1,18 +1,20 @@
 {
-  "id": "spyder",
-  "name": "Spyder",
-  "category": "developer-tools",
-  "flathub": "org.spyder_ide.spyder",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "spyder"
-    ]
-  },
-  "detect": [
-    "spyder"
-  ],
-  "kind": "gui",
-  "developer": "The Spyder Project Contributors",
-  "github": null
+ "id": "spyder",
+ "name": "Spyder",
+ "category": "developer-tools",
+ "flathub": "org.spyder_ide.spyder",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "spyder"
+  ]
+ },
+ "detect": [
+  "spyder"
+ ],
+ "kind": "gui",
+ "developer": "The Spyder Project Contributors",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 224
 }

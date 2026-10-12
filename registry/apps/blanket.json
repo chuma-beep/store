@@ -1,17 +1,19 @@
 {
-  "id": "blanket",
-  "name": "Blanket",
-  "category": "video-audio",
-  "github": "rafaelmardojai/blanket",
-  "flathub": "com.rafaelmardojai.Blanket",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "blanket"
-    ]
-  },
-  "detect": [
-    "blanket"
-  ],
-  "kind": "gui"
+ "id": "blanket",
+ "name": "Blanket",
+ "category": "video-audio",
+ "github": "rafaelmardojai/blanket",
+ "flathub": "com.rafaelmardojai.Blanket",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "blanket"
+  ]
+ },
+ "detect": [
+  "blanket"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 209
 }

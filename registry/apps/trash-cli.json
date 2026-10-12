@@ -1,21 +1,23 @@
 {
-  "id": "trash-cli",
-  "name": "trash-cli",
-  "category": "terminal",
-  "github": "andreafrancia/trash-cli",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "trash-cli"
-    ]
-  },
-  "detect": [
-    "trash-cli"
-  ],
-  "kind": "terminal",
-  "summary": "Command line interface to the freedesktop.org trashcan.",
-  "icon": null,
-  "open": "trash",
-  "cli": true
+ "id": "trash-cli",
+ "name": "trash-cli",
+ "category": "terminal",
+ "github": "andreafrancia/trash-cli",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "trash-cli"
+  ]
+ },
+ "detect": [
+  "trash-cli"
+ ],
+ "kind": "terminal",
+ "summary": "Command line interface to the freedesktop.org trashcan.",
+ "icon": null,
+ "open": "trash",
+ "cli": true,
+ "stars": 4.4,
+ "reviews": 239
 }

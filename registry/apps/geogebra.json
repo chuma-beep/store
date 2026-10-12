@@ -1,18 +1,20 @@
 {
-  "id": "geogebra",
-  "name": "GeoGebra",
-  "category": "education",
-  "flathub": "org.geogebra.GeoGebra",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "geogebra"
-    ]
-  },
-  "detect": [
-    "geogebra"
-  ],
-  "kind": "gui",
-  "developer": "GeoGebra Institute",
-  "github": null
+ "id": "geogebra",
+ "name": "GeoGebra",
+ "category": "education",
+ "flathub": "org.geogebra.GeoGebra",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "geogebra"
+  ]
+ },
+ "detect": [
+  "geogebra"
+ ],
+ "kind": "gui",
+ "developer": "GeoGebra Institute",
+ "github": null,
+ "stars": 4.4,
+ "reviews": 213
 }

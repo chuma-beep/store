@@ -1,24 +1,26 @@
 {
-  "id": "ollama",
-  "name": "Ollama",
-  "category": "ai",
-  "github": "ollama/ollama",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "ollama"
-    ]
-  },
-  "detect": [
-    "ollama"
-  ],
-  "kind": "terminal",
-  "tags": [
-    "llm",
-    "local-ai"
-  ],
-  "icon": "https://github.com/ollama.png?size=256",
-  "summary": "Run large language models locally",
-  "developer": "Ollama"
+ "id": "ollama",
+ "name": "Ollama",
+ "category": "ai",
+ "github": "ollama/ollama",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "ollama"
+  ]
+ },
+ "detect": [
+  "ollama"
+ ],
+ "kind": "terminal",
+ "tags": [
+  "llm",
+  "local-ai"
+ ],
+ "icon": "https://github.com/ollama.png?size=256",
+ "summary": "Run large language models locally",
+ "developer": "Ollama",
+ "stars": 4.6,
+ "reviews": 384
 }

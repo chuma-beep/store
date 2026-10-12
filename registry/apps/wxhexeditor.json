@@ -1,18 +1,20 @@
 {
-  "id": "wxhexeditor",
-  "name": "wxHexEditor",
-  "category": "utilities",
-  "flathub": "org.wxhexeditor.wxHexEditor",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "wxhexeditor"
-    ]
-  },
-  "detect": [
-    "wxhexeditor"
-  ],
-  "kind": "gui",
-  "developer": "Erdem U. Altinyurt",
-  "github": null
+ "id": "wxhexeditor",
+ "name": "wxHexEditor",
+ "category": "utilities",
+ "flathub": "org.wxhexeditor.wxHexEditor",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "wxhexeditor"
+  ]
+ },
+ "detect": [
+  "wxhexeditor"
+ ],
+ "kind": "gui",
+ "developer": "Erdem U. Altinyurt",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 201
 }

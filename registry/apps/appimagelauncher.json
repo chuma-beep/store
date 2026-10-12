@@ -1,18 +1,20 @@
 {
-  "id": "appimagelauncher",
-  "name": "AppImageLauncher",
-  "category": "utilities",
-  "github": "TheAssassin/AppImageLauncher",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "appimagelauncher"
-    ]
-  },
-  "detect": [
-    "appimagelauncher"
-  ],
-  "kind": "gui",
-  "summary": "Helper application for Linux distributions serving as a kind of \"entry point\" for running and integrating AppImages"
+ "id": "appimagelauncher",
+ "name": "AppImageLauncher",
+ "category": "utilities",
+ "github": "TheAssassin/AppImageLauncher",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "appimagelauncher"
+  ]
+ },
+ "detect": [
+  "appimagelauncher"
+ ],
+ "kind": "gui",
+ "summary": "Helper application for Linux distributions serving as a kind of \"entry point\" for running and integrating AppImages",
+ "stars": 4.4,
+ "reviews": 35
 }

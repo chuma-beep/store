@@ -1,21 +1,23 @@
 {
-  "id": "watchexec",
-  "name": "watchexec",
-  "category": "developer-tools",
-  "github": "watchexec/watchexec",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "watchexec"
-    ]
-  },
-  "detect": [
-    "watchexec"
-  ],
-  "kind": "terminal",
-  "summary": "Executes commands in response to file modifications",
-  "icon": null,
-  "open": "watchexec",
-  "cli": true
+ "id": "watchexec",
+ "name": "watchexec",
+ "category": "developer-tools",
+ "github": "watchexec/watchexec",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "watchexec"
+  ]
+ },
+ "detect": [
+  "watchexec"
+ ],
+ "kind": "terminal",
+ "summary": "Executes commands in response to file modifications",
+ "icon": null,
+ "open": "watchexec",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 274
 }

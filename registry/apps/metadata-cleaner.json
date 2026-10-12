@@ -1,18 +1,20 @@
 {
-  "id": "metadata-cleaner",
-  "name": "Metadata Cleaner",
-  "category": "security",
-  "flathub": "io.gitlab.metadatacleaner.metadatacleaner",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "metadata-cleaner"
-    ]
-  },
-  "detect": [
-    "metadata-cleaner"
-  ],
-  "kind": "gui",
-  "developer": "Metadata Cleaner Developers",
-  "github": null
+ "id": "metadata-cleaner",
+ "name": "Metadata Cleaner",
+ "category": "security",
+ "flathub": "io.gitlab.metadatacleaner.metadatacleaner",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "metadata-cleaner"
+  ]
+ },
+ "detect": [
+  "metadata-cleaner"
+ ],
+ "kind": "gui",
+ "developer": "Metadata Cleaner Developers",
+ "github": null,
+ "stars": 4.8,
+ "reviews": 335
 }

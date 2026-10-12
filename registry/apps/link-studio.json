@@ -1,21 +1,23 @@
 {
-  "id": "link-studio",
-  "name": "Link Studio",
-  "category": "video-audio",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "link-studio"
-    ]
-  },
-  "detect": [
-    "link-studio"
-  ],
-  "kind": "gui",
-  "summary": "Native Linux controller for Insta360 Link webcams",
-  "homepage": "https://jweaver60.github.io/link-studio/",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "link-studio",
+ "name": "Link Studio",
+ "category": "video-audio",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "link-studio"
+  ]
+ },
+ "detect": [
+  "link-studio"
+ ],
+ "kind": "gui",
+ "summary": "Native Linux controller for Insta360 Link webcams",
+ "homepage": "https://jweaver60.github.io/link-studio/",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 5.0,
+ "reviews": 345
 }

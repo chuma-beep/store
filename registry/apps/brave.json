@@ -1,20 +1,22 @@
 {
-  "id": "brave",
-  "name": "Brave",
-  "category": "browsers",
-  "github": "brave/brave-browser",
-  "flathub": "com.brave.Browser",
-  "install": {
-    "method": "omarchy",
-    "command": "omarchy install browser brave"
-  },
-  "detect": [
-    "brave-bin"
-  ],
-  "kind": "gui",
-  "tags": [
-    "web",
-    "privacy",
-    "adblock"
-  ]
+ "id": "brave",
+ "name": "Brave",
+ "category": "browsers",
+ "github": "brave/brave-browser",
+ "flathub": "com.brave.Browser",
+ "install": {
+  "method": "omarchy",
+  "command": "omarchy install browser brave"
+ },
+ "detect": [
+  "brave-bin"
+ ],
+ "kind": "gui",
+ "tags": [
+  "web",
+  "privacy",
+  "adblock"
+ ],
+ "stars": 5.0,
+ "reviews": 572
 }

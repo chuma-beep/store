@@ -1,23 +1,25 @@
 {
-  "id": "hyprshade",
-  "name": "Hyprshade",
-  "category": "graphics",
-  "github": "loqusion/hyprshade",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "hyprshade"
-    ]
-  },
-  "detect": [
-    "hyprshade"
-  ],
-  "kind": "terminal",
-  "summary": "Hyprland shade configuration tool",
-  "homepage": "https://github.com/loqusion/hyprshade",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "hyprshade",
+ "name": "Hyprshade",
+ "category": "graphics",
+ "github": "loqusion/hyprshade",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "hyprshade"
+  ]
+ },
+ "detect": [
+  "hyprshade"
+ ],
+ "kind": "terminal",
+ "summary": "Hyprland shade configuration tool",
+ "homepage": "https://github.com/loqusion/hyprshade",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 200
 }

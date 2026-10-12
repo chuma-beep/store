@@ -1,17 +1,19 @@
 {
-  "id": "openarena",
-  "name": "OpenArena",
-  "category": "games",
-  "github": "ec-/Quake3e",
-  "flathub": "io.github.ec_.Quake3e.OpenArena",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "openarena"
-    ]
-  },
-  "detect": [
-    "openarena"
-  ],
-  "kind": "gui"
+ "id": "openarena",
+ "name": "OpenArena",
+ "category": "games",
+ "github": "ec-/Quake3e",
+ "flathub": "io.github.ec_.Quake3e.OpenArena",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "openarena"
+  ]
+ },
+ "detect": [
+  "openarena"
+ ],
+ "kind": "gui",
+ "stars": 4.6,
+ "reviews": 43
 }

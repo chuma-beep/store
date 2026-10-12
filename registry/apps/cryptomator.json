@@ -1,17 +1,19 @@
 {
-  "id": "cryptomator",
-  "name": "Cryptomator",
-  "category": "productivity",
-  "github": "cryptomator/cryptomator",
-  "flathub": "org.cryptomator.Cryptomator",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "cryptomator"
-    ]
-  },
-  "detect": [
-    "cryptomator"
-  ],
-  "kind": "gui"
+ "id": "cryptomator",
+ "name": "Cryptomator",
+ "category": "productivity",
+ "github": "cryptomator/cryptomator",
+ "flathub": "org.cryptomator.Cryptomator",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "cryptomator"
+  ]
+ },
+ "detect": [
+  "cryptomator"
+ ],
+ "kind": "gui",
+ "stars": 4.6,
+ "reviews": 128
 }

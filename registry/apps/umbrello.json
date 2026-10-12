@@ -1,18 +1,20 @@
 {
-  "id": "umbrello",
-  "name": "Umbrello",
-  "category": "developer-tools",
-  "flathub": "org.kde.umbrello",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "umbrello"
-    ]
-  },
-  "detect": [
-    "umbrello"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "umbrello",
+ "name": "Umbrello",
+ "category": "developer-tools",
+ "flathub": "org.kde.umbrello",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "umbrello"
+  ]
+ },
+ "detect": [
+  "umbrello"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 235
 }

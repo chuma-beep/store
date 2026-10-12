@@ -1,21 +1,23 @@
 {
-  "id": "masscan",
-  "name": "masscan",
-  "category": "security",
-  "github": "robertdavidgraham/masscan",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "masscan"
-    ]
-  },
-  "detect": [
-    "masscan"
-  ],
-  "kind": "terminal",
-  "summary": "TCP port scanner, spews SYN packets asynchronously, scanning entire Internet in under 5 minutes.",
-  "icon": null,
-  "open": "masscan",
-  "cli": true
+ "id": "masscan",
+ "name": "masscan",
+ "category": "security",
+ "github": "robertdavidgraham/masscan",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "masscan"
+  ]
+ },
+ "detect": [
+  "masscan"
+ ],
+ "kind": "terminal",
+ "summary": "TCP port scanner, spews SYN packets asynchronously, scanning entire Internet in under 5 minutes.",
+ "icon": null,
+ "open": "masscan",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 538
 }

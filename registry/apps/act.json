@@ -1,20 +1,22 @@
 {
-  "id": "act",
-  "name": "act",
-  "category": "terminal",
-  "github": "nektos/act",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "act"
-    ]
-  },
-  "detect": [
-    "act"
-  ],
-  "kind": "terminal",
-  "summary": "Run your GitHub Actions locally",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/3813618?s=256"
+ "id": "act",
+ "name": "act",
+ "category": "terminal",
+ "github": "nektos/act",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "act"
+  ]
+ },
+ "detect": [
+  "act"
+ ],
+ "kind": "terminal",
+ "summary": "Run your GitHub Actions locally",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/3813618?s=256",
+ "stars": 4.4,
+ "reviews": 578
 }

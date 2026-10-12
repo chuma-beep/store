@@ -1,18 +1,20 @@
 {
-  "id": "ciano",
-  "name": "Ciano",
-  "category": "video-audio",
-  "flathub": "com.github.robertsanseries.ciano",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "ciano"
-    ]
-  },
-  "detect": [
-    "ciano"
-  ],
-  "kind": "gui",
-  "developer": "Robert San",
-  "github": null
+ "id": "ciano",
+ "name": "Ciano",
+ "category": "video-audio",
+ "flathub": "com.github.robertsanseries.ciano",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "ciano"
+  ]
+ },
+ "detect": [
+  "ciano"
+ ],
+ "kind": "gui",
+ "developer": "Robert San",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 62
 }

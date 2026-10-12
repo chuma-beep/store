@@ -1,17 +1,19 @@
 {
-  "id": "insomnia",
-  "name": "Insomnia",
-  "category": "developer-tools",
-  "github": "Kong/insomnia",
-  "flathub": "rest.insomnia.Insomnia",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "insomnia"
-    ]
-  },
-  "detect": [
-    "insomnia"
-  ],
-  "kind": "gui"
+ "id": "insomnia",
+ "name": "Insomnia",
+ "category": "developer-tools",
+ "github": "Kong/insomnia",
+ "flathub": "rest.insomnia.Insomnia",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "insomnia"
+  ]
+ },
+ "detect": [
+  "insomnia"
+ ],
+ "kind": "gui",
+ "stars": 4.9,
+ "reviews": 528
 }

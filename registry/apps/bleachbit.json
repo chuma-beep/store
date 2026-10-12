@@ -1,18 +1,20 @@
 {
-  "id": "bleachbit",
-  "name": "BleachBit",
-  "category": "security",
-  "flathub": "org.bleachbit.BleachBit",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "bleachbit"
-    ]
-  },
-  "detect": [
-    "bleachbit"
-  ],
-  "kind": "gui",
-  "developer": "Andrew Ziem and contributors",
-  "github": null
+ "id": "bleachbit",
+ "name": "BleachBit",
+ "category": "security",
+ "flathub": "org.bleachbit.BleachBit",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "bleachbit"
+  ]
+ },
+ "detect": [
+  "bleachbit"
+ ],
+ "kind": "gui",
+ "developer": "Andrew Ziem and contributors",
+ "github": null,
+ "stars": 4.2,
+ "reviews": 45
 }

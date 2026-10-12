@@ -1,21 +1,23 @@
 {
-  "id": "rog-control-center",
-  "name": "ROG Control Center",
-  "category": "utilities",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "rog-control-center"
-    ]
-  },
-  "detect": [
-    "rog-control-center"
-  ],
-  "kind": "gui",
-  "summary": "Graphical user interface for asusctl",
-  "homepage": "https://asus-linux.org",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "rog-control-center",
+ "name": "ROG Control Center",
+ "category": "utilities",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "rog-control-center"
+  ]
+ },
+ "detect": [
+  "rog-control-center"
+ ],
+ "kind": "gui",
+ "summary": "Graphical user interface for asusctl",
+ "homepage": "https://asus-linux.org",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.9,
+ "reviews": 266
 }

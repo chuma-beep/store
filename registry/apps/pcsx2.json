@@ -1,17 +1,19 @@
 {
-  "id": "pcsx2",
-  "name": "PCSX2",
-  "category": "games",
-  "github": "PCSX2/pcsx2",
-  "flathub": "net.pcsx2.PCSX2",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "pcsx2"
-    ]
-  },
-  "detect": [
-    "pcsx2"
-  ],
-  "kind": "gui"
+ "id": "pcsx2",
+ "name": "PCSX2",
+ "category": "games",
+ "github": "PCSX2/pcsx2",
+ "flathub": "net.pcsx2.PCSX2",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "pcsx2"
+  ]
+ },
+ "detect": [
+  "pcsx2"
+ ],
+ "kind": "gui",
+ "stars": 4.3,
+ "reviews": 124
 }

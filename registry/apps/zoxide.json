@@ -1,20 +1,22 @@
 {
-  "id": "zoxide",
-  "name": "zoxide",
-  "category": "terminal",
-  "github": "ajeetdsouza/zoxide",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "zoxide"
-    ]
-  },
-  "detect": [
-    "zoxide"
-  ],
-  "kind": "terminal",
-  "summary": "A smarter cd command. Supports all major shells",
-  "cli": true,
-  "icon": null
+ "id": "zoxide",
+ "name": "zoxide",
+ "category": "terminal",
+ "github": "ajeetdsouza/zoxide",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "zoxide"
+  ]
+ },
+ "detect": [
+  "zoxide"
+ ],
+ "kind": "terminal",
+ "summary": "A smarter cd command. Supports all major shells",
+ "cli": true,
+ "icon": null,
+ "stars": 4.8,
+ "reviews": 323
 }

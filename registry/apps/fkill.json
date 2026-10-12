@@ -1,20 +1,22 @@
 {
-  "id": "fkill",
-  "name": "fkill",
-  "category": "terminal",
-  "github": "sindresorhus/fkill-cli",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "fkill"
-    ]
-  },
-  "detect": [
-    "fkill"
-  ],
-  "kind": "terminal",
-  "summary": "Fabulously kill processes. Cross-platform.",
-  "icon": null,
-  "open": "fkill"
+ "id": "fkill",
+ "name": "fkill",
+ "category": "terminal",
+ "github": "sindresorhus/fkill-cli",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "fkill"
+  ]
+ },
+ "detect": [
+  "fkill"
+ ],
+ "kind": "terminal",
+ "summary": "Fabulously kill processes. Cross-platform.",
+ "icon": null,
+ "open": "fkill",
+ "stars": 4.8,
+ "reviews": 498
 }

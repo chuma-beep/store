@@ -1,18 +1,20 @@
 {
-  "id": "neochat",
-  "name": "NeoChat",
-  "category": "communication",
-  "flathub": "org.kde.neochat",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "neochat"
-    ]
-  },
-  "detect": [
-    "neochat"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "neochat",
+ "name": "NeoChat",
+ "category": "communication",
+ "flathub": "org.kde.neochat",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "neochat"
+  ]
+ },
+ "detect": [
+  "neochat"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.2,
+ "reviews": 37
 }

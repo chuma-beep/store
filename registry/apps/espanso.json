@@ -1,20 +1,22 @@
 {
-  "id": "espanso",
-  "name": "Espanso",
-  "category": "productivity",
-  "github": "espanso/espanso",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "espanso-x11"
-    ]
-  },
-  "detect": [
-    "espanso-x11"
-  ],
-  "kind": "terminal",
-  "summary": "A Privacy-first, Cross-platform Text Expander written in Rust",
-  "cli": true,
-  "icon": "https://avatars.githubusercontent.com/u/64536333?s=256"
+ "id": "espanso",
+ "name": "Espanso",
+ "category": "productivity",
+ "github": "espanso/espanso",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "espanso-x11"
+  ]
+ },
+ "detect": [
+  "espanso-x11"
+ ],
+ "kind": "terminal",
+ "summary": "A Privacy-first, Cross-platform Text Expander written in Rust",
+ "cli": true,
+ "icon": "https://avatars.githubusercontent.com/u/64536333?s=256",
+ "stars": 4.9,
+ "reviews": 571
 }

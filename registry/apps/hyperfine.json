@@ -1,20 +1,22 @@
 {
-  "id": "hyperfine",
-  "name": "hyperfine",
-  "category": "terminal",
-  "github": "sharkdp/hyperfine",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "hyperfine"
-    ]
-  },
-  "detect": [
-    "hyperfine"
-  ],
-  "kind": "terminal",
-  "summary": "A command-line benchmarking tool",
-  "cli": true,
-  "icon": null
+ "id": "hyperfine",
+ "name": "hyperfine",
+ "category": "terminal",
+ "github": "sharkdp/hyperfine",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "hyperfine"
+  ]
+ },
+ "detect": [
+  "hyperfine"
+ ],
+ "kind": "terminal",
+ "summary": "A command-line benchmarking tool",
+ "cli": true,
+ "icon": null,
+ "stars": 4.4,
+ "reviews": 30
 }

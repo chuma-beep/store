@@ -1,24 +1,26 @@
 {
-  "id": "syncthing",
-  "name": "Syncthing",
-  "category": "productivity",
-  "github": "syncthing/syncthing",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "syncthing"
-    ]
-  },
-  "detect": [
-    "syncthing"
-  ],
-  "kind": "terminal",
-  "tags": [
-    "sync",
-    "p2p"
-  ],
-  "icon": "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/Papirus/64x64/apps/syncthing-gtk.svg",
-  "summary": "Continuous peer-to-peer file synchronization",
-  "developer": "The Syncthing Foundation"
+ "id": "syncthing",
+ "name": "Syncthing",
+ "category": "productivity",
+ "github": "syncthing/syncthing",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "syncthing"
+  ]
+ },
+ "detect": [
+  "syncthing"
+ ],
+ "kind": "terminal",
+ "tags": [
+  "sync",
+  "p2p"
+ ],
+ "icon": "https://raw.githubusercontent.com/PapirusDevelopmentTeam/papirus-icon-theme/master/Papirus/64x64/apps/syncthing-gtk.svg",
+ "summary": "Continuous peer-to-peer file synchronization",
+ "developer": "The Syncthing Foundation",
+ "stars": 4.3,
+ "reviews": 160
 }

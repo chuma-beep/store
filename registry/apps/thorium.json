@@ -1,18 +1,20 @@
 {
-  "id": "thorium",
-  "name": "Thorium",
-  "category": "browsers",
-  "github": "Alex313031/thorium",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "thorium-browser-bin"
-    ]
-  },
-  "detect": [
-    "thorium-browser-bin"
-  ],
-  "kind": "gui",
-  "summary": "Chromium fork named after radioactive element No. 90. Source code and Linux releases. Windows/MacOS/ARM builds served in different repos, li"
+ "id": "thorium",
+ "name": "Thorium",
+ "category": "browsers",
+ "github": "Alex313031/thorium",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "thorium-browser-bin"
+  ]
+ },
+ "detect": [
+  "thorium-browser-bin"
+ ],
+ "kind": "gui",
+ "summary": "Chromium fork named after radioactive element No. 90. Source code and Linux releases. Windows/MacOS/ARM builds served in different repos, li",
+ "stars": 4.6,
+ "reviews": 108
 }

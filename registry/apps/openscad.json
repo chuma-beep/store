@@ -1,18 +1,20 @@
 {
-  "id": "openscad",
-  "name": "OpenSCAD",
-  "category": "graphics",
-  "github": "openscad/openscad",
-  "flathub": "org.openscad.OpenSCAD",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "openscad"
-    ]
-  },
-  "detect": [
-    "openscad"
-  ],
-  "kind": "gui",
-  "developer": "The OpenSCAD Developers"
+ "id": "openscad",
+ "name": "OpenSCAD",
+ "category": "graphics",
+ "github": "openscad/openscad",
+ "flathub": "org.openscad.OpenSCAD",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "openscad"
+  ]
+ },
+ "detect": [
+  "openscad"
+ ],
+ "kind": "gui",
+ "developer": "The OpenSCAD Developers",
+ "stars": 5.0,
+ "reviews": 232
 }

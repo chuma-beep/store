@@ -1,21 +1,23 @@
 {
-  "id": "doggo",
-  "name": "doggo",
-  "category": "terminal",
-  "github": "mr-karan/doggo",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "doggo"
-    ]
-  },
-  "detect": [
-    "doggo"
-  ],
-  "kind": "terminal",
-  "summary": "dog: Command-line DNS Client for Humans. Written in Golang",
-  "icon": null,
-  "open": "doggo",
-  "cli": true
+ "id": "doggo",
+ "name": "doggo",
+ "category": "terminal",
+ "github": "mr-karan/doggo",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "doggo"
+  ]
+ },
+ "detect": [
+  "doggo"
+ ],
+ "kind": "terminal",
+ "summary": "dog: Command-line DNS Client for Humans. Written in Golang",
+ "icon": null,
+ "open": "doggo",
+ "cli": true,
+ "stars": 4.3,
+ "reviews": 329
 }

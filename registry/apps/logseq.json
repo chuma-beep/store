@@ -1,17 +1,19 @@
 {
-  "id": "logseq",
-  "name": "Logseq",
-  "category": "productivity",
-  "github": "logseq/logseq",
-  "flathub": "com.logseq.Logseq",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "logseq-desktop"
-    ]
-  },
-  "detect": [
-    "logseq-desktop"
-  ],
-  "kind": "gui"
+ "id": "logseq",
+ "name": "Logseq",
+ "category": "productivity",
+ "github": "logseq/logseq",
+ "flathub": "com.logseq.Logseq",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "logseq-desktop"
+  ]
+ },
+ "detect": [
+  "logseq-desktop"
+ ],
+ "kind": "gui",
+ "stars": 4.8,
+ "reviews": 220
 }

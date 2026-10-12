@@ -1,17 +1,19 @@
 {
-  "id": "pdf-arranger",
-  "name": "PDF Arranger",
-  "category": "productivity",
-  "github": "pdfarranger/pdfarranger",
-  "flathub": "com.github.jeromerobert.pdfarranger",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "pdfarranger"
-    ]
-  },
-  "detect": [
-    "pdfarranger"
-  ],
-  "kind": "gui"
+ "id": "pdf-arranger",
+ "name": "PDF Arranger",
+ "category": "productivity",
+ "github": "pdfarranger/pdfarranger",
+ "flathub": "com.github.jeromerobert.pdfarranger",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "pdfarranger"
+  ]
+ },
+ "detect": [
+  "pdfarranger"
+ ],
+ "kind": "gui",
+ "stars": 4.4,
+ "reviews": 255
 }

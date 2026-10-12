@@ -1,21 +1,23 @@
 {
-  "id": "sshfs",
-  "name": "SSHFS",
-  "category": "utilities",
-  "github": "libfuse/sshfs",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "sshfs"
-    ]
-  },
-  "detect": [
-    "sshfs"
-  ],
-  "kind": "terminal",
-  "summary": "A network filesystem client to connect to SSH servers",
-  "icon": null,
-  "open": "sshfs",
-  "cli": true
+ "id": "sshfs",
+ "name": "SSHFS",
+ "category": "utilities",
+ "github": "libfuse/sshfs",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "sshfs"
+  ]
+ },
+ "detect": [
+  "sshfs"
+ ],
+ "kind": "terminal",
+ "summary": "A network filesystem client to connect to SSH servers",
+ "icon": null,
+ "open": "sshfs",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 361
 }

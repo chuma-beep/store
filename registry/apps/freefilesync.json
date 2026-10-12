@@ -1,18 +1,20 @@
 {
-  "id": "freefilesync",
-  "name": "FreeFileSync",
-  "category": "utilities",
-  "flathub": "org.freefilesync.FreeFileSync",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "freefilesync-bin"
-    ]
-  },
-  "detect": [
-    "freefilesync-bin"
-  ],
-  "kind": "gui",
-  "developer": "Zenju",
-  "github": null
+ "id": "freefilesync",
+ "name": "FreeFileSync",
+ "category": "utilities",
+ "flathub": "org.freefilesync.FreeFileSync",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "freefilesync-bin"
+  ]
+ },
+ "detect": [
+  "freefilesync-bin"
+ ],
+ "kind": "gui",
+ "developer": "Zenju",
+ "github": null,
+ "stars": 4.7,
+ "reviews": 379
 }

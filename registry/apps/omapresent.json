@@ -1,22 +1,24 @@
 {
-  "id": "omapresent",
-  "name": "Omapresent",
-  "category": "video-audio",
-  "github": "jethrojones/omapresent",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "omapresent"
-    ]
-  },
-  "detect": [
-    "omapresent"
-  ],
-  "kind": "gui",
-  "summary": "Dead-simple, Markdown-only presentation app built with Qt Quick",
-  "homepage": "https://github.com/jethrojones/omapresent",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo"
+ "id": "omapresent",
+ "name": "Omapresent",
+ "category": "video-audio",
+ "github": "jethrojones/omapresent",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "omapresent"
+  ]
+ },
+ "detect": [
+  "omapresent"
+ ],
+ "kind": "gui",
+ "summary": "Dead-simple, Markdown-only presentation app built with Qt Quick",
+ "homepage": "https://github.com/jethrojones/omapresent",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "stars": 4.3,
+ "reviews": 340
 }

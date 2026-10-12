@@ -1,18 +1,20 @@
 {
-  "id": "hmcl-minecraft-launcher",
-  "name": "HMCL Minecraft Launcher",
-  "category": "games",
-  "github": "HMCL-dev/HMCL",
-  "flathub": null,
-  "install": {
-    "method": "aur",
-    "packages": [
-      "hmcl"
-    ]
-  },
-  "detect": [
-    "hmcl"
-  ],
-  "kind": "gui",
-  "summary": "A Minecraft Launcher which is multi-functional, cross-platform and popular"
+ "id": "hmcl-minecraft-launcher",
+ "name": "HMCL Minecraft Launcher",
+ "category": "games",
+ "github": "HMCL-dev/HMCL",
+ "flathub": null,
+ "install": {
+  "method": "aur",
+  "packages": [
+   "hmcl"
+  ]
+ },
+ "detect": [
+  "hmcl"
+ ],
+ "kind": "gui",
+ "summary": "A Minecraft Launcher which is multi-functional, cross-platform and popular",
+ "stars": 4.5,
+ "reviews": 492
 }

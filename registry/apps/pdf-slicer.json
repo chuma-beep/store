@@ -1,18 +1,20 @@
 {
-  "id": "pdf-slicer",
-  "name": "PDF Slicer",
-  "category": "productivity",
-  "flathub": "com.github.junrrein.PDFSlicer",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "pdfslicer"
-    ]
-  },
-  "detect": [
-    "pdfslicer"
-  ],
-  "kind": "gui",
-  "developer": "Julián Unrrein",
-  "github": null
+ "id": "pdf-slicer",
+ "name": "PDF Slicer",
+ "category": "productivity",
+ "flathub": "com.github.junrrein.PDFSlicer",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "pdfslicer"
+  ]
+ },
+ "detect": [
+  "pdfslicer"
+ ],
+ "kind": "gui",
+ "developer": "Julián Unrrein",
+ "github": null,
+ "stars": 4.3,
+ "reviews": 539
 }

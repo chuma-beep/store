@@ -1,23 +1,25 @@
 {
-  "id": "hyprland-preview-share-picker",
-  "name": "Hyprland Preview Share Picker",
-  "category": "utilities",
-  "github": "WhySoBad/hyprland-preview-share-picker",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "hyprland-preview-share-picker"
-    ]
-  },
-  "detect": [
-    "hyprland-preview-share-picker"
-  ],
-  "kind": "terminal",
-  "summary": "An alternative share picker for hyprland with window and monitor previews",
-  "homepage": "https://github.com/WhySoBad/hyprland-preview-share-picker",
-  "tags": [
-    "omarchy-repo"
-  ],
-  "source": "omarchy-repo",
-  "cli": true
+ "id": "hyprland-preview-share-picker",
+ "name": "Hyprland Preview Share Picker",
+ "category": "utilities",
+ "github": "WhySoBad/hyprland-preview-share-picker",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "hyprland-preview-share-picker"
+  ]
+ },
+ "detect": [
+  "hyprland-preview-share-picker"
+ ],
+ "kind": "terminal",
+ "summary": "An alternative share picker for hyprland with window and monitor previews",
+ "homepage": "https://github.com/WhySoBad/hyprland-preview-share-picker",
+ "tags": [
+  "omarchy-repo"
+ ],
+ "source": "omarchy-repo",
+ "cli": true,
+ "stars": 4.5,
+ "reviews": 215
 }

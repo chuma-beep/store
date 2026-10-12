@@ -1,18 +1,20 @@
 {
-  "id": "dolphin",
-  "name": "Dolphin",
-  "category": "utilities",
-  "flathub": "org.kde.dolphin",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "dolphin"
-    ]
-  },
-  "detect": [
-    "dolphin"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "dolphin",
+ "name": "Dolphin",
+ "category": "utilities",
+ "flathub": "org.kde.dolphin",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "dolphin"
+  ]
+ },
+ "detect": [
+  "dolphin"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 143
 }

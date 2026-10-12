@@ -1,18 +1,20 @@
 {
-  "id": "qrca",
-  "name": "Qrca",
-  "category": "utilities",
-  "flathub": "org.kde.qrca",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "qrca"
-    ]
-  },
-  "detect": [
-    "qrca"
-  ],
-  "kind": "gui",
-  "developer": "KDE",
-  "github": null
+ "id": "qrca",
+ "name": "Qrca",
+ "category": "utilities",
+ "flathub": "org.kde.qrca",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "qrca"
+  ]
+ },
+ "detect": [
+  "qrca"
+ ],
+ "kind": "gui",
+ "developer": "KDE",
+ "github": null,
+ "stars": 4.9,
+ "reviews": 276
 }

@@ -1,18 +1,20 @@
 {
-  "id": "webstorm",
-  "name": "WebStorm",
-  "category": "developer-tools",
-  "flathub": "com.jetbrains.WebStorm",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "webstorm"
-    ]
-  },
-  "detect": [
-    "webstorm"
-  ],
-  "kind": "gui",
-  "developer": "JetBrains s.r.o.",
-  "github": null
+ "id": "webstorm",
+ "name": "WebStorm",
+ "category": "developer-tools",
+ "flathub": "com.jetbrains.WebStorm",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "webstorm"
+  ]
+ },
+ "detect": [
+  "webstorm"
+ ],
+ "kind": "gui",
+ "developer": "JetBrains s.r.o.",
+ "github": null,
+ "stars": 4.5,
+ "reviews": 208
 }

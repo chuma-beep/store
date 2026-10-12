@@ -1,21 +1,23 @@
 {
-  "id": "azure-cli",
-  "name": "Azure CLI",
-  "category": "developer-tools",
-  "github": "Azure/azure-cli",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "azure-cli"
-    ]
-  },
-  "detect": [
-    "azure-cli"
-  ],
-  "kind": "terminal",
-  "summary": "Azure Command-Line Interface",
-  "icon": null,
-  "open": "az",
-  "cli": true
+ "id": "azure-cli",
+ "name": "Azure CLI",
+ "category": "developer-tools",
+ "github": "Azure/azure-cli",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "azure-cli"
+  ]
+ },
+ "detect": [
+  "azure-cli"
+ ],
+ "kind": "terminal",
+ "summary": "Azure Command-Line Interface",
+ "icon": null,
+ "open": "az",
+ "cli": true,
+ "stars": 4.8,
+ "reviews": 197
 }

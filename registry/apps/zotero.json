@@ -1,17 +1,19 @@
 {
-  "id": "zotero",
-  "name": "Zotero",
-  "category": "productivity",
-  "github": "zotero/zotero",
-  "flathub": "org.zotero.Zotero",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "zotero"
-    ]
-  },
-  "detect": [
-    "zotero"
-  ],
-  "kind": "gui"
+ "id": "zotero",
+ "name": "Zotero",
+ "category": "productivity",
+ "github": "zotero/zotero",
+ "flathub": "org.zotero.Zotero",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "zotero"
+  ]
+ },
+ "detect": [
+  "zotero"
+ ],
+ "kind": "gui",
+ "stars": 5.0,
+ "reviews": 234
 }

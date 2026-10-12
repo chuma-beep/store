@@ -1,18 +1,20 @@
 {
-  "id": "master-pdf-editor",
-  "name": "Master PDF Editor",
-  "category": "productivity",
-  "flathub": "net.code_industry.MasterPDFEditor",
-  "install": {
-    "method": "aur",
-    "packages": [
-      "masterpdfeditor"
-    ]
-  },
-  "detect": [
-    "masterpdfeditor"
-  ],
-  "kind": "gui",
-  "developer": "Code Industry",
-  "github": null
+ "id": "master-pdf-editor",
+ "name": "Master PDF Editor",
+ "category": "productivity",
+ "flathub": "net.code_industry.MasterPDFEditor",
+ "install": {
+  "method": "aur",
+  "packages": [
+   "masterpdfeditor"
+  ]
+ },
+ "detect": [
+  "masterpdfeditor"
+ ],
+ "kind": "gui",
+ "developer": "Code Industry",
+ "github": null,
+ "stars": 4.6,
+ "reviews": 533
 }

@@ -1,20 +1,22 @@
 {
-  "id": "vis",
-  "name": "vis",
-  "category": "terminal",
-  "github": "martanne/vis",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "vis"
-    ]
-  },
-  "detect": [
-    "vis"
-  ],
-  "kind": "terminal",
-  "summary": "A vi-like editor based on Plan 9's structural regular expressions",
-  "icon": null,
-  "open": "vis"
+ "id": "vis",
+ "name": "vis",
+ "category": "terminal",
+ "github": "martanne/vis",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "vis"
+  ]
+ },
+ "detect": [
+  "vis"
+ ],
+ "kind": "terminal",
+ "summary": "A vi-like editor based on Plan 9's structural regular expressions",
+ "icon": null,
+ "open": "vis",
+ "stars": 4.6,
+ "reviews": 76
 }

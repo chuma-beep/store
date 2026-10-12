@@ -1,21 +1,23 @@
 {
-  "id": "oha",
-  "name": "oha",
-  "category": "developer-tools",
-  "github": "hatoo/oha",
-  "flathub": null,
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "oha"
-    ]
-  },
-  "detect": [
-    "oha"
-  ],
-  "kind": "terminal",
-  "summary": "Ohayou(おはよう), HTTP load generator, inspired by rakyll/hey with tui animation.",
-  "icon": null,
-  "open": "oha",
-  "cli": true
+ "id": "oha",
+ "name": "oha",
+ "category": "developer-tools",
+ "github": "hatoo/oha",
+ "flathub": null,
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "oha"
+  ]
+ },
+ "detect": [
+  "oha"
+ ],
+ "kind": "terminal",
+ "summary": "Ohayou(おはよう), HTTP load generator, inspired by rakyll/hey with tui animation.",
+ "icon": null,
+ "open": "oha",
+ "cli": true,
+ "stars": 4.6,
+ "reviews": 533
 }

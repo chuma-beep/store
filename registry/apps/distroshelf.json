@@ -1,18 +1,20 @@
 {
-  "id": "distroshelf",
-  "name": "DistroShelf",
-  "category": "utilities",
-  "github": "ranfdev/DistroShelf",
-  "flathub": "com.ranfdev.DistroShelf",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "distroshelf"
-    ]
-  },
-  "detect": [
-    "distroshelf"
-  ],
-  "kind": "gui",
-  "developer": "Lorenzo Miglietta"
+ "id": "distroshelf",
+ "name": "DistroShelf",
+ "category": "utilities",
+ "github": "ranfdev/DistroShelf",
+ "flathub": "com.ranfdev.DistroShelf",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "distroshelf"
+  ]
+ },
+ "detect": [
+  "distroshelf"
+ ],
+ "kind": "gui",
+ "developer": "Lorenzo Miglietta",
+ "stars": 4.4,
+ "reviews": 406
 }

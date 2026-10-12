@@ -1,18 +1,20 @@
 {
-  "id": "gitfourchette",
-  "name": "GitFourchette",
-  "category": "developer-tools",
-  "flathub": "org.gitfourchette.gitfourchette",
-  "install": {
-    "method": "pacman",
-    "packages": [
-      "gitfourchette"
-    ]
-  },
-  "detect": [
-    "gitfourchette"
-  ],
-  "kind": "gui",
-  "developer": "Iliyas Jorio",
-  "github": null
+ "id": "gitfourchette",
+ "name": "GitFourchette",
+ "category": "developer-tools",
+ "flathub": "org.gitfourchette.gitfourchette",
+ "install": {
+  "method": "pacman",
+  "packages": [
+   "gitfourchette"
+  ]
+ },
+ "detect": [
+  "gitfourchette"
+ ],
+ "kind": "gui",
+ "developer": "Iliyas Jorio",
+ "github": null,
+ "stars": 5.0,
+ "reviews": 373
 }
