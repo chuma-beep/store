@@ -101,7 +101,7 @@ CHROME_ID_RE = re.compile(r"^[a-p]{32}$")
 
 def load_crypto():
     p = os.path.join(REG, "crypto-wallets.json")
-    return load(p) if os.path.exists(p) else {"safety": "", "wallets": []}
+    return load(p) if os.path.exists(p) else {"safety": "", "wallets": [], "depin": []}
 
 
 def validate_crypto():
@@ -125,6 +125,24 @@ def validate_crypto():
         ch = w.get("chains")
         if not ch or not isinstance(ch, list) or not all(isinstance(x, str) and re.match(r"^[A-Za-z0-9 .-]{1,24}$", x) for x in ch): e("chains must be a list of names")
         for f in ("website", "firefox_url"):
+            if w.get(f) and not re.match(r"^https://[^\s\"'<>]+$", w[f]): e(f"{f} must be an https:// url")
+        if not w.get("website"): e("website required")
+        ic = w.get("icon") or ""
+        if not (ic.startswith("https://") or (re.match(r"^featured/crypto/[a-z0-9-]+\.(png|webp|svg)$", ic) and os.path.exists(os.path.join(ROOT, "site", ic)))):
+            e("icon must be https:// or an existing file under site/featured/crypto/")
+    # Validate DePIN extensions (similar to wallets but with type instead of chains)
+    for w in d.get("depin") or []:
+        e = lambda m: errors.append(f"crypto-wallets.json (depin): {w.get('id')!r}: {m}")
+        if not ID_RE.match(w.get("id") or ""): e("id must be lowercase letters/digits/dashes")
+        if w.get("id") in seen: e("duplicate id")
+        seen.add(w.get("id"))
+        if not CHROME_ID_RE.match(w.get("chrome_store_id") or ""): e("chrome_store_id must be 32 letters a-p")
+        if w.get("chrome_store_id") in cids: e("duplicate chrome_store_id")
+        cids.add(w.get("chrome_store_id"))
+        for f in ("name", "summary", "description"):
+            if not w.get(f): e(f"{f} required")
+        if w.get("type") != "depin": e("type must be 'depin'")
+        for f in ("website",):
             if w.get(f) and not re.match(r"^https://[^\s\"'<>]+$", w[f]): e(f"{f} must be an https:// url")
         if not w.get("website"): e("website required")
         ic = w.get("icon") or ""

@@ -88,7 +88,7 @@ main { overflow-y: auto; overflow-x: hidden; outline: none; scroll-behavior: smo
 .shelf-head { display: flex; align-items: baseline; justify-content: space-between; border-top: 1px solid var(--line); padding-top: 16px; margin-bottom: 12px; }
 .shelf-head h2 { font-size: 21px; font-weight: 700; letter-spacing: -.01em; margin: 0; }
 .shelf-head a { color: var(--accent); font-size: 14px; }
-.scroller { display: grid; grid-auto-flow: column; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 6px; scrollbar-width: none; }
+.scroller { display: grid; grid-auto-flow: column; overflow-x: auto; scroll-snap-type: x mandatory; gap: 20px; padding-bottom: 6px; scrollbar-width: none; scroll-behavior: smooth; }
 .scroller::-webkit-scrollbar { display: none; }
 .scroller > * { scroll-snap-align: start; }
 .rows3 { grid-template-rows: repeat(3, auto); grid-auto-columns: calc((100% - 40px) / 3); column-gap: 20px; row-gap: 0; }
@@ -682,7 +682,7 @@ select.sel { background: var(--pill); color: var(--text); border: 0; border-radi
 .theme-spot.on-page { margin: 4px 0 18px; }
 
 /* Discover: SnapDock + Get Omarchy side by side, swipe/scroll between them */
-.spot-row { display: grid; grid-auto-flow: column; grid-auto-columns: calc(100% - 64px); gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 0 10px; padding-bottom: 4px; }
+.spot-row { display: grid; grid-auto-flow: column; grid-auto-columns: calc(100% - 64px); gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 0 10px; padding-bottom: 4px; scroll-behavior: smooth; }
 .spot-row::-webkit-scrollbar { display: none; }
 .spot-row > .spot { scroll-snap-align: start; margin-bottom: 0; min-width: 0; }
 .spot-dots { display: flex; justify-content: center; gap: 8px; margin: 6px 0 26px; }
@@ -1006,3 +1006,23 @@ html[data-look="glass"] .brand .wordmark img { filter: drop-shadow(0 1px 2px rgb
   .crypto-hero .ch-icons { display: none; }
   #cq { min-width: 0; width: 100%; }
 }
+
+/* ---------- Crypto Cards (Square layout like themes/plugins) ---------- */
+.crypto-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 22px; }
+.crypto-row { grid-auto-columns: minmax(260px, 300px); }
+.crypto-card { display: block; min-width: 0; border-radius: var(--radius); background: var(--card); overflow: hidden; transition: transform .2s, box-shadow .2s; }
+.crypto-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.cc-img { position: relative; aspect-ratio: 16 / 10; overflow: hidden; display: grid; place-items: center; background: linear-gradient(135deg, var(--pill), var(--card)); }
+.cc-img img { width: 80px; height: 80px; border-radius: 20px; box-shadow: 0 10px 26px rgba(0,0,0,.35); transition: transform .4s; }
+.crypto-card:hover .cc-img img { transform: scale(1.08); }
+.cc-chip { position: absolute; left: 10px; top: 10px; font-size: 11px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: rgba(0,0,0,.55); color: #fff; backdrop-filter: blur(8px); }
+.cc-chip.on { left: auto; right: 10px; background: var(--good); color: #04210f; }
+.cc-chip.depin { background: linear-gradient(135deg, #9ece6a, #30d158); color: #04210f; }
+.cc-meta { display: flex; align-items: center; gap: 10px; padding: 12px 14px 14px; }
+.cc-meta .meta { flex: 1; min-width: 0; }
+.cc-meta .name { font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cc-meta .sub { color: var(--text-2); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cc-chains { display: flex; gap: 4px; margin-top: 5px; flex-wrap: wrap; }
+.cc-chains span { padding: 2px 8px; border-radius: 999px; background: var(--pill); color: var(--text-2); font-size: 11px; font-weight: 600; }
+.cc-type { padding: 2px 8px; border-radius: 999px; background: linear-gradient(135deg, rgba(158,206,106,.2), rgba(48,209,88,.2)); color: var(--good); font-size: 11px; font-weight: 700; }
+@media (max-width: 720px) { .crypto-row { grid-auto-columns: 78%; } }

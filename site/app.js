@@ -775,7 +775,8 @@
   // the user's Chromium, so all that's left is "Add to Chrome"; the helper then sees the extension and shows OPEN.
   const CWS = "https://chromewebstore.google.com/detail/";
   const wallets = () => S.catalog?.crypto?.wallets || [];
-  const walletById = (id) => wallets().find((w) => w.id === id);
+  const depins = () => S.catalog?.crypto?.depin || [];
+  const walletById = (id) => wallets().find((w) => w.id === id) || depins().find((d) => d.id === id);
   const cwsUrl = (w) => CWS + (/^[a-p]{32}$/.test(w.chrome_store_id) ? w.chrome_store_id : "");
   const walletImg = (w, size) => `<img class="icon" src="${esc(asset(w.icon))}" alt="" width="${size}" height="${size}" loading="lazy" referrerpolicy="no-referrer">`;
   const CHAIN_ORDER = ["Solana", "Ethereum", "Bitcoin", "Base", "XRP", "Cosmos", "Polygon", "Arbitrum", "BNB Chain", "Optimism", "Stacks", "Sui"];
@@ -790,13 +791,21 @@
     return `<button class="${cls}" data-crypto-get="${esc(w.id)}" title="${S.desktop ? "Opens in Chromium: press Add to Chrome" : "Opens the official Chrome Web Store page"}">GET</button>`;
   }
   const chainLine = (w) => w.chains.slice(0, 3).join(" · ") + (w.chains.length > 3 ? ` +${w.chains.length - 3}` : "");
-  function walletLockup(w) {
-    return `<a class="lockup" href="/crypto/${esc(w.id)}/">
-      ${walletImg(w, 64)}
-      <div class="meta"><div class="name">${esc(w.name)}</div><div class="sub">${esc(w.summary)}</div>
-        <div class="stars wl-chains">${ico("wallet")}${esc(chainLine(w))}</div></div>
-      ${walletBtn(w)}
+  function walletCard(w) {
+    const img = asset(w.icon);
+    const isDepin = w.type === "depin";
+    return `<a class="crypto-card" href="/crypto/${esc(w.id)}/">
+      <div class="cc-img">${img ? `<img src="${esc(img)}" alt="${esc(w.name)} icon" loading="lazy">` : ""}
+        ${isDepin ? `<span class="cc-chip depin">Earn Crypto</span>` : ""}${S.desktop && S.cryptoHave.has(w.id) ? `<span class="cc-chip on">Installed</span>` : ""}</div>
+      <div class="cc-meta">
+        <div class="meta"><div class="name">${esc(w.name)}</div><div class="sub">${esc(w.summary)}</div>
+          ${isDepin ? `<div class="cc-chains"><span class="cc-type">${esc(w.category || "DePIN")}</span></div>` : w.chains?.length ? `<div class="cc-chains">${w.chains.slice(0, 3).map((c) => `<span>${esc(c)}</span>`).join("")}${w.chains.length > 3 ? `<span>+${w.chains.length - 3}</span>` : ""}</div>` : ""}</div>
+        ${walletBtn(w)}
+      </div>
     </a>`;
+  }
+  function walletLockup(w) {
+    return walletCard(w);
   }
   let cryptoLoaded = 0;
   async function loadCryptoInstalled(force) {
@@ -839,9 +848,19 @@
     if (q) l = l.filter((w) => (w.name + " " + w.chains.join(" ") + " " + w.summary + " " + w.description).toLowerCase().includes(q));
     return l;
   }
+  function depinList() {
+    const q = S.cryptoQ.trim().toLowerCase();
+    let l = depins();
+    if (q) l = l.filter((w) => (w.name + " " + (w.category || "") + " " + w.summary + " " + w.description).toLowerCase().includes(q));
+    return l;
+  }
   function cryptoGridHtml() {
     const l = cryptoList();
-    return l.length ? l.map(walletLockup).join("") : `<div class="empty" style="grid-column:1/-1">No wallets match.</div>`;
+    return l.length ? l.map(walletCard).join("") : `<div class="empty" style="grid-column:1/-1">No wallets match.</div>`;
+  }
+  function depinGridHtml() {
+    const l = depinList();
+    return l.length ? l.map(walletCard).join("") : "";
   }
   const cryptoSafety = () => `<div class="trust warn crypto-safety">${ico("shield")}<div><b>Keep your crypto safe.</b> ${esc(S.catalog.crypto?.safety || "")}
     <div style="margin-top:6px">Wallets are made by independent companies; the Omarchy Store isn't affiliated with any of them and never holds your coins. <a style="color:var(--accent)" href="/legal/">Disclaimer</a>.</div></div></div>`;
@@ -860,8 +879,9 @@
   function pageCrypto() {
     loadCryptoInstalled();
     const chains = walletChains();
+    const showDepins = depins().length > 0 && S.cryptoChain === "all";
     return `<div class="page">
-      <h1 class="page-title">Crypto Wallets</h1>
+      <h1 class="page-title">Crypto</h1>
       ${cryptoHero()}
       <p class="page-sub">Browser wallets let you hold coins, tokens and NFTs and use crypto websites. ${S.desktop
         ? "Press GET and the wallet's official Chrome Web Store page opens in Chromium: just click <b>Add to Chrome</b>."
@@ -870,7 +890,13 @@
         <div class="tabs">${[["all", "All"], ...chains.map((c) => [c, c])].map(([id, n]) => `<button data-cchain="${esc(id)}" class="${S.cryptoChain === id ? "on" : ""}">${esc(n)}</button>`).join("")}</div>
         <div class="plug-search"><input id="cq" type="search" placeholder="Search wallets" value="${esc(S.cryptoQ)}" autocomplete="off" aria-label="Search wallets"></div>
       </div>
-      <div class="grid" id="cgrid">${cryptoGridHtml()}</div>
+      <section class="shelf"><div class="shelf-head"><h2>Wallets</h2></div>
+        <div class="crypto-grid" id="cgrid">${cryptoGridHtml()}</div>
+      </section>
+      ${showDepins && depinList().length ? `<section class="shelf"><div class="shelf-head"><h2>Earn Crypto</h2></div>
+        <p class="page-sub" style="margin-top:-8px;margin-bottom:18px">DePIN extensions let you earn crypto by sharing bandwidth, compute, or other resources. They run in your browser while you're online.</p>
+        <div class="crypto-grid" id="dgrid">${depinGridHtml()}</div>
+      </section>` : ""}
       ${cryptoSafety()}
       ${footer()}
     </div>`;
@@ -922,7 +948,7 @@
           <div><div class="k">Extension ID</div><div class="v"><code class="small">${esc(w.chrome_store_id)}</code></div></div>
         </div></section>
       ${more.length ? `<section class="shelf"><div class="shelf-head"><h2>More wallets</h2><a href="/crypto/">See All</a></div>
-        <div class="scroller rows3">${more.map(walletLockup).join("")}</div></section>` : ""}
+        <div class="scroller crypto-row">${more.map(walletCard).join("")}</div></section>` : ""}
       ${footer()}
     </div>`;
   }
@@ -930,7 +956,7 @@
     if (!wallets().length) return "";
     loadCryptoInstalled();
     return `<section class="shelf"><div class="shelf-head"><h2>Crypto wallets</h2><a href="/crypto/">See All</a></div>
-      <div class="scroller rows3">${wallets().slice(0, 12).map(walletLockup).join("")}</div></section>`;
+      <div class="scroller crypto-row">${wallets().slice(0, 12).map(walletCard).join("")}</div></section>`;
   }
   function plugShelf() {
     if (!S.plugins) { loadPlugins(); return ""; }

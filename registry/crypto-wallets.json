@@ -247,5 +247,73 @@
       "website": "https://exodus.com",
       "icon": "featured/crypto/exodus-web3.png"
     }
+  ],
+  "depin": [
+    {
+      "id": "grass-lite-node",
+      "name": "Grass Lite Node",
+      "chrome_store_id": "ilehaonighjijnmpnagapkhpcdbhclfg",
+      "type": "depin",
+      "category": "DePIN",
+      "summary": "Earn crypto by sharing your unused bandwidth.",
+      "description": "Grass Lite Node lets you earn crypto by sharing your spare internet bandwidth. It runs quietly in your browser while you're online, contributing to a decentralized network. No setup required beyond installing the extension.",
+      "website": "https://getgrass.io",
+      "icon": "featured/crypto/grass.png"
+    },
+    {
+      "id": "gradient-sentry-node",
+      "name": "Gradient Sentry Node",
+      "chrome_store_id": "caacbgbklghmpodbdafajbgdnegacfmo",
+      "type": "depin",
+      "category": "DePIN",
+      "summary": "Solana edge compute network — earn for sharing resources.",
+      "description": "Gradient Sentry Node is part of a Solana-based edge compute network. By running this extension, you contribute compute resources and earn rewards. It's designed to be lightweight and runs in the background.",
+      "website": "https://gradient.network",
+      "icon": "featured/crypto/gradient.png"
+    },
+    {
+      "id": "nodepay-extension",
+      "name": "Nodepay Extension",
+      "chrome_store_id": "lgmpfmgeabnnlemejacfljbmonaomfmm",
+      "type": "depin",
+      "category": "DePIN",
+      "summary": "Earn crypto by contributing to AI training networks.",
+      "description": "Nodepay lets you earn by sharing your unused bandwidth for AI training data networks. The extension runs in your browser and pays you for the resources you contribute to decentralized AI infrastructure.",
+      "website": "https://nodepay.ai",
+      "icon": "featured/crypto/nodepay.png"
+    },
+    {
+      "id": "dawn-validator",
+      "name": "DAWN Validator",
+      "chrome_store_id": "fpdkjdnhkakefebpekbdhillbhonfjjp",
+      "type": "depin",
+      "category": "DePIN",
+      "summary": "Proof of bandwidth — earn for your internet connection.",
+      "description": "DAWN Validator participates in a proof-of-bandwidth network. You earn rewards by validating your internet connection and contributing bandwidth to the decentralized network. Simple setup, passive earning.",
+      "website": "https://dawninternet.com",
+      "icon": "featured/crypto/dawn.png"
+    },
+    {
+      "id": "teneo-community-node",
+      "name": "Teneo Community Node",
+      "chrome_store_id": "emcclcoaglgcpoognfiggmhnhgabppkm",
+      "type": "depin",
+      "category": "DePIN",
+      "summary": "Join the Teneo network and earn for your participation.",
+      "description": "Teneo Community Node lets you participate in a decentralized network and earn rewards. The browser extension is lightweight and runs in the background while you browse normally.",
+      "website": "https://teneo.pro",
+      "icon": "featured/crypto/teneo.png"
+    },
+    {
+      "id": "openloop-sentry-node",
+      "name": "OpenLoop Sentry Node",
+      "chrome_store_id": "effapmdildnpkiaeghlkicpfflpiambm",
+      "type": "depin",
+      "category": "DePIN",
+      "summary": "Decentralized network sentry — earn passively.",
+      "description": "OpenLoop Sentry Node contributes to a decentralized network infrastructure. Run the extension in your browser to participate and earn rewards for your contribution to the network.",
+      "website": "https://openloop.so",
+      "icon": "featured/crypto/openloop.png"
+    }
   ]
 }
