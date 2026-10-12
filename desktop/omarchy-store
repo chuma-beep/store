@@ -1221,7 +1221,9 @@ def serve():
 
 def open_window(port):
     url = f"http://127.0.0.1:{port}/"
-    for cmd in (["omarchy-launch-webapp", url], ["xdg-open", url]):
+    # Pass extra Chromium flags to hide the URL status bubble and set window class
+    extra_args = ["--class=omarchy-store", "--disable-features=StatusBubble"]
+    for cmd in (["omarchy-launch-webapp", url] + extra_args, ["xdg-open", url]):
         if shutil.which(cmd[0]):
             subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
             return

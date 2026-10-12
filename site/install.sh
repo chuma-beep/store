@@ -136,7 +136,7 @@ Terminal=false
 Categories=System;PackageManager;
 Keywords=store;apps;install;software;market;
 StartupNotify=true
-StartupWMClass=chrome-127.0.0.1__-Default
+StartupWMClass=omarchy-store
 EOF
 
 gtk-update-icon-cache "$HOME/.local/share/icons/hicolor" &>/dev/null || true

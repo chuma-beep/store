@@ -1,0 +1,44 @@
+{
+  "manifest_version": 3,
+  "name": "Omarchy Store",
+  "short_name": "Omarchy Store",
+  "description": "The official Omarchy Store extension - one-click installs, updates, and themes for Omarchy Linux",
+  "version": "1.7.5",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting",
+    "tabs",
+    "downloads"
+  ],
+  "host_permissions": [
+    "https://omarchystore.com/*",
+    "https://*.omarchy.org/*"
+  ],
+  "icons": {
+    "16": "icons/omarchy-16.png",
+    "48": "icons/omarchy-48.png",
+    "128": "icons/omarchy-128.png"
+  },
+  "default_popup": "popup.html",
+  "default_title": "Omarchy Store",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/content.js"],
+      "css": ["css/content.css"]
+    }
+  ],
+  "background": {
+    "service_worker": "js/background.js"
+  },
+  "content_security_policy": {
+    "extension_pages": "script-src 'self' https://omarchystore.com; object-src 'self'; connect-src 'self' https://omarchystore.com wss://*.omarchy.org;"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["images/*", "css/*", "js/*"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": "touchfix",
+  "name": "touchfix",
+  "category": "utilities",
+  "github": "nemoclawai-tech/touchfix",
+  "install": {
+    "method": "omarchy",
+    "command": "omarchy install touchfix"
+  },
+  "detect": [
+    "touchfix"
+  ],
+  "kind": "cli",
+  "tags": [
+    "touch",
+    "input",
+    "diagnostic",
+    "surface"
+  ],
+  "stars": 0,
+  "reviews": 0
+}
