@@ -952,3 +952,25 @@ html[data-look="white"] .brand .wordmark img[src*="wordmark-store"] { filter: sa
 .lightbox img { object-fit: contain; }
 /* version number under "Desktop app" */
 .mode-badge .ver { font-weight: 600; font-size: 11px; color: var(--text-3); margin-left: 4px; }
+
+/* Wide screens: use the space. Up to 1640px wide, and more apps per row on big monitors. */
+.page { max-width: 2200px; }
+@media (min-width: 1700px) {
+  .rows3 { grid-auto-columns: calc((100% - 60px) / 4); }
+  .hero { grid-auto-columns: calc((100% - 40px) / 3); }
+}
+@media (min-width: 2300px) {
+  .rows3 { grid-auto-columns: calc((100% - 80px) / 5); }
+  .hero { grid-auto-columns: calc((100% - 60px) / 4); }
+}
+/* ‹ › on every sideways row */
+.rowwrap { position: relative; }
+.row-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 40px; height: 40px; border-radius: 50%;
+  border: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 78%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  color: var(--text); font-size: 26px; line-height: 1; padding-bottom: 3px; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,.35); display: grid; place-items: center; }
+.row-nav:hover { background: var(--card-hover); }
+.row-nav[hidden] { display: none; }
+.row-prev { left: -14px; } .row-next { right: -14px; }
+@media (max-width: 720px) { .row-nav { display: none; } }   /* phones swipe */
+/* Very wide screens: billboards keep the artwork's proportions (2400x900), so nothing in the picture gets cropped */
+@media (min-width: 1700px) { .spot.full { aspect-ratio: 2400 / 900; min-height: 0; } .spot-row { grid-auto-columns: calc(100% - 110px); } }

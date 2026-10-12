@@ -1819,6 +1819,7 @@
     else if (p === "legal") html = pageLegal();
     else html = notFound();
     view.innerHTML = html;
+    addRowArrows();
     markNav(nav);
     if (p !== "search") $("#q").value = "";
     if (route.last !== h) view.scrollTop = 0;
@@ -1844,6 +1845,23 @@
     return TITLES[p] ? `${TITLES[p]} | Omarchy Store` : "Omarchy Store – The App Store for Omarchy Linux";
   }
   const rerender = () => { const top = view.scrollTop; route(); view.scrollTop = top; };
+
+  // ---------- ‹ › buttons on every sideways row (mouse users can't swipe; the scrollbar is hidden) ----------
+  function addRowArrows() {
+    view.querySelectorAll(".scroller:not(#shots), .spot-row").forEach((sc) => {
+      if (sc.parentElement.classList.contains("rowwrap")) return;
+      const w = document.createElement("div"); w.className = "rowwrap";
+      sc.parentNode.insertBefore(w, sc); w.appendChild(sc);
+      w.insertAdjacentHTML("beforeend", `<button class="row-nav row-prev" aria-label="Scroll left" hidden>‹</button><button class="row-nav row-next" aria-label="Scroll right" hidden>›</button>`);
+      const upd = () => { const max = sc.scrollWidth - sc.clientWidth;
+        w.querySelector(".row-prev").hidden = sc.scrollLeft <= 4; w.querySelector(".row-next").hidden = sc.scrollLeft >= max - 4; };
+      sc.addEventListener("scroll", upd, { passive: true });
+      w.querySelector(".row-prev").onclick = (e) => { e.preventDefault(); sc.scrollBy({ left: -sc.clientWidth * 0.9, behavior: "smooth" }); };
+      w.querySelector(".row-next").onclick = (e) => { e.preventDefault(); sc.scrollBy({ left: sc.clientWidth * 0.9, behavior: "smooth" }); };
+      requestAnimationFrame(upd); setTimeout(upd, 600);   // re-check after images load
+    });
+  }
+  addEventListener("resize", () => view.querySelectorAll(".rowwrap .scroller, .rowwrap .spot-row").forEach((sc) => sc.dispatchEvent(new Event("scroll"))));
 
   // ---------- screenshot gallery: arrows, dots, full-size viewer with left/right ----------
   const galImgs = () => [...document.querySelectorAll("#shots img")];
@@ -2072,7 +2090,7 @@
   });
   document.addEventListener("click", (e) => {
     const d = e.target.closest("[data-spot]"); if (!d) return;
-    const row = d.parentElement.previousElementSibling, card = row?.children[+d.dataset.spot];
+    const row = view.querySelector(".spot-row"), card = row?.children[+d.dataset.spot];
     if (card) row.scrollTo({ left: card.offsetLeft - row.offsetLeft, behavior: "smooth" });
   });
   // macOS-style bounce on icon click
@@ -2088,7 +2106,7 @@
     const row = e.target;
     if (!(row instanceof Element) || !row.classList.contains("spot-row")) return;
     const i = Math.round(row.scrollLeft / Math.max(1, row.firstElementChild.getBoundingClientRect().width));
-    row.nextElementSibling?.querySelectorAll("i").forEach((d, n) => d.classList.toggle("on", n === i));
+    view.querySelectorAll(".spot-dots i").forEach((d, n) => d.classList.toggle("on", n === i));
   }, true);
   let qt;
   $("#q").addEventListener("input", (e) => {
