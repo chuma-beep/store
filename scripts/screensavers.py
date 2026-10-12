@@ -62,7 +62,8 @@ def from_plugins():
     for p in d.get("plugins", []):
         text = " ".join([p.get("id", ""), p.get("n", ""), p.get("d", ""), " ".join(p.get("t") or [])])
         if SAVER_RE.search(text):
-            out.append({"id": p["id"], "k": kind(p.get("n", "") + " " + p.get("d", "")), "r": p.get("r", "")})
+            out.append({"id": p["id"], "k": "saver" if p.get("own") else kind(p.get("n", "") + " " + p.get("d", "")),
+                        "r": p.get("r", ""), **({"own": 1} if p.get("own") else {})})
     return out
 
 

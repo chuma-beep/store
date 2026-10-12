@@ -11,9 +11,10 @@
     "jlopezlira/omarchy-pets", "leies/leies-omarchy", "renayo/khagola-public", "obsidian-os/screensaver",
     "canliketo/lockscreen-config-widget", "barun-labs/sandman", "petrkadlec1-art/kocici-hlidac",
     "manateelazycat/omarchy-power-awake", "danimoya/omarchy-animated-screensaver", "zaheen4/omarchy-wordmark-kit",
-    "silentfin/super-screen-saver"
+    "silentfin/super-screen-saver",
+    "nemoclawai-tech/mystify-screensaver"
   ],
-  "saver": ["nemoclawai-tech/mystify-screensaver", "io.github.slogonomo.live-doom", "beforelight", "nickfoy.flight-board", "0xsl0th/omarchy-neon-overdrive-screensaver"],
+  "saver": ["io.github.slogonomo.live-doom", "beforelight", "nickfoy.flight-board", "0xsl0th/omarchy-neon-overdrive-screensaver"],
   "tool": ["brianirish.screensaver", "io.github.wouldja.screensaver", "io.github.aashbury.stelline", "tahmidraven/omarchy_raven_screensaver_editor",
            "giorgobiani/omarchy-screensaver-matrix", "ben-clem/omarchy-cmd-screensaver", "fordfisher/omarchy-screensaver-studio",
            "puneethkethanapalli/omascii", "io.github.docwatz.omarchyss", "dorneles.omasaver"]

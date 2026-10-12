@@ -1,0 +1,27 @@
+[
+  {
+    "id": "omarchy-store-screensaver",
+    "n": "Omarchy Store Screensaver",
+    "d": "Glowing Mystify-style ribbons over a soft aurora. 10 colour palettes, wait time from 1 minute to 1 hour, optional password on wake, moving clock. Open 'Screensaver Settings' from the app launcher.",
+    "a": "Omarchy Store",
+    "v": "1.0.0",
+    "c": "appearance",
+    "t": [
+      "screensaver",
+      "mystify",
+      "idle"
+    ],
+    "r": "https://github.com/nemoclawai-tech/omarchy-store-screensaver",
+    "s": 0,
+    "ok": true,
+    "u": "2026-10-12",
+    "add": "2026-10-12",
+    "ac": "purple",
+    "ini": "OS",
+    "i": 1,
+    "img": "https://omarchystore.com/featured/omarchy-store-screensaver/card.webp",
+    "img_big": "https://omarchystore.com/featured/omarchy-store-screensaver/detail.webp",
+    "l": "MIT",
+    "icon": "https://omarchystore.com/featured/omarchy-store-screensaver/icon.png"
+  }
+]

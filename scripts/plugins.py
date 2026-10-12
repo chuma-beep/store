@@ -87,6 +87,13 @@ def collect():
             row["l"] = clean(lic, 30)
         out.append(row)
     out.sort(key=lambda x: (-x["s"], not x["ok"], x["n"].lower()))
+    # The Omarchy Store's own plugins (registry/own-plugins.json) always come first.
+    try:
+        own = json.load(open(os.path.join(ROOT, "registry", "own-plugins.json")))
+        have = {x["id"] for x in own}
+        out = [dict(x, own=1) for x in own] + [x for x in out if x["id"] not in have]
+    except (OSError, ValueError) as ex:
+        print(f"  warn: own plugins skipped: {ex}", file=sys.stderr)
     return {
         "generated_at": data.get("generatedAt"),
         "count": len(out),

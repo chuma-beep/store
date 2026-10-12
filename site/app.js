@@ -591,10 +591,13 @@
       .catch(() => { S.plugins = { plugins: [], source: {}, categories: [], failed: true }; rerender(); });
     return plugLoading;
   }
-  const plugImg = (x, big) => x.img ? (S.plugins.source.img_base || "https://plugins.omarchy.org/assets/img/plugins/") + x.img.replace(/\.(\w+)$/, (big ? "-detail" : "-card") + ".$1") : "";
+  // Our own plugins carry full image URLs; marketplace plugins carry a file name on the marketplace.
+  const plugImg = (x, big) => !x.img ? "" : /^https:\/\//.test(x.img) ? (big && x.img_big ? x.img_big : x.img)
+    : (S.plugins.source.img_base || "https://plugins.omarchy.org/assets/img/plugins/") + x.img.replace(/\.(\w+)$/, (big ? "-detail" : "-card") + ".$1");
   const plugCmd = (x) => `omarchy plugin add ${x.r}.git --enable`;
-  const plugBadge = (x) => x.ok ? `<span class="pv ok" title="Passed the marketplace's automated security check">${ico("verified")}Verified</span>` : `<span class="pv" title="Not yet checked by the marketplace">Unverified</span>`;
+  const plugBadge = (x) => x.own ? `<span class="pv ok" title="Made by the Omarchy Store">${ico("verified")}Official</span>` : x.ok ? `<span class="pv ok" title="Passed the marketplace's automated security check">${ico("verified")}Verified</span>` : `<span class="pv" title="Not yet checked by the marketplace">Unverified</span>`;
   function plugTile(x) {
+    if (x.icon) return `<span class="pl-ini" style="--pc:#7c3aed"><img src="${esc(x.icon)}" alt="" loading="lazy" style="object-fit:cover"></span>`;   // our own plugins: app icon
     const col = ACCENTS[x.ac] || "#7aa2f7";
     const img = x.img ? plugImg(x) : "";
     return `<span class="pl-ini" style="--pc:${col}">${img ? `<img src="${esc(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ""}${ico("puzzle")}</span>`;
@@ -625,7 +628,7 @@
     if (f === "new") l = l.filter((x) => x.add).sort((a, b) => (b.add > a.add ? 1 : b.add < a.add ? -1 : b.s - a.s));
     if (q) l = l.filter((x) => (x.n + " " + x.a + " " + x.d + " " + (x.t || []).join(" ") + " " + x.id).toLowerCase().includes(q));
     // One-click (GET) plugins always come first; VIEW-only ones (no install id) go to the bottom. Stable sort keeps the order within each group.
-    l = l.map((x, i) => [x, i]).sort((a, b) => ((b[0].i ? 1 : 0) - (a[0].i ? 1 : 0)) || (a[1] - b[1])).map(([x]) => x);
+    l = l.map((x, i) => [x, i]).sort((a, b) => ((b[0].own ? 1 : 0) - (a[0].own ? 1 : 0)) || ((b[0].i ? 1 : 0) - (a[0].i ? 1 : 0)) || (a[1] - b[1])).map(([x]) => x);
     return l;
   }
   function plugGridHtml() {
@@ -690,8 +693,8 @@
           <p class="muted small">Remove it any time: <code>omarchy plugin remove ${esc(x.id)}</code></p>`
         : `<p>${esc(x.note || "This one needs manual setup.")} Follow the instructions on <a style="color:var(--accent)" href="${safeUrl(x.r || market)}" target="_blank" rel="noopener">its GitHub page</a>.</p>`}
         ${x.t?.length ? `<div class="chips" style="margin-top:12px">${x.t.map((t) => `<span>${esc(t)}</span>`).join("")}</div>` : ""}
-        <div class="trust">${ico("ok")}<div>${x.ok ? "Verified: this plugin passed the Omarchy Plugin Marketplace's automated security check for the version listed." : "Unverified: the marketplace hasn't checked this plugin's code yet. That doesn't mean it's unsafe, but review it before adding."} Plugins run on your computer with your permissions, so only add ones you trust.
-          <div style="margin-top:6px">Plugin by ${esc(x.a || "its creator")} · listed on the <a style="color:var(--accent)" href="${safeUrl(market)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a>. Third-party code, provided as-is: <a style="color:var(--accent)" href="/legal/">disclaimer</a>.</div></div></div>
+        <div class="trust">${ico("ok")}<div>${x.own ? "Official: made and checked by the Omarchy Store. Open source (MIT), so anyone can read the code." : x.ok ? "Verified: this plugin passed the Omarchy Plugin Marketplace's automated security check for the version listed." : "Unverified: the marketplace hasn't checked this plugin's code yet. That doesn't mean it's unsafe, but review it before adding."} Plugins run on your computer with your permissions, so only add ones you trust.
+          ${x.own ? `<div style="margin-top:6px">Made by the Omarchy Store · <a style="color:var(--accent)" href="${safeUrl(x.r)}" target="_blank" rel="noopener">source on GitHub</a>.</div>` : `<div style="margin-top:6px">Plugin by ${esc(x.a || "its creator")} · listed on the <a style="color:var(--accent)" href="${safeUrl(market)}" target="_blank" rel="noopener">${esc(src.name || "Omarchy Plugin Marketplace")}</a>. Third-party code, provided as-is: <a style="color:var(--accent)" href="/legal/">disclaimer</a>.`}</div></div></div>
       </section>
       ${more.length ? `<section class="shelf"><div class="shelf-head"><h2>More like this</h2><a href="/plugins/">See All</a></div><div class="scroller plug-row">${more.map(plugCard).join("")}</div></section>` : ""}
       ${footer()}
@@ -724,7 +727,7 @@
     const d = S.savers || {}, f = S.saverF, q = S.saverQ.trim().toLowerCase();
     // Anything with a GET button (one-click install) comes first; VIEW-only ones go to the bottom.
     let l = (d.plugins || []).map((p) => ({ p: S.plugById[p.id], k: p.k })).filter((x) => x.p)
-      .sort((a, b) => ((b.p.i ? 1 : 0) - (a.p.i ? 1 : 0)) || ((b.p.ok && b.p.img ? 1 : 0) - (a.p.ok && a.p.img ? 1 : 0)) || (b.p.s - a.p.s));
+      .sort((a, b) => ((b.p.own ? 1 : 0) - (a.p.own ? 1 : 0)) || ((b.p.i ? 1 : 0) - (a.p.i ? 1 : 0)) || ((b.p.ok && b.p.img ? 1 : 0) - (a.p.ok && a.p.img ? 1 : 0)) || (b.p.s - a.p.s));
     if (f !== "one") l = l.concat((d.repos || []).map((r) => ({ r, k: r.k })));
     if (f === "saver" || f === "tool") l = l.filter((x) => x.k === f);
     if (q) l = l.filter((x) => { const o = x.p || x.r; return (o.n + " " + o.a + " " + o.d + " " + o.id).toLowerCase().includes(q); });
@@ -758,14 +761,15 @@
     if (!S.plugins) return "";
     // Plugin objects carry their own "r" (repo) field, so tag each entry explicitly instead of guessing by shape.
     // Discover shows only one-click (GET) screensavers; VIEW-only ones stay on the Screensavers page.
-    const l = (S.savers.plugins || []).filter((p) => p.k === "saver").map((p) => S.plugById[p.id]).filter((x) => x && x.img && x.i).slice(0, 12).map((p) => ({ p }));
+    const l = (S.savers.plugins || []).filter((p) => p.k === "saver").map((p) => S.plugById[p.id]).filter((x) => x && x.img && x.i)
+      .sort((a, b) => (b.own ? 1 : 0) - (a.own ? 1 : 0)).slice(0, 12).map((p) => ({ p }));   // our own screensaver first
     if (!l.length) return "";
     return `<section class="shelf"><div class="shelf-head"><h2>Screensavers</h2><a href="/screensavers/">See All ${S.savers.count}</a></div>
       <div class="scroller plug-row">${l.map((x) => x.repo ? saverCard(x.repo) : plugCard(x.p)).join("")}</div></section>`;
   }
   function plugShelf() {
     if (!S.plugins) { loadPlugins(); return ""; }
-    const l = (S.plugins.plugins || []).filter((x) => x.ok && x.img && x.i).slice(0, 14);   // Discover: one-click (GET) plugins only
+    const l = (S.plugins.plugins || []).filter((x) => x.ok && x.img && x.i && !x.own).slice(0, 14);   // our screensaver has its own shelf   // Discover: one-click (GET) plugins only
     if (!l.length) return "";
     return `<section class="shelf"><div class="shelf-head"><h2>Plugins: supercharge your bar</h2><a href="/plugins/">See All ${(S.plugins.plugins.length).toLocaleString()}</a></div>
       <div class="scroller plug-row">${l.map(plugCard).join("")}</div></section>`;
