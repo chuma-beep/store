@@ -9,9 +9,9 @@
     "packages": [
       "snapdock"
     ],
-    "version": "2.0.0",
-    "url": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v2.0.0/snapdock-2.0.0-1-any.pkg.tar.zst",
-    "sha256": "2a76676431868a83d3a29287cdf09de83fe4af13f949db29137c5b0f638faed3"
+    "version": "2.0.1",
+    "url": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v2.0.1/snapdock-2.0.1-1-any.pkg.tar.zst",
+    "sha256": "1de5bfff49b6953cd9f8fb191ff427bcca52e12833398eac54c69fee2ffce0b9"
   },
   "detect": [
     "snapdock"
@@ -347,7 +347,7 @@
       "note": "Already have an older SnapDock, or a dock setup of your own? SnapDock 2 puts back whatever the old version changed and never edits your own files."
     },
     "price_note": "Limited time",
-    "new_line": "New in 2.0: Mac and Windows dock styles · Launchpad · Task Manager · Shortcuts",
+    "new_line": "New in 2.0.1: the TV button opens the real Rabbit Ears app, so its updates show up straight away.",
     "order": 1
   },
   "tags": [
@@ -372,6 +372,16 @@
     "workspaces"
   ],
   "changelog": [
+    {
+      "version": "2.0.1",
+      "date": "2026-10-12",
+      "title": "The TV button opens Rabbit Ears itself",
+      "items": [
+        "The TV button on the dock now opens the real Rabbit Ears app when you have it, so every Rabbit Ears update from the store shows up in SnapDock right away.",
+        "The TV icon comes from the installed Rabbit Ears app, so a new Rabbit Ears logo appears on the dock with its update.",
+        "No Rabbit Ears? The TV button still opens SnapDock's built-in TV, as before."
+      ]
+    },
     {
       "version": "2.0.0",
       "date": "2026-10-12",
