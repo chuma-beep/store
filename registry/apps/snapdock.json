@@ -9,9 +9,9 @@
     "packages": [
       "snapdock"
     ],
-    "version": "2.0.2",
-    "url": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v2.0.2/snapdock-2.0.2-1-any.pkg.tar.zst",
-    "sha256": "f55a8601ad2c7eafa9485928cfbe490c978d3d5d050fff2f0fa7f32b87670451"
+    "version": "2.0.3",
+    "url": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v2.0.3/snapdock-2.0.3-1-any.pkg.tar.zst",
+    "sha256": "89098fdacf21c90d908f5bf1b46bae5592190fecc17a18ebd61a284a0b4f1f09"
   },
   "detect": [
     "snapdock"
@@ -347,7 +347,7 @@
       "note": "Already have an older SnapDock, or a dock setup of your own? SnapDock 2 puts back whatever the old version changed and never edits your own files."
     },
     "price_note": "Limited time",
-    "new_line": "New in 2.0.2: every app, including Files, gets the minimize, snap and close buttons.",
+    "new_line": "New in 2.0.3: the Power button is back. Click to restart, right-click for shut down, lock and log out.",
     "order": 1
   },
   "tags": [
@@ -372,6 +372,17 @@
     "workspaces"
   ],
   "changelog": [
+    {
+      "version": "2.0.3",
+      "date": "2026-10-12",
+      "title": "The Power button is back",
+      "items": [
+        "A red Power button on the dock: click it to restart the computer (it asks first, so nothing happens by accident).",
+        "Right-click the Power button for Restart, Shut down, Lock, Log out, or Omarchy's own power menu.",
+        "Restart and Shut down use Omarchy's own commands, so your apps close properly first.",
+        "You can hide the button in SnapDock Settings (Power button)."
+      ]
+    },
     {
       "version": "2.0.2",
       "date": "2026-10-12",
