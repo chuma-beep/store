@@ -10,7 +10,7 @@
   "detect": [
     "touchfix"
   ],
-  "kind": "cli",
+  "kind": "terminal",
   "tags": [
     "touch",
     "input",
