@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Omarchy Store - Crypto Payment Test</title>
+  <link rel="stylesheet" href="/css/solana-pay.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #1a1b26 0%, #24283b 100%);
+      min-height: 100vh;
+      color: #c0caf5;
+      padding: 40px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    h1 {
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: #9aa5ce;
+      margin-bottom: 40px;
+    }
+    .test-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    .test-card h2 {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .status {
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .status.success { background: rgba(158, 206, 106, 0.2); color: #9ece6a; }
+    .status.warning { background: rgba(224, 175, 104, 0.2); color: #e0af68; }
+    .status.error { background: rgba(247, 118, 142, 0.2); color: #f7768e; }
+    
+    .wallets-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .wallet-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(122, 162, 247, 0.2);
+      border-radius: 8px;
+    }
+    .wallet-badge img {
+      width: 24px;
+      height: 24px;
+      border-radius: 6px;
+    }
+    
+    .test-purchase {
+      margin-top: 24px;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 12px;
+    }
+    .test-purchase h3 {
+      margin-bottom: 16px;
+    }
+    .app-preview {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    .app-preview img {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+    }
+    .app-info h4 { margin-bottom: 4px; }
+    .app-info p { color: #9aa5ce; font-size: 14px; }
+    
+    .instructions {
+      background: rgba(122, 162, 247, 0.1);
+      border-left: 3px solid #7aa2f7;
+      padding: 16px;
+      margin-top: 24px;
+      border-radius: 0 8px 8px 0;
+    }
+    .instructions h3 {
+      margin-bottom: 12px;
+      color: #7aa2f7;
+    }
+    .instructions ol {
+      padding-left: 20px;
+      line-height: 1.8;
+    }
+    .instructions code {
+      background: rgba(0, 0, 0, 0.3);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💰 Crypto Payment Test</h1>
+    <p class="subtitle">Testing Solana Pay integration with USDC split payments</p>
+    
+    <div class="test-card">
+      <h2>
+        Wallet Detection
+        <span class="status" id="wallet-status">Checking...</span>
+      </h2>
+      <p>Available Solana wallets in your browser:</p>
+      <div class="wallets-list" id="wallets-list">
+        <em>Detecting wallets...</em>
+      </div>
+    </div>
+    
+    <div class="test-card">
+      <h2>Test Purchase Flow</h2>
+      <p>Try the full purchase flow with a test app:</p>
+      
+      <div class="test-purchase">
+        <div class="app-preview">
+          <img src="/featured/snapdock/icon.png" alt="SnapDock Pro">
+          <div class="app-info">
+            <h4>SnapDock Pro (Test)</h4>
+            <p>Premium window management features</p>
+          </div>
+        </div>
+        
+        <button class="buy-btn" onclick="testPurchase()">
+          Buy with
+          <img src="https://cryptologos.cc/logos/usd-coin-usdc-logo.png" class="usdc-icon" alt="USDC">
+          <span class="price">$5.00 USDC</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="instructions">
+      <h3>How It Works</h3>
+      <ol>
+        <li>User clicks <strong>Buy</strong> button</li>
+        <li>If no wallet installed, shows install options (Phantom, Solflare, Backpack)</li>
+        <li>If multiple wallets, user picks which one to use</li>
+        <li>Wallet popup asks user to approve the transaction</li>
+        <li>ONE transaction sends:
+          <ul>
+            <li><code>$4.50 (90%)</code> → Developer's wallet</li>
+            <li><code>$0.50 (10%)</code> → Store wallet</li>
+          </ul>
+        </li>
+        <li>Transaction confirmed on Solana (~400ms)</li>
+        <li>User gets download access</li>
+      </ol>
+    </div>
+    
+    <div class="test-card" style="margin-top: 24px;">
+      <h2>Configuration</h2>
+      <p>Store wallet address: <code id="store-wallet">Not configured</code></p>
+      <p style="margin-top: 8px;">Network: <code>devnet</code> (for testing)</p>
+    </div>
+  </div>
+  
+  <!-- Solana Web3 JS from CDN -->
+  <script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.min.js"></script>
+  <script src="/js/solana-pay.js"></script>
+  <script>
+    // Detect wallets on load
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const wallets = OmarchyPay.getAvailableWallets();
+        const listEl = document.getElementById('wallets-list');
+        const statusEl = document.getElementById('wallet-status');
+        
+        if (wallets.length === 0) {
+          listEl.innerHTML = '<em style="color: #f7768e;">No wallets detected. Install Phantom or Solflare.</em>';
+          statusEl.textContent = 'No wallets';
+          statusEl.className = 'status error';
+        } else {
+          listEl.innerHTML = wallets.map(w => `
+            <div class="wallet-badge">
+              ${w.icon ? `<img src="${w.icon}" alt="${w.name}">` : ''}
+              <span>${w.name}</span>
+            </div>
+          `).join('');
+          statusEl.textContent = `${wallets.length} wallet${wallets.length > 1 ? 's' : ''} found`;
+          statusEl.className = 'status success';
+        }
+      }, 500);  // Give wallets time to inject
+    });
+    
+    // Test purchase
+    function testPurchase() {
+      // Using a test developer wallet (devnet)
+      const testDevWallet = 'DvWP9v1PfP7t4CRQvPGQbxR5yPnvCrQfGQb1Ggv9AKRT';  // Example
+      OmarchyPay.purchaseApp('snapdock-pro-test', 5.00, testDevWallet);
+    }
+  </script>
+</body>
+</html>

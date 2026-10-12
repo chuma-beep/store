@@ -1,0 +1,170 @@
+/* Solana Pay Wallet Modal Styles */
+
+.wallet-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  backdrop-filter: blur(8px);
+}
+
+.wallet-modal-content {
+  background: linear-gradient(135deg, #1a1b26 0%, #24283b 100%);
+  border-radius: 20px;
+  padding: 32px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.wallet-modal-content h2 {
+  color: #c0caf5;
+  margin: 0 0 16px 0;
+  font-size: 24px;
+}
+
+.wallet-modal-content p {
+  color: #9aa5ce;
+  margin: 0 0 24px 0;
+  line-height: 1.5;
+}
+
+.wallet-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.wallet-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: #c0caf5;
+}
+
+.wallet-option:hover {
+  background: rgba(122, 162, 247, 0.2);
+  border-color: #7aa2f7;
+  transform: translateY(-2px);
+}
+
+.wallet-option img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+}
+
+.wallet-option span {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.wallet-option small {
+  margin-left: auto;
+  color: #9ece6a;
+  font-size: 12px;
+}
+
+.wallet-modal-content button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wallet-modal-content button:not(.cancel-btn):not(.download-btn) {
+  background: rgba(255, 255, 255, 0.1);
+  color: #c0caf5;
+}
+
+.wallet-modal-content button:hover:not(.cancel-btn):not(.download-btn) {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.download-btn {
+  background: linear-gradient(135deg, #9ece6a 0%, #73daca 100%) !important;
+  color: #1a1b26 !important;
+  width: 100%;
+  margin-bottom: 12px;
+  font-size: 16px !important;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(158, 206, 106, 0.3);
+}
+
+.cancel-btn {
+  background: transparent !important;
+  color: #9aa5ce !important;
+}
+
+.signature {
+  font-size: 12px;
+}
+
+.signature a {
+  color: #7aa2f7;
+}
+
+/* Success state */
+.wallet-modal.success .wallet-modal-content h2 {
+  color: #9ece6a;
+}
+
+/* Error state */
+.wallet-modal.error .wallet-modal-content h2 {
+  color: #f7768e;
+}
+
+/* Buy button styling */
+.buy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #bb9af7 0%, #7aa2f7 100%);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.buy-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(187, 154, 247, 0.4);
+}
+
+.buy-btn .price {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.buy-btn .usdc-icon {
+  width: 20px;
+  height: 20px;
+}
