@@ -9,9 +9,9 @@
     "packages": [
       "snapdock"
     ],
-    "version": "2.0.1",
-    "url": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v2.0.1/snapdock-2.0.1-1-any.pkg.tar.zst",
-    "sha256": "1de5bfff49b6953cd9f8fb191ff427bcca52e12833398eac54c69fee2ffce0b9"
+    "version": "2.0.2",
+    "url": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v2.0.2/snapdock-2.0.2-1-any.pkg.tar.zst",
+    "sha256": "f55a8601ad2c7eafa9485928cfbe490c978d3d5d050fff2f0fa7f32b87670451"
   },
   "detect": [
     "snapdock"
@@ -347,7 +347,7 @@
       "note": "Already have an older SnapDock, or a dock setup of your own? SnapDock 2 puts back whatever the old version changed and never edits your own files."
     },
     "price_note": "Limited time",
-    "new_line": "New in 2.0.1: the TV button opens the real Rabbit Ears app, so its updates show up straight away.",
+    "new_line": "New in 2.0.2: every app, including Files, gets the minimize, snap and close buttons.",
     "order": 1
   },
   "tags": [
@@ -372,6 +372,15 @@
     "workspaces"
   ],
   "changelog": [
+    {
+      "version": "2.0.2",
+      "date": "2026-10-12",
+      "title": "Every window gets the buttons",
+      "items": [
+        "Files, Telegram, browsers and every other app now get the same title bar: desktops, snap layouts, minimize, maximize and close. Before, some apps (like Files) had no bar, so those buttons were missing.",
+        "Drag-to-snap and moving windows to another desktop work in every app too."
+      ]
+    },
     {
       "version": "2.0.1",
       "date": "2026-10-12",
