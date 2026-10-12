@@ -1742,13 +1742,19 @@
           ${ghUrl ? `<div><div class="k">Source code</div><a class="v" href="${esc(ghUrl)}" target="_blank" rel="noopener">github.com/${esc(a.github)}</a></div>` : ""}
           <div><div class="k">Install command</div><div class="v"><code class="small">${esc(cmdFor(a))}</code></div></div>
         </div>
-        <div class="trust ${stale ? "warn" : ""}">${ico(stale ? "warn" : "ok")}<div>${stale
+        <div class="trust ${stale ? "warn" : ""}"><span class="trust-icon">${ico(stale ? "warn" : "shield")}</span><div><b>${stale
+          ? "⚠️ Warning"
+          : a.install.method === "store" ? "✓ Security checked"
+          : a.install.method === "aur" ? "✓ Community verified"
+          : "✓ Official source"}</b><br>${stale
           ? (a.archived ? "This project's GitHub repository is archived and no longer maintained." : "This AUR package is flagged out of date by the community.")
           : a.install.method === "store"
             ? "The official Omarchy Store app, open source on GitHub. It installs to your home folder only and updates itself from omarchystore.com."
           : a.install.method === "aur"
             ? "Installs from the AUR, Arch's community repository. Builds are community-maintained; the store only lists packages with an active maintainer and good standing."
-            : "Installs from a signed, official package source. The store never runs code from a web page — it only calls your system package manager."}
+          : a.install.method === "release"
+            ? "Downloads directly from the developer's signed release. The store verifies the SHA-256 checksum before installing."
+            : "Installs from a signed, official Arch package source. The store never runs code from a web page — it only calls your system package manager."}
           <div style="margin-top:6px">Third-party software, provided as-is. Install at your own risk — <a style="color:var(--accent)" href="/legal/">disclaimer</a>.</div></div></div>
       </section>
 
@@ -2058,15 +2064,25 @@
       w.querySelector(".row-next").onclick = (e) => { e.preventDefault(); sc.scrollBy({ left: sc.clientWidth * 0.9, behavior: "smooth" }); };
       requestAnimationFrame(upd); setTimeout(upd, 600);   // re-check after images load
 
-      // Auto-scroll: hero = 6s, app rows = 5s. Pause on hover/focus.
-      const isHero = sc.classList.contains("hero") || sc.classList.contains("spot-row");
-      const interval = isHero ? 6000 : 5000;
+      // Auto-scroll: spot-row = 5s, hero = 6s, app rows = disabled. Pause on hover/focus.
+      const isSpot = sc.classList.contains("spot-row");
+      const isHero = sc.classList.contains("hero");
+      if (!isSpot && !isHero) return;  // Only auto-scroll featured banners
+      const interval = isSpot ? 5000 : 6000;
       let paused = false, timer;
       const autoStep = () => {
         if (paused || sc.scrollWidth <= sc.clientWidth + 10) return;
         const max = sc.scrollWidth - sc.clientWidth;
-        if (sc.scrollLeft >= max - 10) sc.scrollTo({ left: 0, behavior: "smooth" });
-        else sc.scrollBy({ left: sc.firstElementChild?.getBoundingClientRect().width + 20 || sc.clientWidth * 0.8, behavior: "smooth" });
+        const cardW = sc.firstElementChild?.getBoundingClientRect().width || sc.clientWidth;
+        const currentIdx = Math.round(sc.scrollLeft / cardW);
+        const cards = sc.children.length;
+        const nextIdx = (currentIdx + 1) % cards;
+        const targetLeft = nextIdx === 0 ? 0 : sc.children[nextIdx].offsetLeft - sc.offsetLeft;
+        sc.scrollTo({ left: targetLeft, behavior: "smooth" });
+        // Update dots for spot-row
+        if (isSpot) {
+          view.querySelectorAll(".spot-dots i").forEach((d, n) => d.classList.toggle("on", n === nextIdx));
+        }
       };
       const start = () => { clearInterval(timer); timer = setInterval(autoStep, interval); };
       const pause = () => { paused = true; };
