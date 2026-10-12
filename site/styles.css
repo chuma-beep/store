@@ -1,5 +1,77 @@
 /* Omarchy Store — App Store-style layout.
    Theme variables are overridden at runtime with the user's Omarchy theme (desktop mode). */
+
+/* ========== ELECTRON TITLEBAR ========== */
+.electron-titlebar {
+  -webkit-app-region: drag;
+  height: 38px;
+  background: var(--sidebar);
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+.electron-titlebar .title {
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text);
+}
+.electron-titlebar .security-badge {
+  -webkit-app-region: no-drag;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(48, 209, 88, 0.15);
+  color: var(--good);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.electron-titlebar .security-badge.warning {
+  background: rgba(255, 149, 0, 0.15);
+  color: #ff9500;
+}
+.electron-titlebar .security-badge.danger {
+  background: rgba(255, 69, 58, 0.15);
+  color: #ff453a;
+}
+.electron-titlebar .window-controls {
+  -webkit-app-region: no-drag;
+  display: flex;
+  gap: 8px;
+}
+.electron-titlebar .window-controls button {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+.electron-titlebar .window-controls button:hover {
+  transform: scale(1.1);
+}
+.electron-titlebar .window-controls .close { background: #ff5f56; }
+.electron-titlebar .window-controls .minimize { background: #ffbd2e; }
+.electron-titlebar .window-controls .maximize { background: #27c93f; }
+
+/* Hide link hover preview (Electron injects this) */
+#electron-status-bubble,
+.electron-status-bubble,
+[data-electron-status] {
+  display: none !important;
+}
+
+/* Ensure no status bar shows up */
+body::after {
+  content: none !important;
+}
+
 :root {
   --bg: #1c1c1e;
   --bg-2: #232326;
@@ -59,11 +131,43 @@ svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width:
 nav a {
   display: flex; align-items: center; gap: 10px; padding: 7px 10px; margin: 1px 0; border-radius: 8px;
   color: var(--text); font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, padding-left 0.2s ease;
 }
-nav a svg { color: var(--accent); }
-nav a:hover { background: var(--pill); }
+nav a svg { color: var(--accent); transition: transform 0.2s ease, color 0.2s ease; }
+nav a::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: center;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+nav a:hover {
+  background: var(--pill);
+  color: var(--accent);
+  padding-left: 16px;
+}
+nav a:hover svg {
+  color: var(--accent);
+  transform: translateX(2px);
+}
+nav a:hover::before {
+  transform: scaleY(1);
+}
+nav a:active {
+  transform: scale(0.98);
+}
 nav a.on { background: var(--accent); color: var(--accent-text); }
 nav a.on svg { color: var(--accent-text); }
+nav a.on::before {
+  transform: scaleY(1);
+}
 nav .sec { font-size: 11px; font-weight: 600; color: var(--text-3); text-transform: uppercase; letter-spacing: .04em; padding: 16px 10px 6px; }
 .side-foot { margin-top: auto; padding: 14px 4px 2px; }
 .mode-badge { display: none !important; }
@@ -829,17 +933,41 @@ svg .fill { fill: currentColor; stroke: none; }
 .comm-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
 @media (max-width: 1100px) { .comm-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 .comm-card { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 16px; background: var(--card);
-  box-shadow: inset 0 0 0 1px var(--line); color: var(--text); min-width: 0; transition: transform .15s, box-shadow .15s; }
-.comm-card:hover { transform: translateY(-2px); box-shadow: inset 0 0 0 2px var(--soc); }
-.comm-ico { width: 46px; height: 46px; flex: none; border-radius: 13px; display: grid; place-items: center; color: #fff; background: var(--soc); }
+  box-shadow: inset 0 0 0 1px var(--line); color: var(--text); min-width: 0; transition: transform .2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow .2s, background .2s; }
+.comm-card:hover { 
+  transform: translateY(-4px) scale(1.02); 
+  box-shadow: inset 0 0 0 2px var(--soc), 0 8px 24px rgba(0,0,0,0.2);
+  background: var(--card-hover);
+}
+.comm-card:active {
+  transform: scale(0.98);
+}
+.comm-ico { width: 46px; height: 46px; flex: none; border-radius: 13px; display: grid; place-items: center; color: #fff; background: var(--soc);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.comm-card:hover .comm-ico {
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
 .soc-instagram .comm-ico { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
 .soc-tiktok .comm-ico { box-shadow: -2px -2px 0 var(--soc2) inset, 2px 2px 0 #FE2C55 inset; }
 .soc-x .comm-ico { box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
-.comm-ico svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.comm-ico svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; 
+  transition: transform 0.2s ease;
+}
+.comm-card:hover .comm-ico svg {
+  transform: scale(1.05);
+}
 .comm-txt { display: flex; flex-direction: column; min-width: 0; flex: 1; }
 .comm-txt b { font-size: 16px; }
 .comm-txt span { font-size: 13px; color: var(--text-2); overflow-wrap: anywhere; }
-.comm-cta { flex: none; padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 800; color: #fff; background: var(--soc); }
+.comm-cta { flex: none; padding: 7px 14px; border-radius: 999px; font-size: 13px; font-weight: 800; color: #fff; background: var(--soc);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.comm-cta:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
 .soc-x .comm-cta, .soc-tiktok .comm-cta { box-shadow: inset 0 0 0 1px rgba(255,255,255,.3); }
 /* small icon row + sidebar get brand colours too */
 .socials a[class^="soc-"] { color: #fff; background: var(--soc); }
@@ -862,10 +990,24 @@ svg .fill { fill: currentColor; stroke: none; }
 
 /* sidebar: row of brand-coloured social icons right under Categories */
 #nav .nav-socials { display: flex; gap: 5px; padding: 8px 10px 4px; flex-wrap: nowrap; }
-#nav .nav-socials a { width: 29px; height: 29px; flex: none; padding: 0; border-radius: 9px; display: grid; place-items: center; color: #fff; background: var(--soc); }
+#nav .nav-socials a { width: 29px; height: 29px; flex: none; padding: 0; border-radius: 9px; display: grid; place-items: center; color: #fff; background: var(--soc);
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
 #nav .nav-socials a.soc-instagram { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-#nav .nav-socials a:hover { transform: translateY(-1px); filter: brightness(1.12); }
-#nav .nav-socials svg { width: 16px; height: 16px; margin: 0; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+#nav .nav-socials a:hover { 
+  transform: translateY(-2px) scale(1.1); 
+  filter: brightness(1.15);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+#nav .nav-socials a:active {
+  transform: scale(0.95);
+}
+#nav .nav-socials svg { width: 16px; height: 16px; margin: 0; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; 
+  transition: transform 0.15s ease;
+}
+#nav .nav-socials a:hover svg {
+  transform: scale(1.1);
+}
 #nav .nav-socials svg .fill { fill: currentColor; stroke: none; }
 
 /* Long unbroken strings (checksums, hashes, long URLs) must wrap on phones */
