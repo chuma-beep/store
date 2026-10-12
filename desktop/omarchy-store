@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.7.5"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.7.6"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
@@ -316,18 +316,19 @@ def fetch_release(app):
 # Apps that can also be set up with their own installer file instead of the store package
 # (SnapDock's snapdock-install.sh). Such a copy lives in the home folder and has a VERSION file,
 # so the store still sees it, offers UPDATE (which moves it to the store package), and REMOVE.
-FILE_INSTALLS = {"snapdock": "~/.local/share/snapdock/VERSION"}
+# (SnapDock 2 keeps its file-installed copy in ~/.local/share/snapdock/app; 0.x kept it one folder up.)
+FILE_INSTALLS = {"snapdock": ["~/.local/share/snapdock/app/VERSION", "~/.local/share/snapdock/VERSION"]}
 
 
 def file_install_version(aid):
-    f = FILE_INSTALLS.get(aid)
-    if not f:
-        return None
-    try:
-        v = open(os.path.expanduser(f)).read().strip()
-        return v if re.match(r"^[0-9][0-9A-Za-z.+_-]{0,30}$", v) else None
-    except OSError:
-        return None
+    for f in FILE_INSTALLS.get(aid) or []:
+        try:
+            v = open(os.path.expanduser(f)).read().strip()
+        except OSError:
+            continue
+        if re.match(r"^[0-9][0-9A-Za-z.+_-]{0,30}$", v):
+            return v
+    return None
 
 
 def installed_ids(catalog):
