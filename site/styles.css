@@ -163,8 +163,10 @@ main { overflow-y: auto; overflow-x: hidden; outline: none; scroll-behavior: smo
 
 /* Artist ad — modelled on a Spotify artist header */
 .artist-ad { margin-top: 34px; border-radius: 10px; overflow: hidden; background: #121212; color: #fff; box-shadow: var(--shadow); }
-.aa-hero { position: relative; display: block; aspect-ratio: 1494 / 640; min-height: 190px; max-height: 320px; overflow: hidden; }
-.aa-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; transition: transform .6s; }
+/* Full width, height follows the artwork (capped); the artwork carries its own name and logo. */
+.aa-hero { position: relative; display: block; width: 100%; height: clamp(170px, 30vw, 380px); overflow: hidden; background: #0b0b0b; }
+.aa-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; transition: transform .6s; }
+.aa-hero .aa-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .aa-hero:hover img { transform: scale(1.03); }
 .aa-hero::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 35%, rgba(0,0,0,.55) 100%); }
 .aa-hero .ad-chip { position: absolute; top: 14px; left: 16px; z-index: 1; background: rgba(0,0,0,.55); }
@@ -379,7 +381,7 @@ kbd { display: inline-grid; place-items: center; min-width: 30px; height: 28px; 
   .ad-banner .cta { margin-left: 0; }
   .aa-bar { gap: 16px; }
   .aa-cta { display: none; }
-  .aa-hero { aspect-ratio: 2.2 / 1; }
+  .aa-hero { height: clamp(150px, 42vw, 300px); }
   .hero-card h3 { font-size: 24px; }
 }
 
@@ -839,7 +841,7 @@ svg .fill { fill: currentColor; stroke: none; }
 
 /* Billy Legal / artist ad: never wider than the phone (min-height + aspect-ratio forced it to 418px) */
 .artist-ad { max-width: 100%; }
-@media (max-width: 720px) { .aa-hero { aspect-ratio: auto; min-height: 0; height: 120px; width: 100%; } .artist-ad { margin-top: 22px; } }
+@media (max-width: 720px) { .aa-hero { height: 44vw; min-height: 140px; } .artist-ad { margin-top: 22px; } }
 
 /* sidebar: row of brand-coloured social icons right under Categories */
 #nav .nav-socials { display: flex; gap: 5px; padding: 8px 10px 4px; flex-wrap: nowrap; }
