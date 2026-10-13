@@ -258,14 +258,18 @@
 
   function renderModeBadge() {
     const b = $("#mode-badge");
+    const v = $("#store-version");
     if (S.desktop) {
       b.innerHTML = S.status?.restart_needed
         ? `<b><span class="dot"></span>Update ready</b>Restart the store to finish.`
         : `<b><span class="dot"></span>Desktop app${S.status?.version ? ` <span class="ver">v${esc(S.status.version)}</span>` : ""}</b>One-click installs are on.`;
       if (S.status?.restart_needed) b.setAttribute("href", "/updates/");
       b.removeAttribute("href");
+      // Update sidebar version
+      if (v && S.status?.version) v.textContent = `v${esc(S.status.version)}`;
     } else {
       b.innerHTML = `<b>Get the desktop app</b>Install apps with one click on Omarchy.`;
+      if (v) v.textContent = "v1.0.0";
     }
   }
 
