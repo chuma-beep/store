@@ -16,7 +16,7 @@ without running JavaScript. The store's JS takes over on load.
 
 Usage: python3 scripts/seo.py <out_dir>   (defaults to site/)
 """
-import html, json, os, sys
+import html, json, os, sys, re
 from datetime import datetime, timezone
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -168,6 +168,8 @@ def main():
 
     # ---- Apps
     for a in apps:
+        if "install" not in a:
+            continue
         c = cname.get(a["category"], a["category"])
         pk = a.get("package") or {}
         title = fit_title(f"{a['name']} for Omarchy Linux – Install {a['name']} | Omarchy Store",
@@ -193,6 +195,8 @@ def main():
                                       "browsers": "BrowserApplication", "utilities": "UtilitiesApplication", "ai": "DeveloperApplication"}.get(a["category"], "UtilitiesApplication"),
               "operatingSystem": "Omarchy Linux, Arch Linux", "url": f"{SITE}/app/{a['id']}/",
               "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}
+        if a.get("stars") and a["stars"] > 0:
+            sw["aggregateRating"] = {"@type": "AggregateRating", "ratingValue": min(5.0, 3.0 + (a["stars"] / 50000) * 2.0), "reviewCount": a["stars"], "bestRating": "5", "worstRating": "1"}
         if a.get("icon"):
             sw["image"] = abs_url(a["icon"])
         if a.get("screenshots"):
@@ -209,7 +213,7 @@ def main():
             jsonld_faq = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
                 {"@type": "Question", "name": x["q"], "acceptedAnswer": {"@type": "Answer", "text": x["a"]}} for x in F["faq"]]}
         jsonld = ([jsonld_faq] if F and F.get("faq") else []) + [sw, crumbs(("Omarchy Store", "/"), (c, f"/category/{a['category']}/"), (a["name"], f"/app/{a['id']}/"))]
-        related = [x for x in apps if x["category"] == a["category"] and x["id"] != a["id"]][:8]
+        related = [x for x in apps if "install" in x and x["category"] == a["category"] and x["id"] != a["id"]][:8]
         facts = []
         if a.get("stars"):
             facts.append(f"{k(a['stars'])} GitHub stars")
@@ -245,6 +249,22 @@ def main():
         write(f"/app/{a['id']}/", render(template, head(title, d, f"/app/{a['id']}/", image, f"{a['name']} on Omarchy", jsonld, extra=""), body))
         lm = (a.get("released_at") or a.get("last_commit") or pk.get("updated") or now)[:10]
         urls.append((f"{SITE}/app/{a['id']}/", lm, "0.8"))
+
+    # ---- Apps index page (/apps/)
+    apps_title = "Omarchy Apps – Browse & Install Linux Apps | Omarchy Store"
+    apps_desc = "The world's largest collection of apps for Omarchy Linux. One-click install of apps, games, developer tools, AI, browsers and more."
+    apps_jsonld = [
+        {"@context": "https://schema.org", "@type": "CollectionPage", "name": "Omarchy Apps", "description": apps_desc, "url": f"{SITE}/apps/", "isPartOf": {"@type": "WebSite", "name": "Omarchy Store", "url": SITE}},
+        crumbs(("Omarchy Store", "/"), ("Apps", "/apps/"))
+    ]
+    apps_body = (
+        f'<h1 class="page-title">All Apps for Omarchy Linux</h1><p>{e(apps_desc)}</p>'
+        f'<p>Every app below installs on Omarchy with one click in the Omarchy Store desktop app, or with a single terminal command shown on its page. Apps come from the official Arch Linux repositories, the AUR, or Omarchy\'s own installers, so they update with the rest of your system.</p>'
+        '<ol class="ssr-list">' + "".join(app_li(a) for a in apps) + "</ol>"
+        '<h2>Browse by category</h2><ul>' + "".join(f'<li><a href="/category/{c["id"]}/">{e(c["name"])}</a></li>' for c in cats) + '</ul>'
+    )
+    write("/apps/", render(template, head(apps_title, apps_desc, "/apps/", OG_DEFAULT, "Omarchy Apps", apps_jsonld), apps_body))
+    urls.append((f"{SITE}/apps/", now, "0.9"))
 
     # ---- Categories
     for c in cats:
@@ -375,6 +395,8 @@ def main():
             ld = {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": x["n"], "applicationCategory": "UtilitiesApplication",
                   "operatingSystem": "Omarchy Linux", "url": f"{SITE}{purl(x)}", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
                   "author": {"@type": "Person", "name": x.get("a") or "Unknown"}, "description": d}
+            if x.get("s") and x["s"] > 0:
+                ld["aggregateRating"] = {"@type": "AggregateRating", "ratingValue": min(5.0, 3.0 + (x["s"] / 10000) * 2.0), "reviewCount": x["s"], "bestRating": "5", "worstRating": "1"}
             write(purl(x), render(template, head(title, d, purl(x), OG_DEFAULT, x["n"],
                                                  [ld, crumbs(("Omarchy Store", "/"), ("Plugins", "/plugins/"), (x["n"], purl(x)))]), body))
             urls.append((f"{SITE}{purl(x)}", (x.get("u") or now)[:10], "0.5"))

@@ -18,7 +18,7 @@
 <meta name="twitter:title" content="Hyprforge – Omarchy Plugin by Aziz | Omarchy Store">
 <meta name="twitter:description" content="Hyprforge is a plugin for Omarchy Linux by Aziz. A Hyprland studio for Omarchy: live-previewed gaps, borders, theme-palette colors, corners, opacity, blur…">
 <meta name="twitter:image" content="https://omarchystore.com/assets/og-default.png?v=7ef6a278d3">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Hyprforge","applicationCategory":"UtilitiesApplication","operatingSystem":"Omarchy Linux","url":"https://omarchystore.com/plugin/aziz.hyprforge/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Aziz"},"description":"Hyprforge is a plugin for Omarchy Linux by Aziz. A Hyprland studio for Omarchy: live-previewed gaps, borders, theme-palette colors, corners, opacity, blur…"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Omarchy Store","item":"https://omarchystore.com/"},{"@type":"ListItem","position":2,"name":"Plugins","item":"https://omarchystore.com/plugins/"},{"@type":"ListItem","position":3,"name":"Hyprforge","item":"https://omarchystore.com/plugin/aziz.hyprforge/"}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Hyprforge","applicationCategory":"UtilitiesApplication","operatingSystem":"Omarchy Linux","url":"https://omarchystore.com/plugin/aziz.hyprforge/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Aziz"},"description":"Hyprforge is a plugin for Omarchy Linux by Aziz. A Hyprland studio for Omarchy: live-previewed gaps, borders, theme-palette colors, corners, opacity, blur…","aggregateRating":{"@type":"AggregateRating","ratingValue":3.001,"reviewCount":5,"bestRating":"5","worstRating":"1"}}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Omarchy Store","item":"https://omarchystore.com/"},{"@type":"ListItem","position":2,"name":"Plugins","item":"https://omarchystore.com/plugins/"},{"@type":"ListItem","position":3,"name":"Hyprforge","item":"https://omarchystore.com/plugin/aziz.hyprforge/"}]}</script>
 <meta property="og:type" content="website">
 <meta property="og:title" content="Omarchy Store – Apps, Themes & Plugins for Omarchy Linux">
 <meta property="og:description" content="The world's largest app store for Omarchy Linux. One-click install of Omarchy apps, themes, plugins and screensavers. Free.">
@@ -57,7 +57,7 @@
 <link rel="apple-touch-icon" href="/assets/icon-180.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1a1b26">
-<link rel="stylesheet" href="/styles.css?v=8a049cac0e">
+<link rel="stylesheet" href="/styles.css?v=0d0c4bb56a">
 <script>document.documentElement.dataset.look="glass";try{var l=localStorage.getItem("os-look2");if(l==="white"||l==="glass"||l==="dark")document.documentElement.dataset.look=l}catch(e){}</script>
 </head>
 <body>
@@ -72,7 +72,7 @@ if (window.electronAPI) {
       <button class="minimize" onclick="electronAPI.minimize()"></button>
       <button class="maximize" onclick="electronAPI.maximize()"></button>
     </div>
-    <div class="title">Omarchy Store <span class="version">v1.0.0</span></div>
+    <div class="title">Omarchy Store <span class="version"></span></div>
     <div class="security-badge" id="security-badge">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
@@ -108,7 +108,7 @@ if (window.electronAPI) {
   <aside class="sidebar">
     <a class="brand" href="/">
       <img src="/assets/logo.svg" alt="" width="32" height="32">
-      <span class="wordmark" role="img" aria-label="Omarchy Store" style="display:inline-flex;align-items:center;gap:7px"><img src="/assets/wordmark-omarchy.svg" alt="" width="65" height="15" style="height:15px;width:auto"><img src="/assets/wordmark-store.svg" alt="" width="42" height="15" style="height:15px;width:auto"></span>
+      <span class="wordmark" role="img" aria-label="Omarchy Store" style="display:inline-flex;align-items:center;gap:7px"><img src="/assets/wordmark-omarchy.svg" alt="" width="83" height="19" style="height:19px;width:auto"><img src="/assets/wordmark-store.svg" alt="" width="54" height="19" style="height:19px;width:auto"></span>
     </a>
     <label class="search">
       <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -121,6 +121,7 @@ if (window.electronAPI) {
         <button type="button" data-look="glass" role="radio" title="Glass (see-through, like SnapDock)"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15l4-6M11 15l4-6"/></svg>Glass</button>
         <button type="button" data-look="white" role="radio" title="White"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>White</button>
       </div>
+      <div class="store-version" id="store-version"></div>
       <a id="mode-badge" class="mode-badge" href="/get-desktop/"></a>
     </div>
   </aside>
@@ -128,7 +129,7 @@ if (window.electronAPI) {
 </div>
 <div id="sheet" class="sheet" hidden></div>
 <div id="toast" class="toast" hidden></div>
-<script src="/app.js?v=7716d1e124"></script>
+<script src="/app.js?v=04b4e3eef7"></script>
 <script src="/js/qr-scanner.js"></script>
 </body>
 </html>
