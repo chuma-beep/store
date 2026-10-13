@@ -9,10 +9,10 @@
     "packages": [
       "omarchy-browser"
     ],
-    "version": "1.0.1",
-    "url": "https://github.com/omarchy-community/omarchy-browser/releases/download/v1.0.1/omarchy-browser-1.0.1-1-any.pkg.tar.zst",
-    "sha256": "5a858a77e728399f621d2dae093c24a9ab1bd63953f8399735006dabab05adfd",
-    "size": 800000
+    "version": "2.0.0",
+    "url": "https://github.com/omarchy-community/omarchy-browser/releases/download/v2.0.0/omarchy-browser-2.0.0-1-any.pkg.tar.zst",
+    "sha256": "803e0d1f4bdb3744ff38279324e3022ff8ed44045648ebcf0432218360becb8e",
+    "size": 170097
   },
   "detect": [
     "omarchy-browser"
@@ -21,17 +21,19 @@
   "developer": "Omarchy Development Labs",
   "icon": "featured/omarchy-browser/icon.png",
   "screenshots": [
-    "featured/omarchy-browser/shot-2.webp",
+    "featured/omarchy-browser/shot-1.webp",
     "featured/omarchy-browser/shot-3.webp",
-    "featured/omarchy-browser/shot-1.webp"
+    "featured/omarchy-browser/shot-2.webp",
+    "featured/omarchy-browser/shot-4.webp",
+    "featured/omarchy-browser/shot-5.webp"
   ],
-  "summary": "The web browser with the Omarchy Store built in",
-  "description": "What's new: a new icon made from the official Omarchy logo, and it now appears in your dock and app list right after you install it.\n\nOmarchy Browser is a fast Chromium-based web browser with the Omarchy Store built right in. Browse the web in tabs, and whenever you want a new app, press Store and it's there in a side panel next to your page.\n\nTHE STORE, RIGHT NEXT TO YOUR PAGE\n• Press Store (or Ctrl+B) to open the Omarchy Store in a side panel\n• Featured apps, browsers and top picks on the front page, plus every category\n• Search any app and press GET to install it\n• Open any app's full store page in a new tab with one click\n\nA REAL CHROMIUM BROWSER\n• Tabs, address bar, back, forward and reload\n• Type an address or just search: results come from DuckDuckGo\n• Links that open new windows open as new tabs instead\n• Stays signed in to your sites between launches\n\nSAFE INSTALLS\n• GET uses Omarchy's own installer, in a terminal you can see\n• You type your own password: the browser never sees it\n• It only installs apps listed in the Omarchy Store\n\nMADE FOR OMARCHY\n• Dark look that fits right in on Omarchy\n• Tiny download: it uses the Chromium engine that's already on your computer\n• Keyboard shortcuts: Ctrl+T new tab, Ctrl+W close tab, Ctrl+L address bar, Ctrl+B store, Ctrl+Tab next tab, Alt+Left/Right back and forward\n\nFree and open source (MIT), from Omarchy Development Labs.",
+  "summary": "The browser built for Omarchy, with the store built in",
+  "description": "What's new in 2.0: your Omarchy theme applied live, tracker shield, workspaces, split view, reader with local AI summaries, a command palette, and the store panel now knows what is already installed.\n\nOmarchy Browser is a Chromium browser built for Omarchy. It looks like your desktop, keeps trackers out, and has the Omarchy Store right next to your page.\n\nYOUR THEME, LIVE\n• Uses the colors of your current Omarchy theme for the whole browser\n• Switch themes and the browser follows in under two seconds\n• New tab page and reader view are themed too\n\nTHE STORE, RIGHT NEXT TO YOUR PAGE\n• Press Store (or Ctrl+B) to open the Omarchy Store in a side panel\n• Sees which apps are already on your computer: Open instead of Get\n• Browse any GitHub repo that is in the store and a one-click Get pops up\n• Search any app and press Get; the full store page is one click away\n\nSHIELD\n• Blocks the tracking and ad networks that do most of the tracking\n• Live counter in the address bar shows what was blocked on this page\n• One click turns it off; sends Do Not Track and Global Privacy Control\n\nWORKSPACES AND SPLIT VIEW\n• Separate tab sets for work, play and projects (Ctrl+Shift+W)\n• Everything comes back when you relaunch\n• Two pages side by side with Ctrl+\\\n\nREADER WITH SUMMARIZE\n• Clean reading view for any article (Ctrl+Shift+R), with font and size controls\n• Summarize: a local AI model if Ollama is on your computer, otherwise a built-in summary\n• Nothing is sent anywhere; it all runs on your machine\n\nCOMMAND PALETTE\n• Ctrl+K: commands, open tabs, store apps, bookmarks, history and web search in one box\n• Type > for commands, @ for apps, / for tabs\n\nA REAL CHROMIUM BROWSER\n• Address bar suggestions from your history and bookmarks\n• Find in page, per-site zoom, downloads panel, right-click menu with Open in split view\n• Mouse back and forward buttons, Ctrl+1 to 9 for tabs\n• Stays signed in to your sites between launches\n• Choose DuckDuckGo, Google, Brave or Bing for search\n\nSAFE INSTALLS\n• Get uses Omarchy's own installer, in a terminal you can see\n• You type your own password: the browser never sees it\n• Only apps listed in the Omarchy Store can be installed\n\nTiny download: it uses the Chromium engine already on your computer. Free and open source (MIT), from Omarchy Development Labs.",
   "featured": {
     "badge": "Official app",
     "eyebrow": "NEW FROM OMARCHY STORE",
-    "headline": "The web, with the store built in.",
-    "tagline": "Omarchy Browser is a fast Chromium browser made for Omarchy. Browse in tabs, press Store, and the whole Omarchy Store opens next to your page. GET installs apps right there.",
+    "headline": "The browser built for Omarchy.",
+    "tagline": "Omarchy Browser is a Chromium browser made for Omarchy. Your theme is applied live, trackers are blocked, the Omarchy Store sits next to your page, and a reader with local AI sums up any article. Press Ctrl+K and everything is one box away.",
     "price": "Free",
     "price_note": "Open source",
     "gradient": [
@@ -42,34 +44,46 @@
     "art": "featured/omarchy-browser/billboard.webp",
     "billboard": "featured/omarchy-browser/billboard.webp",
     "chips": [
+      "Theme follows Omarchy",
+      "Tracker shield",
       "Store built in",
-      "Chromium engine",
-      "Tabs and search",
-      "One-click GET",
-      "Made for Omarchy"
+      "Workspaces",
+      "Split view",
+      "Reader + local AI",
+      "Command palette"
     ],
     "order": 1.5,
     "features": [
       {
-        "icon": "grid",
+        "icon": "palette",
         "hero": true,
-        "title": "The store, next to your page",
-        "body": "Press Store or Ctrl+B and the Omarchy Store opens in a side panel. Search, browse categories, press GET. Your page stays right where it was."
+        "title": "Your theme, live",
+        "body": "Change your Omarchy theme and the browser changes with it in under two seconds. Chrome, new tab page and reader all use your colors."
       },
       {
-        "icon": "window",
-        "title": "A real Chromium browser",
-        "body": "Tabs, an address bar that also searches, back, forward and reload. Links that want a new window open as a new tab."
+        "icon": "grid",
+        "title": "The store, next to your page",
+        "body": "Press Store or Ctrl+B. Browse, search, see what is already on your computer, press Get. Open a GitHub repo that is in the store and a one-click Get pops up."
       },
       {
         "icon": "doctor",
-        "title": "Safe installs",
-        "body": "GET uses Omarchy's own installer in a terminal you can see, and you type your own password. Only apps listed in the store can be installed."
+        "title": "Shield",
+        "body": "Tracker and ad blocking with a live counter in the address bar. One click turns it off for a page."
       },
       {
-        "icon": "palette",
-        "title": "Made for Omarchy",
-        "body": "A dark look that fits your desktop, and a tiny download because it uses the Chromium engine already on your computer."
+        "icon": "window",
+        "title": "Workspaces and split view",
+        "body": "Separate tab sets for work and play that come back on relaunch. Put two pages side by side with Ctrl+\\\\."
+      },
+      {
+        "icon": "star",
+        "title": "Reader with Summarize",
+        "body": "Clean reading view for any article. Summarize uses a local model if Ollama is on your computer, otherwise a built-in summary. Nothing leaves your machine."
+      },
+      {
+        "icon": "search",
+        "title": "Command palette",
+        "body": "Ctrl+K: commands, open tabs, store apps, bookmarks, history and web search in one box."
       }
     ],
     "steps": [
@@ -79,17 +93,23 @@
       },
       {
         "title": "Open Omarchy Browser",
-        "body": "Press Super + Space and type Omarchy Browser."
+        "body": "Press Super + Space and type Omarchy Browser. It already looks like your desktop."
       },
       {
-        "title": "Press Store",
-        "body": "The Omarchy Store opens next to your page. Find an app, press GET, done."
+        "title": "Press Ctrl+K",
+        "body": "Type what you want: a site, a command, or an app from the store."
       }
     ]
   },
   "chart_rank": 2,
   "open": "omarchy-browser",
   "changelog": [
+    {
+      "version": "2.0.0",
+      "date": "2026-10-12",
+      "title": "The big one",
+      "body": "Theme follows Omarchy live, tracker shield, workspaces, split view, reader with local AI summaries, command palette, address bar suggestions, downloads panel, store-aware GitHub banner, Installed detection in the store panel."
+    },
     {
       "version": "1.0.1",
       "date": "2026-10-12",
