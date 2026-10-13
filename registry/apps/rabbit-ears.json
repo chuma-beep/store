@@ -9,9 +9,9 @@
   "packages": [
    "rabbit-ears"
   ],
-  "version": "1.4.0",
-  "url": "https://github.com/nemoclawai-tech/rabbit-ears/releases/download/v1.4.0/rabbit-ears-1.4.0-1-any.pkg.tar.zst",
-  "sha256": "27ae7d2dff49e1ef9fb9de5f02daf25b8ff799ee4a610102d614b6a7f395cc10"
+  "version": "1.4.1",
+  "url": "https://github.com/nemoclawai-tech/rabbit-ears/releases/download/v1.4.1/rabbit-ears-1.4.1-1-any.pkg.tar.zst",
+  "sha256": "e9fe12254d86fe46b521327367d07ed39a41990a3d850c108e1b5e1967f0e8eb"
  },
  "detect": [
   "rabbit-ears"
@@ -42,6 +42,14 @@
  "age": "Everyone",
  "description": "New in 1.4.0: Cast, Pop-out, and Quality buttons right in the player. Pick higher quality (720p, 1080p) when available.\n\nRabbit Ears turns your Omarchy computer into a TV. Open it and you're watching: news, sport, music, kids, movies and local channels from the USA, UK, Canada, Australia and 70+ more countries. No account, no subscription, nothing to sign up for.\n\nWATCH\n\u2022 Hundreds of free channels, checked every hour so dead ones disappear by themselves.\n\u2022 Click a channel and it plays. Up and down arrows change channel, like a remote.\n\u2022 Full screen with a double-click or F. Mute with M.\n\nWHAT'S ON\n\u2022 Press G for the guide: what's playing now and what's next, channel by channel. Click a programme to jump straight to it.\n\u2022 The now-playing bar shows the current programme and its times.\n\nMAKE IT YOURS\n\u2022 Hold a channel (or press \u2605) to add it to your favourites. They get their own tab.\n\u2022 Search by name, or browse by country or by type: News, Sports, Kids, Music, Movies.\n\u2022 The colours follow your Omarchy theme.\n\nWHERE THE CHANNELS COME FROM\nThe list comes from the Free-TV/IPTV project, which only includes channels that the broadcaster itself gives away for free (free-to-air and ad-supported stations). Rabbit Ears hosts, records and re-streams nothing: it plays each broadcaster's own public address, exactly as a web browser would. Some channels only play in their home country; those are marked.",
  "changelog": [
+  {
+   "version": "1.4.1",
+   "date": "2026-10-12",
+   "title": "New logo",
+   "items": [
+    "New logo: the approved retro TV design, on the app, launcher and dock."
+   ]
+  },
   {
    "version": "1.4.0",
    "date": "2026-10-12",

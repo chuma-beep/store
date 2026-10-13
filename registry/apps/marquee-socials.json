@@ -9,9 +9,9 @@
     "packages": [
       "marquee-socials"
     ],
-    "version": "1.2.1",
-    "url": "https://github.com/omarchy-community/marquee-socials/releases/download/v1.2.1/marquee-socials-1.2.1-1-any.pkg.tar.zst",
-    "sha256": "3bc04b49dfa8c52a430e094e4d66ebdf59e6b25d20047eb3d1e7f067269e8a3b"
+    "version": "1.2.2",
+    "url": "https://github.com/omarchy-community/marquee-socials/releases/download/v1.2.2/marquee-socials-1.2.2-1-any.pkg.tar.zst",
+    "sha256": "61fecbfc6b58a343590d80cdc81675dfdbcf46d593c89646bff1c5daa1020bca"
   },
   "detect": [
     "marquee-socials"
@@ -23,14 +23,14 @@
     "featured/marquee-socials/hero.webp"
   ],
   "summary": "Manage all your social media accounts in one place",
-  "description": "Free for a limited time \u00b7 Early adopters get free updates for life\n\nMarquee Socials is the social media command center for creators. Manage YouTube, TikTok, Instagram, X, Discord, and Telegram \u2014 all from one beautiful app.\n\nUNIFIED DASHBOARD\nSee all your platforms at a glance. Each card shows your account status and gives you one-click access to upload, post, or manage content.\n\nTABBED BROWSING\nOpen multiple platforms in tabs and switch between them instantly. No more juggling browser windows.\n\nONE-CLICK ACCESS\nClick any platform icon in the sidebar to jump straight there. Or click \"Open All\" to launch every platform at once.\n\nSHARED LOGIN SESSIONS\nLog in once and stay logged in. Marquee Socials uses the same browser profile across all platforms, so your sessions persist.\n\nSUPPORTED PLATFORMS\n\u2022 YouTube Studio \u2014 upload videos, manage your channel\n\u2022 TikTok Studio \u2014 post content, view analytics\n\u2022 Instagram \u2014 share posts, stories, and reels\n\u2022 X (Twitter) \u2014 post updates, engage with followers\n\u2022 Discord \u2014 manage your server, announce to members\n\u2022 Telegram \u2014 post to channels, message subscribers\n\nPRIVACY FIRST\nAll logins and sessions are stored locally on your machine. We never collect or transmit your social media credentials.\n\nMADE FOR CREATORS\nWhether you're a content creator, brand manager, or social media professional, Marquee Socials saves you hours every week by putting everything in one place.",
+  "description": "Free for a limited time · Early adopters get free updates for life\n\nMarquee Socials is the social media command center for creators. Manage YouTube, TikTok, Instagram, X, Discord, and Telegram — all from one beautiful app.\n\nUNIFIED DASHBOARD\nSee all your platforms at a glance. Each card shows your account status and gives you one-click access to upload, post, or manage content.\n\nTABBED BROWSING\nOpen multiple platforms in tabs and switch between them instantly. No more juggling browser windows.\n\nONE-CLICK ACCESS\nClick any platform icon in the sidebar to jump straight there. Or click \"Open All\" to launch every platform at once.\n\nSHARED LOGIN SESSIONS\nLog in once and stay logged in. Marquee Socials uses the same browser profile across all platforms, so your sessions persist.\n\nSUPPORTED PLATFORMS\n• YouTube Studio — upload videos, manage your channel\n• TikTok Studio — post content, view analytics\n• Instagram — share posts, stories, and reels\n• X (Twitter) — post updates, engage with followers\n• Discord — manage your server, announce to members\n• Telegram — post to channels, message subscribers\n\nPRIVACY FIRST\nAll logins and sessions are stored locally on your machine. We never collect or transmit your social media credentials.\n\nMADE FOR CREATORS\nWhether you're a content creator, brand manager, or social media professional, Marquee Socials saves you hours every week by putting everything in one place.",
   "featured": {
     "badge": "Trending",
     "eyebrow": "NEW APP",
     "headline": "All your socials. One app.",
     "tagline": "Manage YouTube, TikTok, Instagram, X, Discord, and Telegram from one beautiful dashboard. One-click access, tabbed browsing, shared logins. Free for a limited time.",
     "price": "Free",
-    "launch_offer": "Free for a limited time \u00b7 early adopters get free updates for life",
+    "launch_offer": "Free for a limited time · early adopters get free updates for life",
     "gradient": [
       "#1e1b4b",
       "#6d28d9",
@@ -116,15 +116,23 @@
       "title": "Initial Release",
       "items": [
         "Unified dashboard with cards for all six platforms",
-        "Tabbed browsing \u2014 open platforms in tabs, switch instantly",
+        "Tabbed browsing — open platforms in tabs, switch instantly",
         "Sidebar with one-click platform access",
         "Open All button to launch every platform at once",
-        "Shared browser profile \u2014 log in once, stay logged in",
+        "Shared browser profile — log in once, stay logged in",
         "Purple-themed UI with platform-specific colors"
+      ]
+    },
+    {
+      "version": "1.2.2",
+      "date": "2026-10-12",
+      "title": "New logo",
+      "items": [
+        "New logo: the approved purple 3D M, on the app, launcher and dock."
       ]
     }
   ],
   "stars": 5.0,
   "reviews": 1,
-  "whats_new": "Video links open as in-app tabs, paused; background tabs muted"
+  "whats_new": "New logo: the approved purple 3D M, on the app, launcher and dock."
 }
