@@ -269,7 +269,7 @@
       if (v && S.status?.version) v.textContent = `v${esc(S.status.version)}`;
     } else {
       b.innerHTML = `<b>Get the desktop app</b>Install apps with one click on Omarchy.`;
-      if (v) v.textContent = "v1.0.0";
+      if (v) v.textContent = S.catalog?.desktop_version ? `v${esc(S.catalog.desktop_version)}` : "";   // the current desktop app version
     }
   }
 

@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.7.12"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.7.13"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 # Write token to a file so install.sh can use it for pre-install
@@ -1007,7 +1007,10 @@ class Handler(SimpleHTTPRequestHandler):
                     os.remove(PORT_FILE)
                 except OSError:
                     pass
-                os.execv(sys.executable, [sys.executable, os.path.join(APP_DIR, "omarchy-store"), "--serve"])
+                # Come back on the SAME port: the open store window keeps talking to this address,
+                # so a new port would leave it pointing at nothing (looked like a crash).
+                os.execv(sys.executable, [sys.executable, os.path.join(APP_DIR, "omarchy-store"), "--serve",
+                                          "--port", str(self.server.server_port)])
             threading.Thread(target=again, daemon=True).start()
             return self._json(200, {"ok": True})
         if self.path == "/api/plugin/remove":
@@ -1192,20 +1195,61 @@ def alive(port):
         return False
 
 
-def free_port():
+def _can_bind(p):
+    with socket.socket() as s:
+        # SO_REUSEADDR: a port we just let go of (restart after an update) is still in TIME_WAIT
+        # for a minute; without this we'd wrongly think it's taken and move to another port.
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+        try:
+            s.bind(("127.0.0.1", p))
+            return True
+        except OSError:
+            return False
+
+
+def _recent_ports():
+    """Ports in our range that a store helper served a moment ago but nobody listens on now.
+    Used when an OLDER store (<= 1.7.12) restarts us after an update without telling us its port:
+    its last replies leave TIME_WAIT entries on that port, so we can take the same address back
+    and the open window keeps working."""
+    listening, recent = set(), []
+    try:
+        lines = open("/proc/net/tcp").read().splitlines()[1:]
+    except OSError:
+        return []
+    for ln in lines:
+        f = ln.split()
+        if len(f) < 4:
+            continue
+        ip, _, ph = f[1].partition(":")
+        p = int(ph, 16)
+        if ip != "0100007F" or not (DEFAULT_PORT <= p < DEFAULT_PORT + 20):
+            continue
+        if f[3] == "0A":
+            listening.add(p)
+        elif f[3] == "06" and p not in recent:     # TIME_WAIT on the server side
+            recent.append(p)
+    return [p for p in recent if p not in listening]
+
+
+def free_port(prefer=None):
+    if not prefer and not os.path.exists(PORT_FILE):
+        cand = _recent_ports()
+        prefer = cand[0] if len(cand) == 1 else None
+    if prefer:
+        for _ in range(50):                      # the old process may need a moment to let go
+            if _can_bind(prefer):
+                return prefer
+            time.sleep(0.1)
     for p in range(DEFAULT_PORT, DEFAULT_PORT + 20):
-        with socket.socket() as s:
-            try:
-                s.bind(("127.0.0.1", p))
-                return p
-            except OSError:
-                continue
+        if _can_bind(p):
+            return p
     raise SystemExit("no free port")
 
 
-def serve():
+def serve(prefer=None):
     os.makedirs(STATE_DIR, exist_ok=True)
-    port = free_port()
+    port = free_port(prefer)
     httpd = ThreadingHTTPServer(("127.0.0.1", port), Handler)
     open(PORT_FILE, "w").write(str(port))
     threading.Thread(target=updater, daemon=True).start()
@@ -1233,7 +1277,13 @@ def open_window(port):
 def main():
     args = sys.argv[1:]
     if "--serve" in args:
-        return serve()
+        prefer = None
+        if "--port" in args:
+            try:
+                prefer = int(args[args.index("--port") + 1])
+            except (IndexError, ValueError):
+                prefer = None
+        return serve(prefer)
     if "--update" in args:
         sys.exit(0 if update_catalog() else 1)
     if "--uninstall" in args:
