@@ -273,7 +273,7 @@ def collect(mirror_images=True):
     # Manual themes (not on any gallery yet)
     manual_themes = [
         {"name": "Omarchy Store", "repo": "nemoclawai-tech/omarchy-store-theme", "author": "Omarchy Store",
-         "description": "The official theme of omarchystore.com — deep purple background with vibrant green accents",
+         "description": "The official Omarchy Store theme: deep violet nights, store green and aurora teal, with 9 original 4K wallpapers (Aurora, Pixel City, Synthwave, Mystify, Ridges, Topography, Constellations, Dusk, Store) and the store bag on the lock screen",
          "img": "https://raw.githubusercontent.com/nemoclawai-tech/omarchy-store-theme/master/preview.png",
          "via": "omarchystore.com", "source_url": "https://omarchystore.com/", "apps": []},
     ]
