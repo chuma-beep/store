@@ -2220,15 +2220,17 @@
     clearInterval(shotTimer);
     const sc = $("#shots"); if (!sc || sc.children.length <= 1) return;
     const gal = sc.closest(".gallery");
-    const step = () => {
+        const step = () => {
       if (shotPaused) return;
       const imgs = galImgs();
       if (imgs.length <= 1) return;
       const w = imgs[0]?.getBoundingClientRect().width || sc.clientWidth;
       const now = Math.round(sc.scrollLeft / (w + 20));
       const next = (now + 1) % imgs.length;
-      galGo(0, next);
-    };
+      requestAnimationFrame(() => {
+        galGo(0, next);
+      });
+    };;
     shotTimer = setInterval(step, 4000);
     if (gal) {
       gal.onmouseenter = () => { shotPaused = true; };

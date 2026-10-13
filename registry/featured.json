@@ -1,7 +1,7 @@
 {
   "_comment": "Editorial picks shown in the Today / Discover banners. Edit freely — order matters.",
   "hero": [
-    {"app": "omarchy-browser", "eyebrow": "NEW FROM OMARCHY STORE", "headline": "The web, with the store built in.", "gradient": ["#1a1b26", "#7aa2f7", "#9ece6a"]},
+    {"app": "omarchy-browser", "eyebrow": "NEW: OMARCHY BROWSER 2.0", "headline": "The browser built for Omarchy.", "gradient": ["#1a1b26", "#7aa2f7", "#9ece6a"]},
     {"app": "telegram",   "eyebrow": "FEATURED APP",      "headline": "Fast, private messaging on your desktop", "gradient": ["#2aabee", "#0b3d63"]},
     {"app": "blender",    "eyebrow": "APP OF THE WEEK",   "headline": "Build worlds in 3D",            "gradient": ["#f5792a", "#6b2d0f"]},
     {"app": "ollama",     "eyebrow": "MEET THE DEVELOPER", "headline": "Your own AI, fully offline",    "gradient": ["#1f2335", "#7aa2f7"]},
