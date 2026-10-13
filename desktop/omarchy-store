@@ -631,7 +631,7 @@ def iso_ready(iso):
 
 
 def download_iso(iso):
-    """Download (resuming if possible) and verify the ISO. Progress goes to USB['dl'].""""
+    """Download (resuming if possible) and verify the ISO. Progress goes to USB['dl']."""
     os.makedirs(ISO_DIR, exist_ok=True)
     dest = iso_path(iso)
     part = dest + ".part"
