@@ -9,9 +9,9 @@
     "packages": [
       "snapdock"
     ],
-    "version": "2.0.4",
-    "url": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v2.0.4/snapdock-2.0.4-1-any.pkg.tar.zst",
-    "sha256": "782957207ee3186c16c2fbc46cc2debb2c46640a451770085f795d51ce56ecae"
+    "version": "2.0.5",
+    "url": "https://github.com/nemoclawai-tech/snapdock-releases/releases/download/v2.0.5/snapdock-2.0.5-1-any.pkg.tar.zst",
+    "sha256": "6f8353fec83ca10a45e44cb7ebe974472c96f1c25b2b51bc4f79ca4a21738e47"
   },
   "detect": [
     "snapdock"
@@ -347,7 +347,7 @@
       "note": "Already have an older SnapDock, or a dock setup of your own? SnapDock 2 puts back whatever the old version changed and never edits your own files."
     },
     "price_note": "Limited time",
-    "new_line": "New in 2.0.4: screen recording with sound, right from the dock. Start, stop, done.",
+    "new_line": "New in 2.0.5: app logos update on the dock by themselves, the moment an app changes its logo.",
     "order": 1
   },
   "tags": [
@@ -372,6 +372,16 @@
     "workspaces"
   ],
   "changelog": [
+    {
+      "version": "2.0.5",
+      "date": "2026-10-12",
+      "title": "Logos update by themselves",
+      "items": [
+        "When an app gets a new logo (from an update or the store), SnapDock shows it within a couple of seconds. No restart, no log out.",
+        "This works for the dock, Launchpad, the menus and the TV button (Rabbit Ears).",
+        "Apps installed while SnapDock is running get their proper logo straight away too."
+      ]
+    },
     {
       "version": "2.0.4",
       "date": "2026-10-12",
