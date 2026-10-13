@@ -197,8 +197,15 @@ if [ -n "$WITH_APPS" ]; then
   fi
 fi
 
-# Install post-update validation hook
+# Post-update check: after every `omarchy update`, make sure the Omarchy Development Labs apps that are
+# installed here still work, and repair them if not. Installed through Omarchy's own hook mechanism.
 if command -v omarchy-hook-install >/dev/null 2>&1; then
-  say "Installing post-update validation hook for core apps..."
-  omarchy-hook-install post-update "$BASE/scripts/post-update-validation.sh" 2>/dev/null || true
+  say "Installing the post-update check…"
+  HOOK_TMP="$(mktemp -d)/omarchy-store-post-update.hook"
+  if curl -fsSL "$BASE/scripts/post-update-validation.sh" -o "$HOOK_TMP" && bash -n "$HOOK_TMP"; then
+    omarchy-hook-install post-update "$HOOK_TMP" >/dev/null 2>&1 && say "  ✓ Omarchy will check your store apps after each update"
+  else
+    say "  (couldn't fetch the post-update check; the store will add it on its next update)"
+  fi
+  rm -rf "$(dirname "$HOOK_TMP")"
 fi
