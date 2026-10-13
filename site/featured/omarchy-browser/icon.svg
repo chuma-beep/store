@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7aa2f7"/>
+      <stop offset=".55" stop-color="#9a7cf4"/>
+      <stop offset="1" stop-color="#b48cf7"/>
+    </linearGradient>
+    <radialGradient id="disc" cx=".38" cy=".30" r=".85">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset=".65" stop-color="#f4f2ff"/>
+      <stop offset="1" stop-color="#d9d2fb"/>
+    </radialGradient>
+    <filter id="sh" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#1a1440" flood-opacity=".30"/>
+    </filter>
+    <clipPath id="globe"><circle cx="256" cy="256" r="146"/></clipPath>
+    <!-- outside the globe: where the ring's back half shows -->
+    <mask id="outside">
+      <rect width="512" height="512" fill="#fff"/>
+      <circle cx="256" cy="256" r="146" fill="#000"/>
+    </mask>
+  </defs>
+
+  <rect width="512" height="512" rx="114" fill="url(#g)"/>
+
+  <!-- globe -->
+  <g filter="url(#sh)"><circle cx="256" cy="256" r="146" fill="url(#disc)"/></g>
+  <g clip-path="url(#globe)" fill="none" stroke="#8f78f0" stroke-opacity=".16" stroke-width="7">
+    <ellipse cx="256" cy="256" rx="60" ry="146"/>
+    <ellipse cx="256" cy="256" rx="114" ry="146"/>
+    <path d="M100 256h312M118 192h276M118 320h276"/>
+  </g>
+
+  <!-- ring: one tilted ellipse. Its top arc is hidden behind the globe (mask), its bottom arc crosses in front. -->
+  <g transform="rotate(-20 256 256)">
+    <!-- back arc: only visible outside the globe -->
+    <ellipse cx="256" cy="256" rx="214" ry="58" fill="none" stroke="#ffffff" stroke-opacity=".55" stroke-width="16" mask="url(#outside)"/>
+    <!-- front arc: lower half of the ellipse, drawn over the globe -->
+    <path d="M42 256 A214 58 0 0 0 470 256" fill="none" stroke="#ffffff" stroke-width="16" stroke-linecap="round"/>
+  </g>
+
+  <!-- the Omarchy mark, exact geometry, above the ring -->
+  <g transform="translate(202 168) scale(.09)">
+    <path fill="#6a4fd6" fill-rule="evenodd" clip-rule="evenodd" d="m1200 1200h-480v-80h400v-1040h-479.996v160h-400v720h720v-720h-80v-80h159.996v880h-400v160h-640v-1200h1200zm-1120-80h480v-80h-400l.004-400h-80.004zm0-560h80.004v-400h400v-80h-480.004z"/>
+  </g>
+</svg>

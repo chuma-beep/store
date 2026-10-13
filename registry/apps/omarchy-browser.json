@@ -9,10 +9,10 @@
     "packages": [
       "omarchy-browser"
     ],
-    "version": "1.0.0",
-    "url": "https://github.com/omarchy-community/omarchy-browser/releases/download/v1.0.0/omarchy-browser-1.0.0-1-any.pkg.tar.zst",
-    "sha256": "f702dfc4079d8cde55ade168755aa26e8033ef15ad5c95282e1b05e1f336b036",
-    "size": 1500000
+    "version": "1.0.1",
+    "url": "https://github.com/omarchy-community/omarchy-browser/releases/download/v1.0.1/omarchy-browser-1.0.1-1-any.pkg.tar.zst",
+    "sha256": "5a858a77e728399f621d2dae093c24a9ab1bd63953f8399735006dabab05adfd",
+    "size": 800000
   },
   "detect": [
     "omarchy-browser"
@@ -20,9 +20,13 @@
   "kind": "gui",
   "developer": "Omarchy Development Labs",
   "icon": "featured/omarchy-browser/icon.png",
-  "screenshots": [],
+  "screenshots": [
+    "featured/omarchy-browser/shot-2.webp",
+    "featured/omarchy-browser/shot-3.webp",
+    "featured/omarchy-browser/shot-1.webp"
+  ],
   "summary": "The web browser with the Omarchy Store built in",
-  "description": "What's new: the first browser made for Omarchy, with the Omarchy Store one click away.\n\nOmarchy Browser is a fast Chromium-based web browser with the Omarchy Store built right in. Browse the web in tabs, and whenever you want a new app, press Store and it's there in a side panel next to your page.\n\nTHE STORE, RIGHT NEXT TO YOUR PAGE\n• Press Store (or Ctrl+B) to open the Omarchy Store in a side panel\n• Featured apps, browsers and top picks on the front page, plus every category\n• Search any app and press GET to install it\n• Open any app's full store page in a new tab with one click\n\nA REAL CHROMIUM BROWSER\n• Tabs, address bar, back, forward and reload\n• Type an address or just search: results come from DuckDuckGo\n• Links that open new windows open as new tabs instead\n• Stays signed in to your sites between launches\n\nSAFE INSTALLS\n• GET uses Omarchy's own installer, in a terminal you can see\n• You type your own password: the browser never sees it\n• It only installs apps listed in the Omarchy Store\n\nMADE FOR OMARCHY\n• Dark look that fits right in on Omarchy\n• Tiny download: it uses the Chromium engine that's already on your computer\n• Keyboard shortcuts: Ctrl+T new tab, Ctrl+W close tab, Ctrl+L address bar, Ctrl+B store, Ctrl+Tab next tab, Alt+Left/Right back and forward\n\nFree and open source (MIT), from Omarchy Development Labs.",
+  "description": "What's new: a new icon made from the official Omarchy logo, and it now appears in your dock and app list right after you install it.\n\nOmarchy Browser is a fast Chromium-based web browser with the Omarchy Store built right in. Browse the web in tabs, and whenever you want a new app, press Store and it's there in a side panel next to your page.\n\nTHE STORE, RIGHT NEXT TO YOUR PAGE\n• Press Store (or Ctrl+B) to open the Omarchy Store in a side panel\n• Featured apps, browsers and top picks on the front page, plus every category\n• Search any app and press GET to install it\n• Open any app's full store page in a new tab with one click\n\nA REAL CHROMIUM BROWSER\n• Tabs, address bar, back, forward and reload\n• Type an address or just search: results come from DuckDuckGo\n• Links that open new windows open as new tabs instead\n• Stays signed in to your sites between launches\n\nSAFE INSTALLS\n• GET uses Omarchy's own installer, in a terminal you can see\n• You type your own password: the browser never sees it\n• It only installs apps listed in the Omarchy Store\n\nMADE FOR OMARCHY\n• Dark look that fits right in on Omarchy\n• Tiny download: it uses the Chromium engine that's already on your computer\n• Keyboard shortcuts: Ctrl+T new tab, Ctrl+W close tab, Ctrl+L address bar, Ctrl+B store, Ctrl+Tab next tab, Alt+Left/Right back and forward\n\nFree and open source (MIT), from Omarchy Development Labs.",
   "featured": {
     "badge": "Official app",
     "eyebrow": "NEW FROM OMARCHY STORE",
@@ -44,7 +48,7 @@
       "One-click GET",
       "Made for Omarchy"
     ],
-    "order": 1,
+    "order": 1.5,
     "features": [
       {
         "icon": "grid",
@@ -86,6 +90,17 @@
   "chart_rank": 2,
   "open": "omarchy-browser",
   "changelog": [
+    {
+      "version": "1.0.1",
+      "date": "2026-10-12",
+      "title": "New look",
+      "items": [
+        "A new icon made from the official Omarchy logo.",
+        "Omarchy Browser now shows up in the dock and the app list as soon as it's installed.",
+        "The store panel shows the Omarchy Store's own icon.",
+        "App descriptions with symbols like & now read correctly."
+      ]
+    },
     {
       "version": "1.0.0",
       "date": "2026-10-12",

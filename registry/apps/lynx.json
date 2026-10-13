@@ -16,79 +16,11 @@
   "kind": "terminal",
   "developer": "The Lynx Project",
   "icon": "featured/lynx/icon.png",
-  "screenshots": [],
+  "screenshots": [
+    "featured/lynx/billboard.webp"
+  ],
   "summary": "The classic text-based web browser — navigate the web from your terminal",
   "description": "Lynx is the world's oldest actively maintained web browser. It renders web pages as plain text in your terminal, making it perfect for:\n\n• Browsing the web on headless servers or over SSH\n• Fast, distraction-free reading without JavaScript, CSS, or ads\n• Accessibility — works with screen readers and braille displays\n• Low-bandwidth connections and ancient hardware\n• Scripting and automation of web tasks\n\nLynx supports HTTPS, cookies, authentication, and HTML forms. It doesn't support JavaScript, CSS, or modern web apps — but for text-heavy sites (Wikipedia, documentation, news, forums) it's often faster and cleaner than any graphical browser.\n\nKEYSTROKES\n• G or g — Go to URL\n• ↓/↑ or Tab/Shift+Tab — Navigate links\n• → or Enter — Follow link\n• ← or Backspace — Go back\n• H — Help screen\n• Q — Quit\n• / — Search within page\n• = — Page info (URL, size, etc.)\n• ! — Shell escape\n• Ctrl+R — Reload\n\nINSTALLATION\nAvailable in the official Arch repositories. Just run the install command below and press Enter — no password needed for the store package.",
-  "featured": {
-    "badge": "Terminal Essential",
-    "eyebrow": "TEXT-MODE WEB BROWSING",
-    "headline": "The web. Just text. Since 1992.",
-    "tagline": "Lynx is the classic text-based browser — no JavaScript, no CSS, no bloat. Perfect for servers, SSH, accessibility, or distraction-free reading. Navigate with arrow keys, search with /, quit with Q. The oldest browser still in active development.",
-    "price": "Free",
-    "price_note": "Open source (GPL)",
-    "gradient": [
-      "#1a1a2e",
-      "#16213e",
-      "#0f3460"
-    ],
-    "art": "featured/lynx/billboard.webp",
-    "billboard": "featured/lynx/billboard.webp",
-    "chips": [
-      "Text-mode browsing",
-      "No JavaScript/CSS",
-      "Works over SSH",
-      "Screen reader friendly",
-      "Since 1992"
-    ],
-    "order": 99,
-    "features": [
-      {
-        "icon": "globe",
-        "hero": true,
-        "title": "Pure text browsing",
-        "body": "Lynx renders HTML as clean, readable text. No scripts, no styles, no tracking — just the content you came for."
-      },
-      {
-        "icon": "server",
-        "title": "Headless & SSH ready",
-        "body": "Runs in any terminal. Browse the web from a remote server, a VM, or a TTY without a graphical environment."
-      },
-      {
-        "icon": "accessibility",
-        "title": "Accessibility first",
-        "body": "Works natively with screen readers and braille displays. Semantic HTML navigation makes it a powerful assistive tool."
-      },
-      {
-        "icon": "zap",
-        "title": "Lightning fast",
-        "body": "No JavaScript engine, no CSS parser, no image loading. Pages load in milliseconds even on slow connections."
-      },
-      {
-        "icon": "keyboard",
-        "title": "Keyboard-driven",
-        "body": "Every action is a keystroke. Arrow keys to navigate, Enter to follow, Backspace to go back, / to search, Q to quit."
-      },
-      {
-        "icon": "shield",
-        "title": "Privacy by default",
-        "body": "No cookies by default, no localStorage, no fingerprinting surface. You control exactly what gets sent."
-      }
-    ],
-    "steps": [
-      {
-        "title": "Open a terminal",
-        "body": "Press Super + Return."
-      },
-      {
-        "title": "Install Lynx",
-        "body": "Run the install command below. It's in the official Arch repos — no AUR needed."
-      },
-      {
-        "title": "Start browsing",
-        "body": "Type 'lynx' followed by a URL (e.g. 'lynx https://wiki.archlinux.org') or just 'lynx' to start at the default homepage."
-      }
-    ]
-  },
-  "stars": 4.8,
-  "reviews": 127
+  "cli": true,
+  "open": "lynx"
 }
