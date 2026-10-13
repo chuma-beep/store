@@ -9,10 +9,10 @@
     "packages": [
       "omarchy-browser"
     ],
-    "version": "2.0.0",
-    "url": "https://github.com/omarchy-community/omarchy-browser/releases/download/v2.0.0/omarchy-browser-2.0.0-1-any.pkg.tar.zst",
-    "sha256": "803e0d1f4bdb3744ff38279324e3022ff8ed44045648ebcf0432218360becb8e",
-    "size": 170097
+    "version": "2.0.1",
+    "url": "https://github.com/omarchy-community/omarchy-browser/releases/download/v2.0.1/omarchy-browser-2.0.1-1-any.pkg.tar.zst",
+    "sha256": "7262b015b60dbc61ea6f1dbe1d414e0b2f4e72e6361e1fd84dbbb7e0777c29bb",
+    "size": 536706
   },
   "detect": [
     "omarchy-browser"
@@ -21,15 +21,15 @@
   "developer": "Omarchy Development Labs",
   "icon": "featured/omarchy-browser/icon.png",
   "screenshots": [
+    "featured/omarchy-browser/shot-6.webp",
     "featured/omarchy-browser/shot-1.webp",
     "featured/omarchy-browser/shot-2.webp",
     "featured/omarchy-browser/shot-3.webp",
     "featured/omarchy-browser/shot-4.webp",
-    "featured/omarchy-browser/shot-5.webp",
-    "featured/omarchy-browser/shot-6.webp"
+    "featured/omarchy-browser/shot-5.webp"
   ],
   "summary": "The browser built for Omarchy, with the store built in",
-  "description": "What's new in 2.0: your Omarchy theme applied live, tracker shield, workspaces, split view, reader with local AI summaries, a command palette, and the store panel now knows what is already installed.\n\nOmarchy Browser is a Chromium browser built for Omarchy. It looks like your desktop, keeps trackers out, and has the Omarchy Store right next to your page.\n\nYOUR THEME, LIVE\n• Uses the colors of your current Omarchy theme for the whole browser\n• Switch themes and the browser follows in under two seconds\n• New tab page and reader view are themed too\n\nTHE STORE, RIGHT NEXT TO YOUR PAGE\n• Press Store (or Ctrl+B) to open the Omarchy Store in a side panel\n• Sees which apps are already on your computer: Open instead of Get\n• Browse any GitHub repo that is in the store and a one-click Get pops up\n• Search any app and press Get; the full store page is one click away\n\nSHIELD\n• Blocks the tracking and ad networks that do most of the tracking\n• Live counter in the address bar shows what was blocked on this page\n• One click turns it off; sends Do Not Track and Global Privacy Control\n\nWORKSPACES AND SPLIT VIEW\n• Separate tab sets for work, play and projects (Ctrl+Shift+W)\n• Everything comes back when you relaunch\n• Two pages side by side with Ctrl+\\\n\nREADER WITH SUMMARIZE\n• Clean reading view for any article (Ctrl+Shift+R), with font and size controls\n• Summarize: a local AI model if Ollama is on your computer, otherwise a built-in summary\n• Nothing is sent anywhere; it all runs on your machine\n\nCOMMAND PALETTE\n• Ctrl+K: commands, open tabs, store apps, bookmarks, history and web search in one box\n• Type > for commands, @ for apps, / for tabs\n\nA REAL CHROMIUM BROWSER\n• Address bar suggestions from your history and bookmarks\n• Find in page, per-site zoom, downloads panel, right-click menu with Open in split view\n• Mouse back and forward buttons, Ctrl+1 to 9 for tabs\n• Stays signed in to your sites between launches\n• Choose DuckDuckGo, Google, Brave or Bing for search\n\nSAFE INSTALLS\n• Get uses Omarchy's own installer, in a terminal you can see\n• You type your own password: the browser never sees it\n• Only apps listed in the Omarchy Store can be installed\n\nTiny download: it uses the Chromium engine already on your computer. Free and open source (MIT), from Omarchy Development Labs.",
+  "description": "What's new: a new logo, and the new tab page now shows the full date, time and your local weather with a three-day forecast.\n\nOmarchy Browser is a Chromium browser built for Omarchy. It looks like your desktop, keeps trackers out, and has the Omarchy Store right next to your page.\n\nYOUR THEME, LIVE\n• Uses the colors of your current Omarchy theme for the whole browser\n• Switch themes and the browser follows in under two seconds\n• New tab page and reader view are themed too\n\nTHE STORE, RIGHT NEXT TO YOUR PAGE\n• Press Store (or Ctrl+B) to open the Omarchy Store in a side panel\n• Sees which apps are already on your computer: Open instead of Get\n• Browse any GitHub repo that is in the store and a one-click Get pops up\n• Search any app and press Get; the full store page is one click away\n\nSHIELD\n• Blocks the tracking and ad networks that do most of the tracking\n• Live counter in the address bar shows what was blocked on this page\n• One click turns it off; sends Do Not Track and Global Privacy Control\n\nWORKSPACES AND SPLIT VIEW\n• Separate tab sets for work, play and projects (Ctrl+Shift+W)\n• Everything comes back when you relaunch\n• Two pages side by side with Ctrl+\\\n\nREADER WITH SUMMARIZE\n• Clean reading view for any article (Ctrl+Shift+R), with font and size controls\n• Summarize: a local AI model if Ollama is on your computer, otherwise a built-in summary\n• Nothing is sent anywhere; it all runs on your machine\n\nCOMMAND PALETTE\n• Ctrl+K: commands, open tabs, store apps, bookmarks, history and web search in one box\n• Type > for commands, @ for apps, / for tabs\n\nA REAL CHROMIUM BROWSER\n• Address bar suggestions from your history and bookmarks\n• Find in page, per-site zoom, downloads panel, right-click menu with Open in split view\n• Mouse back and forward buttons, Ctrl+1 to 9 for tabs\n• Stays signed in to your sites between launches\n• Choose DuckDuckGo, Google, Brave or Bing for search\n\nSAFE INSTALLS\n• Get uses Omarchy's own installer, in a terminal you can see\n• You type your own password: the browser never sees it\n• Only apps listed in the Omarchy Store can be installed\n\nTiny download: it uses the Chromium engine already on your computer. Free and open source (MIT), from Omarchy Development Labs.",
   "featured": {
     "badge": "Official app",
     "eyebrow": "OMARCHY BROWSER 2.0",
@@ -60,6 +60,11 @@
         "hero": true,
         "title": "Your theme, live",
         "body": "Change your Omarchy theme and the browser changes with it in under two seconds. Chrome, new tab page and reader all use your colors."
+      },
+      {
+        "icon": "star",
+        "title": "A home page worth opening",
+        "body": "Full date and time, your local weather with a three-day forecast, your top sites and bookmarks, and picks from the store. Themed like your desktop."
       },
       {
         "icon": "grid",
@@ -105,6 +110,12 @@
   "chart_rank": 2,
   "open": "omarchy-browser",
   "changelog": [
+    {
+      "version": "2.0.1",
+      "date": "2026-10-12",
+      "title": "New logo, weather at home",
+      "body": "New logo. The new tab page shows the full date, time and your local weather with a three-day forecast."
+    },
     {
       "version": "2.0.0",
       "date": "2026-10-12",
