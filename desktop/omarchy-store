@@ -993,6 +993,16 @@ class Handler(SimpleHTTPRequestHandler):
         def download_and_install():
             global MIGRATION_STATE
             try:
+                # Step 1: Uninstall old webapp
+                MIGRATION_STATE["status"] = "uninstalling"
+                MIGRATION_STATE["progress"] = 5
+                try:
+                    uninstall_script = os.path.join(APP_DIR, "uninstall.sh")
+                    if os.path.exists(uninstall_script):
+                        subprocess.run([uninstall_script], check=True, capture_output=True, timeout=30)
+                except Exception:
+                    pass  # Ignore errors, old app might not be installed
+
                 appimage_url = "https://omarchystore.com/desktop/Omarchy Store-1.0.0.AppImage"
                 dest = os.path.expanduser("~/omarchy-store-electron.AppImage")
                 tmp = dest + ".part"
