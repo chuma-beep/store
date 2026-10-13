@@ -6,17 +6,17 @@ GET button can really install apps. Opens the store as a window via
 omarchy-launch-webapp.
 
 Security model (read this before changing anything):
-  * Binds to 127.0.0.1 only — nothing on your network can reach it.
-  * The API never accepts a command. It accepts an app *id*, looks the app up in
-    the catalog shipped with the store, and runs that app's install recipe.
-    Recipes are validated against a strict allow-list (package names / an
-    'omarchy install ...' command), so a tampered catalog can't smuggle shell.
-  * Every POST needs a per-session secret token that only the store page knows
-    (injected into the page served by this process), and an Origin header that
-    matches this server — so other websites in your browser can't trigger
-    installs (CSRF protection).
-  * Installs run in a visible Omarchy floating terminal, so you see exactly what
-    happens and type your own password. The helper never sees or stores it.
+ * Binds to 127.0.0.1 only — nothing on your network can reach it.
+ * The API never accepts a command. It accepts an app *id*, looks the app up in
+   the catalog shipped with the store, and runs that app's install recipe.
+   Recipes are validated against a strict allow-list (package names / an
+   'omarchy install ...' command), so a tampered catalog can't smuggle shell.
+ * Every POST needs a per-session secret token that only the store page knows
+   (injected into the page served by this process), and an Origin header that
+   matches this server — so other websites in your browser can't trigger
+   installs (CSRF protection).
+ * Installs run in a visible Omarchy floating terminal, so you see exactly what
+   happens and type your own password. The helper never sees or stores it.
 
 Usage:
   omarchy-store                 open the store (starts helper if needed)
@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.7.13"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.7.12"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 # Write token to a file so install.sh can use it for pre-install
@@ -64,7 +64,6 @@ except Exception:
     pass
 JOBS = {}            # app id -> {"state": running|done|failed, "started": ts}
 JOBS_LOCK = threading.Lock()
-
 
 # ---------------------------------------------------------- crypto wallets ----
 # Wallet browser extensions (Phantom, MetaMask…). The store never downloads or installs extension files itself:
@@ -498,120 +497,9 @@ def run_open(app):
             msg = f"echo {shlex.quote(app['name'] + ' is installed. Try:')}; echo; echo '  {cmd} --help'; echo; exec bash"
             subprocess.Popen(["xdg-terminal-exec", "bash", "-c", msg], stdin=subprocess.DEVNULL, start_new_session=True)
             return
-        cmd = opn or app["detect"][0]
-        if not CMD_RE.match(cmd):
-            raise ValueError("bad command")
-        launcher = ["omarchy-launch-or-focus-tui", cmd] if shutil.which("omarchy-launch-or-focus-tui") else ["xdg-terminal-exec", cmd]
-        subprocess.Popen(launcher, stdin=subprocess.DEVNULL, start_new_session=True)
-        return
-    # GUI: find its .desktop file from the installed package's file list.
-    desktop = None
-    for pkg in app["detect"]:
-        out = subprocess.run(["pacman", "-Qlq", pkg], capture_output=True, text=True).stdout.split()
-        ds = [f for f in out if f.startswith("/usr/share/applications/") and f.endswith(".desktop")]
-        if ds:
-            desktop = os.path.basename(sorted(ds, key=len)[0])
-            break
-    if not desktop:
-        raise ValueError("couldn't find a launcher for this app")
-    subprocess.Popen(["setsid", "gtk-launch", desktop] if shutil.which("gtk-launch") else ["uwsm-app", "--", desktop],
-                     stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
 
 
-# ---------------------------------------------------------------- app updates ----
-UPD = {"at": 0, "data": None}
-UPD_LOCK = threading.Lock()
-
-
-def _vercmp(a, b):
-    try:
-        return int(subprocess.run(["vercmp", a, b], capture_output=True, text=True, timeout=5).stdout.strip() or 0)
-    except Exception:
-        return 0
-
-
-def check_updates(force=False):
-    """Which store apps (and how many system packages) have updates. Read-only, no password needed."""
-    with UPD_LOCK:
-        if not force and UPD["data"] and time.time() - UPD["at"] < 600:
-            return UPD["data"]
-    cat = load_catalog()
-    have = {}
-    try:
-        for ln in subprocess.run(["pacman", "-Q"], capture_output=True, text=True, timeout=20).stdout.splitlines():
-            n, v = ln.split()[:2]; have[n] = v
-    except Exception:
-        pass
-    repo, aur = {}, {}
-    # checkupdates syncs a private copy of the package database, so it never touches the system.
-    try:
-        out = subprocess.run(["checkupdates", "--nocolor"], capture_output=True, text=True, timeout=120).stdout
-        for ln in out.splitlines():
-            p = ln.split()
-            if len(p) >= 4: repo[p[0]] = p[3]
-    except Exception:
-        pass
-    if shutil.which("yay"):
-        try:
-            out = subprocess.run(["yay", "-Qua"], capture_output=True, text=True, timeout=90).stdout
-            for ln in out.splitlines():
-                p = ln.split()
-                if len(p) >= 4: aur[p[0]] = p[3]
-        except Exception:
-            pass
-    apps = []
-    for aid, a in cat.items():
-        det = a.get("detect") or []
-        pkg = det[0] if det else None
-        if pkg and pkg not in have and file_install_version(aid):
-            # Set up with its own installer file: compare that copy's version with the store's.
-            mine = file_install_version(aid)
-            latest = (a.get("package") or {}).get("version") or (a.get("install") or {}).get("version")
-            if latest and _vercmp(latest, mine) > 0:
-                apps.append({"id": aid, "installed": mine, "latest": latest, "via": "release"})
-            continue
-        if not pkg or pkg not in have:
-            continue
-        m = a["install"]["method"]
-        new = None
-        if m == "release":
-            latest = (a.get("package") or {}).get("version")
-            if latest and _vercmp(latest, have[pkg].split("-")[0]) > 0:
-                new = latest
-        else:
-            new = repo.get(pkg) or aur.get(pkg)
-        if new:
-            apps.append({"id": aid, "installed": have[pkg], "latest": new,
-                         "via": "system" if pkg in repo else ("release" if m == "release" else "aur")})
-    data = {"apps": apps, "system": len(repo), "aur": len(aur), "checked": time.time()}
-    with UPD_LOCK:
-        UPD.update(at=time.time(), data=data)
-    return data
-
-
-def quick_updatable(cat, inst):
-    """Store-release apps on this computer with a newer version in the catalog (fast: no network),
-    so their page can say UPDATE right away. Other updates show in the Updates tab."""
-    out = []
-    have = {}
-    try:
-        for ln in subprocess.run(["pacman", "-Q"], capture_output=True, text=True, timeout=15).stdout.splitlines():
-            n, v = ln.split()[:2]; have[n] = v.split("-")[0]
-    except Exception:
-        pass
-    for aid in inst:
-        a = cat.get(aid) or {}
-        if (a.get("install") or {}).get("method") != "release":
-            continue
-        det = a.get("detect") or []
-        mine = have.get(det[0]) if det else None
-        mine = mine or file_install_version(aid)
-        latest = (a.get("package") or {}).get("version") or a["install"].get("version")
-        if mine and latest and _vercmp(latest, mine) > 0:
-            out.append(aid)
-    return out
-
-
+# ---------------------------------------------------------------- updates ----
 def run_update(app=None):
     """Update one app, or everything (Omarchy's own updater) when app is None."""
     if app is None:
@@ -743,63 +631,62 @@ def iso_ready(iso):
 
 
 def download_iso(iso):
-    """Download (resuming if possible) and verify the ISO. Progress goes to USB['dl']."""
+    """Download (resuming if possible) and verify the ISO. Progress goes to USB['dl'].""""
     os.makedirs(ISO_DIR, exist_ok=True)
     dest = iso_path(iso)
     part = dest + ".part"
     with USB_LOCK:
-        USB["dl"] = {"state": "downloading", "done": 0, "total": iso["size"], "version": iso["version"], "started": time.time()}
+        USB["dl"] = {"state": "downloading", "progress": 0}
     try:
-        h = hashlib.sha256()
-        have = os.path.getsize(part) if os.path.exists(part) else 0
-        if have:
-            with open(part, "rb") as f:
-                for b in iter(lambda: f.read(1 << 20), b""):
-                    h.update(b)
-        req = urllib.request.Request(iso["url"], headers={"User-Agent": "omarchy-store", **({"Range": f"bytes={have}-"} if have else {})})
-        with urllib.request.urlopen(req, timeout=60) as r, open(part, "ab" if have and r.status == 206 else "wb") as f:
-            if have and r.status != 206:
-                h = hashlib.sha256(); have = 0
-            done = have
-            for b in iter(lambda: r.read(1 << 20), b""):
-                f.write(b); h.update(b); done += len(b)
-                with USB_LOCK:
-                    USB["dl"]["done"] = done
-                if done > iso["size"] + 1_000_000:
-                    raise ValueError("download larger than expected")
+        with urllib.request.urlopen(iso["url"], timeout=300) as r:
+            total = int(r.headers.get("Content-Length", 0))
+            with open(dest + ".part", "wb") as f:
+                while True:
+                    chunk = r.read(8192)
+                    if not chunk:
+                        break
+                    f.write(chunk)
+                    with USB_LOCK:
+                        USB["dl"]["progress"] = int(100 * f.tell() / total) if total else 0
+        os.replace(dest + ".part", dest)
         with USB_LOCK:
-            USB["dl"]["state"] = "verifying"
-        if h.hexdigest() != iso["sha256"]:
-            os.remove(part)
-            raise ValueError("the download didn't match Omarchy's official checksum, so it was deleted — please try again")
-        os.replace(part, dest)
-        open(dest + ".verified", "w").write(iso["sha256"])
-        with USB_LOCK:
-            USB["dl"] = {"state": "ready", "done": iso["size"], "total": iso["size"], "version": iso["version"]}
+            USB["dl"] = {"state": "verifying", "progress": 100}
     except Exception as e:
         with USB_LOCK:
-            USB["dl"] = {"state": "failed", "error": str(e), "version": iso["version"]}
+            USB["dl"] = {"state": "error", "error": str(e)}
+        return
+    h = hashlib.sha256()
+    with open(dest, "rb") as f:
+        while True:
+            chunk = f.read(1 << 16)
+            if not chunk:
+                break
+            h.update(chunk)
+    if h.hexdigest() != iso["sha256"]:
+        os.remove(dest)
+        with USB_LOCK:
+            USB["dl"] = {"state": "error", "error": "SHA-256 mismatch"}
+        return
+    open(dest + ".verified", "w").write(iso["sha256"])
+    with USB_LOCK:
+        USB["dl"] = {"state": "ready", "progress": 100}
 
 
 def write_usb(iso, device):
-    """Write the verified ISO to `device` in a visible terminal (asks for the user's password)."""
     if not iso_ready(iso):
-        raise ValueError("download and verify the Omarchy ISO first")
-    drive = next((d for d in usb_drives() if d["path"] == device), None)   # re-check right now
-    if not drive:
-        raise ValueError("that USB drive isn't available any more — plug it in again and refresh")
-    gb = f"{drive['size'] / 1e9:.0f} GB"
+        raise ValueError("ISO not ready — download and verify first")
+    if not DEV_RE.match(device):
+        raise ValueError("bad device")
+    # Safety: drive must still be a removable USB drive
+    drives = usb_drives()
+    if not any(d["path"] == device for d in drives):
+        raise ValueError("device is not a safe removable USB drive")
     q = shlex.quote
-    unmount = "; ".join(f"udisksctl unmount -b {q(p)} >/dev/null 2>&1 || true" for p in drive["parts"])
-    script = (
-        f"echo {q('Ignite for Omarchy: making your Omarchy installer USB')}; echo; "
-        f"echo {q('Writing Omarchy ' + iso['version'] + ' to: ' + drive['name'] + ' (' + gb + ', ' + device + ')')}; "
-        f"echo {q('EVERYTHING on this USB drive will be erased.')}; echo; "
-        f"{unmount + '; ' if unmount else ''}"
-        f"sudo dd if={q(iso_path(iso))} of={q(device)} bs=4M status=progress oflag=direct conv=fsync && sync && "
-        f"echo && echo {q('Done! Your Omarchy installer USB is ready. You can unplug it now.')} || "
-        f"echo {q('Writing failed — nothing was changed on your computer. Check the USB stick and try again.')}"
-    )
+    script = (f"echo {q('Writing Omarchy installer to ' + device + '…')}; echo; "
+              f"sudo dd if={q(iso_path(iso))} of={q(device)} bs=4M status=progress conv=fsync; "
+              f"sync; echo; "
+              f"echo {q('Done! Your Omarchy installer USB is ready. You can unplug it now.')} || "
+              f"echo {q('Writing failed — nothing was changed on your computer. Check the USB stick and try again.')}")
     with JOBS_LOCK:
         JOBS["usb"] = {"state": "running", "started": time.time(), "device": device}
     in_terminal(script, "USB")
@@ -835,6 +722,9 @@ def self_update(target_version):
             os.chmod(tmp, 0o755)
         os.replace(tmp, dest)
     SELF["installed_new"] = True
+
+
+MIGRATION_STATE = {"status": "idle", "progress": 0, "error": None, "done": False}
 
 
 # ----------------------------------------------------------------- server ----
@@ -932,6 +822,8 @@ class Handler(SimpleHTTPRequestHandler):
             with JOBS_LOCK:
                 job = dict(JOBS.get(aid, {}))
             return self._json(200, {**job, "installed": aid in cat and aid in installed_ids({aid: cat[aid]})})
+        if path == "/api/migrate-status":
+            return self._json(200, MIGRATION_STATE)
         if path.startswith("/api/"):
             return self._json(404, {"error": "not found"})
         # Store artwork (featured banners, screenshots, Ignite) isn't shipped with the app:
@@ -1007,12 +899,13 @@ class Handler(SimpleHTTPRequestHandler):
                     os.remove(PORT_FILE)
                 except OSError:
                     pass
-                # Come back on the SAME port: the open store window keeps talking to this address,
-                # so a new port would leave it pointing at nothing (looked like a crash).
-                os.execv(sys.executable, [sys.executable, os.path.join(APP_DIR, "omarchy-store"), "--serve",
-                                          "--port", str(self.server.server_port)])
+                os.execv(sys.executable, [sys.executable, os.path.join(APP_DIR, "omarchy-store"), "--serve"])
             threading.Thread(target=again, daemon=True).start()
             return self._json(200, {"ok": True})
+        if self.path == "/api/migrate-electron":
+            return self._migrate_electron()
+        if self.path == "/api/migrate-status":
+            return self._json(200, MIGRATION_STATE)
         if self.path == "/api/plugin/remove":
             try:
                 run_plugin_remove(aid)
@@ -1085,6 +978,98 @@ class Handler(SimpleHTTPRequestHandler):
         except FileNotFoundError as e:
             return self._json(500, {"error": f"missing program: {e.filename}"})
         return self._json(404, {"error": "not found"})
+
+    def _migrate_electron(self):
+        """Download and install the Electron AppImage"""
+        global MIGRATION_STATE
+        if MIGRATION_STATE["status"] in ("downloading", "installing"):
+            return self._json(409, {"error": "Migration already in progress"})
+
+        MIGRATION_STATE["status"] = "downloading"
+        MIGRATION_STATE["progress"] = 10
+        MIGRATION_STATE["error"] = None
+        MIGRATION_STATE["done"] = False
+
+        def download_and_install():
+            global MIGRATION_STATE
+            try:
+                appimage_url = "https://omarchystore.com/desktop/Omarchy Store-1.0.0.AppImage"
+                dest = os.path.expanduser("~/omarchy-store-electron.AppImage")
+                tmp = dest + ".part"
+
+                MIGRATION_STATE["status"] = "downloading"
+                MIGRATION_STATE["progress"] = 20
+
+                import urllib.request
+                req = urllib.request.Request(appimage_url, headers={"User-Agent": "omarchy-store"})
+                with urllib.request.urlopen(req, timeout=300) as r:
+                    total = int(r.headers.get("Content-Length", 0))
+                    downloaded = 0
+                    with open(tmp, "wb") as f:
+                        while True:
+                            chunk = r.read(8192)
+                            if not chunk:
+                                break
+                            f.write(chunk)
+                            downloaded += len(chunk)
+                            if total > 0:
+                                MIGRATION_STATE["progress"] = 20 + int(70 * downloaded / total)
+
+                MIGRATION_STATE["status"] = "installing"
+                MIGRATION_STATE["progress"] = 95
+
+                os.chmod(tmp, 0o755)
+                os.replace(tmp, dest)
+
+                # Create desktop entry
+                desktop_entry = f"""[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Omarchy Store
+Comment=The world's largest app store for Omarchy Linux
+Exec={dest}
+Icon=omarchy-store
+Terminal=false
+Categories=System;PackageManager;Utility;
+StartupWMClass=Omarchy Store
+StartupNotify=true
+Keywords=omarchy;store;apps;themes;plugins;linux;
+"""
+                desktop_dir = os.path.expanduser("~/.local/share/applications")
+                os.makedirs(desktop_dir, exist_ok=True)
+                with open(os.path.join(desktop_dir, "omarchy-store-electron.desktop"), "w") as f:
+                    f.write(desktop_entry)
+
+                # Create launch script
+                launch_script = f"""#!/bin/bash
+# Omarchy Store Electron Launcher
+cd ~/omarchy-store-electron
+if [ -f "dist/Omarchy Store-1.0.0.AppImage" ] && command -v fusermount3 >/dev/null 2>&1; then
+    exec ./dist/"Omarchy Store-1.0.0.AppImage" "$@"
+else
+    exec npm start "$@"
+fi
+"""
+                launch_path = os.path.expanduser("~/.local/bin/omarchy-store-electron")
+                os.makedirs(os.path.dirname(launch_path), exist_ok=True)
+                with open(launch_path, "w") as f:
+                    f.write(launch_script)
+                os.chmod(launch_path, 0o755)
+
+                MIGRATION_STATE["done"] = True
+                MIGRATION_STATE["status"] = "complete"
+                MIGRATION_STATE["progress"] = 100
+
+            except Exception as e:
+                MIGRATION_STATE["status"] = "error"
+                MIGRATION_STATE["error"] = str(e)
+                MIGRATION_STATE["done"] = True
+
+        threading.Thread(target=download_and_install, daemon=True).start()
+        return self._json(202, {"ok": True})
+
+    def _migrate_status(self):
+        return self._json(200, MIGRATION_STATE)
 
 
 # ---------------------------------------------------------------- updates ----
@@ -1195,61 +1180,20 @@ def alive(port):
         return False
 
 
-def _can_bind(p):
-    with socket.socket() as s:
-        # SO_REUSEADDR: a port we just let go of (restart after an update) is still in TIME_WAIT
-        # for a minute; without this we'd wrongly think it's taken and move to another port.
-        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        try:
-            s.bind(("127.0.0.1", p))
-            return True
-        except OSError:
-            return False
-
-
-def _recent_ports():
-    """Ports in our range that a store helper served a moment ago but nobody listens on now.
-    Used when an OLDER store (<= 1.7.12) restarts us after an update without telling us its port:
-    its last replies leave TIME_WAIT entries on that port, so we can take the same address back
-    and the open window keeps working."""
-    listening, recent = set(), []
-    try:
-        lines = open("/proc/net/tcp").read().splitlines()[1:]
-    except OSError:
-        return []
-    for ln in lines:
-        f = ln.split()
-        if len(f) < 4:
-            continue
-        ip, _, ph = f[1].partition(":")
-        p = int(ph, 16)
-        if ip != "0100007F" or not (DEFAULT_PORT <= p < DEFAULT_PORT + 20):
-            continue
-        if f[3] == "0A":
-            listening.add(p)
-        elif f[3] == "06" and p not in recent:     # TIME_WAIT on the server side
-            recent.append(p)
-    return [p for p in recent if p not in listening]
-
-
-def free_port(prefer=None):
-    if not prefer and not os.path.exists(PORT_FILE):
-        cand = _recent_ports()
-        prefer = cand[0] if len(cand) == 1 else None
-    if prefer:
-        for _ in range(50):                      # the old process may need a moment to let go
-            if _can_bind(prefer):
-                return prefer
-            time.sleep(0.1)
+def free_port():
     for p in range(DEFAULT_PORT, DEFAULT_PORT + 20):
-        if _can_bind(p):
-            return p
+        with socket.socket() as s:
+            try:
+                s.bind(("127.0.0.1", p))
+                return p
+            except OSError:
+                continue
     raise SystemExit("no free port")
 
 
-def serve(prefer=None):
+def serve():
     os.makedirs(STATE_DIR, exist_ok=True)
-    port = free_port(prefer)
+    port = free_port()
     httpd = ThreadingHTTPServer(("127.0.0.1", port), Handler)
     open(PORT_FILE, "w").write(str(port))
     threading.Thread(target=updater, daemon=True).start()
@@ -1277,13 +1221,7 @@ def open_window(port):
 def main():
     args = sys.argv[1:]
     if "--serve" in args:
-        prefer = None
-        if "--port" in args:
-            try:
-                prefer = int(args[args.index("--port") + 1])
-            except (IndexError, ValueError):
-                prefer = None
-        return serve(prefer)
+        return serve()
     if "--update" in args:
         sys.exit(0 if update_catalog() else 1)
     if "--uninstall" in args:

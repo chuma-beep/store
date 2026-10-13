@@ -155,6 +155,7 @@
     S.catalog.themes.forEach((t) => { S.themeById[t.id] = t; });
     renderNav();
     renderModeBadge();
+    renderMigrationBanner();
     route();
     if (S.desktop) {
       // Check app updates in the background now and every hour; show a count next to "Updates".
@@ -238,6 +239,57 @@
     if (!el) { el = document.createElement("div"); el.id = "self-upd"; el.className = "self-upd"; document.body.appendChild(el); }
     el.innerHTML = `<span class="su-ic">${ico("refresh")}</span><div><b>Omarchy Store ${esc(want || "")} is available</b><span>You have ${esc(st.version || "")}. Takes a few seconds.</span></div>
       <button class="btn" data-self-update>${ready ? "Restart" : "Update"}</button><button class="su-x" data-self-later aria-label="Later">×</button>`;
+  }
+
+  // Migration banner for users on old webapp (Chromium/localhost)
+  function renderMigrationBanner() {
+    const isOldWebapp = !S.desktop && window.location.hostname === "127.0.0.1";
+    let el = $("#migration-banner");
+    if (!isOldWebapp) { if (el) el.remove(); return; }
+    if (!el) {
+      el = document.createElement("div");
+      el.id = "migration-banner";
+      el.className = "migration-banner";
+      document.body.appendChild(el);
+    }
+    el.innerHTML = `
+      <div class="mb-content">
+        <span class="mb-ic">${ico("rocket")}</span>
+        <div class="mb-text">
+          <b>Upgrade to Native Desktop App</b>
+          <span>You're using the old webapp. The new Electron app has no URL bar, better performance, and AI security.</span>
+        </div>
+        <button class="btn mb-btn" data-migrate>Get Native App</button>
+        <button class="mb-x" data-migration-dismiss aria-label="Dismiss">×</button>
+      </div>`;
+  }
+
+  async function migrateToNative(btn) {
+    btn.disabled = true;
+    btn.innerHTML = `<span class="ring"></span>`;
+    try {
+      // Download and install the Electron AppImage
+      const response = await fetch("/api/migrate-electron", { method: "POST", headers: { "Content-Type": "application/json", "X-Store-Token": TOKEN } });
+      if (!response.ok) throw new Error("Failed to start migration");
+      toast("Downloading native app…");
+      // Poll for completion
+      for (let i = 0; i < 60; i++) {
+        await new Promise(r => setTimeout(r, 2000));
+        const r = await fetch("/api/migrate-status", { cache: "no-store" });
+        const data = await r.json().catch(() => ({}));
+        if (data.done) {
+          toast("Native app ready! Launching…");
+          setTimeout(() => location.reload(), 1000);
+          return;
+        }
+        if (data.error) throw new Error(data.error);
+      }
+      throw new Error("Migration timed out");
+    } catch (e) {
+      toast(e.message);
+      btn.disabled = false;
+      btn.textContent = "Retry";
+    }
   }
   async function selfUpdate(btn) {
     btn.disabled = true; btn.innerHTML = `<span class="ring"></span>`;
@@ -2339,6 +2391,12 @@
       selfUpdate(t);
     } else if (t.matches("[data-self-later]")) {
       $("#self-upd")?.remove();
+    } else if (t.matches("[data-migrate]")) {
+      e.preventDefault(); e.stopPropagation();
+      migrateToNative(t);
+    } else if (t.matches("[data-migration-dismiss]")) {
+      $("#migration-banner")?.remove();
+      localStorage.setItem("migration-dismissed", "1");
     } else if (t.matches("[data-cchain]")) {
       S.cryptoChain = t.dataset.cchain; rerender();
     } else if (t.matches("[data-crypto-get]")) {
