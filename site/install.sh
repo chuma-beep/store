@@ -202,7 +202,7 @@ fi
 if command -v omarchy-hook-install >/dev/null 2>&1; then
   say "Installing the post-update check…"
   HOOK_TMP="$(mktemp -d)/omarchy-store-post-update.hook"
-  if curl -fsSL "$BASE/scripts/post-update-validation.sh" -o "$HOOK_TMP" && bash -n "$HOOK_TMP"; then
+  if curl -fsSL "${BASE%/}/scripts/post-update-validation.sh" -o "$HOOK_TMP" && bash -n "$HOOK_TMP"; then
     omarchy-hook-install post-update "$HOOK_TMP" >/dev/null 2>&1 && say "  ✓ Omarchy will check your store apps after each update"
   else
     say "  (couldn't fetch the post-update check; the store will add it on its next update)"
