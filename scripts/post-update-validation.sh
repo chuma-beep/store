@@ -1,103 +1,72 @@
 #!/bin/bash
-# post-update validation hook for Omarchy Store core apps
-# Runs after `omarchy update` to ensure SnapDock, Lifeboat, Omarchy Store Screensaver,
-# and Omarchy Store Theme still work correctly.
+# Omarchy Store: post-update check.
+# Runs after `omarchy update`. For every Omarchy Development Labs app that is INSTALLED on this
+# computer, it checks the app still works and repairs it if the update broke it. Apps that were
+# never installed are left alone.
+set -uo pipefail
 
-set -euo pipefail
-
-HOOK_NAME="omarchy-store-core-apps-validation"
 LOG_FILE="$HOME/.local/state/omarchy-store/post-update-validation.log"
-NOTIFY_ID="omarchy-store-validation"
-
-# Ensure log directory exists
 mkdir -p "$(dirname "$LOG_FILE")"
+log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" >> "$LOG_FILE"; }
+notify() { command -v notify-send >/dev/null 2>&1 && notify-send -u "$1" -i omarchy-store -t 10000 -r omarchy-store-validation "Omarchy Store" "$2" 2>/dev/null || true; }
+has_pkg() { pacman -Qq "$1" >/dev/null 2>&1; }
 
-log() {
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE"
+log "=== Post-update check started (omarchy $(omarchy-version 2>/dev/null || echo '?')) ==="
+CHECKED=(); BROKEN=(); FIXED=()
+
+# check NAME  IS_INSTALLED_CMD  WORKS_CMD  FIX_CMD
+check() {
+  local name="$1" present="$2" works="$3" fix="$4"
+  if ! eval "$present" >/dev/null 2>&1; then log "- $name: not installed, skipped"; return; fi
+  CHECKED+=("$name")
+  if eval "$works" >/dev/null 2>&1; then log "✓ $name ok"; return; fi
+  log "✗ $name broken, repairing…"; BROKEN+=("$name")
+  if eval "$fix" >>"$LOG_FILE" 2>&1 && eval "$works" >/dev/null 2>&1; then log "✓ $name repaired"; FIXED+=("$name"); else log "✗ $name still broken"; fi
 }
 
-notify() {
-  local urgency="$1"
-  local title="$2"
-  local message="$3"
-  if command -v notify-send >/dev/null 2>&1; then
-    notify-send -u "$urgency" -i "omarchy-store" -t 10000 -r "$NOTIFY_ID" "$title" "$message" 2>/dev/null || true
-  fi
-}
+# SnapDock: package present and the dock can start.
+check "SnapDock" \
+  "has_pkg snapdock || command -v snapdock" \
+  "command -v snapdock && snapdock --version" \
+  "omarchy-pkg-add snapdock && snapdock repair 2>/dev/null || true"
 
-log "=== Post-update validation started ==="
+# Lifeboat
+check "Lifeboat" \
+  "has_pkg lifeboat || command -v lifeboat" \
+  "command -v lifeboat && lifeboat --version" \
+  "omarchy-pkg-add lifeboat"
 
-# Track validation results
-BROKEN_APPS=()
-FIXED_APPS=()
+# Omarchy Browser: package present and the system Electron it runs on is still there.
+check "Omarchy Browser" \
+  "has_pkg omarchy-browser" \
+  "command -v electron43 && [ -f /usr/share/omarchy-browser/app/main.js ] && [ -f /usr/share/applications/omarchy-browser.desktop ]" \
+  "sudo -n pacman -S --noconfirm --needed electron43 2>/dev/null; sudo -n pacman -U --noconfirm \"\$(curl -fsSL https://omarchystore.com/catalog.json | python3 -c 'import json,sys;print([a for a in json.load(sys.stdin)[\"apps\"] if a[\"id\"]==\"omarchy-browser\"][0][\"install\"][\"url\"])')\" 2>/dev/null || true"
 
-# Function to check if a command/package works
-check_app() {
-  local app_id="$1"
-  local check_cmd="$2"
-  local fix_cmd="${3:-}"
-  
-  log "Checking $app_id..."
-  if eval "$check_cmd" >/dev/null 2>&1; then
-    log "  ✓ $app_id is working"
-    return 0
-  else
-    log "  ✗ $app_id is BROKEN"
-    BROKEN_APPS+=("$app_id")
-    if [ -n "$fix_cmd" ]; then
-      log "  Attempting to fix $app_id..."
-      if eval "$fix_cmd" >/dev/null 2>&1; then
-        log "  ✓ Fixed $app_id"
-        FIXED_APPS+=("$app_id")
-      else
-        log "  ✗ Failed to fix $app_id"
-      fi
-    fi
-    return 1
-  fi
-}
+# Omarchy Store screensaver plugin: present and still enabled.
+check "Omarchy Store Screensaver" \
+  "[ -d \"\$HOME/.config/omarchy/plugins/omarchy-store-screensaver\" ] || omarchy plugin list 2>/dev/null | grep -q omarchy-store-screensaver" \
+  "omarchy plugin list 2>/dev/null | grep -q omarchy-store-screensaver" \
+  "omarchy plugin add https://github.com/nemoclawai-tech/omarchy-store-screensaver.git --enable"
 
-# Check SnapDock (v2.0.0+)
-check_app "SnapDock" \
-  "command -v snapdock >/dev/null && snapdock --version 2>/dev/null | grep -q '2'" \
-  "omarchy-pkg-add snapdock 2>/dev/null || true"
+# Omarchy Store theme: present and complete (updates sometimes add new theme files).
+check "Omarchy Store Theme" \
+  "[ -d \"\$HOME/.config/omarchy/themes/store\" ]" \
+  "[ -f \"\$HOME/.config/omarchy/themes/store/colors.toml\" ] && [ -f \"\$HOME/.config/omarchy/themes/store/chromium.theme\" ]" \
+  "omarchy-theme-install https://github.com/nemoclawai-tech/omarchy-store-theme"
 
-# Check Lifeboat
-check_app "Lifeboat" \
-  "command -v lifeboat >/dev/null && lifeboat --version 2>/dev/null | grep -q '1'" \
-  "omarchy-pkg-add lifeboat 2>/dev/null || true"
+# Omarchy Store itself: helper present and it can start.
+check "Omarchy Store" \
+  "[ -x \"\$HOME/.local/share/omarchy-store/omarchy-store\" ]" \
+  "python3 -c 'import ast,sys; ast.parse(open(sys.argv[1]).read())' \"\$HOME/.local/share/omarchy-store/omarchy-store\" && [ -f \"\$HOME/.local/share/applications/omarchy-store.desktop\" ]" \
+  "curl -fsSL https://omarchystore.com/install.sh | bash"
 
-# Check Omarchy Store Screensaver (plugin)
-check_app "Omarchy Store Screensaver" \
-  "omarchy plugin list --json 2>/dev/null | grep -q 'omarchy-store-screensaver'" \
-  "omarchy plugin add https://github.com/nemoclawai-tech/omarchy-store-screensaver.git --enable 2>/dev/null || true"
-
-# Check Omarchy Store Theme
-check_app "Omarchy Store Theme" \
-  "ls -d ~/.config/omarchy/themes/store 2>/dev/null || ls -d /usr/share/omarchy/themes/store 2>/dev/null" \
-  "omarchy-theme-install https://github.com/nemoclawai-tech/omarchy-store-theme 2>/dev/null || true"
-
-# Check Omarchy Store itself
-check_app "Omarchy Store" \
-  "command -v omarchy-store >/dev/null && omarchy-store --version 2>/dev/null | grep -q '1'" \
-  "curl -fsSL https://omarchystore.com/install.sh | bash 2>/dev/null || true"
-
-# Summary
-if [ ${#BROKEN_APPS[@]} -eq 0 ]; then
-  log "=== All core apps validated successfully ==="
-  notify "normal" "Omarchy Store" "All core apps validated after system update ✓"
-elif [ ${#FIXED_APPS[@]} -eq ${#BROKEN_APPS[@]} ]; then
-  log "=== All broken apps were fixed ==="
-  notify "normal" "Omarchy Store" "Fixed broken core apps after update: ${FIXED_APPS[*]}"
+if [ ${#CHECKED[@]} -eq 0 ]; then log "nothing to check"; exit 0; fi
+if [ ${#BROKEN[@]} -eq 0 ]; then
+  log "=== all ${#CHECKED[@]} apps ok ==="
+elif [ ${#FIXED[@]} -eq ${#BROKEN[@]} ]; then
+  log "=== repaired: ${FIXED[*]} ==="; notify normal "After the update, repaired: ${FIXED[*]}"
 else
-  STILL_BROKEN=()
-  for app in "${BROKEN_APPS[@]}"; do
-    if [[ ! " ${FIXED_APPS[*]} " =~ " ${app} " ]]; then
-      STILL_BROKEN+=("$app")
-    fi
-  done
-  log "=== VALIDATION FAILED: ${STILL_BROKEN[*]} still broken ==="
-  notify "critical" "Omarchy Store" "Some core apps broken after update: ${STILL_BROKEN[*]}. Open the store to reinstall."
+  STILL=(); for a in "${BROKEN[@]}"; do [[ " ${FIXED[*]} " == *" $a "* ]] || STILL+=("$a"); done
+  log "=== still broken: ${STILL[*]} ==="; notify critical "After the update these need attention: ${STILL[*]}. Open the Omarchy Store to reinstall."
 fi
-
-log "=== Post-update validation complete ==="
+log "=== done ==="
