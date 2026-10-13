@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.7.15"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.7.16"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 # Write token to a file so install.sh can use it for pre-install
@@ -248,6 +248,76 @@ def installed_plugins():
         return sorted(p["id"] for p in json.loads(out or "[]") if not p.get("firstParty"))
     except Exception:
         return []
+
+
+def plugin_updates():
+    """Installed marketplace plugins with a newer version in the store."""
+    out = []
+    try:
+        d, _ = plugins_data()
+    except Exception:
+        return out
+    by = {p.get("id"): p for p in d.get("plugins", [])}
+    for pid in installed_plugins():
+        x = by.get(pid)
+        if not x or not x.get("v") or not PLUGIN_ID_RE.match(pid):
+            continue
+        try:
+            mine = json.load(open(os.path.join(PLUGINS_HOME, pid, "manifest.json"))).get("version")
+        except Exception:
+            continue
+        if mine and _vercmp(str(x["v"]), str(mine)) > 0:
+            out.append({"id": pid, "installed": str(mine), "latest": str(x["v"]), "via": "plugin",
+                        "name": x.get("n", pid), "icon": x.get("icon", ""), "own": bool(x.get("own"))})
+    return out
+
+
+def run_plugin_update(pid):
+    """Update one plugin in the background. Plugins live in your home folder, so no password is needed."""
+    if not PLUGIN_ID_RE.match(pid) or pid not in installed_plugins():
+        raise ValueError("unknown plugin")
+    key = "update:" + pid
+    with JOBS_LOCK:
+        if JOBS.get(key, {}).get("state") == "running":
+            return
+        JOBS[key] = {"state": "running", "started": time.time()}
+
+    def work():
+        ok = False
+        try:
+            ok = subprocess.run(["omarchy", "plugin", "update", pid, "--yes"], stdin=subprocess.DEVNULL,
+                                capture_output=True, timeout=300).returncode == 0
+        except Exception:
+            pass
+        with JOBS_LOCK:
+            JOBS[key] = {"state": "done" if ok else "failed", "started": time.time()}
+        with UPD_LOCK:
+            UPD["at"] = 0          # check again next time
+    threading.Thread(target=work, daemon=True).start()
+
+
+def notify_updates(apps):
+    """One desktop notification per new version, so updates get noticed."""
+    f = os.path.join(STATE_DIR, "notified.json")
+    try:
+        seen = json.load(open(f))
+    except Exception:
+        seen = {}
+    fresh = [a for a in apps if seen.get(a["id"]) != a["latest"]]
+    if not fresh or not shutil.which("notify-send"):
+        return
+    cat = load_catalog()
+    names = ", ".join(a.get("name") or (cat.get(a["id"]) or {}).get("name", a["id"]) for a in fresh)
+    try:
+        subprocess.Popen(["notify-send", "-a", "Omarchy Store", "-i", "system-software-update",
+                          "Updates ready in the Omarchy Store", names + ". Open the store's Updates page to install."],
+                         stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
+        for a in fresh:
+            seen[a["id"]] = a["latest"]
+        os.makedirs(STATE_DIR, exist_ok=True)
+        json.dump(seen, open(f, "w"))
+    except Exception:
+        pass
 
 
 def run_plugin_add(pid):
@@ -514,6 +584,112 @@ def run_open(app):
 
 
 # ---------------------------------------------------------------- updates ----
+# ---------------------------------------------------------------- app updates ----
+UPD = {"at": 0, "data": None}
+UPD_LOCK = threading.Lock()
+PLUGINS_HOME = os.path.expanduser("~/.config/omarchy/plugins")
+
+
+def _vercmp(a, b):
+    try:
+        return int(subprocess.run(["vercmp", a, b], capture_output=True, text=True, timeout=5).stdout.strip() or 0)
+    except Exception:
+        return 0
+
+
+def check_updates(force=False):
+    """Which store apps (and how many system packages) have updates. Read-only, no password needed."""
+    with UPD_LOCK:
+        if not force and UPD["data"] and time.time() - UPD["at"] < 600:
+            return UPD["data"]
+    cat = load_catalog()
+    have = {}
+    try:
+        for ln in subprocess.run(["pacman", "-Q"], capture_output=True, text=True, timeout=20).stdout.splitlines():
+            n, v = ln.split()[:2]; have[n] = v
+    except Exception:
+        pass
+    repo, aur = {}, {}
+    # checkupdates syncs a private copy of the package database, so it never touches the system.
+    try:
+        out = subprocess.run(["checkupdates", "--nocolor"], capture_output=True, text=True, timeout=120).stdout
+        for ln in out.splitlines():
+            p = ln.split()
+            if len(p) >= 4: repo[p[0]] = p[3]
+    except Exception:
+        pass
+    if shutil.which("yay"):
+        try:
+            out = subprocess.run(["yay", "-Qua"], capture_output=True, text=True, timeout=90).stdout
+            for ln in out.splitlines():
+                p = ln.split()
+                if len(p) >= 4: aur[p[0]] = p[3]
+        except Exception:
+            pass
+    apps = []
+    for aid, a in cat.items():
+        det = a.get("detect") or []
+        pkg = det[0] if det else None
+        if pkg and pkg not in have and file_install_version(aid):
+            # Set up with its own installer file: compare that copy's version with the store's.
+            mine = file_install_version(aid)
+            latest = (a.get("package") or {}).get("version") or (a.get("install") or {}).get("version")
+            if latest and _vercmp(latest, mine) > 0:
+                apps.append({"id": aid, "installed": mine, "latest": latest, "via": "release"})
+            continue
+        if not pkg or pkg not in have:
+            continue
+        m = a["install"]["method"]
+        new = None
+        if m == "release":
+            latest = (a.get("package") or {}).get("version")
+            if latest and _vercmp(latest, have[pkg].split("-")[0]) > 0:
+                new = latest
+        else:
+            new = repo.get(pkg) or aur.get(pkg)
+        if new:
+            apps.append({"id": aid, "installed": have[pkg], "latest": new,
+                         "via": "system" if pkg in repo else ("release" if m == "release" else "aur")})
+    # Plugins: the store's own (official) ones update by themselves, others get an UPDATE button.
+    for pu in plugin_updates():
+        with JOBS_LOCK:
+            last = JOBS.get("update:" + pu["id"]) or {}
+        if pu["own"] and not (last.get("state") == "failed" and time.time() - last.get("started", 0) < 3600):
+            try:
+                run_plugin_update(pu["id"])
+            except Exception:
+                pass
+        apps.append(pu)
+    notify_updates([a for a in apps if not a.get("own")])
+    data = {"apps": apps, "system": len(repo), "aur": len(aur), "checked": time.time()}
+    with UPD_LOCK:
+        UPD.update(at=time.time(), data=data)
+    return data
+
+
+def quick_updatable(cat, inst):
+    """Store-release apps on this computer with a newer version in the catalog (fast: no network),
+    so their page can say UPDATE right away. Other updates show in the Updates tab."""
+    out = []
+    have = {}
+    try:
+        for ln in subprocess.run(["pacman", "-Q"], capture_output=True, text=True, timeout=15).stdout.splitlines():
+            n, v = ln.split()[:2]; have[n] = v.split("-")[0]
+    except Exception:
+        pass
+    for aid in inst:
+        a = cat.get(aid) or {}
+        if (a.get("install") or {}).get("method") != "release":
+            continue
+        det = a.get("detect") or []
+        mine = have.get(det[0]) if det else None
+        mine = mine or file_install_version(aid)
+        latest = (a.get("package") or {}).get("version") or a["install"].get("version")
+        if mine and latest and _vercmp(latest, mine) > 0:
+            out.append(aid)
+    return out
+
+
 def run_update(app=None):
     """Update one app, or everything (Omarchy's own updater) when app is None."""
     if app is None:
@@ -920,6 +1096,12 @@ class Handler(SimpleHTTPRequestHandler):
             return self._migrate_electron()
         if self.path == "/api/migrate-status":
             return self._json(200, MIGRATION_STATE)
+        if self.path == "/api/plugin/update":
+            try:
+                run_plugin_update(aid)
+                return self._json(202, {"ok": True})
+            except ValueError as ex:
+                return self._json(400, {"error": str(ex)})
         if self.path == "/api/plugin/remove":
             try:
                 run_plugin_remove(aid)

@@ -1438,7 +1438,7 @@
   function pageUpdates() {
     if (!S.desktop) return `<div class="page"><h1 class="page-title">Updates</h1><div class="empty">Updates are managed by the <a href="/get-desktop/" style="color:var(--accent)">desktop app</a>.</div></div>`;
     if (!S.upd) { loadUpdates(false); }
-    const u = S.upd, apps = (u?.apps || []).map((x) => ({ ...x, a: S.byId[x.id] })).filter((x) => x.a);
+    const u = S.upd, apps = (u?.apps || []).map((x) => ({ ...x, a: x.via === "plugin" ? { id: x.id, name: x.name, icon: x.icon, plugin: 1 } : S.byId[x.id] })).filter((x) => x.a);
     const running = new Set(u?.running || []);
     const others = Math.max(0, (u?.system || 0) + (u?.aur || 0) - apps.length);
     const when = u?.checked ? new Date(u.checked * 1000).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }) : "";
@@ -1459,11 +1459,11 @@
       ${apps.length ? `<h2 class="upd-sec">Store apps <span>${apps.length}</span></h2>
         <div class="upd-list">${apps.map(({ a, installed, latest, via }) => `
           <div class="upd-row">
-            <a href="/app/${a.id}/">${iconImg(a, 56)}</a>
-            <div class="upd-meta"><a href="/app/${a.id}/" class="name">${esc(a.name)}</a>
+            <a href="${a.plugin ? "/plugins/" : `/app/${a.id}/`}">${a.plugin ? `<img class="upd-plug-ico" src="${esc(a.icon)}" alt="" width="56" height="56" loading="lazy">` : iconImg(a, 56)}</a>
+            <div class="upd-meta"><a href="${a.plugin ? "/plugins/" : `/app/${a.id}/`}" class="name">${esc(a.name)}</a>
               <span class="ver">${esc(installed.split("-")[0])} → <b>${esc(latest.split("-")[0])}</b></span>
-              ${via === "system" ? `<span class="note">Updates with your system (Update All)</span>` : ""}</div>
-            <button class="get ${running.has(a.id) ? "busy" : ""}" data-upd="${a.id}" ${running.has(a.id) ? "disabled" : ""}>${running.has(a.id) ? '<span class="ring"></span>' : "UPDATE"}</button>
+              ${via === "system" ? `<span class="note">Updates with your system (Update All)</span>` : via === "plugin" ? `<span class="note">Plugin · no password needed</span>` : ""}</div>
+            <button class="get ${running.has(a.id) ? "busy" : ""}" ${a.plugin ? `data-upd-plug="${esc(a.id)}"` : `data-upd="${a.id}"`} ${running.has(a.id) ? "disabled" : ""}>${running.has(a.id) ? '<span class="ring"></span>' : "UPDATE"}</button>
           </div>`).join("")}</div>` : ""}
       ${others ? `<div class="upd-sys">${ico("grid")}<div><b>${others} system package${others === 1 ? "" : "s"} can be updated</b>
         <span>Omarchy and its built-in parts. <b>Update All</b> runs Omarchy's own updater, which takes a safety snapshot first.</span></div></div>` : ""}
@@ -2348,7 +2348,7 @@
   }
 
   document.addEventListener("click", (e) => {
-    const t = e.target.closest("[data-gal],[data-gal-to],[data-lb],[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-sfilter],[data-saver-more],[data-cchain],[data-crypto-get],[data-self-update],[data-self-later],[data-rm],[data-rm-yes],[data-share-theme],#more,.sheet");
+    const t = e.target.closest("[data-gal],[data-gal-to],[data-lb],[data-usb-confirm],[data-usb-dl],[data-usb-refresh],[data-usb-pick],[data-usb-write],[data-upd],[data-upd-plug],[data-upd-all],[data-upd-refresh],[data-restart],[data-get],[data-soon],[data-accept],[data-open],[data-copy],[data-close],[data-share],[data-chart],[data-zoom],[data-theme-get],[data-theme-use],[data-tfilter],[data-plug-get],[data-pfilter],[data-plug-more],[data-plug-search],[data-sfilter],[data-saver-more],[data-cchain],[data-crypto-get],[data-self-update],[data-self-later],[data-rm],[data-rm-yes],[data-share-theme],#more,.sheet");
     if (!t) return;
     if (t.matches("[data-usb-dl]")) {
       post("/api/usb/download", {}).then(async (r) => { if (!r.ok) toast((await r.json().catch(() => ({}))).error || "Download failed"); loadUsb(); });
@@ -2376,6 +2376,9 @@
     } else if (t.matches("[data-upd]")) {
       e.preventDefault(); e.stopPropagation();
       const a = S.byId[t.dataset.upd]; doUpdate("/api/update", { id: a.id }, `Updating ${a.name}`);
+    } else if (t.matches("[data-upd-plug]")) {
+      e.preventDefault(); e.stopPropagation();
+      post("/api/plugin/update", { id: t.dataset.updPlug }).then(() => { toast("Updating plugin…"); setTimeout(() => loadUpdates(true), 4000); setTimeout(() => loadUpdates(true), 15000); });
     } else if (t.matches("[data-upd-all]")) {
       doUpdate("/api/update-all", {}, "Updating everything");
     } else if (t.matches("[data-upd-refresh]")) {

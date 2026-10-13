@@ -559,6 +559,7 @@ kbd { display: inline-grid; place-items: center; min-width: 30px; height: 28px; 
 .upd-list { background: var(--card); border-radius: 16px; overflow: hidden; }
 .upd-row { display: flex; align-items: center; gap: 16px; padding: 14px 18px; }
 .upd-row + .upd-row { border-top: 1px solid var(--line); }
+.upd-plug-ico { width: 56px; height: 56px; border-radius: 14px; object-fit: cover; flex: none; }
 .upd-meta { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .upd-meta .name { font-weight: 700; color: var(--text); }
 .upd-meta .ver { color: var(--text-2); font-size: 13px; font-variant-numeric: tabular-nums; }
