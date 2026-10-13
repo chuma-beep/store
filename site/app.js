@@ -1379,6 +1379,17 @@
     const it = kind === "app" ? S.byId[id] : kind === "theme" ? S.themeById[id] : S.plugById[id];
     if (!it) return;
     const name = it.name || it.n;
+    if (kind === "app" && id === "omarchy-store") {
+      showSheet(`<div class="sheet-card" role="dialog" aria-label="Remove Omarchy Store">
+        <h3>Remove the Omarchy Store from this computer?</h3>
+        <p class="small muted" style="margin-top:8px">A terminal opens and removes the store, its launcher entry, icons, state and hooks. Apps you installed through the store stay installed. Nothing else in your home folder is touched.</p>
+        <label class="small" style="display:flex;gap:10px;align-items:flex-start;margin-top:14px;cursor:pointer"><input type="checkbox" id="rm-store-all" style="margin-top:3px"><span>Also remove the apps that came with it: <b>SnapDock</b>, <b>Lifeboat</b>, <b>Omarchy Browser</b>, the <b>Omarchy Store screensaver</b> and <b>theme</b>, and switch back to Omarchy's default theme. SnapDock puts back your dock, keys and title bars first.</span></label>
+        <div style="display:flex;gap:10px;justify-content:flex-end;margin-top:18px">
+          <button class="btn ghost" data-close>Cancel</button>
+          <button class="btn danger" data-rm-store>Remove</button>
+        </div></div>`);
+      return;
+    }
     const what = kind === "app" ? `This removes ${esc(name)} from your computer. A terminal opens so you can type your password. Your own files and settings are kept.`
       : kind === "theme" ? `This deletes the ${esc(name)} theme from your computer. You can install it again any time.`
       : `This removes the ${esc(name)} plugin from your bar and desktop. You can add it again any time.`;
@@ -2023,7 +2034,7 @@
       <p>Open a terminal (<b>Super + Return</b>) and paste:</p>
       <div class="code"><code>${esc(INSTALLER)}</code><button class="btn ghost" data-copy="${esc(INSTALLER)}">Copy</button></div>
       <p class="muted small">Prefer GitHub? Download the latest release from <a style="color:var(--accent)" href="${REPO}/releases/latest" target="_blank" rel="noopener">github.com/omarchy-community/store/releases</a>, unzip it and run <code>bash omarchy-store-*/install.sh</code>.</p>
-      <p class="muted small">Then launch <b>Omarchy Store</b> from your app launcher (<b>Super + Space</b>). It installs to your home folder only and can be removed with <code>omarchy-store --uninstall</code>.
+      <p class="muted small">Then launch <b>Omarchy Store</b> from your app launcher (<b>Super + Space</b>). It installs to your home folder only. To remove it, open its own listing in the store and press <b>Remove</b>, or run <code>omarchy-store --uninstall</code> (add <code>--all</code> to also remove SnapDock, Lifeboat, the screensaver and theme and go back to Omarchy's defaults).
       Read the script first: <a style="color:var(--accent)" href="${SITE}install.sh" target="_blank" rel="noopener">install.sh</a>.</p>
       ${footer()}
     </div>`;
@@ -2379,6 +2390,9 @@
     } else if (t.matches("[data-rm]")) {
       e.preventDefault(); e.stopPropagation();
       const [kind, ...rest] = t.dataset.rm.split(":"); confirmRemove(kind, rest.join(":"));
+    } else if (t.closest("[data-rm-store]")) {
+      const all = !!$("#rm-store-all")?.checked; closeSheet();
+      post("/api/uninstall-store", { id: "omarchy-store", all }).then(() => toast("Removing the Omarchy Store… follow the terminal window")).catch((e) => toast("Couldn't remove: " + e.message));
     } else if (t.matches("[data-rm-yes]")) {
       e.preventDefault(); e.stopPropagation();
       const [kind, ...rest] = t.dataset.rmYes.split(":"); doRemove(kind, rest.join(":"));

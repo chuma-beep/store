@@ -51,7 +51,7 @@ THEME_NOW = os.path.expanduser("~/.local/state/omarchy/current/theme.name")
 RELEASE_RE = re.compile(r"^https://github\.com/(nemoclawai-tech|omarchy-community)/[A-Za-z0-9_.-]+/releases/download/[A-Za-z0-9_.+-]+/[A-Za-z0-9_.+-]+\.pkg\.tar\.zst$")
 SHA_RE = re.compile(r"^[0-9a-f]{64}$")
 CACHE_DIR = os.path.expanduser("~/.cache/omarchy-store")
-VERSION = "1.7.13"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
+VERSION = "1.7.14"   # desktop app version; the catalog's desktop_version tells us when a newer one is out
 
 TOKEN = secrets.token_urlsafe(24)
 # Write token to a file so install.sh can use it for pre-install
@@ -420,16 +420,30 @@ def protected_packages():
 
 def can_uninstall(app):
     if (app.get("install") or {}).get("method") == "store":
-        return False   # the store doesn't remove itself from a button; omarchy-store --uninstall does
+        return True    # the store removes itself (uninstall.sh in a visible terminal)
     pkgs = (app.get("install") or {}).get("packages") or app.get("detect") or []
     return bool(pkgs) and not (set(pkgs) & protected_packages())
+
+
+def run_self_uninstall(everything):
+    """Remove the Omarchy Store itself (and, with everything=True, the apps that came with it) in a
+    visible terminal. The script copies itself to /tmp first, so it survives deleting the store."""
+    script = os.path.join(APP_DIR, "uninstall.sh")
+    flag = " --all" if everything else ""
+    what = "the Omarchy Store and the apps that came with it" if everything else "the Omarchy Store"
+    cmd = (f"echo {shlex.quote('Removing ' + what + '…')}; echo; bash {shlex.quote(script)}{flag}; echo; "
+           f"read -n1 -r -p 'Press any key to close'")
+    with JOBS_LOCK:
+        JOBS["omarchy-store"] = {"state": "removing", "started": time.time()}
+    in_terminal(cmd, "Remove Omarchy Store")
+    threading.Thread(target=lambda: (time.sleep(2), os._exit(0)), daemon=True).start()
 
 
 def run_uninstall(app):
     """Remove a store app in Omarchy's floating terminal; the user confirms and types their own password."""
     m = (app.get("install") or {}).get("method")
     if m == "store":
-        raise ValueError("to remove Omarchy Store, run: omarchy-store --uninstall")
+        return run_self_uninstall(False)
     if m not in ("pacman", "aur", "release"):
         raise ValueError("this app can't be removed from the store")
     pkgs = (app["install"].get("packages") or []) or (app.get("detect") or [])
@@ -961,6 +975,9 @@ class Handler(SimpleHTTPRequestHandler):
                         return self._json(409, {"error": "already installing"})
                 run_install(app)
                 return self._json(202, {"ok": True})
+            if self.path == "/api/uninstall-store":
+                run_self_uninstall(bool(body.get("all")))
+                return self._json(200, {"ok": True})
             if self.path == "/api/uninstall":
                 with JOBS_LOCK:
                     if JOBS.get(aid, {}).get("state") in ("running", "removing"):
@@ -1235,7 +1252,8 @@ def main():
     if "--update" in args:
         sys.exit(0 if update_catalog() else 1)
     if "--uninstall" in args:
-        return subprocess.call([os.path.join(APP_DIR, "uninstall.sh")])
+        extra = ["--all"] if "--all" in args else []
+        return subprocess.call(["bash", os.path.join(APP_DIR, "uninstall.sh")] + extra)
     port = None
     try:
         port = int(open(PORT_FILE).read())
