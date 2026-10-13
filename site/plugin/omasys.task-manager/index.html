@@ -19,14 +19,91 @@
 <meta name="twitter:description" content="OmaSys is a plugin for Omarchy Linux by Rooke Poole. A native Omarchy task manager with live system usage, process search, sorting, and safe process…">
 <meta name="twitter:image" content="https://omarchystore.com/assets/og-default.png?v=7ef6a278d3">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"OmaSys","applicationCategory":"UtilitiesApplication","operatingSystem":"Omarchy Linux","url":"https://omarchystore.com/plugin/omasys.task-manager/","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"author":{"@type":"Person","name":"Rooke Poole"},"description":"OmaSys is a plugin for Omarchy Linux by Rooke Poole. A native Omarchy task manager with live system usage, process search, sorting, and safe process…"}</script><script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Omarchy Store","item":"https://omarchystore.com/"},{"@type":"ListItem","position":2,"name":"Plugins","item":"https://omarchystore.com/plugins/"},{"@type":"ListItem","position":3,"name":"OmaSys","item":"https://omarchystore.com/plugin/omasys.task-manager/"}]}</script>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Omarchy Store – Apps, Themes & Plugins for Omarchy Linux">
+<meta property="og:description" content="The world's largest app store for Omarchy Linux. One-click install of Omarchy apps, themes, plugins and screensavers. Free.">
+<meta property="og:image" content="https://omarchystore.com/assets/og-banner.png">
+<meta property="og:url" content="https://omarchystore.com/">
+<meta property="og:site_name" content="Omarchy Store">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Omarchy Store – Apps, Themes & Plugins for Omarchy Linux">
+<meta name="twitter:description" content="The world's largest app store for Omarchy Linux. One-click install of Omarchy apps, themes, plugins and screensavers. Free.">
+<meta name="twitter:image" content="https://omarchystore.com/assets/og-banner.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Omarchy Store",
+  "alternateName": ["Omarchy Apps", "Omarchy App Store", "Omarky Store", "Omarki Store", "Omarchy Themes", "Omarchy Plugins"],
+  "url": "https://omarchystore.com/",
+  "description": "The world's largest app store for Omarchy Linux. One-click install of Omarchy apps, themes, plugins and screensavers.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Omarchy Store",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://omarchystore.com/assets/icon-512.png"
+    }
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": "https://omarchystore.com/?q={search_term_string}",
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
 <link rel="icon" href="/assets/logo.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="apple-touch-icon" href="/assets/icon-180.png">
 <link rel="manifest" href="/site.webmanifest">
 <meta name="theme-color" content="#1a1b26">
-<link rel="stylesheet" href="/styles.css?v=af676b22cd">
+<link rel="stylesheet" href="/styles.css?v=8a049cac0e">
+<script>document.documentElement.dataset.look="glass";try{var l=localStorage.getItem("os-look2");if(l==="white"||l==="glass"||l==="dark")document.documentElement.dataset.look=l}catch(e){}</script>
 </head>
 <body>
+<!-- Electron Custom Titlebar (frameless window) -->
+<script>
+if (window.electronAPI) {
+  const titlebar = document.createElement('div');
+  titlebar.className = 'electron-titlebar';
+  titlebar.innerHTML = `
+    <div class="window-controls">
+      <button class="close" onclick="electronAPI.close()"></button>
+      <button class="minimize" onclick="electronAPI.minimize()"></button>
+      <button class="maximize" onclick="electronAPI.maximize()"></button>
+    </div>
+    <div class="title">Omarchy Store <span class="version">v1.0.0</span></div>
+    <div class="security-badge" id="security-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span>Protected</span>
+    </div>
+  `;
+  document.body.insertBefore(titlebar, document.body.firstChild);
+  
+  // Update version if available
+  if (window.electronAPI.getVersion) {
+    window.electronAPI.getVersion().then(v => {
+      const versionEl = document.querySelector('.electron-titlebar .version');
+      if (versionEl) versionEl.textContent = 'v' + v;
+    });
+  }
+  
+  // Update security badge
+  if (window.omarchySecurity) {
+    omarchySecurity.onThreat((threat) => {
+      const badge = document.getElementById('security-badge');
+      badge.className = 'security-badge danger';
+      badge.querySelector('span').textContent = 'Threat Detected';
+      setTimeout(() => {
+        badge.className = 'security-badge';
+        badge.querySelector('span').textContent = 'Protected';
+      }, 5000);
+    });
+  }
+}
+</script>
 <div class="app">
   <aside class="sidebar">
     <a class="brand" href="/">
@@ -39,13 +116,19 @@
     </label>
     <nav id="nav"></nav>
     <div class="side-foot">
+      <div class="look-switch" role="radiogroup" aria-label="Appearance">
+        <button type="button" data-look="dark" role="radio" title="Dark"><svg viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>Dark</button>
+        <button type="button" data-look="glass" role="radio" title="Glass (see-through, like SnapDock)"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M7 15l4-6M11 15l4-6"/></svg>Glass</button>
+        <button type="button" data-look="white" role="radio" title="White"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>White</button>
+      </div>
       <a id="mode-badge" class="mode-badge" href="/get-desktop/"></a>
     </div>
   </aside>
-  <main id="view" tabindex="-1"><div class="page ssr"><nav class="ssr-crumbs"><a href="/">Omarchy Store</a> › <a href="/plugins/">Plugins</a> › OmaSys</nav><h1 class="page-title">OmaSys plugin for Omarchy</h1><p>by Rooke Poole · Verified</p><p>A native Omarchy task manager with live system usage, process search, sorting, and safe process controls.</p><h2>How to add OmaSys</h2><p>Click <strong>GET</strong> in the Omarchy Store desktop app, or run:</p><pre><code>omarchy plugin add https://github.com/rookepoole/omasys.git --enable</code></pre><p>To remove it later, run <code>omarchy plugin remove omasys.task-manager</code>. <strong>Verified</strong> means it passed the marketplace's automated security check for the listed version; plugins are made by independent developers, so only add ones you trust.</p><p>Source: <a href="https://github.com/rookepoole/omasys" rel="noopener">github.com/rookepoole/omasys</a></p><h2>Similar Omarchy plugins</h2><ul class="ssr-list"><li><a href="/plugin/jankeesvw.time-machine/"><strong>Time Machine</strong></a> by Jankees</li><li><a href="/plugin/netmojo.omdrop/"><strong>Omdrop - AirDrop for Omarchy-Mac</strong></a> by Brent Kearney</li><li><a href="/plugin/omaplug/"><strong>Plugin Manager</strong></a> by Fross</li><li><a href="/plugin/b.okomart/"><strong>Okomart</strong></a> by Brian Blakely</li><li><a href="/plugin/io.github.x3me.nexthop/"><strong>Nexthop</strong></a> by Extreme Labs</li><li><a href="/plugin/io.github.lijiawei0305-pixel.mihomo/"><strong>Mihomo</strong></a> by lijiawei0305-pixel</li></ul><p>Listed on the <a href="https://plugins.omarchy.org/plugin.html?id=omasys.task-manager" rel="noopener">Omarchy Plugin Marketplace</a>. Omarchy Store is an unofficial, community-run project. It is not affiliated with Omarchy, Basecamp or 37signals. Everything listed is third-party software, provided as-is: install at your own risk.</p></div></main>
+  <main id="view" tabindex="-1"><div class="page ssr"><nav class="ssr-crumbs"><a href="/">Omarchy Store</a> › <a href="/plugins/">Plugins</a> › OmaSys</nav><h1 class="page-title">OmaSys plugin for Omarchy</h1><p>by Rooke Poole · Verified</p><p>A native Omarchy task manager with live system usage, process search, sorting, and safe process controls.</p><h2>How to add OmaSys</h2><p>Click <strong>GET</strong> in the Omarchy Store desktop app, or run:</p><pre><code>omarchy plugin add https://github.com/rookepoole/omasys.git --enable</code></pre><p>To remove it later, run <code>omarchy plugin remove omasys.task-manager</code>. <strong>Verified</strong> means it passed the marketplace's automated security check for the listed version; plugins are made by independent developers, so only add ones you trust.</p><p>Source: <a href="https://github.com/rookepoole/omasys" rel="noopener">github.com/rookepoole/omasys</a></p><h2>Similar Omarchy plugins</h2><ul class="ssr-list"><li><a href="/plugin/jankeesvw.time-machine/"><strong>Time Machine</strong></a> by Jankees</li><li><a href="/plugin/netmojo.omdrop/"><strong>Omdrop - AirDrop for Omarchy</strong></a> by Brent Kearney</li><li><a href="/plugin/omaplug/"><strong>Plugin Manager</strong></a> by Fross</li><li><a href="/plugin/b.okomart/"><strong>Okomart</strong></a> by Brian Blakely</li><li><a href="/plugin/io.github.x3me.nexthop/"><strong>Nexthop</strong></a> by Extreme Labs</li><li><a href="/plugin/io.github.lijiawei0305-pixel.mihomo/"><strong>Mihomo</strong></a> by lijiawei0305-pixel</li></ul><p>Listed on the <a href="https://plugins.omarchy.org/plugin.html?id=omasys.task-manager" rel="noopener">Omarchy Plugin Marketplace</a>. Omarchy Store is an unofficial, community-run project. It is not affiliated with Omarchy, Basecamp or 37signals. Everything listed is third-party software, provided as-is: install at your own risk.</p></div></main>
 </div>
 <div id="sheet" class="sheet" hidden></div>
 <div id="toast" class="toast" hidden></div>
-<script src="/app.js?v=4d065bd997"></script>
+<script src="/app.js?v=7716d1e124"></script>
+<script src="/js/qr-scanner.js"></script>
 </body>
 </html>

@@ -18,5 +18,8 @@
     "surface"
   ],
   "stars": 0,
-  "reviews": 0
+  "reviews": 0,
+  "maintainer": "Omarchy Development Labs",
+  "developer": "Omarchy Development Labs",
+  "notes": "Developed for and tested on Omarchy Linux (Arch+Hyprland)"
 }

@@ -147,7 +147,7 @@ def main():
 
     # ---- Home
     top = apps[:30]
-    desc = ("The largest app store for Omarchy: apps, themes, plugins and screensavers with real GitHub stars and screenshots. "
+    desc = ("The world's largest app store for Omarchy: apps, themes, plugins and screensavers with real GitHub stars and screenshots. "
             "Install any of them in one click.")
     jsonld = [org,
               {"@context": "https://schema.org", "@type": "WebSite", "name": "Omarchy Store", "url": SITE,
@@ -274,7 +274,7 @@ def main():
         return (f'<li><a href="/theme/{e(t["id"])}/">' + (f'<img src="/{e(t["image"])}" alt="{e(t["name"])} theme preview" width="160" height="100" loading="lazy"> ' if t.get("image") else "")
                 + f'<strong>{e(t["name"])}</strong></a> by {e(t["author"] or "unknown")}</li>')
     if themes:
-        d = clip(f"The biggest collection of themes for Omarchy Linux: dark and light color schemes that restyle your terminal, Waybar, launcher, lock screen and wallpaper. Install in one click.")
+        d = clip(f"The world's largest collection of themes for Omarchy Linux: dark and light color schemes that restyle your terminal, Waybar, launcher, lock screen and wallpaper. Install in one click.")
         jsonld = [{"@context": "https://schema.org", "@type": "ItemList", "name": "Omarchy themes",
                    "itemListElement": [{"@type": "ListItem", "position": i + 1, "url": f"{SITE}/theme/{t['id']}/", "name": t["name"]} for i, t in enumerate(themes[:100])]},
                   crumbs(("Omarchy Store", "/"), ("Themes", "/themes/"))]
@@ -332,7 +332,7 @@ def main():
         pcredit = f'<p>Plugin listings courtesy of the <a href="{e(psrc["url"])}" rel="noopener">{e(psrc["name"])}</a>.</p>'
         from urllib.parse import quote as _q
         purl = lambda x: f"/plugin/{_q(x['id'], safe='')}/"
-        d = clip(f"The biggest list of community plugins for Omarchy Linux: bar widgets, system tools, productivity add-ons and more, "
+        d = clip(f"The world's largest list of community plugins for Omarchy Linux: bar widgets, system tools, productivity add-ons and more, "
                  f"each marked Verified or Unverified. Updated every 30 minutes.")
         top = sorted(plugs, key=lambda x: (-(x.get("s") or 0), not x.get("ok")))[:1500]
         write("/plugins/", render(template, head("Omarchy Plugins – Bar Widgets & Desktop Add-ons | Omarchy Store", d, "/plugins/",
@@ -389,8 +389,8 @@ def main():
         sp = [pby[x["id"]] for x in sdata.get("plugins", []) if x["id"] in pby]
         sr = sdata.get("repos") or []
         from urllib.parse import quote as _sq
-        d = clip(f"{len(sp) + len(sr)} screensavers for Omarchy Linux: ASCII art, Matrix rain, aquariums, shaders, music visualizers "
-                 f"and more, plus tools to set screensaver and lock timing. {len(sp)} install in one click.")
+        d = clip(f"The world's largest collection of screensavers for Omarchy Linux: ASCII art, Matrix rain, aquariums, shaders, music visualizers "
+                 f"and more, plus tools to set screensaver and lock timing. One-click install available.")
         body = ('<h1 class="page-title">Screensavers for Omarchy Linux</h1>'
                 f'<p>{e(d)}</p><h2>One-click screensavers</h2><ul class="ssr-list">'
                 + "".join(f'<li><a href="/plugin/{_sq(x["id"], safe="")}/"><strong>{e(x["n"])}</strong></a> by {e(x.get("a") or "community")} – {e(x.get("d") or "")}</li>' for x in sp)
