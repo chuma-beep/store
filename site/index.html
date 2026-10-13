@@ -49,6 +49,49 @@
 <script>document.documentElement.dataset.look="glass";try{var l=localStorage.getItem("os-look2");if(l==="white"||l==="glass"||l==="dark")document.documentElement.dataset.look=l}catch(e){}</script>
 </head>
 <body>
+<!-- Electron Custom Titlebar (frameless window) -->
+<script>
+if (window.electronAPI) {
+  const titlebar = document.createElement('div');
+  titlebar.className = 'electron-titlebar';
+  titlebar.innerHTML = `
+    <div class="window-controls">
+      <button class="close" onclick="electronAPI.close()"></button>
+      <button class="minimize" onclick="electronAPI.minimize()"></button>
+      <button class="maximize" onclick="electronAPI.maximize()"></button>
+    </div>
+    <div class="title">Omarchy Store <span class="version">v1.0.0</span></div>
+    <div class="security-badge" id="security-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span>Protected</span>
+    </div>
+  `;
+  document.body.insertBefore(titlebar, document.body.firstChild);
+  
+  // Update version if available
+  if (window.electronAPI.getVersion) {
+    window.electronAPI.getVersion().then(v => {
+      const versionEl = document.querySelector('.electron-titlebar .version');
+      if (versionEl) versionEl.textContent = 'v' + v;
+    });
+  }
+  
+  // Update security badge
+  if (window.omarchySecurity) {
+    omarchySecurity.onThreat((threat) => {
+      const badge = document.getElementById('security-badge');
+      badge.className = 'security-badge danger';
+      badge.querySelector('span').textContent = 'Threat Detected';
+      setTimeout(() => {
+        badge.className = 'security-badge';
+        badge.querySelector('span').textContent = 'Protected';
+      }, 5000);
+    });
+  }
+}
+</script>
 <div class="app">
   <aside class="sidebar">
     <a class="brand" href="/">
